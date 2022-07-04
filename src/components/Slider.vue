@@ -6,17 +6,17 @@
     {
       maintitle: "Welcome to FIC",
       subtitle: "FIRST INTERNATIONAL CONSULTING",
-      img: "http://fic-isfin.my/wp-content/uploads/2018/07/buildings-business-city-22804.jpg",
+      img: "src/assets/горы-4.jpg",
     },
     {
       maintitle: "MISSION",
       subtitle: "الأولى في الخدمة الإستشارية العالمية",
-      img: "http://fic-isfin.my/wp-content/uploads/2018/07/architectural-design-calm-waters-cloud-formation-394355.jpg",
+      img: "src/assets/горы-1.jpg",
     },
     {
       maintitle: "We Provide",
       subtitle: "World class support and advisory services",
-      img: "http://fic-isfin.my/wp-content/uploads/2018/07/charts-coffee-cup-938959.jpg",
+      img: "src/assets/горы-2.png",
     },
   ];
   const activeSlide = ref(0);
@@ -28,12 +28,13 @@
       } else {
         activeSlide.value = 0;
       }
-    }, 30000);
+    }, 5000);
   });
   onUnmounted(() => {
     clearInterval(interval);
   });
 </script>
+
 <template>
   <div class="slider_container">
     <div
@@ -55,6 +56,7 @@
     </div>
   </div>
 </template>
+
 <style scoped>
   .slider_container {
     width: 100%;
@@ -73,43 +75,16 @@
     background-position: 50% 0px;
     background-repeat: no-repeat;
     background-size: cover;
-    display: none;
     z-index: 0;
-    animation: splash 1s ease-in;
+    display: none;
   }
   .slide_item.active {
     display: block;
-    z-index: 0;
-  }
-  @-webkit-keyframes splash {
-    0% {
-      opacity: 0;
-    }
-    25% {
-      opacity: 0.3;
-    }
-    50% {
-      opacity: 0.6;
-    }
-    75% {
-      opacity: 0.8;
-    }
-    100% {
-      opacity: 1;
-    }
+    animation: splash 600ms ease-in-out;
   }
   @keyframes splash {
     0% {
-      opacity: 0;
-    }
-    25% {
-      opacity: 0.3;
-    }
-    50% {
-      opacity: 0.6;
-    }
-    75% {
-      opacity: 0.8;
+      opacity: 0.5;
     }
     100% {
       opacity: 1;

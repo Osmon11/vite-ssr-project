@@ -14,6 +14,7 @@
       key: "our_experiences",
     },
     { label: "Our Services", key: "our_services" },
+    { label: "Login", to: "/admin" },
   ];
   const isActive = ref(true);
   function handleScroll() {
@@ -49,7 +50,10 @@
             class="nav_item"
             v-for="item of navigation"
             :key="item.label"
-            @click="scrollIntoHandler(item.key)"
+            @click="
+              () =>
+                item.key ? scrollIntoHandler(item.key) : router.push(item.to)
+            "
           >
             {{ item.label }}
           </div>

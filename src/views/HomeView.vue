@@ -6,6 +6,7 @@
   import Slider from "@/components/Slider.vue";
   import AccordeonItem from "@/components/AccordeonItem.vue";
   import Footer from "@/components/Footer.vue";
+  import Editor from "@/components/Editor.vue";
 
   const maxWidth = 1140;
   const refs = ref({});
@@ -268,6 +269,7 @@
   ></span>
   <Header :scrollIntoHandler="scrollIntoHandler" />
   <Slider />
+  <Editor></Editor>
   <div class="flex_box_center">
     <main :style="{ maxWidth: `${maxWidth}px` }">
       <section
