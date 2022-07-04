@@ -1,0 +1,44 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  font-weight: normal;
+}
+li {
+  line-height: 27px;
+}
+.flex_box,
+.flex_box_between,
+.flex_box_center {
+  display: flex;
+  align-items: center;
+}
+.flex_box_between {
+  justify-content: space-between;
+}
+.flex_box_center {
+  justify-content: center;
+}
+.divider {
+  position: relative;
+}
+.divider::before {
+  content: "";
+  background-color: #d65050;
+  position: absolute;
+  width: 50%;
+  height: 1px;
+  left: 50%;
+  bottom: 0px;
+  transform: translate(-50%, -50%);
+}
+.body1 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #47425d;
+  hyphens: manual;
+}
