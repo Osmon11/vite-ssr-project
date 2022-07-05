@@ -40,10 +40,7 @@
               src="@/assets/icons8-whatsapp.svg"
               alt="gmail icon"
           /></a>
-          <a
-            href="https://api.whatsapp.com/send?phone=996701110483&text=&source=&data=&app_absent="
-            target="_blank"
-          >
+          <a href="https://join.skype.com/invite/JV8HXoJwx8Ud" target="_blank">
             <img
               class="social_media_icon"
               src="@/assets/icons8-skype.svg"

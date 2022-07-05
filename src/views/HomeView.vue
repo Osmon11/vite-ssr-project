@@ -5,10 +5,9 @@
   import Header from "@/components/Header.vue";
   import Slider from "@/components/Slider.vue";
   import AccordeonItem from "@/components/AccordeonItem.vue";
+  import BlogCard from "@/components/BlogCard.vue";
   import Footer from "@/components/Footer.vue";
-  import Editor from "@/components/Editor.vue";
 
-  const maxWidth = 1140;
   const refs = ref({});
   const activeGoTop = ref(false);
   const activeAccordenItem = ref(0);
@@ -35,7 +34,6 @@
     }
   }
   function setActiveAccordeonItem(number) {
-    console.log(number);
     activeAccordenItem.value = number;
   }
 
@@ -269,9 +267,8 @@
   ></span>
   <Header :scrollIntoHandler="scrollIntoHandler" />
   <Slider />
-  <Editor></Editor>
   <div class="flex_box_center">
-    <main :style="{ maxWidth: `${maxWidth}px` }">
+    <main>
       <section
         style="text-align: center"
         :ref="
@@ -590,7 +587,7 @@
     </main>
   </div>
   <div class="gallery flex_box_center" style="gap: 15px">
-    <div class="flex_box" :style="{ width: '100%', maxWidth: `${maxWidth}px` }">
+    <main class="flex_box">
       <div class="gallery_item">
         <img
           src="http://fic-isfin.my/wp-content/uploads/2018/07/9.png"
@@ -615,10 +612,10 @@
           alt=""
         />
       </div>
-    </div>
+    </main>
   </div>
   <div class="flex_box_center">
-    <main :style="{ maxWidth: `${maxWidth}px`, width: '100%' }">
+    <main>
       <section
         :ref="
           (el) => {
@@ -639,6 +636,30 @@
           :activeNumber="activeAccordenItem"
           :setActiveNumber="setActiveAccordeonItem"
         />
+      </section>
+      <section
+        :ref="
+          (el) => {
+            if (el) refs['blog'] = el;
+          }
+        "
+      >
+        <div class="column_wrap">
+          <div class="flex_box_center" style="margin-bottom: 40px">
+            <h3 class="title divider">Blog</h3>
+          </div>
+        </div>
+        <div class="flex_box" style="gap: 20px">
+          <BlogCard
+            cover="src/assets/горы-1.jpg"
+            title="40 Clever 404 Error Pages From Real Websites"
+          />
+        </div>
+        <router-link to="/blog">
+          <button class="theme_btn" style="width: 100%">
+            Посмотреть все новости
+          </button></router-link
+        >
       </section>
     </main>
   </div>
@@ -661,7 +682,7 @@
   <Footer />
 </template>
 
-<style scoped>
+<style>
   .title {
     width: fit-content;
     font-family: "Raleway", sans-serif;
@@ -707,7 +728,7 @@
     -o-transition: all 0.5s;
     transition: all 0.5s;
     text-decoration: none;
-    background-color: #d65050;
+    background-color: #88b06a;
     padding: 8px;
   }
   .go_top.show {

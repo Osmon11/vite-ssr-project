@@ -1,14 +1,15 @@
 <script>
   import EditorJS from "@editorjs/editorjs";
 
+  import NestedList from "@editorjs/nested-list";
   import Paragraph from "@editorjs/paragraph";
   import Checklist from "@editorjs/checklist";
   import Header from "@editorjs/header";
+  import Marker from "@editorjs/marker";
   import Quote from "@editorjs/quote";
   import Table from "@editorjs/table";
   import Image from "@editorjs/image";
   import Embed from "@editorjs/embed";
-  import List from "@editorjs/list";
   import Link from "@editorjs/link";
   import Raw from "@editorjs/raw";
 
@@ -25,7 +26,7 @@
          * Pass Tool's class or Settings object for each Tool you want to use
          */
         tools: {
-          paragraph: Paragraph,
+          paragraph: { class: Paragraph, inlineToolbar: true },
           checklist: Checklist,
           header: Header,
           table: Table,
@@ -33,9 +34,18 @@
           image: Image,
           embed: Embed,
           link: Link,
-          list: List,
+          list: {
+            class: NestedList,
+            inlineToolbar: true,
+          },
+          marker: {
+            class: Marker,
+            shortcut: "CTRL+SHIFT+M",
+          },
           raw: Raw,
         },
+        autofocus: true,
+        placeholder: "Напишите что нибудь...",
       });
 
       window.addEventListener("keyup", (event) => {
@@ -54,5 +64,26 @@
 </script>
 
 <template>
-  <div id="editorjs"></div>
+  <div class="editor_wrapper"><div id="editorjs"></div></div>
+  <div class="flex_box_center">
+    <button type="button" class="theme_btn">Добавить пост</button>
+  </div>
 </template>
+
+<style scoped>
+  .editor_wrapper {
+    max-width: 950px;
+    min-height: 450px;
+    background: #fff;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 24px 24px -18px rgb(69 104 129 / 33%),
+      0 9px 45px 0 rgb(114 119 160 / 12%);
+    box-shadow: 0 24px 24px -18px rgb(69 104 129 / 33%),
+      0 9px 45px 0 rgb(114 119 160 / 12%);
+    padding: 70px 50px;
+    margin: 32px auto;
+    font-size: 16px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+</style>

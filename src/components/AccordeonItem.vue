@@ -65,18 +65,4 @@
   .details {
     height: fit-content;
   }
-  .collapse {
-    width: 100%;
-    overflow: hidden;
-    transition: all 0.5s ease;
-    transform-origin: top left;
-  }
-  .collapse[data-expanded="false"] {
-    max-height: 0px;
-    transform: scaleY(0);
-  }
-  .collapse[data-expanded="true"] {
-    max-height: 10000px;
-    transform: scaleY(1);
-  }
 </style>

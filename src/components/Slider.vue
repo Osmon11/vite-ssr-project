@@ -51,7 +51,7 @@
           <h2 class="maintitle">{{ item.maintitle }}</h2>
           <p class="subtitle">{{ item.subtitle }}</p>
         </div>
-        <router-link to="/" class="slide_btn">Click to begin</router-link>
+        <router-link to="/" class="theme_btn">Click to begin</router-link>
       </div>
     </div>
   </div>
@@ -125,7 +125,7 @@
   }
   .maintitle::after {
     content: "";
-    background-color: #d65050;
+    background-color: #88b06a;
     position: absolute;
     width: 50%;
     height: 1px;
@@ -138,27 +138,6 @@
     line-height: 40px;
     padding: 20px 0 50px;
     font-weight: 300;
-  }
-  .slide_btn {
-    background-color: #d65050;
-    border: 1px solid #d65050;
-    position: relative;
-    display: inline-block;
-    font-family: "Raleway", sans-serif;
-    font-size: 13px;
-    line-height: 24px;
-    font-weight: 700;
-    padding: 12px 35px;
-    color: #fff;
-    text-transform: uppercase;
-    border-radius: 3px;
-    transition: all 0.3s;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .slide_btn:hover {
-    color: #d65050;
-    background-color: transparent;
   }
   .text_slider {
     position: relative;

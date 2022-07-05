@@ -1,11 +1,12 @@
 <script setup>
   import { ref } from "@vue/reactivity";
   import { onMounted, onUnmounted } from "@vue/runtime-core";
+  import { useRouter } from "vue-router";
 
-  defineProps(["scrollIntoHandler"]);
+  const props = defineProps(["scrollIntoHandler"]);
 
+  const navigate = useRouter();
   const navigation = [
-    { label: "Home", key: "top" },
     { label: "Introduction", key: "introduction" },
     { label: "About Us", key: "about_us" },
     { label: "Why Us", key: "why_us" },
@@ -14,11 +15,19 @@
       key: "our_experiences",
     },
     { label: "Our Services", key: "our_services" },
-    { label: "Login", to: "/admin" },
+    { label: "Blog", key: "blog" },
+    { label: "Login", to: "/login" },
   ];
   const isActive = ref(true);
   function handleScroll() {
     isActive.value = window.scrollY === 0;
+  }
+  function navHandler(item) {
+    if (item.key) {
+      props.scrollIntoHandler(item.key);
+    } else {
+      navigate.push(item.to);
+    }
   }
   onMounted(() => {
     window.addEventListener("scroll", handleScroll);
@@ -37,23 +46,24 @@
       >
         <div
           class="flex_box"
-          style="height: 100px; padding: 0px 10px; cursor: pointer"
+          @click="scrollIntoHandler('top')"
+          style="height: 100px; gap: 10px; padding: 0px 10px; cursor: pointer"
         >
-          <img
-            class="logo"
-            src="../assets/AA_Logo_&_copyright.png"
-            alt="logo"
-          />
+          <img class="logo" src="../assets/AA_LOGO.svg" alt="logo" />
+          <p
+            class="logo_text"
+            :style="{ color: isActive ? '#FFFFFF' : '#61a375' }"
+          >
+            Amanat Advisory LLC
+          </p>
         </div>
         <nav class="flex_box">
           <div
             class="nav_item"
-            v-for="item of navigation"
+            :class="{ nav_item_secondary: !isActive }"
+            v-for="item in navigation"
             :key="item.label"
-            @click="
-              () =>
-                item.key ? scrollIntoHandler(item.key) : router.push(item.to)
-            "
+            @click.stop="navHandler(item)"
           >
             {{ item.label }}
           </div>
@@ -71,22 +81,11 @@
     width: 100%;
     z-index: 1000;
     padding: 5px 0px;
-    background-color: #000000e6;
+    background-color: #ffffff;
+    border-bottom: 1px solid #88b06a;
   }
   header.active {
     background-color: transparent;
     padding: 20px 0px;
-  }
-  .logo {
-    width: 300px;
-  }
-  .nav_item {
-    font-family: "Raleway", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: #ffffff;
-    padding: 0px 15px;
-    text-decoration: none;
-    cursor: pointer;
   }
 </style>
