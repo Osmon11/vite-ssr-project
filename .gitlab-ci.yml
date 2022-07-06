@@ -35,6 +35,6 @@ deploy:
     - ssh -i ~/.ssh/id_rsa -p 43816 gitlab-runner@195.38.164.4 "docker ps"
     - ssh -i ~/.ssh/id_rsa -p 43816 gitlab-runner@195.38.164.4 "docker login registry.gitlab.com -u chonorov_askat -p $GITLAB_CI_TOKEN"
     - ssh -i ~/.ssh/id_rsa -p 43816 gitlab-runner@195.38.164.4 "docker pull registry.gitlab.com/tumarsoft/amanat-advisory-front:$(echo $CI_PIPELINE_ID)"
-    - ssh -i ~/.ssh/id_rsa -p 43816 gitlab-runner@195.38.164.4 "docker rm -f $CI_PROJECT_NAME || true && run -d -p 8080:80 $CI_REGISTRY_IMAGE:$(echo $CI_PIPELINE_ID)"
+    - ssh -i ~/.ssh/id_rsa -p 43816 gitlab-runner@195.38.164.4 "docker rm -f registry.gitlab.com/tumarsoft/amanat-advisory-front:$(echo $CI_PIPELINE_ID) || true && run -d -p 8080:80 $CI_REGISTRY_IMAGE:$(echo $CI_PIPELINE_ID)"
   only:
     - dev
