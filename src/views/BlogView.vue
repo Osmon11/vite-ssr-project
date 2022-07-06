@@ -15,7 +15,10 @@
 
 <template>
   <Header />
-  <div class="flex_box_center" style="margin: 40px 0px">
+  <div
+    class="flex_box_center"
+    style="min-height: calc(100vh - 545px); margin: 40px 0px"
+  >
     <main><BlogListItem :article="testArticle" /></main>
   </div>
   <Footer />

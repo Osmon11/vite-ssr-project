@@ -6,6 +6,10 @@
 
 <template>
   <Header />
-  <Editor />
-  <Footer style="margin-top: 40px" />
+  <div
+    style="width: 100%; min-height: calc(100vh - 545px); margin-bottom: 40px"
+  >
+    <Editor />
+  </div>
+  <Footer />
 </template>
