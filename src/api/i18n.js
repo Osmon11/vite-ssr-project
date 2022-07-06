@@ -1,4 +1,4 @@
-import { createI18n } from "vue-i18n/index";
+import { createI18n } from "vue-i18n";
 import messages from "./localization.json";
 
 export const i18n = createI18n({
