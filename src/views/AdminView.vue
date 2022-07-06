@@ -35,7 +35,7 @@
             Выйти
           </p>
           <img
-            src="src/assets/logout-svgrepo-com.svg"
+            src="/src/assets/logout-svgrepo-com.svg"
             alt=""
             style="
               width: 24px;
