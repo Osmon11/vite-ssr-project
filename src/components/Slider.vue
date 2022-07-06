@@ -6,17 +6,17 @@
     {
       maintitle: "Welcome to FIC",
       subtitle: "FIRST INTERNATIONAL CONSULTING",
-      img: "src/assets/горы-4.jpg",
+      img: "/src/assets/горы-4.jpg",
     },
     {
       maintitle: "MISSION",
       subtitle: "الأولى في الخدمة الإستشارية العالمية",
-      img: "src/assets/горы-1.jpg",
+      img: "/src/assets/горы-1.jpg",
     },
     {
       maintitle: "We Provide",
       subtitle: "World class support and advisory services",
-      img: "src/assets/горы-2.png",
+      img: "/src/assets/горы-2.png",
     },
   ];
   const activeSlide = ref(0);
@@ -125,7 +125,7 @@
   }
   .maintitle::after {
     content: "";
-    background-color: #88b06a;
+    background-color: #61a375;
     position: absolute;
     width: 50%;
     height: 1px;
@@ -145,8 +145,36 @@
     animation-duration: 1.25s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
+    -webkit-animation-name: fadeInAndScale;
+    animation-name: fadeInAndScale;
+  }
+  /* .text_slider {
+    -webkit-animation-duration: 1.25s;
+    animation-duration: 1.25s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
     -webkit-animation-name: fadeInRightBig;
     animation-name: fadeInRightBig;
+  } */
+  @-webkit-keyframes fadeInAndScale {
+    from {
+      transform: scale(0.7);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes fadeInAndScale {
+    from {
+      transform: scale(0.7);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
   @-webkit-keyframes fadeInRightBig {
     from {

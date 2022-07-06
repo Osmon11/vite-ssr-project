@@ -14,13 +14,13 @@
     <main class="flex_box_center">
       <form @submit.prevent="(event) => handleLoginSubmit(event)">
         <div class="flex_box input">
-          <img src="src/assets/iconmonstr-user-5.svg" /><input
+          <img src="/src/assets/iconmonstr-user-5.svg" /><input
             type="text"
             name="login"
           />
         </div>
         <div class="flex_box input">
-          <img src="src/assets/iconmonstr-lock-3.svg" /><input
+          <img src="/src/assets/iconmonstr-lock-3.svg" /><input
             type="password"
             name="password"
           />

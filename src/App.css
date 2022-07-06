@@ -30,7 +30,7 @@ li {
 }
 .divider::before {
   content: "";
-  background-color: #88b06a;
+  background-color: #61a375;
   position: absolute;
   width: 50%;
   height: 1px;
@@ -59,11 +59,11 @@ li {
   cursor: pointer;
 }
 .nav_item:hover {
-  color: #88b06a;
+  color: #61a375;
   text-decoration: underline;
 }
 .nav_item_secondary {
-  color: #88b06a;
+  color: #61a375;
 }
 .nav_item_secondary:hover {
   text-decoration: underline;
@@ -77,8 +77,8 @@ li {
   hyphens: manual;
 }
 .theme_btn {
-  background-color: #88b06a;
-  border: 1px solid #88b06a;
+  background-color: #61a375;
+  border: 1px solid #61a375;
   position: relative;
   display: inline-block;
   font-family: "Raleway", sans-serif;
@@ -94,7 +94,7 @@ li {
   text-decoration: none;
 }
 .theme_btn:hover {
-  color: #88b06a;
+  color: #61a375;
   background-color: transparent;
 }
 .collapse {
@@ -110,4 +110,14 @@ li {
 .collapse[data-expanded="true"] {
   max-height: 10000px;
   transform: scaleY(1);
+}
+.svg_icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentColor;
+  overflow: hidden;
+  filter: invert(25%) sepia(4%) saturate(4101%) hue-rotate(211deg)
+    brightness(84%) contrast(80%);
+  transition: all 0.2s ease-out;
 }

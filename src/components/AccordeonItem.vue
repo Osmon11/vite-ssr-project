@@ -18,7 +18,7 @@
       @click="setActiveNumber(active ? 0 : number)"
     >
       <svg
-        class="svg-icon"
+        class="svg_icon"
         :style="{ transform: `rotate(${active ? 0 : 180}deg)` }"
         viewBox="0 0 1024 1024"
         version="1.1"
@@ -38,16 +38,6 @@
 </template>
 
 <style scoped>
-  svg {
-    width: 1em;
-    height: 1em;
-    vertical-align: middle;
-    fill: currentColor;
-    overflow: hidden;
-    filter: invert(25%) sepia(4%) saturate(4101%) hue-rotate(211deg)
-      brightness(84%) contrast(80%);
-    transition: all 0.2s ease-out;
-  }
   .accordeon_item {
     width: 100%;
     height: fit-content;

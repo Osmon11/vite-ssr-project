@@ -651,7 +651,7 @@
         </div>
         <div class="flex_box" style="gap: 20px">
           <BlogCard
-            cover="src/assets/горы-1.jpg"
+            cover="/src/assets/горы-1.jpg"
             title="40 Clever 404 Error Pages From Real Websites"
           />
         </div>
@@ -728,7 +728,7 @@
     -o-transition: all 0.5s;
     transition: all 0.5s;
     text-decoration: none;
-    background-color: #88b06a;
+    background-color: #61a375;
     padding: 8px;
   }
   .go_top.show {

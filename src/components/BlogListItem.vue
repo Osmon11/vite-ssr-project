@@ -36,7 +36,7 @@
     gap: 20px;
     flex-wrap: wrap;
     padding: 16px 24px;
-    border-bottom: 1px solid #88b06a;
+    border-bottom: 1px solid #61a375;
     align-items: flex-start;
   }
   .expanded {

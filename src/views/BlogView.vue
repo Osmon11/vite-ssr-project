@@ -1,7 +1,10 @@
 <script setup>
+  import Header from "@/components/Header.vue";
   import BlogListItem from "@/components/BlogListItem.vue";
+  import Footer from "@/components/Footer.vue";
+
   const testArticle = {
-    cover: "src/assets/горы-1.jpg",
+    cover: "/src/assets/горы-1.jpg",
     title:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, error?",
     shortText:
@@ -11,9 +14,11 @@
 </script>
 
 <template>
-  <div class="flex_box_center">
+  <Header />
+  <div class="flex_box_center" style="margin: 40px 0px">
     <main><BlogListItem :article="testArticle" /></main>
   </div>
+  <Footer />
 </template>
 
 <style scoped></style>
