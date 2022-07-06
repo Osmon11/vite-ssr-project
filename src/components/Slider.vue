@@ -2,6 +2,8 @@
   import { ref } from "@vue/reactivity";
   import { onMounted, onUnmounted } from "@vue/runtime-core";
 
+  import FeedbackModal from "@/components/FeedbackModal.vue";
+
   const slides = [
     {
       maintitle: "Welcome to FIC",
@@ -20,6 +22,8 @@
     },
   ];
   const activeSlide = ref(0);
+  const openFeedbackModal = ref(false);
+
   let interval;
   onMounted(() => {
     interval = setInterval(() => {
@@ -33,6 +37,10 @@
   onUnmounted(() => {
     clearInterval(interval);
   });
+
+  function setFeedbackModal(value) {
+    openFeedbackModal.value = value;
+  }
 </script>
 
 <template>
@@ -51,10 +59,13 @@
           <h2 class="maintitle">{{ item.maintitle }}</h2>
           <p class="subtitle">{{ item.subtitle }}</p>
         </div>
-        <router-link to="/" class="theme_btn">Click to begin</router-link>
+        <button class="theme_btn" @click="setFeedbackModal(true)">
+          Click to begin
+        </button>
       </div>
     </div>
   </div>
+  <FeedbackModal :open="openFeedbackModal" :onClose="setFeedbackModal" />
 </template>
 
 <style>
