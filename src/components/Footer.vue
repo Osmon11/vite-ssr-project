@@ -1,3 +1,14 @@
+<script setup>
+  import FeedbackModal from "@/components/FeedbackModal.vue";
+  import { ref } from "@vue/reactivity";
+
+  const openFeedbackModal = ref(false);
+
+  function setFeedbackModal(value) {
+    openFeedbackModal.value = value;
+  }
+</script>
+
 <template>
   <footer class="flex_box_center">
     <div class="footer_content flex_box" style="align-items: start; gap: 30px">
@@ -24,6 +35,7 @@
             class="social_media_icon"
             src="@/assets/icons8-gmail.svg"
             alt="gmail icon"
+            @click="setFeedbackModal(true)"
           />
           <a href="https://t.me/akylmanchik" target="_blank">
             <img
@@ -50,6 +62,7 @@
       </div>
     </div>
   </footer>
+  <FeedbackModal :open="openFeedbackModal" :onClose="setFeedbackModal" />
 </template>
 
 <style scoped>

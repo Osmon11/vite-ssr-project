@@ -57,7 +57,7 @@
   </div>
 </template>
 
-<style scoped>
+<style>
   .slider_container {
     width: 100%;
     height: 100vh;

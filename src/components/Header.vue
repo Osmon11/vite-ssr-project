@@ -142,9 +142,9 @@
     width: 100%;
     z-index: 1000;
     padding: 5px 0px;
+    transition: all 0.2s;
     background-color: #ffffff;
     border-bottom: 1px solid #61a375;
-    transition: all 0.2s;
   }
   header.active {
     background-color: transparent;

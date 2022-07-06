@@ -1,9 +1,5 @@
-import { createI18n } from "vue-i18n";
-
-const messages = {
-  en: { hello: "Hello wordl" },
-  ru: { hello: "Привет мир" },
-};
+import { createI18n } from "vue-i18n/index";
+import messages from "./localization.json";
 
 export const i18n = createI18n({
   legacy: false,
