@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import { i18n } from "./api";
+import { i18n } from "./utils/i18n";
 
 const app = createApp(App);
 

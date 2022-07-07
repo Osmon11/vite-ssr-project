@@ -267,7 +267,7 @@
   ></span>
   <Header :scrollIntoHandler="scrollIntoHandler" />
   <Slider />
-  <div class="flex_box_center">
+  <div class="flex-box-center">
     <main>
       <section
         style="text-align: center"
@@ -278,7 +278,7 @@
         "
       >
         <div class="column_wrap">
-          <div class="flex_box_center" style="margin-bottom: 40px">
+          <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">INTRODUCTION</h3>
           </div>
           <p class="body1" style="margin-bottom: 20px">
@@ -302,7 +302,7 @@
         </div>
       </section>
       <section
-        class="flex_box"
+        class="flex-box"
         style="align-items: flex-start"
         :ref="
           (el) => {
@@ -311,7 +311,7 @@
         "
       >
         <div class="column_wrap" style="width: 50%">
-          <div class="flex_box_center" style="margin-bottom: 40px">
+          <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">ABOUT US</h3>
           </div>
           <p class="body1" style="margin-bottom: 20px">
@@ -335,7 +335,7 @@
           />
         </div>
       </section>
-      <section class="flex_box" style="align-items: flex-start">
+      <section class="flex-box" style="align-items: flex-start">
         <div class="column_wrap" style="width: 50%">
           <img
             width="100%"
@@ -344,7 +344,7 @@
           />
         </div>
         <div class="column_wrap" style="width: 50%">
-          <div class="flex_box_center" style="margin-bottom: 40px">
+          <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">MISSION</h3>
           </div>
           <p class="body1" style="margin-bottom: 20px">
@@ -355,7 +355,7 @@
       </section>
       <section>
         <div class="column_wrap">
-          <div class="flex_box_center" style="margin-bottom: 40px">
+          <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">OBJECTIVES</h3>
           </div>
           <ul>
@@ -390,7 +390,7 @@
         </div>
       </section>
       <section
-        class="flex_box"
+        class="flex-box"
         style="align-items: flex-start"
         :ref="
           (el) => {
@@ -399,7 +399,7 @@
         "
       >
         <div class="column_wrap" style="width: 50%">
-          <div class="flex_box_center" style="margin-bottom: 40px">
+          <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">WHY US</h3>
           </div>
           <p class="body1" style="margin-bottom: 20px">
@@ -436,7 +436,7 @@
         "
       >
         <div class="column_wrap">
-          <div class="flex_box_center" style="margin-bottom: 40px">
+          <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">OUR EXPERIENCES</h3>
           </div>
           <p class="body1" style="margin-bottom: 20px">
@@ -586,8 +586,8 @@
       </section>
     </main>
   </div>
-  <div class="gallery flex_box_center" style="gap: 15px">
-    <main class="flex_box">
+  <div class="gallery flex-box-center" style="gap: 15px">
+    <main class="flex-box">
       <div class="gallery_item">
         <img
           src="http://fic-isfin.my/wp-content/uploads/2018/07/9.png"
@@ -614,7 +614,7 @@
       </div>
     </main>
   </div>
-  <div class="flex_box_center">
+  <div class="flex-box-center">
     <main>
       <section
         :ref="
@@ -624,7 +624,7 @@
         "
       >
         <div class="column_wrap">
-          <div class="flex_box_center" style="margin-bottom: 40px">
+          <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">OUR SERVICES</h3>
           </div>
         </div>
@@ -645,18 +645,18 @@
         "
       >
         <div class="column_wrap">
-          <div class="flex_box_center" style="margin-bottom: 40px">
+          <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">Blog</h3>
           </div>
         </div>
-        <div class="flex_box" style="gap: 20px">
+        <div class="flex-box" style="gap: 20px">
           <BlogCard
             cover="/src/assets/горы-1.jpg"
             title="40 Clever 404 Error Pages From Real Websites"
           />
         </div>
         <router-link to="/blog">
-          <button class="theme_btn" style="width: 100%">
+          <button class="theme-btn" style="width: 100%">
             Посмотреть все новости
           </button></router-link
         >
@@ -682,19 +682,7 @@
   <Footer />
 </template>
 
-<style>
-  .title {
-    width: fit-content;
-    font-family: "Raleway", sans-serif;
-    font-weight: 600;
-    font-size: 32px;
-    color: #443f3f;
-    text-transform: uppercase;
-    padding-bottom: 15px;
-  }
-  .title.divider::before {
-    width: 50px;
-  }
+<style scoped>
   .column_wrap {
     padding: 15px;
   }

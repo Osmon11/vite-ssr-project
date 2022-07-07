@@ -15,17 +15,16 @@
 
 <template>
   <Header />
-  <div
-    class="flex_box_center"
-    style="
-      min-height: calc(100vh - 545px);
-      align-items: flex-start;
-      margin: 40px 0px;
-    "
-  >
+  <div class="blog_list_wrapper flex-box-center">
     <main><BlogListItem :article="testArticle" /></main>
   </div>
   <Footer />
 </template>
 
-<style scoped></style>
+<style scoped>
+  .blog_list_wrapper {
+    min-height: calc(100vh - 545px);
+    align-items: flex-start;
+    margin: 40px 0px;
+  }
+</style>

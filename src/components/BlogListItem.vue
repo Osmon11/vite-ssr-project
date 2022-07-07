@@ -10,15 +10,15 @@
 </script>
 
 <template>
-  <article class="flex_box collapse" :class="{ expanded: isExpanded }">
+  <article class="flex-box collapse" :class="{ expanded: isExpanded }">
     <img :src="article.cover" class="cover" alt="" />
     <div class="content">
       <h1 class="title">{{ article.title }}</h1>
-      <span class="short_text body1">{{ article.shortText }}</span>
+      <span class="short-text body1">{{ article.shortText }}</span>
     </div>
     <p class="body1">{{ article.text }}</p>
-    <div class="expand_more flex_box_center" v-if="!isExpanded">
-      <p class="nav_item nav_item_secondary" @click="setExpanded(true)">
+    <div class="expand-more flex-box-center" v-if="!isExpanded">
+      <p class="nav-item nav-item-secondary" @click="setExpanded(true)">
         показать все
       </p>
     </div>
@@ -49,10 +49,10 @@
     display: inline;
     width: calc(100% - 420px);
   }
-  article .content .short_text {
+  article .content .short-text {
     display: inline;
   }
-  article .expand_more {
+  article .expand-more {
     position: absolute;
     right: 0px;
     top: 229px;

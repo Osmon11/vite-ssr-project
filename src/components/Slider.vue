@@ -44,22 +44,22 @@
 </script>
 
 <template>
-  <div class="slider_container">
+  <div class="slider-container">
     <div
       v-for="(item, index) in slides"
       :key="item.img"
-      class="slide_item"
+      class="slide-item"
       :class="{ active: activeSlide === index }"
       :style="{
         backgroundImage: `url(${item.img})`,
       }"
     >
-      <div class="slide_inner">
-        <div class="contain text_slider">
+      <div class="slide-inner">
+        <div class="contain text-slider">
           <h2 class="maintitle">{{ item.maintitle }}</h2>
           <p class="subtitle">{{ item.subtitle }}</p>
         </div>
-        <button class="theme_btn" @click="setFeedbackModal(true)">
+        <button class="theme-btn" @click="setFeedbackModal(true)">
           Click to begin
         </button>
       </div>
@@ -68,14 +68,14 @@
   <FeedbackModal :open="openFeedbackModal" :onClose="setFeedbackModal" />
 </template>
 
-<style>
-  .slider_container {
+<style scoped>
+  .slider-container {
     width: 100%;
     height: 100vh;
     position: relative;
     overflow: hidden;
   }
-  .slide_item {
+  .slide-item {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -89,7 +89,7 @@
     z-index: 0;
     display: none;
   }
-  .slide_item.active {
+  .slide-item.active {
     display: block;
     animation: splash 600ms ease-in-out;
   }
@@ -101,7 +101,7 @@
       opacity: 1;
     }
   }
-  .slide_inner {
+  .slide-inner {
     position: absolute;
     top: 50%;
     left: 0;
@@ -150,7 +150,7 @@
     padding: 20px 0 50px;
     font-weight: 300;
   }
-  .text_slider {
+  .text-slider {
     position: relative;
     -webkit-animation-duration: 1.25s;
     animation-duration: 1.25s;
@@ -159,7 +159,7 @@
     -webkit-animation-name: fadeInAndScale;
     animation-name: fadeInAndScale;
   }
-  /* .text_slider {
+  /* .text-slider {
     -webkit-animation-duration: 1.25s;
     animation-duration: 1.25s;
     -webkit-animation-fill-mode: both;
@@ -167,26 +167,6 @@
     -webkit-animation-name: fadeInRightBig;
     animation-name: fadeInRightBig;
   } */
-  @-webkit-keyframes fadeInAndScale {
-    from {
-      transform: scale(0.7);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  @keyframes fadeInAndScale {
-    from {
-      transform: scale(0.7);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
   @-webkit-keyframes fadeInRightBig {
     from {
       right: -1200px;

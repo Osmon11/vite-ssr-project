@@ -10,34 +10,28 @@
 </script>
 
 <template>
-  <div class="flex_box_center" style="width: 100%; min-height: 100vh">
-    <main class="flex_box_center">
+  <div class="login_wrapper flex-box-center">
+    <main class="flex-box-center">
       <form @submit.prevent="(event) => handleLoginSubmit(event)">
-        <div class="flex_box input">
+        <div class="flex-box input">
           <img src="/src/assets/iconmonstr-user-5.svg" /><input
             type="text"
             name="login"
           />
         </div>
-        <div class="flex_box input">
+        <div class="flex-box input">
           <img src="/src/assets/iconmonstr-lock-3.svg" /><input
             type="password"
             name="password"
           />
         </div>
-        <div class="flex_box_between">
-          <div class="flex_box" style="gap: 10px">
+        <div class="flex-box-between">
+          <div class="flex-box" style="gap: 10px">
             <input type="checkbox" name="remember" />
             <p class="body1">Запомнить ?</p>
           </div>
         </div>
-        <button
-          class="theme_btn"
-          style="width: 200px; margin-top: 16px"
-          type="submit"
-        >
-          Войти
-        </button>
+        <button class="theme-btn login_btn" type="submit">Войти</button>
       </form>
     </main>
   </div>
@@ -46,5 +40,13 @@
 <style scoped>
   form {
     width: 400px;
+  }
+  .login_wrapper {
+    width: 100%;
+    min-height: 100vh;
+  }
+  .login_btn {
+    width: 200px;
+    margin-top: 16px;
   }
 </style>

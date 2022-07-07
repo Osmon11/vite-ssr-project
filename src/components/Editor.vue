@@ -64,14 +64,14 @@
 </script>
 
 <template>
-  <div class="editor_wrapper"><div id="editorjs"></div></div>
-  <div class="flex_box_center">
-    <button type="button" class="theme_btn">Добавить пост</button>
+  <div class="editor-wrapper"><div id="editorjs"></div></div>
+  <div class="flex-box-center">
+    <button type="button" class="theme-btn">Добавить пост</button>
   </div>
 </template>
 
 <style scoped>
-  .editor_wrapper {
+  .editor-wrapper {
     max-width: 950px;
     min-height: 450px;
     background: #fff;

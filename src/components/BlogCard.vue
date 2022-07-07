@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <article class="blog_card">
+  <article class="blog-card">
     <figure>
       <router-link to="/"><img :src="cover" alt="" /></router-link>
     </figure>
@@ -15,8 +15,8 @@
   </article>
 </template>
 
-<style>
-  .blog_card {
+<style scoped>
+  .blog-card {
     width: 100%;
     max-width: 33.33%;
     -webkit-backface-visibility: hidden;
@@ -36,12 +36,12 @@
     position: relative;
     min-height: 475px;
   }
-  .blog_card:hover {
+  .blog-card:hover {
     box-shadow: 0 10px 50px -5px rgb(51 71 91 / 12%);
     -webkit-transform: scale(1.014);
     transform: scale(1.014);
   }
-  .blog_card figure {
+  .blog-card figure {
     margin: 0;
     height: 0;
     position: relative;
@@ -50,7 +50,7 @@
     overflow: hidden;
     padding-bottom: 56.3%;
   }
-  .blog_card img {
+  .blog-card img {
     top: auto;
     bottom: auto;
     left: auto;
@@ -62,10 +62,10 @@
     position: absolute;
     display: block;
   }
-  .blog_card h3 {
+  .blog-card h3 {
     padding: 16px;
   }
-  .blog_card h3 a {
+  .blog-card h3 a {
     text-decoration: none;
     color: #33475b;
     font-weight: 600;

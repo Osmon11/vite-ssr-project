@@ -10,8 +10,8 @@
 </script>
 
 <template>
-  <footer class="flex_box_center">
-    <div class="footer_content flex_box" style="align-items: start; gap: 30px">
+  <footer class="flex-box-center">
+    <div class="footer-content flex-box">
       <div>
         <p class="title" style="margin-bottom: 24px">GET IN TOUCH</p>
         <p class="body1" style="color: #767676">
@@ -30,16 +30,16 @@
           Email : khudus@fic-isfin.my<br />
           Contact person : Abdul Khudus Mohd Naaim
         </p>
-        <div class="flex_box" style="gap: 20px; margin-top: 20px">
+        <div class="social-media-wrapper flex-box">
           <img
-            class="social_media_icon"
+            class="social-media-icon"
             src="@/assets/icons8-gmail.svg"
             alt="gmail icon"
             @click="setFeedbackModal(true)"
           />
           <a href="https://t.me/akylmanchik" target="_blank">
             <img
-              class="social_media_icon"
+              class="social-media-icon"
               src="@/assets/icons8-telegram-app.svg"
               alt="gmail icon"
           /></a>
@@ -48,13 +48,13 @@
             target="_blank"
           >
             <img
-              class="social_media_icon"
+              class="social-media-icon"
               src="@/assets/icons8-whatsapp.svg"
               alt="gmail icon"
           /></a>
           <a href="https://join.skype.com/invite/JV8HXoJwx8Ud" target="_blank">
             <img
-              class="social_media_icon"
+              class="social-media-icon"
               src="@/assets/icons8-skype.svg"
               alt="gmail icon"
           /></a>
@@ -71,9 +71,11 @@
     background-color: #252525;
     border-bottom: 30px solid #1c1c1c;
   }
-  .footer_content {
+  .footer-content {
     width: 100%;
     max-width: 1140px;
+    align-items: start;
+    gap: 30px;
   }
   .title {
     font-family: "Raleway", sans-serif;
@@ -83,7 +85,11 @@
     color: #c5c5c5;
     text-transform: uppercase;
   }
-  .social_media_icon {
+  .social-media-wrapper {
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .social-media-icon {
     width: 32px;
     height: 32px;
     cursor: pointer;

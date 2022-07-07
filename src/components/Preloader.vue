@@ -1,5 +1,5 @@
 <template>
-  <div class="preloader" style="opacity: 0; display: none">
+  <div class="preloader">
     <div class="spinner">
       <div class="pre-bounce1"></div>
       <div class="pre-bounce2"></div>

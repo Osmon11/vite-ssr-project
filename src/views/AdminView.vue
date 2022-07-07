@@ -6,10 +6,16 @@
 
 <template>
   <Header />
-  <div
-    style="width: 100%; min-height: calc(100vh - 545px); margin-bottom: 40px"
-  >
+  <div class="editor_wrapper">
     <Editor />
   </div>
   <Footer />
 </template>
+
+<style scoped>
+  .editor_wrapper {
+    width: 100%;
+    min-height: calc(100vh - 545px);
+    margin-bottom: 40px;
+  }
+</style>

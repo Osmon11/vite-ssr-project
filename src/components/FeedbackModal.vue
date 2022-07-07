@@ -16,17 +16,17 @@
 
 <template>
   <div
-    class="modal_container flex_box_center"
+    class="modal-container flex-box-center"
     v-show="open"
     @click.stop="closeModalHandler"
     data-container="true"
   >
     <main class="paper">
       <form @submit.prevent="(event) => handleRequestSubmit(event)">
-        <div class="flex_box_center" style="margin-bottom: 40px">
+        <div class="flex-box-center" style="margin-bottom: 40px">
           <h3 class="title divider">Форма обратной связи</h3>
         </div>
-        <div class="flex_box" style="gap: 20px">
+        <div class="flex-box" style="gap: 20px">
           <div class="input" style="width: calc(50% - 10px)">
             <input type="text" placeholder="Имя" name="userName" />
           </div>
@@ -37,8 +37,8 @@
         <div class="input">
           <textarea placeholder="Сообщение" name="message" />
         </div>
-        <div class="flex_box_center" style="margin-top: 40px">
-          <button class="theme_btn" type="submit">Отправить сообщение</button>
+        <div class="flex-box-center" style="margin-top: 40px">
+          <button class="theme-btn" type="submit">Отправить сообщение</button>
         </div>
         <!-- <VueRecaptcha /> -->
       </form>
@@ -46,8 +46,8 @@
   </div>
 </template>
 
-<style>
-  .modal_container {
+<style scoped>
+  .modal-container {
     width: 100%;
     height: 100%;
     min-width: 100vw;
@@ -57,7 +57,7 @@
     z-index: 1000;
     background-color: hsla(0, 0%, 0%, 0.33);
   }
-  .modal_container .paper {
+  .modal-container .paper {
     padding: 32px;
     border-radius: 8px;
     background-color: #ffffff;

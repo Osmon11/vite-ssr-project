@@ -13,17 +13,53 @@ main {
 li {
   line-height: 27px;
 }
-
-.flex_box,
-.flex_box_between,
-.flex_box_center {
+header {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 1000;
+  padding: 5px 0px;
+  transition: all 0.2s;
+  background-color: #ffffff;
+  border-bottom: 1px solid #61a375;
+}
+header.active {
+  background-color: transparent;
+  padding: 20px 0px;
+}
+header:hover {
+  background-color: #ffffff;
+}
+header:hover .logo-text,
+header:hover .nav-item,
+header:hover .default-value p,
+.activeSelect .default-value p {
+  color: #61a375 !important;
+}
+header:hover svg {
+  filter: invert(68%) sepia(18%) saturate(774%) hue-rotate(51deg)
+    brightness(92%) contrast(91%) !important;
+}
+.toggle-language {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.activeSelect svg {
+  filter: invert(68%) sepia(18%) saturate(774%) hue-rotate(51deg)
+    brightness(92%) contrast(91%);
+}
+.flex-box,
+.flex-box-between,
+.flex-box-center {
   display: flex;
   align-items: center;
 }
-.flex_box_between {
+.flex-box-between {
   justify-content: space-between;
 }
-.flex_box_center {
+.flex-box-center {
   justify-content: center;
 }
 .divider {
@@ -42,14 +78,17 @@ li {
 .logo {
   width: 60px;
 }
-.logo_text {
+.logo-text {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 24px;
   font-weight: 400;
   color: #61a375;
   text-transform: uppercase;
 }
-.nav_item {
+.activeLogoText {
+  color: #ffffff;
+}
+.nav-item {
   font-family: "Raleway", sans-serif;
   font-size: 13px;
   font-weight: 500;
@@ -59,14 +98,14 @@ li {
   text-transform: uppercase;
   cursor: pointer;
 }
-.nav_item:hover {
+.nav-item:hover {
   color: #61a375;
   text-decoration: underline;
 }
-.nav_item_secondary {
+.nav-item-secondary {
   color: #61a375;
 }
-.nav_item_secondary:hover {
+.nav-item-secondary:hover {
   text-decoration: underline;
 }
 .body1 {
@@ -77,7 +116,7 @@ li {
   color: #47425d;
   hyphens: manual;
 }
-.theme_btn {
+.theme-btn {
   background-color: #61a375;
   border: 1px solid #61a375;
   position: relative;
@@ -94,7 +133,7 @@ li {
   cursor: pointer;
   text-decoration: none;
 }
-.theme_btn:hover {
+.theme-btn:hover {
   color: #61a375;
   background-color: transparent;
 }
@@ -112,7 +151,7 @@ li {
   max-height: 10000px;
   transform: scaleY(1);
 }
-.svg_icon {
+.svg-icon {
   width: 1em;
   height: 1em;
   vertical-align: middle;
@@ -158,4 +197,103 @@ input[type="checkbox"]:checked {
   background: transparent;
   border: none;
   outline: none;
+}
+.title {
+  width: fit-content;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  color: #443f3f;
+  text-transform: uppercase;
+  padding-bottom: 15px;
+}
+.title.divider::before {
+  width: 50px;
+}
+@-webkit-keyframes fadeInAndScale {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes fadeInAndScale {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.select-wrapper {
+  width: fit-content;
+  position: relative;
+  cursor: pointer;
+}
+.custom-select {
+  width: fit-content;
+  min-height: 28px;
+  max-width: 99%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  padding: 6px 33px 6px 12px;
+}
+.custom-select:hover {
+  border: 1px solid #61a375;
+}
+.custom-select .default-value p {
+  color: #ffffff;
+}
+.custom-select:hover .default-value p {
+  color: #61a375;
+}
+.custom-select:hover svg {
+  filter: invert(68%) sepia(18%) saturate(774%) hue-rotate(51deg)
+    brightness(92%) contrast(91%);
+}
+.custom-select svg {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: calc(50% - 6px);
+  right: 12px;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(320deg)
+    brightness(104%) contrast(102%);
+}
+.popper {
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  top: calc(100% + 10px);
+  z-index: 10;
+  border-radius: 6px;
+  background-color: #ffffff;
+  padding: 12px 0px;
+}
+.select-item {
+  width: 100%;
+  padding: 8px 12px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: #000000;
+  cursor: pointer;
+  background: transparent;
+}
+.select-item:hover {
+  background: #cdcaca54;
+}
+.select-item.active {
+  background-color: #61a375;
 }
