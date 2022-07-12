@@ -622,7 +622,7 @@
           :item="item"
           :number="index + 1"
           :activeNumber="activeAccordenItem"
-          :setActiveNumber="setActiveAccordeonItem"
+          @toggleItem="setActiveAccordeonItem"
         />
       </section>
       <section

@@ -1,19 +1,14 @@
 <script setup>
-  import { computed, toRefs } from "vue";
-  const props = defineProps([
-    "item",
-    "number",
-    "activeNumber",
-    "setActiveNumber",
-  ]);
-  const { item, number, activeNumber, setActiveNumber } = toRefs(props);
-  let active = computed(() => activeNumber.value === number.value),
-    paddingBottom = computed(() => `${active ? 15 : 0}px`),
-    transform = computed(() => `rotate(${active ? 0 : 180}deg)`);
+  import { computed } from "vue";
+  const props = defineProps(["item", "number", "activeNumber"]);
+  const emit = defineEmits(["toggleItem"]);
+  let active = computed(() => props.activeNumber === props.number),
+    paddingBottom = computed(() => `${active.value ? 15 : 0}px`),
+    transform = computed(() => `rotate(${active.value ? 0 : 180}deg)`);
 
-  function toggleActive() {
-    setActiveNumber(active ? 0 : number);
-  }
+  const toggleActive = () => {
+    emit("toggleItem", active.value ? 0 : props.number);
+  };
 </script>
 
 <template>
