@@ -330,7 +330,7 @@
         <div class="column_wrap" style="width: 50%">
           <img
             width="100%"
-            src="http://fic-isfin.my/wp-content/uploads/2018/07/black-and-white-bunch-of-keys-closeup-67609-1024x680.jpg"
+            src="/assets/black-and-white-bunch-of-keys-closeup-67609-1024x680.jpg"
             alt=""
           />
         </div>
@@ -339,7 +339,7 @@
         <div class="column_wrap" style="width: 50%">
           <img
             width="100%"
-            src="http://fic-isfin.my/wp-content/uploads/2018/07/ancient-architecture-asia-532922-1024x576.jpg"
+            src="/assets/ancient-architecture-asia-532922-1024x576.jpg"
             alt=""
           />
         </div>
@@ -423,7 +423,7 @@
         <div class="column_wrap" style="width: 50%">
           <img
             width="100%"
-            src="http://fic-isfin.my/wp-content/uploads/2018/07/achievement-agreement-black-and-white-997718-1024x671.jpg"
+            src="/assets/achievement-agreement-black-and-white-997718-1024x671.jpg"
             alt=""
           />
         </div>
@@ -474,7 +474,7 @@
               </p>
               <br /><img
                 style="margin-bottom: 20px"
-                src="http://fic-isfin.my/wp-content/uploads/2018/07/1-300x161.png"
+                src="/assets/1-300x161.png"
                 alt=""
               />
             </li>
@@ -485,7 +485,7 @@
               </p>
               <br /><img
                 style="margin-bottom: 20px"
-                src="http://fic-isfin.my/wp-content/uploads/2018/07/2-300x144.png"
+                src="/assets/2-300x144.png"
                 alt=""
               />
             </li>
@@ -497,7 +497,7 @@
               </p>
               <br /><img
                 style="margin-bottom: 20px"
-                src="http://fic-isfin.my/wp-content/uploads/2018/07/3-300x190.png"
+                src="/assets/3-300x190.png"
                 alt=""
               />
             </li>
@@ -509,7 +509,7 @@
               </p>
               <br /><img
                 style="margin-bottom: 20px"
-                src="http://fic-isfin.my/wp-content/uploads/2018/07/4-300x167.png"
+                src="/assets/4-300x167.png"
                 alt=""
               />
             </li>
@@ -518,7 +518,7 @@
               <p class="body1">Product design and documentation for ijarah</p>
               <br /><img
                 style="margin-bottom: 20px"
-                src="http://fic-isfin.my/wp-content/uploads/2018/07/5-300x120.png"
+                src="/assets/5-300x120.png"
                 alt=""
               />
             </li>
@@ -589,28 +589,16 @@
   <div class="gallery flex-box-center" style="gap: 15px">
     <main class="flex-box">
       <div class="gallery_item">
-        <img
-          src="http://fic-isfin.my/wp-content/uploads/2018/07/9.png"
-          alt=""
-        />
+        <img src="/assets/9.png" alt="" />
       </div>
       <div class="gallery_item">
-        <img
-          src="http://fic-isfin.my/wp-content/uploads/2018/07/7.png"
-          alt=""
-        />
+        <img src="/assets/7.png" alt="" />
       </div>
       <div class="gallery_item">
-        <img
-          src="http://fic-isfin.my/wp-content/uploads/2018/07/partnerre-logo.png"
-          alt=""
-        />
+        <img src="/assets/partnerre-logo.png" alt="" />
       </div>
       <div class="gallery_item">
-        <img
-          src="http://fic-isfin.my/wp-content/uploads/2018/07/8.png"
-          alt=""
-        />
+        <img src="/assets/8.png" alt="" />
       </div>
     </main>
   </div>
@@ -651,7 +639,7 @@
         </div>
         <div class="flex-box" style="gap: 20px">
           <BlogCard
-            cover="/src/assets/горы-1.jpg"
+            cover="/assets/горы-1.jpg"
             title="40 Clever 404 Error Pages From Real Websites"
           />
         </div>

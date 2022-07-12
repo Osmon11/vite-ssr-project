@@ -33,14 +33,14 @@
         <div class="social-media-wrapper flex-box">
           <img
             class="social-media-icon"
-            src="@/assets/icons8-gmail.svg"
+            src="/assets/icons8-gmail.svg"
             alt="gmail icon"
             @click="setFeedbackModal(true)"
           />
           <a href="https://t.me/akylmanchik" target="_blank">
             <img
               class="social-media-icon"
-              src="@/assets/icons8-telegram-app.svg"
+              src="/assets/icons8-telegram-app.svg"
               alt="gmail icon"
           /></a>
           <a
@@ -49,13 +49,13 @@
           >
             <img
               class="social-media-icon"
-              src="@/assets/icons8-whatsapp.svg"
+              src="/assets/icons8-whatsapp.svg"
               alt="gmail icon"
           /></a>
           <a href="https://join.skype.com/invite/JV8HXoJwx8Ud" target="_blank">
             <img
               class="social-media-icon"
-              src="@/assets/icons8-skype.svg"
+              src="/assets/icons8-skype.svg"
               alt="gmail icon"
           /></a>
         </div>

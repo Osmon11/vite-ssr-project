@@ -4,7 +4,7 @@
   import Footer from "@/components/Footer.vue";
 
   const testArticle = {
-    cover: "/src/assets/горы-1.jpg",
+    cover: "/assets/горы-1.jpg",
     title:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, error?",
     shortText:

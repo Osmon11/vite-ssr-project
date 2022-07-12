@@ -27,7 +27,7 @@
     {
       value: "ru",
       layout: `<div class="flex-box" style="gap: 8px; width: 42px"
-      ><img src="/src/assets/russia.svg" alt="russia flag" style="width: 20px;
+      ><img src="/assets/russia.svg" alt="russia flag" style="width: 20px;
     height: 20px;" />
       <p>ru</p></div
     >`,
@@ -35,7 +35,7 @@
     {
       value: "en",
       layout: `<div class="flex-box" style="gap: 8px; width: 42px"
-        ><img src="/src/assets/united-kingdom.svg" alt="united kingdom flag" style="width: 20px;
+        ><img src="/assets/united-kingdom.svg" alt="united kingdom flag" style="width: 20px;
     height: 20px;" />
         <p>en</p></div
       >`,
@@ -80,7 +80,7 @@
     <div class="flex-box-center">
       <div class="row flex-box-between">
         <div class="logo-wrapper flex-box" @click="logoClick">
-          <img class="logo" src="../assets/AA_LOGO.svg" alt="logo" />
+          <img class="logo" src="/assets/AA_LOGO.svg" alt="logo" />
           <p class="logo-text" :class="{ activeLogoText: isActive }">
             Amanat Advisory LLC
           </p>
@@ -106,7 +106,7 @@
             </p>
             <img
               class="logout-icon"
-              src="/src/assets/logout-svgrepo-com.svg"
+              src="/assets/logout-svgrepo-com.svg"
               alt=""
             />
           </div>

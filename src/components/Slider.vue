@@ -8,17 +8,17 @@
     {
       maintitle: "Welcome to FIC",
       subtitle: "FIRST INTERNATIONAL CONSULTING",
-      img: "/src/assets/горы-4.jpg",
+      img: "/assets/горы-4.jpg",
     },
     {
       maintitle: "MISSION",
       subtitle: "الأولى في الخدمة الإستشارية العالمية",
-      img: "/src/assets/горы-1.jpg",
+      img: "/assets/горы-1.jpg",
     },
     {
       maintitle: "We Provide",
       subtitle: "World class support and advisory services",
-      img: "/src/assets/горы-2.png",
+      img: "/assets/горы-2.png",
     },
   ];
   const activeSlide = ref(0);
