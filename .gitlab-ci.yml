@@ -35,6 +35,7 @@ deploy:
     - ssh -i ~/.ssh/id_rsa -p 43816 gitlab-runner@195.38.164.4 "docker ps"
     - ssh -i ~/.ssh/id_rsa -p 43816 gitlab-runner@195.38.164.4 "docker login registry.gitlab.com -u chonorov_askat -p $GITLAB_CI_TOKEN"
     - ssh -i ~/.ssh/id_rsa -p 43816 gitlab-runner@195.38.164.4 "docker pull $CI_REGISTRY_IMAGE:$CI_PIPELINE_ID"
-    - ssh -i ~/.ssh/id_rsa -p 43816 gitlab-runner@195.38.164.4 "docker rm -f $CI_PROJECT_NAME || true && docker create --name $CI_PROJECT_NAME -p 8080:80 $CI_REGISTRY_IMAGE:$CI_PIPELINE_ID"
+    - ssh -i ~/.ssh/id_rsa -p 43816 gitlab-runner@195.38.164.4 "TAG=$CI_PIPELINE_ID docker-compose -f /opt/docker/amanatadvisory/docker-compose.yml up -d"
+
   only:
     - dev
