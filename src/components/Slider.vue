@@ -59,9 +59,9 @@
           <h2 class="maintitle">{{ item.maintitle }}</h2>
           <p class="subtitle">{{ item.subtitle }}</p>
         </div>
-        <button class="theme-btn" @click="setFeedbackModal(true)">
+        <v-btn color="#61a375" @click="setFeedbackModal(true)">
           Contact us
-        </button>
+        </v-btn>
       </div>
     </div>
   </div>
