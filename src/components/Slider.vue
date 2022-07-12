@@ -6,19 +6,19 @@
 
   const slides = [
     {
-      maintitle: "Welcome to FIC",
+      maintitle: "Welcome to Amanat Advisory",
       subtitle: "FIRST INTERNATIONAL CONSULTING",
-      img: "/assets/горы-4.jpg",
+      img: "/assets/горы-2.jpg",
     },
     {
       maintitle: "MISSION",
-      subtitle: "الأولى في الخدمة الإستشارية العالمية",
-      img: "/assets/горы-1.jpg",
+      subtitle: "Development of islamic finance in the CIS countries",
+      img: "/assets/bishkek-1.jpg",
     },
     {
       maintitle: "We Provide",
       subtitle: "World class support and advisory services",
-      img: "/assets/горы-2.png",
+      img: "/assets/горы-3.jpg",
     },
   ];
   const activeSlide = ref(0);
@@ -60,7 +60,7 @@
           <p class="subtitle">{{ item.subtitle }}</p>
         </div>
         <button class="theme-btn" @click="setFeedbackModal(true)">
-          Click to begin
+          Contact us
         </button>
       </div>
     </div>
@@ -124,6 +124,7 @@
     color: #fff;
     margin: 0;
     letter-spacing: 1px;
+    text-transform: uppercase;
     text-shadow: 1px 1px 3px rgb(0 0 0 / 30%);
   }
   .maintitle {

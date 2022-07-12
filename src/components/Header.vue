@@ -81,14 +81,11 @@
       <div class="row flex-box-between">
         <div class="logo-wrapper flex-box" @click="logoClick">
           <img class="logo" src="/assets/AA_LOGO.svg" alt="logo" />
-          <p class="logo-text" :class="{ activeLogoText: isActive }">
-            Amanat Advisory LLC
-          </p>
+          <p class="logo-text activeLogoText">Amanat Advisory LLC</p>
         </div>
         <nav class="flex-box" v-if="name === 'home'">
           <div
             class="nav-item"
-            :class="{ 'nav-item-secondary': !isActive }"
             v-for="item in homePageNavigation"
             :key="item.label"
             @click.stop="navHandler(item)"
@@ -124,7 +121,6 @@
   </header>
 </template>
 
-,
 <style scoped>
   .row {
     width: 100%;
@@ -132,7 +128,7 @@
     gap: 5vw;
   }
   .logo-wrapper {
-    height: 100px;
+    height: 40px;
     gap: 10px;
     padding: 0px 10px;
     cursor: pointer;

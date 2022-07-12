@@ -20,22 +20,22 @@ header {
   z-index: 1000;
   padding: 5px 0px;
   transition: all 0.2s;
-  background-color: #ffffff;
-  border-bottom: 1px solid #61a375;
+  background: linear-gradient(
+    0deg,
+    rgba(128, 134, 134, 0.9808298319327731) 0%,
+    rgba(75, 87, 87, 0.9500175070028011) 100%
+  );
 }
 header.active {
+  border: none;
   background-color: transparent;
-  padding: 20px 0px;
 }
-header:hover {
-  background-color: #ffffff;
-}
-header:hover .logo-text,
+/* header:hover .logo-text,
 header:hover .nav-item,
 header:hover .default-value p,
 .activeSelect .default-value p {
   color: #61a375 !important;
-}
+} */
 header:hover svg {
   filter: invert(68%) sepia(18%) saturate(774%) hue-rotate(51deg)
     brightness(92%) contrast(91%) !important;
@@ -76,7 +76,7 @@ header:hover svg {
   transform: translate(-50%, -50%);
 }
 .logo {
-  width: 60px;
+  width: 40px;
 }
 .logo-text {
   font-family: "Source Sans Pro", sans-serif;
@@ -106,6 +106,7 @@ header:hover svg {
   color: #61a375;
 }
 .nav-item-secondary:hover {
+  color: #61a375;
   text-decoration: underline;
 }
 .body1 {
