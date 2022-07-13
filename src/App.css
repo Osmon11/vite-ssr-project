@@ -41,9 +41,11 @@ header:hover svg {
     brightness(92%) contrast(91%) !important;
 }
 .toggle-language {
+  width: 95px;
   position: absolute;
   right: 32px;
   top: 50%;
+  z-index: 1001;
   transform: translateY(-50%);
 }
 .activeSelect svg {
@@ -61,6 +63,9 @@ header:hover svg {
 }
 .flex-box-center {
   justify-content: center;
+}
+.flex-box-vertical {
+  flex-direction: column;
 }
 .divider {
   position: relative;
@@ -235,6 +240,17 @@ input[type="checkbox"]:checked {
   width: fit-content;
   position: relative;
   cursor: pointer;
+  z-index: 1001;
+}
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1002;
+  top: 0px;
+  left: 0px;
+  opacity: 0;
+  cursor: pointer;
 }
 .custom-select {
   width: fit-content;
@@ -277,7 +293,7 @@ input[type="checkbox"]:checked {
   position: absolute;
   left: 0px;
   top: calc(100% + 10px);
-  z-index: 10;
+  z-index: 1001;
   border-radius: 6px;
   background-color: #ffffff;
   box-shadow: rgb(0 0 0 / 20%) 0px 5px 5px -3px,
@@ -293,6 +309,8 @@ input[type="checkbox"]:checked {
   color: #000000;
   cursor: pointer;
   background: transparent;
+  position: relative;
+  z-index: 1001;
 }
 .select-item:hover {
   background: #cdcaca54;

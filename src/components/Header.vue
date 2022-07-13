@@ -6,21 +6,21 @@
 
   import Select from "@/components/Select.vue";
 
-  const props = defineProps(["scrollIntoHandler"]);
+  const props = defineProps(["scrollIntoHandler", "headerPosition"]);
 
   const { t, locale } = useI18n();
   const navigate = useRouter();
   const { name } = useRoute();
   const homePageNavigation = [
-    { label: "Introduction", key: "introduction" },
     { label: "About Us", key: "about_us" },
     { label: "Why Us", key: "why_us" },
+    { label: "shariah board", to: "/shariah-board" },
     {
       label: "Our Experiences",
       key: "our_experiences",
     },
     { label: "Our Services", key: "our_services" },
-    { label: "Blog", key: "blog" },
+    { label: "News", key: "blog" },
     { label: "Login", to: "/login" },
   ];
   const languageSelect = [
@@ -41,8 +41,8 @@
       >`,
     },
   ];
+  const lang = ref("en");
   const isActive = ref(name === "home");
-  let headerPosition = computed(() => (name === "home" ? "fixed" : "relative"));
   function handleScroll() {
     if (name === "home") {
       isActive.value = window.scrollY === 0;
@@ -93,24 +93,32 @@
             {{ item.label }}
           </div>
         </nav>
-        <nav class="flex-box" v-if="name === 'admin'">
-          <router-link class="nav-item nav-item-secondary" to="/blog"
-            >Blog</router-link
+        <nav class="flex-box" v-if="name !== 'home'">
+          <router-link class="nav-item" to="/">Home</router-link>
+          <router-link class="nav-item" to="/our-news">News</router-link>
+          <router-link class="nav-item" to="/login" v-if="name !== 'admin'"
+            >Login</router-link
           >
-          <div class="flex-box" style="cursor: pointer" @click="logout">
-            <p class="nav-item nav-item-secondary" style="padding-right: 10px">
-              Logout
-            </p>
-            <img
+          <div class="flex-box" style="cursor: pointer" @click="logout" v-else>
+            <p class="nav-item" style="padding-right: 10px">Logout</p>
+            <!-- <img
               class="logout-icon"
               src="/assets/logout-svgrepo-com.svg"
               alt=""
-            />
+            /> -->
           </div>
         </nav>
       </div>
     </div>
     <div class="toggle-language">
+      <!-- <v-select
+        class="color-white"
+        v-model="lang"
+        :items="['en', 'ru']"
+        variant="outlined"
+        density="compact"
+        hide-details
+      ></v-select> -->
       <Select
         :value="locale"
         @change="setLocale"

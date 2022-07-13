@@ -66,7 +66,9 @@
 <template>
   <div class="editor-wrapper"><div id="editorjs"></div></div>
   <div class="flex-box-center">
-    <button type="button" class="theme-btn">Добавить пост</button>
+    <v-btn type="button" color="#61a375" class="text-white"
+      >Добавить пост</v-btn
+    >
   </div>
 </template>
 

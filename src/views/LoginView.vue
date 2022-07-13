@@ -12,26 +12,42 @@
 <template>
   <div class="login_wrapper flex-box-center">
     <main class="flex-box-center">
-      <form @submit.prevent="(event) => handleLoginSubmit(event)">
-        <div class="flex-box input">
-          <img src="/assets/iconmonstr-user-5.svg" /><input
-            type="text"
-            name="login"
-          />
-        </div>
-        <div class="flex-box input">
-          <img src="/assets/iconmonstr-lock-3.svg" /><input
-            type="password"
-            name="password"
-          />
-        </div>
-        <div class="flex-box-between">
-          <div class="flex-box" style="gap: 10px">
-            <input type="checkbox" name="remember" />
-            <p class="body1">Запомнить ?</p>
-          </div>
-        </div>
-        <button class="theme-btn login_btn" type="submit">Войти</button>
+      <form
+        @submit.prevent="(event) => handleLoginSubmit(event)"
+        autocomplete="off"
+      >
+        <v-text-field
+          type="text"
+          name="login"
+          variant="outlined"
+          label="Логин"
+          color="#61a375"
+          :autofocus="false"
+        ></v-text-field>
+        <v-text-field
+          type="password"
+          name="password"
+          variant="outlined"
+          label="Пороль"
+          color="#61a375"
+          hide-details
+          :autofocus="false"
+        ></v-text-field>
+        <v-checkbox
+          name="remember"
+          label="Запомнить ?"
+          color="#61a375"
+          hide-details
+          :autofocus="false"
+        ></v-checkbox>
+        <v-btn
+          color="#61a375"
+          class="text-white"
+          style="width: 200px"
+          type="submit"
+        >
+          Войти
+        </v-btn>
       </form>
     </main>
   </div>

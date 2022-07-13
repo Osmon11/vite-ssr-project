@@ -1,6 +1,7 @@
 <script setup>
   import { ref } from "@vue/reactivity";
   import { onBeforeUpdate, onMounted, onUnmounted } from "@vue/runtime-core";
+  import MarqueeText from "vue-marquee-text-component";
 
   import Header from "@/components/Header.vue";
   import Slider from "@/components/Slider.vue";
@@ -11,6 +12,7 @@
   const refs = ref({});
   const activeGoTop = ref(false);
   const activeAccordenItem = ref(0);
+  const headerPosition = ref("relative");
 
   onMounted(() => {
     window.addEventListener("scroll", handleScroll);
@@ -24,6 +26,8 @@
 
   function handleScroll() {
     activeGoTop.value = window.scrollY > window.innerHeight;
+    headerPosition.value =
+      window.scrollY > window.innerHeight - 50 ? "fixed" : "relative";
   }
   function scrollIntoHandler(key) {
     if (refs.value[key]) {
@@ -265,7 +269,10 @@
       }
     "
   ></span>
-  <Header :scrollIntoHandler="scrollIntoHandler" />
+  <Header
+    :scrollIntoHandler="scrollIntoHandler"
+    :headerPosition="headerPosition"
+  />
   <Slider />
   <div class="flex-box-center">
     <main>
@@ -429,6 +436,7 @@
         </div>
       </section>
       <section
+        style="padding-bottom: 0px"
         :ref="
           (el) => {
             if (el) refs['our_experiences'] = el;
@@ -444,164 +452,42 @@
             advisory services in Islamic finance and takaful, as exampled in
             some of our engagements:
           </p>
-          <ul>
-            <li>
-              <p class="body1">
-                Advisory services in the establishment of Noor Takaful UAE and
-                formulation of its business model, initial products and
-                providing of on-site interim support team.
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                Advisory services for the establishment of the Asian Finance
-                Bank, a joint-venture between the Qatar Islamic Bank, Rusd Bank
-                (Saudi Arabia) and the Global Investment House, a recently
-                established Islamic bank in Malaysia
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                Advisory services for Partner-Re, Switzerland, to facilitate its
-                entry into takaful operations in local and offshore operations
-                in Malaysia.
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                Joint due diligence on Sigma Shariah, an Islamic banking
-                software developed primarily for the Indonesian market
-              </p>
-              <br /><img
-                style="margin-bottom: 20px"
-                src="/assets/1-300x161.png"
-                alt=""
-              />
-            </li>
-            <li>
-              <p class="body1" style="font-weight: 600">Bai Mauritius</p>
-              <p class="body1">
-                Designing Islamic banking and takaful products
-              </p>
-              <br /><img
-                style="margin-bottom: 20px"
-                src="/assets/2-300x144.png"
-                alt=""
-              />
-            </li>
-            <li>
-              <p class="body1" style="font-weight: 600">Takaful House, Dubai</p>
-              <p class="body1">
-                Design and product documentations for rolling out of operations
-                of general takaful including training
-              </p>
-              <br /><img
-                style="margin-bottom: 20px"
-                src="/assets/3-300x190.png"
-                alt=""
-              />
-            </li>
-            <li>
-              <p class="body1" style="font-weight: 600">Takaful Gambia Ltd</p>
-              <p class="body1">
-                Design and product documentations for rolling out of operations
-                of general takaful including training
-              </p>
-              <br /><img
-                style="margin-bottom: 20px"
-                src="/assets/4-300x167.png"
-                alt=""
-              />
-            </li>
-            <li>
-              <p class="body1" style="font-weight: 600">Mauritius Leasing</p>
-              <p class="body1">Product design and documentation for ijarah</p>
-              <br /><img
-                style="margin-bottom: 20px"
-                src="/assets/5-300x120.png"
-                alt=""
-              />
-            </li>
-            <li>
-              <p class="body1" style="font-weight: 600">
-                Amanah Asset Management Singapore
-              </p>
-              <p class="body1" style="margin-bottom: 40px">
-                Paper presentation and product designing and rolling out.
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                Authored “Fundamentals of Takaful” published by Islamic Banking
-                & Finance Institute Malaysia (IBFIM)
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                Design and implement modular stand-alone takaful solutions for
-                Takaful Bank Pembangunan Islam Brunei
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                Consulting services for putting into operation Safat Takaful
-                Kuwait
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                Module writing for INCEIF Islamic banking specialised CIFP
-                programme
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                Designed and implemented modular stand-alone takaful solutions
-                and systems for Takaful operations and companies in Brunei,
-                Gambia, Thailand, Kuwait and Mauritius
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                Designed and conducted seminars and training for Islamic banking
-                and takaful companies in Labuan, Brunei, Indonesia, Mauritius
-                and United Kingdom
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                Undertake recruitment exercise for Islamic banking, takaful and
-                shariah personnel for clients in the GCC countries and the Asean
-                regions
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                Designed and conducted training programme on Islamic finance for
-                senior officers of the Central Bank Nigeria.
-              </p>
-            </li>
-          </ul>
         </div>
       </section>
     </main>
   </div>
-  <div class="gallery flex-box-center" style="gap: 15px">
-    <main class="flex-box">
-      <div class="gallery_item">
-        <img src="/assets/9.png" alt="" />
-      </div>
-      <div class="gallery_item">
-        <img src="/assets/7.png" alt="" />
-      </div>
-      <div class="gallery_item">
-        <img src="/assets/partnerre-logo.png" alt="" />
-      </div>
-      <div class="gallery_item">
-        <img src="/assets/8.png" alt="" />
-      </div>
-    </main>
-  </div>
+  <section style="padding-top: 0px">
+    <MarqueeText class="gallery" :duration="15" :repeat="3">
+      <main class="flex-box" style="width: 100vw; gap: 15px">
+        <div class="gallery_item">
+          <img src="/assets/9.png" alt="" />
+        </div>
+        <div class="gallery_item">
+          <img src="/assets/7.png" alt="" />
+        </div>
+        <div class="gallery_item">
+          <img src="/assets/partnerre-logo.png" alt="" />
+        </div>
+        <div class="gallery_item">
+          <img src="/assets/8.png" alt="" />
+        </div></main
+    ></MarqueeText>
+    <div class="flex-box-center" style="margin-top: 20px">
+      <router-link
+        to="/experiences"
+        class="text-decoration-none"
+        style="width: 100%; max-width: 1140px"
+      >
+        <v-btn
+          color="#61a375"
+          class="text-white"
+          style="width: 100%; max-width: 1140px"
+        >
+          подробней
+        </v-btn></router-link
+      >
+    </div>
+  </section>
   <div class="flex-box-center">
     <main>
       <section
@@ -616,14 +502,29 @@
             <h3 class="title divider">OUR SERVICES</h3>
           </div>
         </div>
-        <AccordeonItem
+        <v-expansion-panels style="margin-bottom: 20px">
+          <v-expansion-panel v-for="item in accordeons" :key="item.summary">
+            <v-expansion-panel-title>
+              {{ item.summary }}
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
+              <div style="padding: 16px" v-html="item.details"></div>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <router-link to="/our-services" class="text-decoration-none">
+          <v-btn color="#61a375" class="text-white" style="width: 100%">
+            Смотреть все
+          </v-btn></router-link
+        >
+        <!-- <AccordeonItem
           v-for="(item, index) in accordeons"
           :key="item.summary"
           :item="item"
           :number="index + 1"
           :activeNumber="activeAccordenItem"
           @toggleItem="setActiveAccordeonItem"
-        />
+        /> -->
       </section>
       <section
         :ref="
@@ -639,14 +540,14 @@
         </div>
         <div class="flex-box" style="gap: 20px">
           <BlogCard
-            cover="/assets/горы-1.jpg"
-            title="40 Clever 404 Error Pages From Real Websites"
+            cover="/assets/горы-2.jpg"
+            title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, eius!"
           />
         </div>
-        <router-link to="/blog">
-          <button class="theme-btn" style="width: 100%">
+        <router-link to="/our-news" class="text-decoration-none">
+          <v-btn color="#61a375" class="text-white" style="width: 100%">
             Посмотреть все новости
-          </button></router-link
+          </v-btn></router-link
         >
       </section>
     </main>

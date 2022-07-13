@@ -54,12 +54,16 @@
         backgroundImage: `url(${item.img})`,
       }"
     >
-      <div class="slide-inner">
+      <div class="slide-inner flex-box-center flex-box-vertical">
         <div class="contain text-slider">
           <h2 class="maintitle">{{ item.maintitle }}</h2>
           <p class="subtitle">{{ item.subtitle }}</p>
         </div>
-        <v-btn color="#61a375" @click="setFeedbackModal(true)">
+        <v-btn
+          color="#61a375"
+          class="text-white"
+          @click="setFeedbackModal(true)"
+        >
           Contact us
         </v-btn>
       </div>
