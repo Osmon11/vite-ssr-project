@@ -27,18 +27,34 @@
           <h3 class="title divider">Форма обратной связи</h3>
         </div>
         <div class="flex-box" style="gap: 20px">
-          <div class="input" style="width: calc(50% - 10px)">
-            <input type="text" placeholder="Имя" name="userName" />
-          </div>
-          <div class="input" style="width: calc(50% - 10px)">
-            <input type="email" placeholder="Email" name="email" />
-          </div>
+          <v-text-field
+            type="text"
+            name="userName"
+            variant="outlined"
+            label="Имя"
+            color="#61a375"
+            style="width: calc(50% - 10px)"
+          ></v-text-field>
+          <v-text-field
+            type="text"
+            name="email"
+            variant="outlined"
+            label="Email"
+            color="#61a375"
+            style="width: calc(50% - 10px)"
+          ></v-text-field>
         </div>
-        <div class="input">
-          <textarea placeholder="Сообщение" name="message" />
-        </div>
-        <div class="flex-box-center" style="margin-top: 40px">
-          <button class="theme-btn" type="submit">Отправить сообщение</button>
+        <v-textarea
+          type="text"
+          name="message"
+          variant="outlined"
+          label="Сообщение"
+          color="#61a375"
+        ></v-textarea>
+        <div class="flex-box-center">
+          <v-btn color="#61a375" class="text-white" type="submit"
+            >Отправить сообщение</v-btn
+          >
         </div>
         <!-- <VueRecaptcha /> -->
       </form>

@@ -21,11 +21,23 @@
     emit("change", value);
     setPopper(false);
   }
+  function checkTargetClick(event) {
+    if (event.target.classList.value !== "overlay") {
+      event.preventDefault(); //prevent default DOM action
+      event.stopPropagation(); //stop bubbling
+    }
+  }
 </script>
 
 <template>
-  <div class="select-wrapper">
-    <div class="custom-select" @click="setPopper(!openPopper)">
+  <div class="select-wrapper" @mousedown="checkTargetClick">
+    <div class="custom-select">
+      <input
+        ref="overlay"
+        class="overlay"
+        @click="setPopper(true)"
+        @focusout="setPopper(false)"
+      />
       <span class="default-value body1" v-html="defaultLayout"></span>
       <svg
         class="svg-icon"
