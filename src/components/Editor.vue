@@ -64,6 +64,7 @@
 </script>
 
 <template>
+  <p class="title text-center mb-4" style="width: 100%">Новый пост</p>
   <div class="editor-wrapper"><div id="editorjs"></div></div>
   <div class="flex-box-center">
     <v-btn type="button" color="#61a375" class="text-white"
