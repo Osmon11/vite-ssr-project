@@ -1,7 +1,7 @@
 <script setup>
-  import Header from "@/components/Header.vue";
-  import BlogListItem from "@/components/BlogListItem.vue";
-  import Footer from "@/components/Footer.vue";
+  import Header from "@/shared/Header.vue";
+  import BlogListItem from "@/shared/BlogListItem.vue";
+  import Footer from "@/shared/Footer.vue";
 
   const testArticle = {
     cover: "/assets/горы-1.jpg",

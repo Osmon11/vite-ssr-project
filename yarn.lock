@@ -344,6 +344,11 @@ concat-map@0.0.1:
   resolved "https://registry.npmmirror.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
+cookie_js@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/cookie_js/-/cookie_js-1.4.2.tgz#f9ea928e425511e642df7d4670fccdbad9e57e81"
+  integrity sha512-hET/a12Sl4L6Oix5G4ZmLY75XKnN8+zE9cGl4T3rSpWh61cCKuA1yl3Uvbdw6bRPUhhWuFQbkMhNFw0BWNgj5w==
+
 core-js@^3.18.0:
   version "3.23.4"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.23.4.tgz#92d640faa7f48b90bbd5da239986602cfc402aa6"
