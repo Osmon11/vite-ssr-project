@@ -4,7 +4,7 @@
   import { ref } from "@vue/reactivity";
   import { useI18n } from "vue-i18n";
 
-  import Select from "@/components/Select.vue";
+  import Select from "@/shared/Select.vue";
 
   const props = defineProps(["scrollIntoHandler", "headerPosition"]);
 

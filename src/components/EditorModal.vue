@@ -1,6 +1,9 @@
+<script setup>
+  import Dialog from "@/shared/Dialog.vue";
+</script>
+
 <script>
   import EditorJS from "@editorjs/editorjs";
-
   import NestedList from "@editorjs/nested-list";
   import Paragraph from "@editorjs/paragraph";
   import Checklist from "@editorjs/checklist";
@@ -60,17 +63,20 @@
         editor: null,
       };
     },
+    props: ["open", "onClose"],
   };
 </script>
 
 <template>
-  <p class="title text-center mb-4" style="width: 100%">Новый пост</p>
-  <div class="editor-wrapper"><div id="editorjs"></div></div>
-  <div class="flex-box-center">
-    <v-btn type="button" color="#61a375" class="text-white"
-      >Добавить пост</v-btn
-    >
-  </div>
+  <Dialog :open="open" :onClose="onClose">
+    <p class="title text-center mb-4" style="width: 100%">Новый пост</p>
+    <div class="editor-wrapper"><div id="editorjs"></div></div>
+    <div class="flex-box-center">
+      <v-btn type="button" color="#61a375" class="text-white"
+        >Добавить пост</v-btn
+      >
+    </div></Dialog
+  >
 </template>
 
 <style scoped>

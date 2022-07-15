@@ -3,15 +3,13 @@
   import { onBeforeUpdate, onMounted, onUnmounted } from "@vue/runtime-core";
   import MarqueeText from "vue-marquee-text-component";
 
-  import Header from "@/components/Header.vue";
+  import Header from "@/shared/Header.vue";
   import Slider from "@/components/Slider.vue";
-  import AccordeonItem from "@/components/AccordeonItem.vue";
-  import BlogCard from "@/components/BlogCard.vue";
-  import Footer from "@/components/Footer.vue";
+  import BlogCard from "@/shared/BlogCard.vue";
+  import Footer from "@/shared/Footer.vue";
 
   const refs = ref({});
   const activeGoTop = ref(false);
-  const activeAccordenItem = ref(0);
   const headerPosition = ref("relative");
 
   onMounted(() => {
@@ -36,9 +34,6 @@
         behavior: "smooth",
       });
     }
-  }
-  function setActiveAccordeonItem(number) {
-    activeAccordenItem.value = number;
   }
 
   const accordeons = [
@@ -517,14 +512,6 @@
             Смотреть все
           </v-btn></router-link
         >
-        <!-- <AccordeonItem
-          v-for="(item, index) in accordeons"
-          :key="item.summary"
-          :item="item"
-          :number="index + 1"
-          :activeNumber="activeAccordenItem"
-          @toggleItem="setActiveAccordeonItem"
-        /> -->
       </section>
       <section
         :ref="
