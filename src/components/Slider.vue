@@ -2,38 +2,42 @@
   import { ref } from "@vue/reactivity";
   import { onMounted, onUnmounted } from "@vue/runtime-core";
 
+  import { useStore } from "../store";
   import FeedbackModal from "@/components/FeedbackModal.vue";
 
-  const slides = [
-    {
-      maintitle: "Welcome to Amanat Advisory",
-      subtitle: "FIRST INTERNATIONAL CONSULTING",
-      img: "/assets/горы-2.jpg",
-    },
-    {
-      maintitle: "MISSION",
-      subtitle: "Development of islamic finance in the CIS countries",
-      img: "/assets/bishkek-1.jpg",
-    },
-    {
-      maintitle: "We Provide",
-      subtitle: "World class support and advisory services",
-      img: "/assets/горы-3.jpg",
-    },
-  ];
+  const store = useStore();
   const activeSlide = ref(0);
   const openFeedbackModal = ref(false);
+  const loadingImg = ref({});
 
   let interval;
   onMounted(() => {
-    interval = setInterval(() => {
-      if (activeSlide.value + 1 !== slides.length) {
-        activeSlide.value += 1;
-      } else {
-        activeSlide.value = 0;
+    store.getSlides({}, (succes) => {
+      if (succes) {
+        let newState = {};
+        store.slides.forEach((slide) => {
+          newState[slide.id] = true;
+        });
+        loadingImg.value = newState;
+        setTimeout(() => {
+          let resetState = {};
+          store.slides.forEach((slide) => {
+            newState[slide.id] = false;
+          });
+          loadingImg.value = resetState;
+          interval = setInterval(() => {
+            if (activeSlide.value + 1 !== store.slides.length) {
+              activeSlide.value += 1;
+            } else {
+              activeSlide.value = 0;
+            }
+          }, 5000);
+        }, 5000);
+        setTimeout(() => {}, 3000);
       }
-    }, 5000);
+    });
   });
+
   onUnmounted(() => {
     clearInterval(interval);
   });
@@ -41,32 +45,45 @@
   function setFeedbackModal(value) {
     openFeedbackModal.value = value;
   }
+  function onLoadImg(id) {
+    loadingImg.value[id] = false;
+  }
 </script>
 
 <template>
   <div class="slider-container">
     <div
-      v-for="(item, index) in slides"
-      :key="item.img"
+      v-for="(slide, index) in store.slides"
+      :key="slide.id"
       class="slide-item"
       :class="{ active: activeSlide === index }"
-      :style="{
-        backgroundImage: `url(${item.img})`,
-      }"
     >
-      <div class="slide-inner flex-box-center flex-box-vertical">
-        <div class="contain text-slider">
-          <h2 class="maintitle">{{ item.maintitle }}</h2>
-          <p class="subtitle">{{ item.subtitle }}</p>
+      <div v-show="!loadingImg[slide.id]" style="width: 100%; height: 100%">
+        <img
+          :src="slide.imageUrl"
+          loading="lazy"
+          @load="onLoadImg(slide.id)"
+          :alt="slide.imageName"
+        />
+        <div class="slide-inner flex-box-center flex-box-vertical">
+          <div class="contain text-slider">
+            <h2 class="maintitle">{{ slide.title }}</h2>
+            <p class="subtitle">{{ slide.subtitle }}</p>
+          </div>
+          <v-btn
+            color="#61a375"
+            class="text-white"
+            @click="setFeedbackModal(true)"
+          >
+            Contact us
+          </v-btn>
         </div>
-        <v-btn
-          color="#61a375"
-          class="text-white"
-          @click="setFeedbackModal(true)"
-        >
-          Contact us
-        </v-btn>
       </div>
+      <img
+        v-show="loadingImg[slide.id]"
+        src="/public/assets/bg-loading.svg"
+        alt="background loading svg"
+      />
     </div>
   </div>
   <FeedbackModal :open="openFeedbackModal" :onClose="setFeedbackModal" />
@@ -92,6 +109,11 @@
     background-size: cover;
     z-index: 0;
     display: none;
+  }
+  .slide-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .slide-item.active {
     display: block;

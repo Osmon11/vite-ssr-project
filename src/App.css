@@ -343,3 +343,10 @@ input[type="checkbox"]:checked {
   -webkit-animation-name: fadeInAndScale;
   animation-name: fadeInAndScale;
 }
+.snackbar-transparent {
+  background-color: transparent;
+}
+.loading-gif {
+  width: 60px;
+  height: 60px;
+}

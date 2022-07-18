@@ -1,81 +1,126 @@
 <script setup>
+  import { computed, ref } from "vue";
+  import { Quill, QuillEditor } from "@vueup/vue-quill";
+  import "@vueup/vue-quill/dist/vue-quill.snow.css";
+  import * as Emoji from "quill-emoji";
+  import MagicUrl from "quill-magic-url";
+  import * as QuillTableUI from "quill-table-ui";
+  import BlotFormatter from "quill-blot-formatter";
+
   import Dialog from "@/shared/Dialog.vue";
-</script>
+  import { useStore } from "../store";
 
-<script>
-  import EditorJS from "@editorjs/editorjs";
-  import NestedList from "@editorjs/nested-list";
-  import Paragraph from "@editorjs/paragraph";
-  import Checklist from "@editorjs/checklist";
-  import Header from "@editorjs/header";
-  import Marker from "@editorjs/marker";
-  import Quote from "@editorjs/quote";
-  import Table from "@editorjs/table";
-  import Image from "@editorjs/image";
-  import Embed from "@editorjs/embed";
-  import Link from "@editorjs/link";
-  import Raw from "@editorjs/raw";
+  const store = useStore();
+  const props = defineProps(["open", "onClose", "editNews"]);
+  const valid = ref(false);
+  const title = ref("test");
+  const subtitle = ref("test");
+  const image = ref(null);
+  const content = ref("");
 
-  export default {
-    created() {
-      this.editor = new EditorJS({
-        /**
-         * Id of Element that should contain the Editor
-         */
-        holder: "editorjs",
-
-        /**
-         * Available Tools list.
-         * Pass Tool's class or Settings object for each Tool you want to use
-         */
-        tools: {
-          paragraph: { class: Paragraph, inlineToolbar: true },
-          checklist: Checklist,
-          header: Header,
-          table: Table,
-          quote: Quote,
-          image: Image,
-          embed: Embed,
-          link: Link,
-          list: {
-            class: NestedList,
-            inlineToolbar: true,
-          },
-          marker: {
-            class: Marker,
-            shortcut: "CTRL+SHIFT+M",
-          },
-          raw: Raw,
-        },
-        autofocus: true,
-        placeholder: "Напишите что нибудь...",
-      });
-
-      window.addEventListener("keyup", (event) => {
-        if (event.key === "Enter") {
-          const data = this.editor.save();
-          data.then((d) => console.log(d));
-        }
-      });
+  const fileInputLabel = computed(() =>
+    props.editSlide && !image.value ? props.editSlide["imageName"] : "Обложка"
+  );
+  const quillOptions = {
+    theme: "snow",
+    modules: {
+      toolbar: "full",
+      "emoji-toolbar": true,
+      "emoji-textarea": true,
+      "emoji-shortname": true,
+      // magicUrl: true,
+      // table: true,
+      // tableUI: true,
     },
-    data() {
-      return {
-        editor: null,
-      };
-    },
-    props: ["open", "onClose"],
+    placeholder: "Напишите контент",
   };
+  // Quill.register("modules/emogi", Emoji);
+  // Quill.register("modules/blot-formatter", BlotFormatter);
+  // Quill.register("modules/magic-url", MagicUrl);
+  // Quill.register("modules/table-ui", QuillTableUI);
+
+  function submitHandler() {
+    console.log(content.value, valid.value);
+    if (!content.value)
+      store.setAlert({
+        severity: "error",
+        message: "Вы забыли написать контент",
+      });
+
+    if (valid.value) {
+      let data = new FormData();
+      data.append("title", title.value);
+      data.append("subtitle", subtitle.value);
+      data.append("content", JSON.stringify(content.value));
+      if (!props.editNews) {
+        data.append("image", image.value[0]);
+        store.setNews(data);
+      } else {
+        if (image.value[0]) {
+          data.append("image", image.value[0]);
+          data.append("imageUrl", props.editNews.imageUrl);
+        }
+        store.updateNews({ id: props.editNews.id }, data);
+      }
+    }
+  }
 </script>
 
 <template>
   <Dialog :open="open" :onClose="onClose">
-    <p class="title text-center mb-4" style="width: 100%">Новый пост</p>
-    <div class="editor-wrapper"><div id="editorjs"></div></div>
-    <div class="flex-box-center">
-      <v-btn type="button" color="#61a375" class="text-white"
-        >Добавить пост</v-btn
-      >
-    </div></Dialog
+    <p class="title text-center mb-4" style="width: 100%">Новая новость</p>
+    <v-form
+      class="form-max-width"
+      v-model="valid"
+      @submit.prevent="submitHandler"
+    >
+      <div class="editor-wrapper">
+        <v-text-field
+          v-model="title"
+          type="text"
+          name="title"
+          variant="outlined"
+          label="Заголовок"
+          color="#61a375"
+          required
+          :rules="[(v) => !!v || 'Введите заголовок']"
+        ></v-text-field>
+        <v-text-field
+          v-model="subtitle"
+          type="text"
+          name="subtitle"
+          variant="outlined"
+          label="Краткое описание"
+          color="#61a375"
+          required
+          :rules="[(v) => !!v || 'Введите краткое описание']"
+        ></v-text-field>
+        <v-file-input
+          name="image"
+          accept="image/*"
+          variant="outlined"
+          :label="fileInputLabel"
+          color="#61a375"
+          @update:model-value="(value) => (image = value)"
+          :required="!editNews"
+          :rules="[
+            (v) => !!v[0] || editNews || 'Загрузите фоновое изображение',
+          ]"
+          show-size
+        ></v-file-input>
+        <QuillEditor
+          theme="snow"
+          toolbar="full"
+          :globalOptions="quillOptions"
+          v-model:content="content"
+        />
+      </div>
+      <div class="flex-box-center">
+        <v-btn type="submit" color="#61a375" class="text-white"
+          >Добавить новость</v-btn
+        >
+      </div></v-form
+    ></Dialog
   >
 </template>
 

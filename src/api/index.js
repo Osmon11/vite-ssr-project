@@ -51,7 +51,7 @@ export const makeRequest = (endpoint, method, data) => {
     default: {
       setAlert({
         severity: "error",
-        message: `Метод запроса не найден: ${endpoint}`,
+        message: `Метод запроса не найден: ${method} на ${endpoint}`,
       });
     }
   }

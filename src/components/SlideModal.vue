@@ -1,16 +1,27 @@
 <script setup>
-  import { computed, ref } from "vue";
-  import axios from "axios";
+  import { computed, ref, watch } from "vue";
 
   import Dialog from "@/shared/Dialog.vue";
   import { useStore } from "../store";
 
-  const { setSlide } = useStore();
+  const { setSlide, updateSlide } = useStore();
   const props = defineProps(["open", "onClose", "editSlide"]);
   const valid = ref(true);
-  const title = ref(props.editSlide ? props.editSlide["title"] : "");
-  const subtitle = ref(props.editSlide ? props.editSlide["subtitle"] : "");
+  const title = ref("");
+  const subtitle = ref("");
   const image = ref(null);
+
+  watch(
+    () => props.editSlide,
+    (value) => {
+      if (value) {
+        title.value = value.title;
+        subtitle.value = value.subtitle;
+        image.value = null;
+      }
+    }
+  );
+
   const fileInputLabel = computed(() =>
     props.editSlide && !image.value
       ? props.editSlide["imageName"]
@@ -22,9 +33,19 @@
       const data = new FormData();
       data.append("title", title.value);
       data.append("subtitle", subtitle.value);
-      data.append("image", image.value[0]);
-      setSlide(data);
-      onClose(true);
+
+      if (!props.editSlide) {
+        data.append("image", image.value[0]);
+        setSlide(data);
+      } else {
+        if (image.value[0]) {
+          data.append("image", image.value[0]);
+        }
+        data.append("imageUrl", props.editSlide.imageUrl);
+        updateSlide({ id: props.editSlide.id }, data);
+      }
+      image.value = null;
+      props.onClose(false);
     }
   }
 </script>
@@ -37,7 +58,9 @@
         v-model="valid"
         @submit.prevent="submitHandler"
       >
-        <p class="title text-center mb-4" style="width: 100%">Новый слайд</p>
+        <p class="title text-center mb-4" style="width: 100%">
+          {{ props.editSlide ? "Редактировать слайд" : "Новый слайд" }}
+        </p>
         <v-text-field
           v-model="title"
           type="text"

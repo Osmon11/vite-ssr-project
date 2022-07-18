@@ -7,9 +7,25 @@
   const store = useStore();
   const openModal = ref(false);
   const currentSlide = ref(null);
+  const loadingImg = ref({});
 
   onMounted(() => {
-    store.getSlides();
+    store.getSlides({}, (succes) => {
+      if (succes) {
+        let newState = {};
+        store.slides.forEach((slide) => {
+          newState[slide.id] = true;
+        });
+        loadingImg.value = newState;
+        setTimeout(() => {
+          let resetState = {};
+          store.slides.forEach((slide) => {
+            resetState[slide.id] = false;
+          });
+          loadingImg.value = resetState;
+        }, 5000);
+      }
+    });
   });
 
   function setModal(value) {
@@ -27,6 +43,9 @@
       },
     });
   }
+  function onLoadImg(id) {
+    loadingImg.value[id] = false;
+  }
 </script>
 
 <template>
@@ -43,7 +62,21 @@
       v-for="slide in store.slides"
       :key="slide.id"
     >
-      <img :src="slide.imageUrl" alt="" />
+      <img
+        class="img"
+        v-show="!loadingImg[slide.id]"
+        :src="slide.imageUrl"
+        loading="lazy"
+        @load="onLoadImg(slide.id)"
+        alt=""
+      />
+      <div class="img flex-box-center" v-show="loadingImg[slide.id]">
+        <img
+          class="loading-gif"
+          src="/public/assets/loading.gif"
+          alt="loading gif"
+        />
+      </div>
       <div class="flex-box-between" style="width: calc(100% - 220px)">
         <div>
           <p class="title">{{ slide.title }}</p>
@@ -65,6 +98,9 @@
       </div>
     </div>
   </div>
+  <div class="flex-box-center" v-else>
+    <p class="body1">Слайдов пока нет. Создайте новый слайд</p>
+  </div>
   <SlideModal :open="openModal" :onClose="setModal" :editSlide="currentSlide" />
 </template>
 
@@ -75,7 +111,7 @@
     margin-bottom: 20px;
     border-bottom: 1px solid #61a375;
   }
-  .slide_item img {
+  .slide_item .img {
     width: 200px;
     height: 120px;
   }

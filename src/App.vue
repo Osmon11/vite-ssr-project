@@ -1,7 +1,12 @@
 <template>
   <v-app>
     <v-main>
-      <v-snackbar v-model="alertSnackbar" :timeout="3000">
+      <v-snackbar
+        v-model="alertSnackbar"
+        :timeout="5000"
+        variant="text"
+        content-class="snackbar-transparent"
+      >
         <v-alert border="start" density="default" :type="store.alert.severity">
           {{ store.alert.message }}
         </v-alert></v-snackbar

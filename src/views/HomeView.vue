@@ -522,7 +522,7 @@
       >
         <div class="column_wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">Blog</h3>
+            <h3 class="title divider">Our News</h3>
           </div>
         </div>
         <div class="flex-box" style="gap: 20px">
