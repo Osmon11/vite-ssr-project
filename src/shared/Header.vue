@@ -3,11 +3,14 @@
   import { useRoute, useRouter } from "vue-router";
   import { ref } from "@vue/reactivity";
   import { useI18n } from "vue-i18n";
+  import cookie_js from "cookie_js";
 
   import Select from "@/shared/Select.vue";
+  import { useStore } from "../store";
 
   const props = defineProps(["scrollIntoHandler", "headerPosition"]);
 
+  const store = useStore();
   const { t, locale } = useI18n();
   const navigate = useRouter();
   const { name } = useRoute();
@@ -21,7 +24,6 @@
     },
     { label: "Our Services", key: "our_services" },
     { label: "News", key: "blog" },
-    { label: "Login", to: "/login" },
   ];
   const languageSelect = [
     {
@@ -41,8 +43,10 @@
       >`,
     },
   ];
+  const token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY);
   const lang = ref("en");
   const isActive = ref(name === "home");
+
   function handleScroll() {
     if (name === "home") {
       isActive.value = window.scrollY === 0;
@@ -65,8 +69,14 @@
   function setLocale(value) {
     locale.value = value;
   }
-
-  function logout() {}
+  function logout() {
+    store.setPromp({
+      message: "Подвердите выход ?",
+      confirm() {
+        store.logout();
+      },
+    });
+  }
   onMounted(() => {
     window.addEventListener("scroll", handleScroll);
   });
@@ -92,13 +102,20 @@
           >
             {{ item.label }}
           </div>
+          <router-link class="nav-item" to="/admin" v-if="token"
+            >Admin</router-link
+          >
+          <router-link class="nav-item" to="/login" v-else>Login</router-link>
         </nav>
         <nav class="flex-box" v-if="name !== 'home'">
           <router-link class="nav-item" to="/">Home</router-link>
           <router-link class="nav-item" to="/our-news">News</router-link>
-          <router-link class="nav-item" to="/login" v-if="name !== 'admin'"
-            >Login</router-link
-          >
+          <div v-if="name !== 'admin'">
+            <router-link class="nav-item" to="/admin" v-if="token"
+              >Admin panel</router-link
+            >
+            <router-link class="nav-item" to="/login" v-else>Login</router-link>
+          </div>
           <div class="flex-box" style="cursor: pointer" @click="logout" v-else>
             <p class="nav-item" style="padding-right: 10px">Logout</p>
             <!-- <img

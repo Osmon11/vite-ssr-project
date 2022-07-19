@@ -1,5 +1,5 @@
 <script setup>
-  import { computed, ref } from "vue";
+  import { computed, ref, watch } from "vue";
   import { Quill, QuillEditor } from "@vueup/vue-quill";
   import "@vueup/vue-quill/dist/vue-quill.snow.css";
   import * as Emoji from "quill-emoji";
@@ -13,14 +13,15 @@
   const store = useStore();
   const props = defineProps(["open", "onClose", "editNews"]);
   const valid = ref(false);
-  const title = ref("test");
-  const subtitle = ref("test");
-  const image = ref(null);
+  const title = ref("");
+  const subtitle = ref("");
+  const image = ref([]);
   const content = ref("");
-
+  const isLoading = ref(false);
   const fileInputLabel = computed(() =>
-    props.editSlide && !image.value ? props.editSlide["imageName"] : "Обложка"
+    props.editNews && !image.value[0] ? props.editNews["imageName"] : "Обложка"
   );
+  const quillEditor = ref([]);
   const quillOptions = {
     theme: "snow",
     modules: {
@@ -28,19 +29,42 @@
       "emoji-toolbar": true,
       "emoji-textarea": true,
       "emoji-shortname": true,
-      // magicUrl: true,
-      // table: true,
-      // tableUI: true,
+      magicUrl: true,
+      table: true,
+      tableUI: true,
     },
     placeholder: "Напишите контент",
   };
+
+  watch(
+    () => props.editNews,
+    (value) => {
+      if (value) {
+        title.value = value.title;
+        subtitle.value = value.subtitle;
+        image.value = [];
+        quillEditor.value[0].setContents(JSON.parse(value.content));
+      }
+    }
+  );
   // Quill.register("modules/emogi", Emoji);
   // Quill.register("modules/blot-formatter", BlotFormatter);
   // Quill.register("modules/magic-url", MagicUrl);
   // Quill.register("modules/table-ui", QuillTableUI);
-
+  function resetForm() {
+    title.value = "";
+    subtitle.value = "";
+    image.value = [];
+    quillEditor.value[0].setContents("");
+  }
+  function callback(success) {
+    isLoading.value = false;
+    if (success) {
+      resetForm();
+      props.onClose(false);
+    }
+  }
   function submitHandler() {
-    console.log(content.value, valid.value);
     if (!content.value)
       store.setAlert({
         severity: "error",
@@ -48,79 +72,100 @@
       });
 
     if (valid.value) {
+      isLoading.value = true;
       let data = new FormData();
       data.append("title", title.value);
       data.append("subtitle", subtitle.value);
       data.append("content", JSON.stringify(content.value));
       if (!props.editNews) {
         data.append("image", image.value[0]);
-        store.setNews(data);
+        store.setNews(data, callback);
       } else {
         if (image.value[0]) {
           data.append("image", image.value[0]);
-          data.append("imageUrl", props.editNews.imageUrl);
         }
-        store.updateNews({ id: props.editNews.id }, data);
+        data.append("imageUrl", props.editNews.imageUrl);
+        store.updateNews({ id: props.editNews._id }, data, callback);
       }
     }
   }
 </script>
 
 <template>
-  <Dialog :open="open" :onClose="onClose">
-    <p class="title text-center mb-4" style="width: 100%">Новая новость</p>
-    <v-form
-      class="form-max-width"
-      v-model="valid"
-      @submit.prevent="submitHandler"
-    >
-      <div class="editor-wrapper">
-        <v-text-field
-          v-model="title"
-          type="text"
-          name="title"
-          variant="outlined"
-          label="Заголовок"
-          color="#61a375"
-          required
-          :rules="[(v) => !!v || 'Введите заголовок']"
-        ></v-text-field>
-        <v-text-field
-          v-model="subtitle"
-          type="text"
-          name="subtitle"
-          variant="outlined"
-          label="Краткое описание"
-          color="#61a375"
-          required
-          :rules="[(v) => !!v || 'Введите краткое описание']"
-        ></v-text-field>
-        <v-file-input
-          name="image"
-          accept="image/*"
-          variant="outlined"
-          :label="fileInputLabel"
-          color="#61a375"
-          @update:model-value="(value) => (image = value)"
-          :required="!editNews"
-          :rules="[
-            (v) => !!v[0] || editNews || 'Загрузите фоновое изображение',
-          ]"
-          show-size
-        ></v-file-input>
-        <QuillEditor
-          theme="snow"
-          toolbar="full"
-          :globalOptions="quillOptions"
-          v-model:content="content"
-        />
-      </div>
-      <div class="flex-box-center">
-        <v-btn type="submit" color="#61a375" class="text-white"
-          >Добавить новость</v-btn
-        >
-      </div></v-form
-    ></Dialog
+  <Dialog
+    :open="open"
+    :onClose="
+      (value) => {
+        resetForm();
+        onClose(value);
+      }
+    "
+  >
+    <p class="title text-center" style="width: 100%">
+      {{ props.editNews ? "Редактировать новость" : "Новая новость" }}
+    </p>
+    <div class="flex-box-center">
+      <v-form
+        class="form-max-width"
+        v-model="valid"
+        @submit.prevent="submitHandler"
+      >
+        <div class="editor-wrapper">
+          <v-text-field
+            v-model="title"
+            type="text"
+            name="title"
+            variant="outlined"
+            label="Заголовок"
+            color="#61a375"
+            required
+            :rules="[(v) => !!v || 'Введите заголовок']"
+          ></v-text-field>
+          <v-textarea
+            v-model="subtitle"
+            type="text"
+            name="subtitle"
+            variant="outlined"
+            label="Краткое описание"
+            color="#61a375"
+            required
+            :rules="[(v) => !!v || 'Введите краткое описание']"
+          ></v-textarea>
+          <v-file-input
+            name="image"
+            accept="image/*"
+            variant="outlined"
+            :label="fileInputLabel"
+            color="#61a375"
+            :model-value="image"
+            @update:model-value="(value) => (image = value)"
+            :required="!editNews"
+            :rules="[
+              (v) =>
+                !!v[0] || Boolean(editNews) || 'Загрузите фоновое изображение',
+            ]"
+            clearable
+            show-size
+          ></v-file-input>
+          <QuillEditor
+            :ref="(ref) => (quillEditor[0] = ref)"
+            theme="snow"
+            toolbar="full"
+            :globalOptions="quillOptions"
+            v-model:content="content"
+          />
+        </div>
+        <div class="flex-box-center">
+          <v-btn
+            type="submit"
+            color="#61a375"
+            class="text-white"
+            :loading="isLoading"
+            >{{ props.editNews ? "Обновить" : "Добавить новость" }}</v-btn
+          >
+        </div></v-form
+      >
+    </div></Dialog
   >
 </template>
 

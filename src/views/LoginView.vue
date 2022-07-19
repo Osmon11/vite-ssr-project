@@ -1,28 +1,48 @@
 <script setup>
+  import { ref } from "vue";
   import { useRouter } from "vue-router";
 
-  const navigate = useRouter();
+  import { useStore } from "../store";
 
-  function handleLoginSubmit(event) {
-    const { login, password, remember } = event.target.elements;
-    navigate.push("/admin");
+  const store = useStore();
+  const navigate = useRouter();
+  const valid = ref(false);
+  const login = ref("");
+  const password = ref("");
+  const remember = ref(false);
+
+  function handleLoginSubmit() {
+    if (valid.value) {
+      store.authorize(
+        { login: login.value, password: password.value },
+        remember.value,
+        (success) => {
+          if (success) {
+            navigate.push("/admin");
+          }
+        }
+      );
+    }
   }
 </script>
 
 <template>
   <div class="login_wrapper flex-box-center">
     <main class="flex-box-center">
-      <form
+      <v-form
+        class="form"
+        v-model="valid"
         @submit.prevent="(event) => handleLoginSubmit(event)"
-        autocomplete="off"
       >
         <v-text-field
-          type="text"
+          type="email"
           name="login"
           variant="outlined"
           label="Логин"
           color="#61a375"
           :autofocus="false"
+          v-model="login"
+          :rules="[(v) => !!v || 'Введите Логин']"
         ></v-text-field>
         <v-text-field
           type="password"
@@ -32,6 +52,8 @@
           color="#61a375"
           hide-details
           :autofocus="false"
+          v-model="password"
+          :rules="[(v) => !!v || 'Введите Пороль']"
         ></v-text-field>
         <v-checkbox
           name="remember"
@@ -39,6 +61,7 @@
           color="#61a375"
           hide-details
           :autofocus="false"
+          v-model="remember"
         ></v-checkbox>
         <v-btn
           color="#61a375"
@@ -48,13 +71,13 @@
         >
           Войти
         </v-btn>
-      </form>
+      </v-form>
     </main>
   </div>
 </template>
 
 <style scoped>
-  form {
+  .form {
     width: 400px;
   }
   .login_wrapper {

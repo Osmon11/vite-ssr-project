@@ -3,8 +3,8 @@
 
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
-  import SlidesTab from "@/components/SlidesTab.vue";
   import NewsTab from "@/components/NewsTab.vue";
+  import SlidesTab from "@/components/SlidesTab.vue";
 
   const tabs = ref("news");
 </script>

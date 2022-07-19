@@ -8,23 +8,13 @@
   const store = useStore();
   const activeSlide = ref(0);
   const openFeedbackModal = ref(false);
-  const loadingImg = ref({});
+  const loadedImg = ref({});
 
   let interval;
   onMounted(() => {
     store.getSlides({}, (succes) => {
       if (succes) {
-        let newState = {};
-        store.slides.forEach((slide) => {
-          newState[slide.id] = true;
-        });
-        loadingImg.value = newState;
         setTimeout(() => {
-          let resetState = {};
-          store.slides.forEach((slide) => {
-            newState[slide.id] = false;
-          });
-          loadingImg.value = resetState;
           interval = setInterval(() => {
             if (activeSlide.value + 1 !== store.slides.length) {
               activeSlide.value += 1;
@@ -33,7 +23,6 @@
             }
           }, 5000);
         }, 5000);
-        setTimeout(() => {}, 3000);
       }
     });
   });
@@ -46,7 +35,7 @@
     openFeedbackModal.value = value;
   }
   function onLoadImg(id) {
-    loadingImg.value[id] = false;
+    loadedImg.value[id] = true;
   }
 </script>
 
@@ -58,8 +47,9 @@
       class="slide-item"
       :class="{ active: activeSlide === index }"
     >
-      <div v-show="!loadingImg[slide.id]" style="width: 100%; height: 100%">
+      <div v-show="loadedImg[slide.id]" style="width: 100%; height: 100%">
         <img
+          class="img"
           :src="slide.imageUrl"
           loading="lazy"
           @load="onLoadImg(slide.id)"
@@ -79,11 +69,16 @@
           </v-btn>
         </div>
       </div>
-      <img
-        v-show="loadingImg[slide.id]"
-        src="/public/assets/bg-loading.svg"
-        alt="background loading svg"
-      />
+      <div
+        v-show="!loadedImg[slide.id]"
+        class="flex-box-center"
+        style="width: 100%; height: 100%"
+      >
+        <img
+          src="/public/assets/loading-12bras.gif"
+          alt="background loading svg"
+        />
+      </div>
     </div>
   </div>
   <FeedbackModal :open="openFeedbackModal" :onClose="setFeedbackModal" />
@@ -110,7 +105,7 @@
     z-index: 0;
     display: none;
   }
-  .slide-item img {
+  .slide-item .img {
     width: 100%;
     height: 100%;
     object-fit: cover;

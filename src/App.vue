@@ -39,7 +39,9 @@
 </template>
 
 <script setup>
-  import { ref } from "vue";
+  import cookie_js from "cookie_js";
+  import { onMounted, ref } from "vue";
+
   import { useStore } from "./store";
 
   const store = useStore();
@@ -52,6 +54,12 @@
     }
     if (mutation.events.key === "promp") {
       prompSnackbar.value = Boolean(state.promp.message);
+    }
+  });
+
+  onMounted(() => {
+    if (cookie_js.get(import.meta.env.VITE_TOKEN_KEY) && !store.admin.token) {
+      store.getUserInfo();
     }
   });
 

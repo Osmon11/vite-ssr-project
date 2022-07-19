@@ -1,11 +1,13 @@
+import cookie_js from "cookie_js";
 import { createRouter, createWebHistory } from "vue-router";
+
+import OurNews from "@/views/OurNews.vue";
 import HomeView from "@/views/HomeView.vue";
 import AdminView from "@/views/AdminView.vue";
-import OurNews from "@/views/OurNews.vue";
 import LoginView from "@/views/LoginView.vue";
-import OurExperiences from "@/views/OurExperiences.vue";
-import ShariahBoard from "@/views/ShariahBoard.vue";
 import OurServices from "@/views/OurServices.vue";
+import ShariahBoard from "@/views/ShariahBoard.vue";
+import OurExperiences from "@/views/OurExperiences.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,7 +21,7 @@ const router = createRouter({
       path: "/admin",
       name: "admin",
       component: AdminView,
-      // meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
     },
     {
       path: "/our-news",
@@ -45,13 +47,15 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
+      meta: { requiresLogout: true },
     },
   ],
 });
 
 router.beforeResolve((to) => {
-  let token = localStorage.getItem("amanat_advisory");
+  let token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY);
   if (to.meta.requiresAuth && !token) return "/login";
+  if (to.meta.requiresLogout && token) return "/";
 });
 
 export default router;

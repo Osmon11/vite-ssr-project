@@ -7,25 +7,10 @@
   const store = useStore();
   const openModal = ref(false);
   const currentSlide = ref(null);
-  const loadingImg = ref({});
+  const loadedImg = ref({});
 
   onMounted(() => {
-    store.getSlides({}, (succes) => {
-      if (succes) {
-        let newState = {};
-        store.slides.forEach((slide) => {
-          newState[slide.id] = true;
-        });
-        loadingImg.value = newState;
-        setTimeout(() => {
-          let resetState = {};
-          store.slides.forEach((slide) => {
-            resetState[slide.id] = false;
-          });
-          loadingImg.value = resetState;
-        }, 5000);
-      }
-    });
+    store.getSlides();
   });
 
   function setModal(value) {
@@ -39,12 +24,12 @@
     store.setPromp({
       message: "Подтверждаете удаление слайда ?",
       confirm() {
-        store.deleteSlide({ id: slide.id });
+        store.deleteSlide({ id: slide._id });
       },
     });
   }
   function onLoadImg(id) {
-    loadingImg.value[id] = false;
+    loadedImg.value[id] = true;
   }
 </script>
 
@@ -60,20 +45,20 @@
       class="slide_item flex-box"
       style="align-items: flex-start"
       v-for="slide in store.slides"
-      :key="slide.id"
+      :key="slide._id"
     >
       <img
         class="img"
-        v-show="!loadingImg[slide.id]"
+        v-show="loadedImg[slide._id]"
         :src="slide.imageUrl"
         loading="lazy"
-        @load="onLoadImg(slide.id)"
+        @load="onLoadImg(slide._id)"
         alt=""
       />
-      <div class="img flex-box-center" v-show="loadingImg[slide.id]">
+      <div class="img flex-box-center" v-show="!loadedImg[slide._id]">
         <img
           class="loading-gif"
-          src="/public/assets/loading.gif"
+          src="/public/assets/loading-8bars.gif"
           alt="loading gif"
         />
       </div>

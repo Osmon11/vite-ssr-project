@@ -2,22 +2,23 @@ import axios from "axios";
 import cookie_js from "cookie_js";
 import { useStore } from "../store";
 
-let baseURL = "http://localhost:3001",
-  token = cookie_js.get("amanat_advisory_token"),
+let token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY),
   headers = {};
 
 if (token) {
   headers.Authorization = token ? token : "";
 }
-
-export const appAxios = axios.create({ baseURL, headers });
+export const appAxios = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  headers,
+});
 
 export const makeRequest = (endpoint, method, data) => {
   const { setAlert } = useStore();
   function errorHandler({ response }) {
     if (response.status === 401) {
-      cookie_js.remove("project_deti_token");
-      appAxios.defaults.headers["Authorization"] = "";
+      cookie_js.remove(import.meta.env.VITE_TOKEN_KEY);
+      appAxios.defaults.headers["authorization"] = "";
 
       setAlert({
         severity: "error",

@@ -1,7 +1,9 @@
+import moment from "moment";
+import cookie_js from "cookie_js";
 import { defineStore } from "pinia";
 
-import { makeRequest } from "../api";
 import { getUrlString } from "../utils";
+import { appAxios, makeRequest } from "../api";
 
 export const useStore = defineStore("main", {
   state: () => ({
@@ -21,6 +23,29 @@ export const useStore = defineStore("main", {
     },
   }),
   actions: {
+    authorize(data, remember = false, callback = () => {}) {
+      makeRequest("/auth/login", "post", data).then((json) => {
+        if (json) {
+          let bearerToken = `Bearer ${json.token}`;
+          cookie_js.set(import.meta.env.VITE_TOKEN_KEY, bearerToken, {
+            expires: new Date(
+              moment().add(1, "day").toLocaleString()
+            ).toUTCString(),
+            path: "/",
+          });
+          appAxios.defaults.headers["authorization"] = bearerToken;
+          this.admin = json;
+        }
+        callback(Boolean(json));
+      });
+    },
+    logout() {
+      cookie_js.removeSpecific(import.meta.env.VITE_TOKEN_KEY, { path: "/" });
+      appAxios.defaults.headers["authorization"] = null;
+    },
+    getUserInfo() {
+      this.admin = { token: cookie_js.get(import.meta.env.VITE_TOKEN_KEY) };
+    },
     setAlert(alert) {
       this.alert = alert;
     },
@@ -39,19 +64,21 @@ export const useStore = defineStore("main", {
         callback(Boolean(json));
       });
     },
-    setSlide(data) {
+    setSlide(data, callback = () => {}) {
       makeRequest("/slides", "post", data).then((json) => {
         if (json) {
           this.slides = json;
         }
+        callback(Boolean(json));
       });
     },
-    updateSlide(query = {}, data) {
+    updateSlide(query = {}, data, callback = () => {}) {
       makeRequest(`/slides?${getUrlString(query)}`, "put", data).then(
         (json) => {
           if (json) {
             this.slides = json.data;
           }
+          callback(Boolean(json));
         }
       );
     },
@@ -74,18 +101,29 @@ export const useStore = defineStore("main", {
         callback(Boolean(json));
       });
     },
-    setNews(data) {
+    setNews(data, callback = () => {}) {
       makeRequest("/news-feed", "post", data).then((json) => {
         if (json) {
           this.newsFeed = json;
         }
+        callback(Boolean(json));
       });
     },
-    updateNews(query = {}, data) {
-      makeRequest(`/news-feed?${getUrlString(query)}`, "post", data).then(
+    updateNews(query = {}, data, callback = () => {}) {
+      makeRequest(`/news-feed?${getUrlString(query)}`, "put", data).then(
         (json) => {
           if (json) {
-            this.newsFeed = json;
+            this.newsFeed = json.data;
+          }
+          callback(Boolean(json));
+        }
+      );
+    },
+    deleteNews(query = {}) {
+      makeRequest(`/news-feed?${getUrlString(query)}`, "delete").then(
+        (json) => {
+          if (json) {
+            this.newsFeed = json.data;
           }
         }
       );

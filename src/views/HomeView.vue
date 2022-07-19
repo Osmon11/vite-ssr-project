@@ -527,7 +527,7 @@
         </div>
         <div class="flex-box" style="gap: 20px">
           <BlogCard
-            cover="/assets/горы-2.jpg"
+            cover="/assets/mountine-2.jpg"
             title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, eius!"
           />
         </div>

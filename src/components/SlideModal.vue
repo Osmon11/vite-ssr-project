@@ -9,7 +9,8 @@
   const valid = ref(true);
   const title = ref("");
   const subtitle = ref("");
-  const image = ref(null);
+  const image = ref([]);
+  const isLoading = ref(false);
 
   watch(
     () => props.editSlide,
@@ -17,35 +18,44 @@
       if (value) {
         title.value = value.title;
         subtitle.value = value.subtitle;
-        image.value = null;
+        image.value = [];
       }
     }
   );
 
   const fileInputLabel = computed(() =>
-    props.editSlide && !image.value
+    props.editSlide && !image.value[0]
       ? props.editSlide["imageName"]
       : "Изображение фона"
   );
 
+  function callback(success) {
+    isLoading.value = false;
+    if (success) {
+      title.value = "";
+      subtitle.value = "";
+      image.value = {};
+      props.onClose(false);
+    }
+  }
   function submitHandler() {
     if (valid.value) {
+      isLoading.value = true;
       const data = new FormData();
       data.append("title", title.value);
       data.append("subtitle", subtitle.value);
 
       if (!props.editSlide) {
         data.append("image", image.value[0]);
-        setSlide(data);
+        setSlide(data, callback);
       } else {
         if (image.value[0]) {
           data.append("image", image.value[0]);
         }
         data.append("imageUrl", props.editSlide.imageUrl);
-        updateSlide({ id: props.editSlide.id }, data);
+        updateSlide({ id: props.editSlide._id }, data, callback);
       }
       image.value = null;
-      props.onClose(false);
     }
   }
 </script>
@@ -90,13 +100,18 @@
           @update:model-value="(value) => (image = value)"
           :required="!editSlide"
           :rules="[
-            (v) => !!v[0] || editSlide || 'Загрузите фоновое изображение',
+            (v) =>
+              !!v[0] || Boolean(editSlide) || 'Загрузите фоновое изображение',
           ]"
           show-size
         ></v-file-input>
         <div class="flex-box-center">
-          <v-btn color="#61a375" class="text-white" type="submit"
-            >Добавить слайд</v-btn
+          <v-btn
+            color="#61a375"
+            class="text-white"
+            type="submit"
+            :loading="isLoading"
+            >{{ props.editSlide ? "Обновить" : "Добавить слайд" }}</v-btn
           >
         </div>
       </v-form>
