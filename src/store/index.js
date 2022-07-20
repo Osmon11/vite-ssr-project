@@ -12,6 +12,7 @@ export const useStore = defineStore("main", {
     slide: {},
     newsFeed: [],
     news: {},
+    currentNews: {},
     alert: {
       severity: "success",
       message: "Hi there",
@@ -44,7 +45,11 @@ export const useStore = defineStore("main", {
       appAxios.defaults.headers["authorization"] = null;
     },
     getUserInfo() {
-      this.admin = { token: cookie_js.get(import.meta.env.VITE_TOKEN_KEY) };
+      makeRequest("/user/info", "get").then((json) => {
+        if (json) {
+          this.admin = json;
+        }
+      });
     },
     setAlert(alert) {
       this.alert = alert;

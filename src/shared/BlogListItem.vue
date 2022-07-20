@@ -1,18 +1,30 @@
 <script setup>
   import { ref } from "@vue/reactivity";
+  import { QuillEditor } from "@vueup/vue-quill";
+
+  import { useStore } from "@/store";
+  import { useRouter } from "vue-router";
 
   defineProps(["article"]);
 
+  const store = useStore();
+  const navigate = useRouter();
   const isLoaded = ref(false);
-  const isExpanded = ref(false);
+  const expanded = ref(false);
 
   function setExpanded(value) {
-    isExpanded.value = value;
+    expanded.value = value;
+  }
+  function setCurrentNews(news) {
+    store.$patch((state) => {
+      state.currentNews = news;
+    });
+    navigate.push("/news");
   }
 </script>
 
 <template>
-  <article class="flex-box collapse" :class="{ expanded: isExpanded }">
+  <article class="flex-box collapse" :class="{ expanded }">
     <img
       :src="article.imageUrl"
       class="cover"
@@ -25,11 +37,15 @@
     </div>
     <div class="content">
       <h1 class="title">{{ article.title }}</h1>
-      <span class="short-text body1">{{ article.subtitle }}</span>
+      <p class="short-text body1 py-4">{{ article.subtitle }}</p>
+      <QuillEditor
+        theme="bubble"
+        :readOnly="true"
+        :content="JSON.parse(article.content)"
+      />
     </div>
-    <p class="body1">{{ article.text }}</p>
-    <div class="expand-more flex-box-center" v-if="!isExpanded">
-      <p class="nav-item nav-item-secondary" @click="setExpanded(true)">
+    <div class="expand-more flex-box-center" v-if="!expanded">
+      <p class="nav-item nav-item-secondary" @click="setCurrentNews(article)">
         Посмотреть все
       </p>
     </div>
@@ -59,7 +75,6 @@
     width: 400px;
   }
   article .content {
-    display: inline;
     width: calc(100% - 420px);
   }
   article .content .title {
@@ -67,9 +82,6 @@
     text-overflow: ellipsis;
     max-width: 100%;
     max-height: 90px;
-  }
-  article .content .short-text {
-    display: inline;
   }
   article .expand-more {
     position: absolute;

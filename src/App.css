@@ -354,3 +354,6 @@ input[type="checkbox"]:checked {
   width: 60px;
   height: 60px;
 }
+.ql-container.ql-bubble .ql-editor {
+  padding: 0px;
+}

@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import OurNews from "@/views/OurNews.vue";
 import HomeView from "@/views/HomeView.vue";
+import NewsView from "@/views/NewsView.vue";
 import AdminView from "@/views/AdminView.vue";
 import LoginView from "@/views/LoginView.vue";
 import OurServices from "@/views/OurServices.vue";
@@ -27,6 +28,11 @@ const router = createRouter({
       path: "/our-news",
       name: "our-news",
       component: OurNews,
+    },
+    {
+      path: "/news",
+      name: "news",
+      component: NewsView,
     },
     {
       path: "/experiences",

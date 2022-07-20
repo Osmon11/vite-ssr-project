@@ -16,7 +16,7 @@
 
 <template>
   <Header />
-  <div class="blog_list_wrapper flex-box-center">
+  <div class="blog-list-wrapper flex-box-center">
     <main>
       <BlogListItem
         v-for="newsItem in store.newsFeed"
@@ -29,7 +29,7 @@
 </template>
 
 <style scoped>
-  .blog_list_wrapper {
+  .blog-list-wrapper {
     min-height: calc(100vh - 545px);
     align-items: flex-start;
     margin: 40px 0px;

@@ -1,10 +1,11 @@
 <script setup>
-  import { computed, ref, watch } from "vue";
-  import { Quill, QuillEditor } from "@vueup/vue-quill";
+  import { computed, onMounted, ref, watch } from "vue";
+  import { QuillEditor } from "@vueup/vue-quill";
   import "@vueup/vue-quill/dist/vue-quill.snow.css";
-  import * as Emoji from "quill-emoji";
+  import Emoji from "quill-emoji";
   import MagicUrl from "quill-magic-url";
-  import * as QuillTableUI from "quill-table-ui";
+  import QuillBetterTable from "quill-better-table";
+  import QuillTableUI from "quill-table-ui";
   import BlotFormatter from "quill-blot-formatter";
 
   import Dialog from "@/shared/Dialog.vue";
@@ -22,18 +23,25 @@
     props.editNews && !image.value[0] ? props.editNews["imageName"] : "Обложка"
   );
   const quillEditor = ref([]);
-  const quillOptions = {
-    theme: "snow",
+
+  const modules = [
+    { name: "blotFormatter", module: BlotFormatter },
+    {
+      name: "magicUrl",
+      module: MagicUrl,
+    },
+    {
+      name: "tableUI",
+      module: QuillTableUI,
+    },
+  ];
+  const globalOptions = {
     modules: {
-      toolbar: "full",
-      "emoji-toolbar": true,
-      "emoji-textarea": true,
-      "emoji-shortname": true,
-      magicUrl: true,
       table: true,
       tableUI: true,
+      magicUrl: true,
+      blotFormatter: true,
     },
-    placeholder: "Напишите контент",
   };
 
   watch(
@@ -47,10 +55,6 @@
       }
     }
   );
-  // Quill.register("modules/emogi", Emoji);
-  // Quill.register("modules/blot-formatter", BlotFormatter);
-  // Quill.register("modules/magic-url", MagicUrl);
-  // Quill.register("modules/table-ui", QuillTableUI);
   function resetForm() {
     title.value = "";
     subtitle.value = "";
@@ -151,8 +155,9 @@
             :ref="(ref) => (quillEditor[0] = ref)"
             theme="snow"
             toolbar="full"
-            :globalOptions="quillOptions"
+            :modules="modules"
             v-model:content="content"
+            placeholder="Напишите контент"
           />
         </div>
         <div class="flex-box-center">
