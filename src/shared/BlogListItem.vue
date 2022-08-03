@@ -1,6 +1,5 @@
 <script setup>
   import { ref } from "@vue/reactivity";
-  import { QuillEditor } from "@vueup/vue-quill";
 
   import { useStore } from "@/store";
   import { useRouter } from "vue-router";
@@ -38,11 +37,6 @@
     <div class="content">
       <h1 class="title">{{ article.title }}</h1>
       <p class="short-text body1 py-4">{{ article.subtitle }}</p>
-      <QuillEditor
-        theme="bubble"
-        :readOnly="true"
-        :content="JSON.parse(article.content)"
-      />
     </div>
     <div class="expand-more flex-box-center" v-if="!expanded">
       <p class="nav-item nav-item-secondary" @click="setCurrentNews(article)">

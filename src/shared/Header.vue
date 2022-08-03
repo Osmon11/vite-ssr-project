@@ -149,7 +149,7 @@
 <style scoped>
   .row {
     width: 100%;
-    max-width: 1140px;
+    max-width: 1250px;
     gap: 5vw;
   }
   .logo-wrapper {

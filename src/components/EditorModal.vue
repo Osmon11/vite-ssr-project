@@ -1,13 +1,8 @@
 <script setup>
   import { computed, onMounted, ref, watch } from "vue";
-  import { QuillEditor } from "@vueup/vue-quill";
-  import "@vueup/vue-quill/dist/vue-quill.snow.css";
-  import Emoji from "quill-emoji";
-  import MagicUrl from "quill-magic-url";
-  import QuillBetterTable from "quill-better-table";
-  import QuillTableUI from "quill-table-ui";
-  import BlotFormatter from "quill-blot-formatter";
+  import CKEditor from "@ckeditor/ckeditor5-vue";
 
+  import Editor from "../plugins/ckeditor";
   import Dialog from "@/shared/Dialog.vue";
   import { useStore } from "../store";
 
@@ -17,32 +12,13 @@
   const title = ref("");
   const subtitle = ref("");
   const image = ref([]);
-  const content = ref("");
+  const editorData = ref("");
   const isLoading = ref(false);
   const fileInputLabel = computed(() =>
     props.editNews && !image.value[0] ? props.editNews["imageName"] : "Обложка"
   );
-  const quillEditor = ref([]);
 
-  const modules = [
-    { name: "blotFormatter", module: BlotFormatter },
-    {
-      name: "magicUrl",
-      module: MagicUrl,
-    },
-    {
-      name: "tableUI",
-      module: QuillTableUI,
-    },
-  ];
-  const globalOptions = {
-    modules: {
-      table: true,
-      tableUI: true,
-      magicUrl: true,
-      blotFormatter: true,
-    },
-  };
+  const editorConfig = {};
 
   watch(
     () => props.editNews,
@@ -51,7 +27,6 @@
         title.value = value.title;
         subtitle.value = value.subtitle;
         image.value = [];
-        quillEditor.value[0].setContents(JSON.parse(value.content));
       }
     }
   );
@@ -59,7 +34,6 @@
     title.value = "";
     subtitle.value = "";
     image.value = [];
-    quillEditor.value[0].setContents("");
   }
   function callback(success) {
     isLoading.value = false;
@@ -80,7 +54,6 @@
       let data = new FormData();
       data.append("title", title.value);
       data.append("subtitle", subtitle.value);
-      data.append("content", JSON.stringify(content.value));
       if (!props.editNews) {
         data.append("image", image.value[0]);
         store.setNews(data, callback);
@@ -151,13 +124,10 @@
             clearable
             show-size
           ></v-file-input>
-          <QuillEditor
-            :ref="(ref) => (quillEditor[0] = ref)"
-            theme="snow"
-            toolbar="full"
-            :modules="modules"
-            v-model:content="content"
-            placeholder="Напишите контент"
+          <CKEditor.component
+            :editor="Editor"
+            v-model="editorData"
+            :config="editorConfig"
           />
         </div>
         <div class="flex-box-center">

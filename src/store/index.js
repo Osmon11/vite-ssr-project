@@ -133,5 +133,13 @@ export const useStore = defineStore("main", {
         }
       );
     },
+    sendFeedback(data, callback) {
+      makeRequest("/mail/feedback", "post", data).then((json) => {
+        this.alert = json
+          ? { severity: "success", message: "Успешно отправлена" }
+          : { severity: "error", message: "Произошла не предвиденная ошибка" };
+        callback(Boolean(json));
+      });
+    },
   },
 });

@@ -471,12 +471,12 @@
       <router-link
         to="/experiences"
         class="text-decoration-none"
-        style="width: 100%; max-width: 1140px"
+        style="width: 100%; max-width: 1250px"
       >
         <v-btn
           color="#61a375"
           class="text-white"
-          style="width: 100%; max-width: 1140px"
+          style="width: 100%; max-width: 1250px"
         >
           подробней
         </v-btn></router-link

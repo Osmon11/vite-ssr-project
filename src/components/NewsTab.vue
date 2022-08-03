@@ -1,6 +1,5 @@
 <script setup>
   import { onMounted, ref } from "vue";
-  import { QuillEditor } from "@vueup/vue-quill";
 
   import EditorModal from "@/components/EditorModal.vue";
   import { useStore } from "../store";
@@ -58,11 +57,6 @@
             />
             <p style="display: inline">{{ newsItem.subtitle }}</p>
           </div>
-          <QuillEditor
-            theme="bubble"
-            :readOnly="true"
-            :content="JSON.parse(newsItem.content)"
-          />
           <div class="flex-box-center">
             <div class="flex-box" style="gap: 20px">
               <v-btn
