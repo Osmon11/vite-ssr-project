@@ -20,9 +20,9 @@
       store.sendFeedback(
         {
           message: `
-        Имя: ${userName}\n
-        Почта: ${email}\n
-        Сообщение: ${message}
+        Имя: ${userName.value}\n
+        Почта: ${email.value}\n
+        Сообщение: ${message.value}
       `,
         },
         (success) => {
@@ -31,10 +31,10 @@
             userName.value = "";
             email.value = "";
             message.value = "";
+            props.onClose(false);
           }
         }
       );
-      props.onClose(false);
     }
   }
 </script>
@@ -50,6 +50,7 @@
       </div>
       <div class="flex-box" style="gap: 20px">
         <v-text-field
+          v-model="userName"
           type="text"
           name="userName"
           variant="outlined"
@@ -59,6 +60,7 @@
           style="width: calc(50% - 10px)"
         ></v-text-field>
         <v-text-field
+          v-model="email"
           type="email"
           name="email"
           variant="outlined"
@@ -69,6 +71,7 @@
         ></v-text-field>
       </div>
       <v-textarea
+        v-model="message"
         type="text"
         name="message"
         variant="outlined"

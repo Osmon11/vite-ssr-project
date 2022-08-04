@@ -452,7 +452,7 @@
     </main>
   </div>
   <section style="padding-top: 0px">
-    <MarqueeText class="gallery" :duration="15" :repeat="3">
+    <MarqueeText class="gallery" :duration="15" :repeat="10">
       <main class="flex-box" style="width: 100vw; gap: 15px">
         <div class="gallery_item">
           <img src="/assets/9.png" alt="" />

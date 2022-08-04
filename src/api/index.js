@@ -3,7 +3,7 @@ import cookie_js from "cookie_js";
 import { useStore } from "../store";
 
 let token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY),
-  headers = {};
+  headers = { "X-CSRF-TOKEN": "CSRF-Token" };
 
 if (token) {
   headers.Authorization = token ? token : "";

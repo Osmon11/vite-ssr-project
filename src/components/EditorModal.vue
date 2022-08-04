@@ -1,8 +1,9 @@
 <script setup>
   import { computed, onMounted, ref, watch } from "vue";
   import CKEditor from "@ckeditor/ckeditor5-vue";
+  import ClassicEditor from "@ckeditor/ckeditor5-build-classic/build/ckeditor";
+  import cookie_js from "cookie_js";
 
-  import Editor from "../plugins/ckeditor";
   import Dialog from "@/shared/Dialog.vue";
   import { useStore } from "../store";
 
@@ -18,8 +19,73 @@
     props.editNews && !image.value[0] ? props.editNews["imageName"] : "Обложка"
   );
 
-  const editorConfig = {};
-
+  const editorConfig = {
+    toolbar: {
+      items: [
+        "heading",
+        "|",
+        "bold",
+        "italic",
+        "link",
+        "bulletedList",
+        "numberedList",
+        "|",
+        "outdent",
+        "alignment",
+        "indent",
+        "|",
+        "imageInsert",
+        "blockQuote",
+        "insertTable",
+        "mediaEmbed",
+        "|",
+        "fontFamily",
+        "fontSize",
+        "fontColor",
+        "fontBackgroundColor",
+        "|",
+        "code",
+        "codeBlock",
+        "|",
+        "undo",
+        "findAndReplace",
+        "redo",
+      ],
+    },
+    language: "ru",
+    image: {
+      toolbar: [
+        "imageTextAlternative",
+        "imageStyle:inline",
+        "imageStyle:block",
+        "imageStyle:side",
+        "linkImage",
+      ],
+      upload: {
+        types: [".jpeg", ".png", ".gif", ".bmp", ".webp", ".tiff"],
+      },
+    },
+    table: {
+      contentToolbar: [
+        "tableColumn",
+        "tableRow",
+        "mergeTableCells",
+        "tableCellProperties",
+      ],
+    },
+    // simpleUpload: {
+    //   uploadUrl: `${import.meta.env.VITE_API_URL}/editor-uploads`,
+    //   withCredentials: true,
+    //   headers: {
+    //     "X-CSRF-TOKEN": "CSRF-Token",
+    //     Authorization: cookie_js.get(import.meta.env.VITE_TOKEN_KEY),
+    //   },
+    //   error: {
+    //     message:
+    //       "The image upload failed because the image was too big (max 1.5MB).",
+    //   },
+    // },
+  };
   watch(
     () => props.editNews,
     (value) => {
@@ -125,7 +191,7 @@
             show-size
           ></v-file-input>
           <CKEditor.component
-            :editor="Editor"
+            :editor="ClassicEditor"
             v-model="editorData"
             :config="editorConfig"
           />
