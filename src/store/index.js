@@ -141,5 +141,8 @@ export const useStore = defineStore("main", {
         callback(Boolean(json));
       });
     },
+    editorUpload(data) {
+      return makeRequest("/editor-uploads", "post", data);
+    },
   },
 });

@@ -1,7 +1,7 @@
 <script setup>
   import { computed, onMounted, ref, watch } from "vue";
   import CKEditor from "@ckeditor/ckeditor5-vue";
-  import ClassicEditor from "@ckeditor/ckeditor5-build-classic/build/ckeditor";
+  import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
   import cookie_js from "cookie_js";
 
   import Dialog from "@/shared/Dialog.vue";
@@ -27,6 +27,9 @@
         "bold",
         "italic",
         "link",
+        "underline",
+        "highlight",
+        "|",
         "bulletedList",
         "numberedList",
         "|",
@@ -39,17 +42,20 @@
         "insertTable",
         "mediaEmbed",
         "|",
+        "fontBackgroundColor",
+        "fontColor",
         "fontFamily",
         "fontSize",
-        "fontColor",
-        "fontBackgroundColor",
-        "|",
-        "code",
-        "codeBlock",
         "|",
         "undo",
         "findAndReplace",
         "redo",
+        "|",
+        "removeFormat",
+        "sourceEditing",
+        "code",
+        "codeBlock",
+        "horizontalLine",
       ],
     },
     language: "ru",
@@ -61,9 +67,6 @@
         "imageStyle:side",
         "linkImage",
       ],
-      upload: {
-        types: [".jpeg", ".png", ".gif", ".bmp", ".webp", ".tiff"],
-      },
     },
     table: {
       contentToolbar: [
@@ -71,20 +74,30 @@
         "tableRow",
         "mergeTableCells",
         "tableCellProperties",
+        "tableProperties",
       ],
     },
-    // simpleUpload: {
-    //   uploadUrl: `${import.meta.env.VITE_API_URL}/editor-uploads`,
-    //   withCredentials: true,
-    //   headers: {
-    //     "X-CSRF-TOKEN": "CSRF-Token",
-    //     Authorization: cookie_js.get(import.meta.env.VITE_TOKEN_KEY),
-    //   },
-    //   error: {
-    //     message:
-    //       "The image upload failed because the image was too big (max 1.5MB).",
-    //   },
-    // },
+    htmlSupport: {
+      allow: [
+        {
+          name: "iframe",
+          attributes: true,
+          classes: true,
+          styles: true,
+        },
+        {
+          name: "video",
+          attributes: true,
+          classes: true,
+          styles: true,
+        },
+      ],
+    },
+    uploadAdapter: {
+      uploadUrl: `${import.meta.env.VITE_API_URL}/editor-uploads`,
+      useFetch: true, // optional
+      headers: { Authorization: cookie_js.get(import.meta.env.VITE_TOKEN_KEY) }, // optional (eg. in asp.net core for CSRF prevention you would have headers : { "RequestVerificationToken": _serverSideGeneratedCSRFToken })
+    },
   };
   watch(
     () => props.editNews,
@@ -109,7 +122,7 @@
     }
   }
   function submitHandler() {
-    if (!content.value)
+    if (!editorData.value)
       store.setAlert({
         severity: "error",
         message: "Вы забыли написать контент",
@@ -120,6 +133,7 @@
       let data = new FormData();
       data.append("title", title.value);
       data.append("subtitle", subtitle.value);
+      data.append("content", editorData.value);
       if (!props.editNews) {
         data.append("image", image.value[0]);
         store.setNews(data, callback);
@@ -191,8 +205,8 @@
             show-size
           ></v-file-input>
           <CKEditor.component
-            :editor="ClassicEditor"
             v-model="editorData"
+            :editor="ClassicEditor"
             :config="editorConfig"
           />
         </div>

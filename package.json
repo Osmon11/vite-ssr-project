@@ -16,8 +16,6 @@
     "moment": "^2.29.4",
     "pinia": "^2.0.16",
     "roboto-fontface": "*",
-    "tiptap": "^1.32.2",
-    "tiptap-extensions": "^1.35.2",
     "vite-svg-loader": "^3.4.0",
     "vue": "^3.2.37",
     "vue-editor-js": "^2.0.2",
