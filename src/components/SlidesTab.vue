@@ -11,6 +11,12 @@
 
   onMounted(() => {
     store.getSlides();
+    setTimeout(
+      store.slides.forEach(
+        (slide) => (loadedImg.value[slide._id] = true),
+        10000
+      )
+    );
   });
 
   function setModal(value) {
@@ -51,14 +57,13 @@
         class="img"
         v-show="loadedImg[slide._id]"
         :src="slide.imageUrl"
-        loading="lazy"
         @load="onLoadImg(slide._id)"
         alt=""
       />
       <div class="img flex-box-center" v-show="!loadedImg[slide._id]">
         <img
           class="loading-gif"
-          src="/public/assets/loading-8bars.gif"
+          src="/assets/loading-8bars.gif"
           alt="loading gif"
         />
       </div>

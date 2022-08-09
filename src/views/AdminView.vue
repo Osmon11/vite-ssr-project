@@ -5,6 +5,7 @@
   import Footer from "@/shared/Footer.vue";
   import NewsTab from "@/components/NewsTab.vue";
   import SlidesTab from "@/components/SlidesTab.vue";
+  import ShariahBoardTab from "@/components/ShariahBoardTab.vue";
 
   const tabs = ref("news");
 </script>
@@ -16,10 +17,12 @@
       <v-tabs v-model="tabs" direction="vertical" color="#61a375">
         <v-tab value="news">News</v-tab>
         <v-tab value="slides">Slides</v-tab>
+        <v-tab value="employees">Employees</v-tab>
       </v-tabs></v-card
     ><v-window v-model="tabs" class="py-10 px-10" style="width: 100%"
       ><v-window-item value="news"><NewsTab /></v-window-item
       ><v-window-item value="slides"><SlidesTab /></v-window-item
+      ><v-window-item value="employees"><ShariahBoardTab /></v-window-item
     ></v-window>
   </div>
   <Footer />

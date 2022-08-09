@@ -1,7 +1,7 @@
 <script setup>
-  import { computed, onMounted, ref, watch } from "vue";
+  import { computed, ref, watch } from "vue";
   import CKEditor from "@ckeditor/ckeditor5-vue";
-  import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+  import ClassicEditor from "@ckeditor/ckeditor5-build-classic/";
   import cookie_js from "cookie_js";
 
   import Dialog from "@/shared/Dialog.vue";
@@ -106,6 +106,7 @@
         title.value = value.title;
         subtitle.value = value.subtitle;
         image.value = [];
+        editorData.value = value.content;
       }
     }
   );
@@ -113,6 +114,7 @@
     title.value = "";
     subtitle.value = "";
     image.value = [];
+    editorData.value = "";
   }
   function callback(success) {
     isLoading.value = false;

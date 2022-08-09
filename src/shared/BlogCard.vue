@@ -1,15 +1,25 @@
 <script setup>
-  defineProps(["cover", "title"]);
+  import { useRouter } from "vue-router";
+  import { useStore } from "../store/index.js";
+
+  const props = defineProps(["news"]);
+  const store = useStore();
+  const navigate = useRouter();
+
+  function setCurrentNews() {
+    store.$patch((state) => {
+      state.currentNews = props.news;
+    });
+    navigate.push("/news");
+  }
 </script>
 
 <template>
-  <article class="blog-card">
-    <figure>
-      <router-link to="/"><img :src="cover" alt="" /></router-link>
-    </figure>
+  <article class="blog-card" @click="setCurrentNews">
+    <figure><img :src="news.imageUrl" :alt="news.imageName" /></figure>
     <div class="blog_content">
       <h3 class="title">
-        <router-link to="/">{{ title }}</router-link>
+        {{ news.title }}
       </h3>
     </div>
   </article>
@@ -50,7 +60,9 @@
     overflow: hidden;
     padding-bottom: 56.3%;
   }
-  .blog-card img {
+  .blog-card img,
+  .blog-card .cover_image {
+    width: 100%;
     top: auto;
     bottom: auto;
     left: auto;

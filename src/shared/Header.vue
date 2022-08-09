@@ -15,15 +15,14 @@
   const navigate = useRouter();
   const { name } = useRoute();
   const homePageNavigation = [
-    { label: "About Us", key: "about_us" },
-    { label: "Why Us", key: "why_us" },
-    { label: "shariah board", to: "/shariah-board" },
+    { label: "О НАС", key: "about_us" },
+    { label: "ШАРИАТСКИЙ СОВЕТ", to: "/shariah-board" },
     {
-      label: "Our Experiences",
+      label: "НАШ ОПЫТ",
       key: "our_experiences",
     },
-    { label: "Our Services", key: "our_services" },
-    { label: "News", key: "blog" },
+    { label: "НАШИ УСЛУГИ", key: "our_services" },
+    { label: "НОВОСТИ", key: "blog" },
   ];
   const languageSelect = [
     {
@@ -100,24 +99,30 @@
             :key="item.label"
             @click.stop="navHandler(item)"
           >
-            {{ item.label }}
+            {{ t(item.label) }}
           </div>
-          <router-link class="nav-item" to="/admin" v-if="token"
-            >Admin</router-link
-          >
-          <router-link class="nav-item" to="/login" v-else>Login</router-link>
+          <router-link class="nav-item" to="/admin" v-if="token">{{
+            t("Админ")
+          }}</router-link>
+          <router-link class="nav-item" to="/login" v-else>{{
+            t("войти")
+          }}</router-link>
         </nav>
         <nav class="flex-box" v-if="name !== 'home'">
-          <router-link class="nav-item" to="/">Home</router-link>
-          <router-link class="nav-item" to="/our-news">News</router-link>
+          <router-link class="nav-item" to="/">{{ t("Главная") }}</router-link>
+          <router-link class="nav-item" to="/our-news">{{
+            t("НОВОСТИ")
+          }}</router-link>
           <div v-if="name !== 'admin'">
-            <router-link class="nav-item" to="/admin" v-if="token"
-              >Admin panel</router-link
-            >
-            <router-link class="nav-item" to="/login" v-else>Login</router-link>
+            <router-link class="nav-item" to="/admin" v-if="token">{{
+              t("Админ")
+            }}</router-link>
+            <router-link class="nav-item" to="/login" v-else>{{
+              t("войти")
+            }}</router-link>
           </div>
           <div class="flex-box" style="cursor: pointer" @click="logout" v-else>
-            <p class="nav-item" style="padding-right: 10px">Logout</p>
+            <p class="nav-item" style="padding-right: 10px">{{ t("выйти") }}</p>
             <!-- <img
               class="logout-icon"
               src="/assets/logout-svgrepo-com.svg"

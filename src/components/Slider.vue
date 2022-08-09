@@ -51,7 +51,6 @@
         <img
           class="img"
           :src="slide.imageUrl"
-          loading="lazy"
           @load="onLoadImg(slide.id)"
           :alt="slide.imageName"
         />
@@ -75,8 +74,9 @@
         style="width: 100%; height: 100%"
       >
         <img
-          src="/public/assets/loading-12bras.gif"
+          src="/assets/loading-12bras.gif"
           alt="background loading svg"
+          style="width: 10%"
         />
       </div>
     </div>
@@ -181,14 +181,6 @@
     -webkit-animation-name: fadeInAndScale;
     animation-name: fadeInAndScale;
   }
-  /* .text-slider {
-    -webkit-animation-duration: 1.25s;
-    animation-duration: 1.25s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-animation-name: fadeInRightBig;
-    animation-name: fadeInRightBig;
-  } */
   @-webkit-keyframes fadeInRightBig {
     from {
       right: -1200px;

@@ -4,7 +4,7 @@
   import { useStore } from "@/store";
   import { useRouter } from "vue-router";
 
-  defineProps(["article"]);
+  defineProps(["news"]);
 
   const store = useStore();
   const navigate = useRouter();
@@ -25,7 +25,7 @@
 <template>
   <article class="flex-box collapse" :class="{ expanded }">
     <img
-      :src="article.imageUrl"
+      :src="news.imageUrl"
       class="cover"
       alt=""
       v-show="isLoaded"
@@ -35,12 +35,12 @@
       <img src="/public/assets/loading-12bras.gif" alt="" />
     </div>
     <div class="content">
-      <h1 class="title">{{ article.title }}</h1>
-      <p class="short-text body1 py-4">{{ article.subtitle }}</p>
+      <h1 class="title">{{ news.title }}</h1>
+      <p class="short-text body1 py-4">{{ news.subtitle }}</p>
     </div>
     <div class="expand-more flex-box-center" v-if="!expanded">
-      <p class="nav-item nav-item-secondary" @click="setCurrentNews(article)">
-        Посмотреть все
+      <p class="nav-item nav-item-secondary" @click="setCurrentNews(news)">
+        Прочитать подробней
       </p>
     </div>
   </article>

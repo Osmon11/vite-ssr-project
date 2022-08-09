@@ -7,7 +7,8 @@
   <Header />
   <div class="flex-box-center">
     <main style="min-height: 100vh">
-      <v-banner class="my-4" :lines="5">
+      <p class="title py-5 mt-5 text-center" style="width: 100%">Сотрудники</p>
+      <!-- <v-banner class="my-4" lines="5">
         <template #prepend
           ><v-avatar size="x-large">
             <v-img
@@ -24,7 +25,7 @@
           Tenetur quae ipsam voluptate dolore aliquam ipsum obcaecati maiores
           inventore, error numquam eos.</v-banner-text
         ></v-banner
-      >
+      > -->
     </main>
   </div>
   <Footer />

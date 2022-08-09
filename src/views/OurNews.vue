@@ -21,7 +21,7 @@
       <BlogListItem
         v-for="newsItem in store.newsFeed"
         :key="newsItem._id"
-        :article="newsItem"
+        :news="newsItem"
       />
     </main>
   </div>

@@ -7,13 +7,18 @@
   import Slider from "@/components/Slider.vue";
   import BlogCard from "@/shared/BlogCard.vue";
   import Footer from "@/shared/Footer.vue";
+  import { useStore } from "../store/index.js";
+  import { useI18n } from "vue-i18n";
 
+  const store = useStore();
   const refs = ref({});
+  const { t } = useI18n();
   const activeGoTop = ref(false);
   const headerPosition = ref("relative");
 
   onMounted(() => {
     window.addEventListener("scroll", handleScroll);
+    store.getNewsFeed({}, (success) => {});
   });
   onUnmounted(() => {
     window.removeEventListener("scroll", handleScroll);
@@ -271,7 +276,7 @@
   <Slider />
   <div class="flex-box-center">
     <main>
-      <section
+      <!-- <section
         style="text-align: center"
         :ref="
           (el) => {
@@ -302,7 +307,7 @@
             need for real sector growth.
           </p>
         </div>
-      </section>
+      </section> -->
       <section
         class="flex-box"
         style="align-items: flex-start"
@@ -312,122 +317,37 @@
           }
         "
       >
-        <div class="column_wrap" style="width: 50%">
+        <div class="column_wrap" style="width: 33%">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">ABOUT US</h3>
+            <h3 class="title divider">{{ t("О НАС") }}</h3>
           </div>
           <p class="body1" style="margin-bottom: 20px">
-            A financial consulting group specialising in Islamic banking &
-            finance, capital market, takaful, wealth management and other areas
-            of Islamic financial services including but not limited to
-            consultancy, advisory and training.
-          </p>
-          <p class="body1" style="margin-bottom: 20px">
-            The First International Consulting group is supported by a team of
-            qualified and experienced professionals in the areas of Islamic
-            banking, finance, capital market, takaful and wealth management to
-            undertake consulting, training and advisory tasks
+            {{ t("О компании") }}
           </p>
         </div>
-        <div class="column_wrap" style="width: 50%">
-          <img
-            width="100%"
-            src="/assets/black-and-white-bunch-of-keys-closeup-67609-1024x680.jpg"
-            alt=""
-          />
-        </div>
-      </section>
-      <section class="flex-box" style="align-items: flex-start">
-        <div class="column_wrap" style="width: 50%">
-          <img
-            width="100%"
-            src="/assets/ancient-architecture-asia-532922-1024x576.jpg"
-            alt=""
-          />
-        </div>
-        <div class="column_wrap" style="width: 50%">
+        <div class="column_wrap" style="width: 33%">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">MISSION</h3>
+            <h3 class="title divider">{{ t("Миссия компании") }}</h3>
           </div>
           <p class="body1" style="margin-bottom: 20px">
-            To actively spearhead and promote the quality growth and development
-            of pure and holistic Islamic financial practices
+            {{
+              t(
+                "Развитие и популяризация Исламского финансирования в Кыргызстане и в ближнем зарубежье."
+              )
+            }}
           </p>
         </div>
-      </section>
-      <section>
-        <div class="column_wrap">
+        <div class="column_wrap" style="width: 33%">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">OBJECTIVES</h3>
-          </div>
-          <ul>
-            <li>
-              <p class="body1">
-                To provide world class support and advisory services to
-                financial institutions in establishing and managing Islamic
-                banks and non-bank financial institutions.
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                To identify opportunities in the public and private sectors that
-                could function as engines of growth for Islamic banking and
-                takaful.
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                To promote Islamic finance, banking, and takaful services as
-                robust and viable financial operations.
-              </p>
-            </li>
-            <li>
-              <p class="body1">
-                To expand, pioneer and spearhead the innovation and development
-                of Islamic banking and takaful services in OIC and/or IDB member
-                countries and other jurisdictions
-              </p>
-            </li>
-          </ul>
-        </div>
-      </section>
-      <section
-        class="flex-box"
-        style="align-items: flex-start"
-        :ref="
-          (el) => {
-            if (el) refs['why_us'] = el;
-          }
-        "
-      >
-        <div class="column_wrap" style="width: 50%">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">WHY US</h3>
+            <h3 class="title divider">{{ t("ПОЧЕМУ МЫ") }}</h3>
           </div>
           <p class="body1" style="margin-bottom: 20px">
-            We provide added value drawn from our experiences as industry
-            pioneers with extensive first mover advantages, particularly:-
+            {{
+              t(
+                "Наши услуги включают полный цикл процессов, от формирования кадрового состава до поставки программного комплекса по Исламскому Финансированию в кратчайшие сроки. Наша команда состоит из специалистов и членов Совета по надзору за исламскими финансовыми услугами, имеющие теоретические знания исламских принципов финансирования, а также многолетний практический опыт в данной области как в Кыргызстане, так и за рубежом"
+              )
+            }}
           </p>
-          <p class="body1" style="margin-bottom: 20px">
-            As a group, we have more than 100-years of combined hands-on
-            experience in successfully planning, establishing and operating
-            Islamic finance banking, capital market, takaful, wealth management
-            and retakaful operations.
-          </p>
-          <p class="body1" style="margin-bottom: 20px">
-            Our resources include renowned international industry experts and
-            acknowledged pioneers in the industry – Dato’ Ahmad Tajudin Abdul
-            Rahman, Dato’ Mohd Fadzli Yusof and Mr. Wan Abdul Rahim Kamil,
-            supported by a team of dedicated and highly qualified practitioners
-            from various related disciplines.
-          </p>
-        </div>
-        <div class="column_wrap" style="width: 50%">
-          <img
-            width="100%"
-            src="/assets/achievement-agreement-black-and-white-997718-1024x671.jpg"
-            alt=""
-          />
         </div>
       </section>
       <section
@@ -440,13 +360,8 @@
       >
         <div class="column_wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">OUR EXPERIENCES</h3>
+            <h3 class="title divider">{{ t("НАШ ОПЫТ") }}</h3>
           </div>
-          <p class="body1" style="margin-bottom: 20px">
-            FIC is focused on pursuing its objectives of providing support and
-            advisory services in Islamic finance and takaful, as exampled in
-            some of our engagements:
-          </p>
         </div>
       </section>
     </main>
@@ -455,16 +370,16 @@
     <MarqueeText class="gallery" :duration="15" :repeat="10">
       <main class="flex-box" style="width: 100vw; gap: 15px">
         <div class="gallery_item">
-          <img src="/assets/9.png" alt="" />
+          <img src="/assets/9.png" style="width: auto" alt="" />
         </div>
         <div class="gallery_item">
-          <img src="/assets/7.png" alt="" />
+          <img src="/assets/7.png" style="width: auto" alt="" />
         </div>
         <div class="gallery_item">
-          <img src="/assets/partnerre-logo.png" alt="" />
+          <img src="/assets/partnerre-logo.png" style="width: auto" alt="" />
         </div>
         <div class="gallery_item">
-          <img src="/assets/8.png" alt="" />
+          <img src="/assets/8.png" style="width: auto" alt="" />
         </div></main
     ></MarqueeText>
     <div class="flex-box-center" style="margin-top: 20px">
@@ -494,7 +409,7 @@
       >
         <div class="column_wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">OUR SERVICES</h3>
+            <h3 class="title divider">{{ t("НАШИ УСЛУГИ") }}</h3>
           </div>
         </div>
         <v-expansion-panels style="margin-bottom: 20px">
@@ -522,13 +437,14 @@
       >
         <div class="column_wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">Our News</h3>
+            <h3 class="title divider">{{ t("НОВОСТИ") }}</h3>
           </div>
         </div>
-        <div class="flex-box" style="gap: 20px">
+        <div class="flex-box" style="gap: 20px" v-if="store.newsFeed.length">
           <BlogCard
-            cover="/assets/mountine-2.jpg"
-            title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, eius!"
+            v-for="news in store.newsFeed"
+            :key="news._id"
+            :news="news"
           />
         </div>
         <router-link to="/our-news" class="text-decoration-none">

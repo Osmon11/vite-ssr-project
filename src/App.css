@@ -357,3 +357,18 @@ input[type="checkbox"]:checked {
 .ql-container.ql-bubble .ql-editor {
   padding: 0px;
 }
+.editor-wrapper {
+  max-width: 950px;
+  min-height: 450px;
+  background: #fff;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 24px 24px -18px rgb(69 104 129 / 33%),
+    0 9px 45px 0 rgb(114 119 160 / 12%);
+  box-shadow: 0 24px 24px -18px rgb(69 104 129 / 33%),
+    0 9px 45px 0 rgb(114 119 160 / 12%);
+  padding: 70px 50px;
+  margin: 32px auto;
+  font-size: 16px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}

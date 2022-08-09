@@ -11,6 +11,8 @@ export const useStore = defineStore("main", {
     slides: [],
     slide: {},
     newsFeed: [],
+    shariahBoard: [],
+    employee: {},
     news: {},
     currentNews: {},
     alert: {
@@ -129,6 +131,47 @@ export const useStore = defineStore("main", {
         (json) => {
           if (json) {
             this.newsFeed = json.data;
+          }
+        }
+      );
+    },
+    getShariahBoard(query = {}, callback = () => {}) {
+      makeRequest(`/shariah-board?${getUrlString(query)}`, "get").then(
+        (json) => {
+          if (json) {
+            if (query.id) {
+              this.employee[query.id] = json;
+            } else {
+              this.shariahBoard = json;
+            }
+          }
+          callback(Boolean(json));
+        }
+      );
+    },
+    setEmployee(data, callback = () => {}) {
+      makeRequest("/shariah-board", "post", data).then((json) => {
+        if (json) {
+          this.shariahBoard = json;
+        }
+        callback(Boolean(json));
+      });
+    },
+    updateEmployee(query = {}, data, callback = () => {}) {
+      makeRequest(`/shariah-board?${getUrlString(query)}`, "put", data).then(
+        (json) => {
+          if (json) {
+            this.shariahBoard = json.data;
+          }
+          callback(Boolean(json));
+        }
+      );
+    },
+    deleteEmployee(query = {}) {
+      makeRequest(`/shariah-board?${getUrlString(query)}`, "delete").then(
+        (json) => {
+          if (json) {
+            this.shariahBoard = json.data;
           }
         }
       );

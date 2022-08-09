@@ -1,7 +1,9 @@
 <script setup>
   import FeedbackModal from "@/components/FeedbackModal.vue";
   import { ref } from "@vue/reactivity";
+  import { useI18n } from "vue-i18n";
 
+  const { t } = useI18n();
   const openFeedbackModal = ref(false);
 
   function setFeedbackModal(value) {
@@ -10,75 +12,84 @@
 </script>
 
 <template>
-  <footer class="flex-box-center">
-    <div class="footer-content flex-box">
-      <div>
-        <p class="title" style="margin-bottom: 24px">GET IN TOUCH</p>
-        <p class="body1" style="color: #c5c5c5">
-          First International Consulting Sdn Bhd<br />
-          No. 16-1-1A, First Floor, Jalan Medan PB 2A Section 9, Pusat Bandar
-          Bangi<br />
-          43650 Bandar Baru Bangi<br />
-          Selangor Darul Ehsan, Malaysia
-        </p>
-      </div>
-      <div>
-        <p class="title" style="margin-bottom: 24px">CONTACTS</p>
-        <p class="body1" style="color: #c5c5c5">
-          Tel : +6 03 8925 8454<br />
-          Fax : +6 03 8926 8454<br />
-          Email : khudus@fic-isfin.my<br />
-          Contact person : Abdul Khudus Mohd Naaim
-        </p>
-        <div class="social-media-wrapper flex-box">
-          <div class="icon-wrapper">
-            <img
-              class="social-media-icon"
-              src="/assets/email.png"
-              alt="gmail icon"
-              @click="setFeedbackModal(true)"
-            />
+  <footer>
+    <div class="flex-box-center">
+      <div class="footer-content flex-box">
+        <div>
+          <p class="title" style="margin-bottom: 24px">{{ t("Наш адрес") }}</p>
+          <p class="body1" style="color: #c5c5c5">
+            {{
+              t(
+                "Консалтинговая компания «Amanat Advisory» Оставайтесь на связи."
+              )
+            }}<br />
+            {{ t("ул. Койбагарова, Бишкек, Кыргызстан") }}
+          </p>
+        </div>
+        <div>
+          <p class="title" style="margin-bottom: 24px">
+            {{ t("Мы в соцсетях") }}
+          </p>
+          <p class="body1" style="color: #c5c5c5">
+            {{ t("Тел +996555081071") }}<br />
+            {{ t("Эл почта", { email: "madalieva@amanatadvisory.kg" }) }}
+          </p>
+          <div class="social-media-wrapper flex-box">
+            <div class="icon-wrapper">
+              <img
+                class="social-media-icon"
+                src="/assets/email.png"
+                alt="gmail icon"
+                @click="setFeedbackModal(true)"
+              />
+            </div>
+            <a
+              class="icon-wrapper"
+              href="https://t.me/akylmanchik"
+              target="_blank"
+            >
+              <img
+                class="social-media-icon"
+                src="/assets/telegram.png"
+                alt="gmail icon"
+            /></a>
+            <a
+              class="icon-wrapper"
+              href="https://api.whatsapp.com/send?phone=996555081071&text=&source=&data=&app_absent="
+              target="_blank"
+            >
+              <img
+                class="social-media-icon"
+                src="/assets/whatsapp.png"
+                alt="gmail icon"
+            /></a>
+            <a
+              class="icon-wrapper"
+              href="https://join.skype.com/invite/JV8HXoJwx8Ud"
+              target="_blank"
+            >
+              <img
+                class="social-media-icon"
+                src="/assets/skype.png"
+                alt="gmail icon"
+            /></a>
           </div>
-          <a
-            class="icon-wrapper"
-            href="https://t.me/akylmanchik"
-            target="_blank"
-          >
-            <img
-              class="social-media-icon"
-              src="/assets/telegram.png"
-              alt="gmail icon"
-          /></a>
-          <a
-            class="icon-wrapper"
-            href="https://api.whatsapp.com/send?phone=996701110483&text=&source=&data=&app_absent="
-            target="_blank"
-          >
-            <img
-              class="social-media-icon"
-              src="/assets/whatsapp.png"
-              alt="gmail icon"
-          /></a>
-          <a
-            class="icon-wrapper"
-            href="https://join.skype.com/invite/JV8HXoJwx8Ud"
-            target="_blank"
-          >
-            <img
-              class="social-media-icon"
-              src="/assets/skype.png"
-              alt="gmail icon"
-          /></a>
         </div>
       </div>
     </div>
+    <p
+      class="text-caption text-center"
+      style="width: 100%; color: #c5c5c5; margin-top: 37px"
+    >
+      {{ t("© 2022 Amanat Advisory. Все права защищены. All rights reserved") }}
+    </p>
   </footer>
   <FeedbackModal :open="openFeedbackModal" :onClose="setFeedbackModal" />
 </template>
 
 <style scoped>
   footer {
-    padding: 95px 0px;
+    padding: 95px 0px 37px;
     background: linear-gradient(to bottom, #7e8e8e, #4b5757);
     border-bottom: 30px solid #3d4646;
   }

@@ -56,6 +56,10 @@ const router = createRouter({
       meta: { requiresLogout: true },
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0 };
+  },
 });
 
 router.beforeResolve((to) => {
