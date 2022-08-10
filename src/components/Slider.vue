@@ -4,8 +4,10 @@
 
   import { useStore } from "../store";
   import FeedbackModal from "@/components/FeedbackModal.vue";
+  import { useI18n } from "vue-i18n";
 
   const store = useStore();
+  const { locale } = useI18n();
   const activeSlide = ref(0);
   const openFeedbackModal = ref(false);
   const loadedImg = ref({});
@@ -56,8 +58,8 @@
         />
         <div class="slide-inner flex-box-center flex-box-vertical">
           <div class="contain text-slider">
-            <h2 class="maintitle">{{ slide.title }}</h2>
-            <p class="subtitle">{{ slide.subtitle }}</p>
+            <h2 class="maintitle">{{ slide[`title_${locale}`] }}</h2>
+            <p class="subtitle">{{ slide[`subtitle_${locale}`] }}</p>
           </div>
           <v-btn
             color="#61a375"

@@ -1,10 +1,12 @@
 <script setup>
   import { onMounted, ref } from "vue";
+  import { useI18n } from "vue-i18n";
 
   import { useStore } from "../store";
   import PersonModal from "./PersonModal.vue";
 
   const store = useStore();
+  const { locale } = useI18n();
   const openModal = ref(false);
   const currentPerson = ref(null);
 
@@ -15,15 +17,15 @@
   function setModal(value) {
     openModal.value = value;
   }
-  function setCurrentPerson(news) {
-    currentPerson.value = news;
+  function setCurrentPerson(person) {
+    currentPerson.value = person;
     openModal.value = true;
   }
-  function deleteNews(news) {
+  function deletePerson(person) {
     store.setPromp({
-      message: "Подтверждаете удаление новостя ?",
+      message: "Подтверждаете удаление сотрудника ?",
       confirm() {
-        store.deleteEmployee({ id: news._id });
+        store.deleteEmployee({ id: person._id });
       },
     });
   }
@@ -51,11 +53,32 @@
     >
       <template #prepend
         ><v-avatar size="x-large">
-          <v-img :src="person.avatar" :alt="person.fullname"></v-img></v-avatar
+          <v-img
+            :src="person.avatar"
+            :alt="person[`fullname_${locale}`]"
+          ></v-img></v-avatar
       ></template>
       <v-banner-text
-        ><p class="title" style="font-size: 24px">{{ person.fullname }}</p>
-        {{ person.biography }}</v-banner-text
+        ><div class="flex-box-between" style="width: 100%">
+          <p class="title" style="font-size: 24px">
+            {{ person[`fullname_${locale}`] }}
+          </p>
+          <div class="flex-box" style="gap: 20px">
+            <v-btn
+              color="#61a375"
+              class="text-white"
+              @click.stop="setCurrentPerson(person)"
+              >Редактировать</v-btn
+            >
+            <v-btn
+              color="red"
+              class="text-white"
+              @click.stop="deletePerson(person)"
+              >Удалить</v-btn
+            >
+          </div>
+        </div>
+        {{ person[`biography_${locale}`] }}</v-banner-text
       ></v-banner
     >
   </div>

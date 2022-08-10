@@ -3,11 +3,13 @@
 
   import { useStore } from "@/store";
   import { useRouter } from "vue-router";
+  import { useI18n } from "vue-i18n";
 
   defineProps(["news"]);
 
   const store = useStore();
   const navigate = useRouter();
+  const { locale } = useI18n();
   const isLoaded = ref(false);
   const expanded = ref(false);
 
@@ -35,8 +37,8 @@
       <img src="/public/assets/loading-12bras.gif" alt="" />
     </div>
     <div class="content">
-      <h1 class="title">{{ news.title }}</h1>
-      <p class="short-text body1 py-4">{{ news.subtitle }}</p>
+      <h1 class="title">{{ news[`title_${locale}`] }}</h1>
+      <p class="short-text body1 py-4">{{ news[`subtitle_${locale}`] }}</p>
     </div>
     <div class="expand-more flex-box-center" v-if="!expanded">
       <p class="nav-item nav-item-secondary" @click="setCurrentNews(news)">

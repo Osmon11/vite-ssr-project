@@ -10,10 +10,13 @@
   const store = useStore();
   const props = defineProps(["open", "onClose", "editNews"]);
   const valid = ref(false);
-  const title = ref("");
-  const subtitle = ref("");
+  const title_en = ref("");
+  const subtitle_en = ref("");
+  const editorData_en = ref("");
+  const title_ru = ref("");
+  const subtitle_ru = ref("");
+  const editorData_ru = ref("");
   const image = ref([]);
-  const editorData = ref("");
   const isLoading = ref(false);
   const fileInputLabel = computed(() =>
     props.editNews && !image.value[0] ? props.editNews["imageName"] : "Обложка"
@@ -58,7 +61,7 @@
         "horizontalLine",
       ],
     },
-    language: "ru",
+    language: "en",
     image: {
       toolbar: [
         "imageTextAlternative",
@@ -103,18 +106,21 @@
     () => props.editNews,
     (value) => {
       if (value) {
-        title.value = value.title;
-        subtitle.value = value.subtitle;
+        title_en.value = value.title_en;
+        subtitle_en.value = value.subtitle_en;
+        editorData_en.value = value.conten_en;
+        title_ru.value = value.title_ru;
+        subtitle_ru.value = value.subtitle_ru;
+        editorData_ru.value = value.conten_ru;
         image.value = [];
-        editorData.value = value.content;
       }
     }
   );
   function resetForm() {
-    title.value = "";
-    subtitle.value = "";
+    title_en.value = "";
+    subtitle_en.value = "";
+    editorData_en.value = "";
     image.value = [];
-    editorData.value = "";
   }
   function callback(success) {
     isLoading.value = false;
@@ -124,18 +130,22 @@
     }
   }
   function submitHandler() {
-    if (!editorData.value)
-      store.setAlert({
+    if (!editorData_en.value) {
+      return store.setAlert({
         severity: "error",
         message: "Вы забыли написать контент",
       });
+    }
 
     if (valid.value) {
       isLoading.value = true;
       let data = new FormData();
-      data.append("title", title.value);
-      data.append("subtitle", subtitle.value);
-      data.append("content", editorData.value);
+      data.append("title_en", title_en.value);
+      data.append("subtitle_en", subtitle_en.value);
+      data.append("content_en", editorData_en.value);
+      data.append("title_ru", title_ru.value);
+      data.append("subtitle_ru", subtitle_ru.value);
+      data.append("content_ru", editorData_ru.value);
       if (!props.editNews) {
         data.append("image", image.value[0]);
         store.setNews(data, callback);
@@ -171,25 +181,63 @@
       >
         <div class="editor-wrapper">
           <v-text-field
-            v-model="title"
+            v-model="title_ru"
             type="text"
-            name="title"
+            name="title_ru"
             variant="outlined"
-            label="Заголовок"
+            label="Заголовок на русском"
             color="#61a375"
             required
-            :rules="[(v) => !!v || 'Введите заголовок']"
+            :rules="[(v) => !!v || 'Введите заголовок на русском']"
           ></v-text-field>
           <v-textarea
-            v-model="subtitle"
+            v-model="subtitle_ru"
             type="text"
-            name="subtitle"
+            name="subtitle_ru"
             variant="outlined"
-            label="Краткое описание"
+            label="Краткое описание на русском"
             color="#61a375"
             required
-            :rules="[(v) => !!v || 'Введите краткое описание']"
+            :rules="[(v) => !!v || 'Введите краткое описание на русском']"
           ></v-textarea>
+          <CKEditor.component
+            v-model="editorData_ru"
+            :editor="ClassicEditor"
+            :config="{
+              ...editorConfig,
+              placeholder: 'Напишите новость на русском',
+            }"
+          />
+          <div style="width: 100%; height: 38px"></div>
+          <v-text-field
+            v-model="title_en"
+            type="text"
+            name="title_en"
+            variant="outlined"
+            label="Заголовок на английском"
+            color="#61a375"
+            required
+            :rules="[(v) => !!v || 'Введите заголовок на английском']"
+          ></v-text-field>
+          <v-textarea
+            v-model="subtitle_en"
+            type="text"
+            name="subtitle_en"
+            variant="outlined"
+            label="Краткое описание на английском"
+            color="#61a375"
+            required
+            :rules="[(v) => !!v || 'Введите краткое описание на английском']"
+          ></v-textarea>
+          <CKEditor.component
+            v-model="editorData_en"
+            :editor="ClassicEditor"
+            :config="{
+              ...editorConfig,
+              placeholder: 'Напишите новость на английском',
+            }"
+          />
+          <div style="width: 100%; height: 38px"></div>
           <v-file-input
             name="image"
             accept="image/*"
@@ -206,11 +254,6 @@
             clearable
             show-size
           ></v-file-input>
-          <CKEditor.component
-            v-model="editorData"
-            :editor="ClassicEditor"
-            :config="editorConfig"
-          />
         </div>
         <div class="flex-box-center">
           <v-btn

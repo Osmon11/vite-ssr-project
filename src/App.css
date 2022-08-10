@@ -13,6 +13,9 @@ main {
 li {
   line-height: 27px;
 }
+img {
+  max-width: 100%;
+}
 header {
   top: 0px;
   left: 0px;
@@ -29,10 +32,6 @@ header {
 header.active {
   border: none;
   background-color: transparent;
-}
-header:hover svg {
-  filter: invert(68%) sepia(18%) saturate(774%) hue-rotate(51deg)
-    brightness(92%) contrast(91%) !important;
 }
 .hide-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
@@ -269,18 +268,18 @@ input[type="checkbox"]:checked {
   padding: 6px 33px 6px 12px;
 }
 .custom-select:hover {
-  border: 1px solid #61a375;
+  border: 1px solid #ffffff;
 }
-.custom-select .default-value p {
+.custom-select p {
   color: #ffffff;
 }
-.custom-select:hover .default-value p {
+/* .custom-select:hover .default-value p {
   color: #61a375;
 }
 .custom-select:hover svg {
   filter: invert(68%) sepia(18%) saturate(774%) hue-rotate(51deg)
     brightness(92%) contrast(91%);
-}
+} */
 .custom-select svg {
   width: 12px;
   height: 12px;
@@ -371,4 +370,13 @@ input[type="checkbox"]:checked {
   font-size: 16px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                        supported by Chrome, Opera and Firefox */
 }

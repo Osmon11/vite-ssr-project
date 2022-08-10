@@ -7,8 +7,10 @@
   const { setSlide, updateSlide } = useStore();
   const props = defineProps(["open", "onClose", "editSlide"]);
   const valid = ref(true);
-  const title = ref("");
-  const subtitle = ref("");
+  const title_en = ref("");
+  const subtitle_en = ref("");
+  const title_ru = ref("");
+  const subtitle_ru = ref("");
   const image = ref([]);
   const isLoading = ref(false);
 
@@ -16,8 +18,10 @@
     () => props.editSlide,
     (value) => {
       if (value) {
-        title.value = value.title;
-        subtitle.value = value.subtitle;
+        title_en.value = value.title_en;
+        subtitle_en.value = value.subtitle_en;
+        title_ru.value = value.title_ru;
+        subtitle_ru.value = value.subtitle_ru;
         image.value = [];
       }
     }
@@ -32,8 +36,10 @@
   function callback(success) {
     isLoading.value = false;
     if (success) {
-      title.value = "";
-      subtitle.value = "";
+      title_en.value = "";
+      subtitle_en.value = "";
+      title_ru.value = "";
+      subtitle_ru.value = "";
       image.value = {};
       props.onClose(false);
     }
@@ -42,8 +48,10 @@
     if (valid.value) {
       isLoading.value = true;
       const data = new FormData();
-      data.append("title", title.value);
-      data.append("subtitle", subtitle.value);
+      data.append("title_ru", title_ru.value);
+      data.append("subtitle_ru", subtitle_ru.value);
+      data.append("title_en", title_en.value);
+      data.append("subtitle_en", subtitle_en.value);
 
       if (!props.editSlide) {
         data.append("image", image.value[0]);
@@ -72,24 +80,44 @@
           {{ props.editSlide ? "Редактировать слайд" : "Новый слайд" }}
         </p>
         <v-text-field
-          v-model="title"
+          v-model="title_ru"
           type="text"
-          name="title"
+          name="title_ru"
           variant="outlined"
-          label="Заголовок"
+          label="Заголовок на русском"
           color="#61a375"
           required
-          :rules="[(v) => !!v || 'Введите заголовок']"
+          :rules="[(v) => !!v || 'Введите заголовок на русском']"
         ></v-text-field>
         <v-text-field
-          v-model="subtitle"
+          v-model="subtitle_ru"
           type="text"
-          name="subtitle"
+          name="subtitle_ru"
           variant="outlined"
-          label="Подзаголовок"
+          label="Подзаголовок на русском"
           color="#61a375"
           required
-          :rules="[(v) => !!v || 'Введите подзаголовок']"
+          :rules="[(v) => !!v || 'Введите подзаголовок на русском']"
+        ></v-text-field>
+        <v-text-field
+          v-model="title_en"
+          type="text"
+          name="title_en"
+          variant="outlined"
+          label="Заголовок на английском"
+          color="#61a375"
+          required
+          :rules="[(v) => !!v || 'Введите заголовок на английском']"
+        ></v-text-field>
+        <v-text-field
+          v-model="subtitle_en"
+          type="text"
+          name="subtitle_en"
+          variant="outlined"
+          label="Подзаголовок на английском"
+          color="#61a375"
+          required
+          :rules="[(v) => !!v || 'Введите подзаголовок на английском']"
         ></v-text-field>
         <v-file-input
           name="image"

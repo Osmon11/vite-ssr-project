@@ -8,13 +8,15 @@
   const store = useStore();
   const props = defineProps(["open", "onClose", "editPerson"]);
   const valid = ref(false);
-  const title = ref("");
-  const biography = ref("");
+  const fullname_en = ref("");
+  const biography_en = ref("");
+  const fullname_ru = ref("");
+  const biography_ru = ref("");
   const image = ref([]);
   const isLoading = ref(false);
   const fileInputLabel = computed(() =>
     props.editPerson && !image.value[0]
-      ? props.editPerson["imageName"]
+      ? props.editPerson["avatar"]
       : "Фотография"
   );
 
@@ -22,15 +24,19 @@
     () => props.editPerson,
     (value) => {
       if (value) {
-        title.value = value.title;
-        biography.value = value.biography;
+        fullname_ru.value = value.fullname_ru;
+        biography_ru.value = value.biography_ru;
+        fullname_en.value = value.fullname_en;
+        biography_en.value = value.biography_en;
         image.value = [];
       }
     }
   );
   function resetForm() {
-    title.value = "";
-    biography.value = "";
+    fullname_ru.value = "";
+    biography_ru.value = "";
+    fullname_en.value = "";
+    biography_en.value = "";
     image.value = [];
   }
   function callback(success) {
@@ -41,17 +47,13 @@
     }
   }
   function submitHandler() {
-    if (!editorData.value)
-      store.setAlert({
-        severity: "error",
-        message: "Вы забыли написать биографию",
-      });
-
     if (valid.value) {
       isLoading.value = true;
       let data = new FormData();
-      data.append("title", title.value);
-      data.append("biography", biography.value);
+      data.append("fullname_en", fullname_en.value);
+      data.append("biography_en", biography_en.value);
+      data.append("fullname_ru", fullname_ru.value);
+      data.append("biography_ru", biography_ru.value);
       if (!props.editPerson) {
         data.append("image", image.value[0]);
         store.setEmployee(data, callback);
@@ -59,7 +61,7 @@
         if (image.value[0]) {
           data.append("image", image.value[0]);
         }
-        data.append("imageUrl", props.editPerson.imageUrl);
+        data.append("avatar", props.editPerson.avatar);
         store.updateEmployee({ id: props.editPerson._id }, data, callback);
       }
     }
@@ -87,15 +89,45 @@
       >
         <div class="editor-wrapper">
           <v-text-field
-            v-model="title"
+            v-model="fullname_ru"
             type="text"
-            name="title"
+            name="fullname_ru"
             variant="outlined"
-            label="ФИО"
+            label="ФИО на русском"
             color="#61a375"
             required
-            :rules="[(v) => !!v || 'Введите ФИО']"
+            :rules="[(v) => !!v || 'Введите ФИО на русском']"
           ></v-text-field>
+          <v-textarea
+            v-model="biography_ru"
+            type="text"
+            name="biography_ru"
+            variant="outlined"
+            label="Биография  на русском"
+            color="#61a375"
+            required
+            :rules="[(v) => !!v || 'Введите биографию  на русском']"
+          ></v-textarea>
+          <v-text-field
+            v-model="fullname_en"
+            type="text"
+            name="fullname_en"
+            variant="outlined"
+            label="ФИО на английском"
+            color="#61a375"
+            required
+            :rules="[(v) => !!v || 'Введите ФИО на английском']"
+          ></v-text-field>
+          <v-textarea
+            v-model="biography_en"
+            type="text"
+            name="biography_en"
+            variant="outlined"
+            label="Биография  на английском"
+            color="#61a375"
+            required
+            :rules="[(v) => !!v || 'Введите биографию  на английском']"
+          ></v-textarea>
           <v-file-input
             name="image"
             accept="image/*"
@@ -109,16 +141,6 @@
             clearable
             show-size
           ></v-file-input>
-          <v-textarea
-            v-model="biography"
-            type="text"
-            name="biography"
-            variant="outlined"
-            label="Биография"
-            color="#61a375"
-            required
-            :rules="[(v) => !!v || 'Введите биографию']"
-          ></v-textarea>
         </div>
         <div class="flex-box-center">
           <v-btn

@@ -37,6 +37,7 @@
           <div class="social-media-wrapper flex-box">
             <div class="icon-wrapper">
               <img
+                :draggable="false"
                 class="social-media-icon"
                 src="/assets/email.png"
                 alt="gmail icon"
@@ -49,6 +50,7 @@
               target="_blank"
             >
               <img
+                :draggable="false"
                 class="social-media-icon"
                 src="/assets/telegram.png"
                 alt="gmail icon"
@@ -59,6 +61,7 @@
               target="_blank"
             >
               <img
+                :draggable="false"
                 class="social-media-icon"
                 src="/assets/whatsapp.png"
                 alt="gmail icon"
@@ -69,6 +72,7 @@
               target="_blank"
             >
               <img
+                :draggable="false"
                 class="social-media-icon"
                 src="/assets/skype.png"
                 alt="gmail icon"

@@ -24,24 +24,6 @@
     { label: "НАШИ УСЛУГИ", key: "our_services" },
     { label: "НОВОСТИ", key: "blog" },
   ];
-  const languageSelect = [
-    {
-      value: "ru",
-      layout: `<div class="flex-box" style="gap: 8px; width: 42px"
-      ><img src="/assets/russia.svg" alt="russia flag" style="width: 20px;
-    height: 20px;" />
-      <p>ru</p></div
-    >`,
-    },
-    {
-      value: "en",
-      layout: `<div class="flex-box" style="gap: 8px; width: 42px"
-        ><img src="/assets/united-kingdom.svg" alt="united kingdom flag" style="width: 20px;
-    height: 20px;" />
-        <p>en</p></div
-      >`,
-    },
-  ];
   const token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY);
   const lang = ref("en");
   const isActive = ref(name === "home");
@@ -104,9 +86,9 @@
           <router-link class="nav-item" to="/admin" v-if="token">{{
             t("Админ")
           }}</router-link>
-          <router-link class="nav-item" to="/login" v-else>{{
+          <!-- <router-link class="nav-item" to="/login" v-else>{{
             t("войти")
-          }}</router-link>
+          }}</router-link> -->
         </nav>
         <nav class="flex-box" v-if="name !== 'home'">
           <router-link class="nav-item" to="/">{{ t("Главная") }}</router-link>
@@ -117,9 +99,9 @@
             <router-link class="nav-item" to="/admin" v-if="token">{{
               t("Админ")
             }}</router-link>
-            <router-link class="nav-item" to="/login" v-else>{{
+            <!-- <router-link class="nav-item" to="/login" v-else>{{
               t("войти")
-            }}</router-link>
+            }}</router-link> -->
           </div>
           <div class="flex-box" style="cursor: pointer" @click="logout" v-else>
             <p class="nav-item" style="padding-right: 10px">{{ t("выйти") }}</p>
@@ -144,9 +126,53 @@
       <Select
         :value="locale"
         @change="setLocale"
-        :items="languageSelect"
         :class="{ activeSelect: !isActive }"
-      />
+      >
+        <template #render-value>
+          <div class="flex-box" style="gap: 8px; width: 42px">
+            <img
+              :src="
+                locale === 'en'
+                  ? '/assets/united-kingdom.svg'
+                  : '/assets/russia.svg'
+              "
+              :alt="locale === 'en' ? 'united kingdom flag' : 'russian flag'"
+              style="width: 20px; height: 20px"
+            />
+            <p>{{ locale }}</p>
+          </div></template
+        >
+        <template #items="{ handleChange }"
+          ><div
+            class="select-item"
+            :class="{ active: 'en' === locale }"
+            @click="handleChange('en')"
+          >
+            <div class="flex-box" style="gap: 8px; width: 42px">
+              <img
+                src="/assets/united-kingdom.svg"
+                alt="united kingdom flag"
+                style="width: 20px; height: 20px"
+              />
+              <p>en</p>
+            </div>
+          </div>
+          <div
+            class="select-item"
+            :class="{ active: 'ru' === locale }"
+            @click="handleChange('ru')"
+          >
+            <div class="flex-box" style="gap: 8px; width: 42px">
+              <img
+                src="/assets/russia.svg"
+                alt="russian flag"
+                style="width: 20px; height: 20px"
+              />
+              <p>ru</p>
+            </div>
+          </div>
+        </template></Select
+      >
     </div>
   </header>
 </template>

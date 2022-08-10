@@ -3,8 +3,10 @@
 
   import EditorModal from "@/components/NewsModal.vue";
   import { useStore } from "../store";
+  import { useI18n } from "vue-i18n";
 
   const store = useStore();
+  const { locale } = useI18n();
   const openModal = ref(false);
   const currentNews = ref(null);
 
@@ -46,7 +48,7 @@
     <v-expansion-panel v-for="newsItem in store.newsFeed" :key="newsItem._id">
       <v-expansion-panel-title>
         <div class="flex-box-between" style="width: 100%; padding-right: 20px">
-          <p class="subtitle">{{ newsItem.title }}</p>
+          <p class="subtitle">{{ newsItem[`title_${locale}`] }}</p>
           <div class="flex-box" style="gap: 20px">
             <v-btn
               color="#61a375"
@@ -71,9 +73,9 @@
               :src="newsItem.imageUrl"
               :alt="newsItem.imageName"
             />
-            <p style="display: inline">{{ newsItem.subtitle }}</p>
+            <p style="display: inline">{{ newsItem[`subtitle_${locale}`] }}</p>
           </div>
-          <div class="content" v-html="newsItem.content"></div>
+          <div class="content" v-html="newsItem[`content_${locale}`]"></div>
         </div>
       </v-expansion-panel-text>
     </v-expansion-panel>
@@ -90,7 +92,7 @@
 
 <style scoped>
   .news-item-img {
-    width: 20%;
+    width: 40%;
     margin-right: 20px;
     margin-bottom: 20px;
   }

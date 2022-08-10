@@ -5,14 +5,6 @@
   const props = defineProps(["value", "items"]);
   const emit = defineEmits(["change"]);
   const openPopper = ref(false);
-  const defaultLayout = computed(() => {
-    let value = props.items.filter((item) => props.value === item.value)[0];
-    if (value) {
-      return value.layout;
-    } else {
-      return "Значение неизвестно";
-    }
-  });
 
   function setPopper(value) {
     openPopper.value = value;
@@ -38,7 +30,7 @@
         @click="setPopper(true)"
         @focusout="setPopper(false)"
       />
-      <span class="default-value body1" v-html="defaultLayout"></span>
+      <slot name="render-value" class="default-value body1"></slot>
       <svg
         class="svg-icon"
         :style="{ transform: `rotate(${false ? 0 : 180}deg)` }"
@@ -50,14 +42,7 @@
       </svg>
     </div>
     <div class="popper" v-show="openPopper">
-      <div
-        class="select-item"
-        v-for="(item, index) in items"
-        :key="index"
-        :class="{ active: item.value === value }"
-        @click="handleChange(item.value)"
-        v-html="item.layout"
-      ></div>
+      <slot name="items" :handleChange="handleChange"></slot>
     </div>
   </div>
 </template>

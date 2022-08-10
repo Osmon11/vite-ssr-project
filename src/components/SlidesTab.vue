@@ -1,10 +1,12 @@
 <script setup>
   import { onMounted, ref } from "vue";
+  import { useI18n } from "vue-i18n";
 
   import { useStore } from "../store";
   import SlideModal from "./SlideModal.vue";
 
   const store = useStore();
+  const { locale } = useI18n();
   const openModal = ref(false);
   const currentSlide = ref(null);
   const loadedImg = ref({});
@@ -69,8 +71,8 @@
       </div>
       <div class="flex-box-between" style="width: calc(100% - 220px)">
         <div>
-          <p class="title">{{ slide.title }}</p>
-          <p class="subtitle">{{ slide.subtitle }}</p>
+          <p class="title">{{ slide[`title_${locale}`] }}</p>
+          <p class="subtitle">{{ slide[`subtitle_${locale}`] }}</p>
         </div>
         <div class="flex-box-vertical">
           <v-btn

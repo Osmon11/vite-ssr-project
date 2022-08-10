@@ -370,16 +370,40 @@
     <MarqueeText class="gallery" :duration="15" :repeat="10">
       <main class="flex-box" style="width: 100vw; gap: 15px">
         <div class="gallery_item">
-          <img src="/assets/9.png" style="width: auto" alt="" />
+          <img
+            class="noselect"
+            src="/assets/9.png"
+            style="width: auto"
+            alt=""
+            :draggable="false"
+          />
         </div>
         <div class="gallery_item">
-          <img src="/assets/7.png" style="width: auto" alt="" />
+          <img
+            class="noselect"
+            src="/assets/7.png"
+            style="width: auto"
+            alt=""
+            :draggable="false"
+          />
         </div>
         <div class="gallery_item">
-          <img src="/assets/partnerre-logo.png" style="width: auto" alt="" />
+          <img
+            class="noselect"
+            src="/assets/partnerre-logo.png"
+            style="width: auto"
+            alt=""
+            :draggable="false"
+          />
         </div>
         <div class="gallery_item">
-          <img src="/assets/8.png" style="width: auto" alt="" />
+          <img
+            class="noselect"
+            src="/assets/8.png"
+            style="width: auto"
+            alt=""
+            :draggable="false"
+          />
         </div></main
     ></MarqueeText>
     <div class="flex-box-center" style="margin-top: 20px">

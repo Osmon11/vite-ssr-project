@@ -1,10 +1,12 @@
 <script setup>
+  import { useI18n } from "vue-i18n";
   import { useRouter } from "vue-router";
   import { useStore } from "../store/index.js";
 
   const props = defineProps(["news"]);
   const store = useStore();
   const navigate = useRouter();
+  const { locale } = useI18n();
 
   function setCurrentNews() {
     store.$patch((state) => {
@@ -19,7 +21,7 @@
     <figure><img :src="news.imageUrl" :alt="news.imageName" /></figure>
     <div class="blog_content">
       <h3 class="title">
-        {{ news.title }}
+        {{ news[`title_${locale}`] }}
       </h3>
     </div>
   </article>
