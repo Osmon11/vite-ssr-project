@@ -14,17 +14,22 @@ export const appAxios = axios.create({
 });
 
 export const makeRequest = (endpoint, method, data) => {
-  const { setAlert } = useStore();
+  const store = useStore();
   function errorHandler({ response }) {
     if (response.status === 401) {
       cookie_js.remove(import.meta.env.VITE_TOKEN_KEY);
       appAxios.defaults.headers["authorization"] = "";
 
-      setAlert({
+      store.setAlert({
         severity: "error",
         message: response.data.message || "Токен больше не действителен",
       });
       return;
+    } else {
+      store.setAlert({
+        severity: "error",
+        message: response.data.message || `Ошибка в запросе на: ${endpoint}`,
+      });
     }
   }
 

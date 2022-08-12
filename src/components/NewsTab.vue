@@ -6,12 +6,12 @@
   import { useI18n } from "vue-i18n";
 
   const store = useStore();
-  const { locale } = useI18n();
+  const { t, locale } = useI18n();
   const openModal = ref(false);
   const currentNews = ref(null);
 
   onMounted(() => {
-    store.getNewsFeed({}, (success) => {});
+    store.getNewsFeed();
   });
 
   function setModal(value) {
@@ -23,7 +23,7 @@
   }
   function deleteNews(news) {
     store.setPromp({
-      message: "Подтверждаете удаление новостя ?",
+      message: t("questions.Подтверждаете_удаление_новостя"),
       confirm() {
         store.deleteNews({ id: news._id });
       },
@@ -39,10 +39,10 @@
 
 <template>
   <div class="flex-box-between" style="margin-bottom: 16px">
-    <p class="title">Список новостей</p>
-    <v-btn color="#61a375" class="text-white" @click="setModal(true)"
-      >Добавить новость</v-btn
-    >
+    <p class="title">{{ t("НОВОСТИ") }}</p>
+    <v-btn color="#61a375" class="text-white" @click="setModal(true)">{{
+      t("general.добавить_новость")
+    }}</v-btn>
   </div>
   <v-expansion-panels style="margin-bottom: 20px" v-if="store.newsFeed.length">
     <v-expansion-panel v-for="newsItem in store.newsFeed" :key="newsItem._id">
@@ -54,13 +54,13 @@
               color="#61a375"
               class="text-white"
               @click.stop="setCurrentNews(newsItem)"
-              >Редактировать</v-btn
+              >{{ t("general.редактировать") }}</v-btn
             >
             <v-btn
-              color="red"
+              color="#F44336"
               class="text-white"
               @click.stop="deleteNews(newsItem)"
-              >Удалить</v-btn
+              >{{ t("general.удалить") }}</v-btn
             >
           </div>
         </div>
@@ -81,7 +81,7 @@
     </v-expansion-panel>
   </v-expansion-panels>
   <div class="flex-box-center" v-else>
-    <p class="body1">Новостей пока нет. Добавьте новость</p>
+    <p class="body1">{{ t("errors.Новостей_пока_нет_Добавьте_новость") }}</p>
   </div>
   <EditorModal
     :open="openModal"

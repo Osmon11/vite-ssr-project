@@ -12,6 +12,10 @@ export const useStore = defineStore("main", {
     slide: {},
     newsFeed: [],
     shariahBoard: [],
+    partners: [],
+    partner: {},
+    services: [],
+    service: {},
     employee: {},
     news: {},
     currentNews: {},
@@ -175,6 +179,80 @@ export const useStore = defineStore("main", {
           }
         }
       );
+    },
+    getPartnersList(query = {}, callback = () => {}) {
+      makeRequest(`/partners?${getUrlString(query)}`, "get").then((json) => {
+        if (json) {
+          if (query.id) {
+            this.partner[query.id] = json;
+          } else {
+            this.partners = json;
+          }
+        }
+        callback(Boolean(json));
+      });
+    },
+    setPartner(data, callback = () => {}) {
+      makeRequest("/partners", "post", data).then((json) => {
+        if (json) {
+          this.partners = json;
+        }
+        callback(Boolean(json));
+      });
+    },
+    updatePartner(query = {}, data, callback = () => {}) {
+      makeRequest(`/partners?${getUrlString(query)}`, "put", data).then(
+        (json) => {
+          if (json) {
+            this.partners = json.data;
+          }
+          callback(Boolean(json));
+        }
+      );
+    },
+    deletePartner(query = {}) {
+      makeRequest(`/partners?${getUrlString(query)}`, "delete").then((json) => {
+        if (json) {
+          this.partners = json.data;
+        }
+      });
+    },
+    getServicesList(query = {}, callback = () => {}) {
+      makeRequest(`/services?${getUrlString(query)}`, "get").then((json) => {
+        if (json) {
+          if (query.id) {
+            this.service[query.id] = json;
+          } else {
+            this.services = json;
+          }
+        }
+        callback(Boolean(json));
+      });
+    },
+    setSetvice(data, callback = () => {}) {
+      makeRequest("/services", "post", data).then((json) => {
+        if (json) {
+          this.services = json;
+        }
+        callback(Boolean(json));
+      });
+    },
+    updateService(query = {}, data, callback = () => {}) {
+      makeRequest(`/services?${getUrlString(query)}`, "put", data).then(
+        (json) => {
+          if (json) {
+            this.services = json.data;
+          }
+          callback(Boolean(json));
+        }
+      );
+    },
+    deleteService(query = {}) {
+      makeRequest(`/services?${getUrlString(query)}`, "delete").then((json) => {
+        if (json) {
+          this.services = json.data;
+        }
+      });
     },
     sendFeedback(data, callback) {
       makeRequest("/mail/feedback", "post", data).then((json) => {

@@ -9,7 +9,7 @@
 
   const store = useStore();
   const navigate = useRouter();
-  const { locale } = useI18n();
+  const { t, locale } = useI18n();
   const isLoaded = ref(false);
   const expanded = ref(false);
 
@@ -42,7 +42,7 @@
     </div>
     <div class="expand-more flex-box-center" v-if="!expanded">
       <p class="nav-item nav-item-secondary" @click="setCurrentNews(news)">
-        Прочитать подробней
+        {{ t("general.подробней") }}
       </p>
     </div>
   </article>

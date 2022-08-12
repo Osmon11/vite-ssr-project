@@ -6,7 +6,7 @@
   import SlideModal from "./SlideModal.vue";
 
   const store = useStore();
-  const { locale } = useI18n();
+  const { t, locale } = useI18n();
   const openModal = ref(false);
   const currentSlide = ref(null);
   const loadedImg = ref({});
@@ -30,7 +30,7 @@
   }
   function deleteSlide(slide) {
     store.setPromp({
-      message: "Подтверждаете удаление слайда ?",
+      message: t("questions.Подтверждаете_удаление_слайда"),
       confirm() {
         store.deleteSlide({ id: slide._id });
       },
@@ -43,10 +43,10 @@
 
 <template>
   <div class="flex-box-between" style="margin-bottom: 16px">
-    <p class="title">Список слайдов</p>
-    <v-btn color="#61a375" class="text-white" @click="setModal(true)"
-      >Новый слайд</v-btn
-    >
+    <p class="title">{{ t("Слайды") }}</p>
+    <v-btn color="#61a375" class="text-white" @click="setModal(true)">{{
+      t("general.Новый_слайд")
+    }}</v-btn>
   </div>
   <div v-if="store.slides.length">
     <div
@@ -83,7 +83,8 @@
           ></v-btn
           ><v-btn
             icon="mdi-delete"
-            color="red"
+            color="#F44336"
+            style="color: #ffffff"
             @click="deleteSlide(slide)"
           ></v-btn>
         </div>
@@ -91,7 +92,9 @@
     </div>
   </div>
   <div class="flex-box-center" v-else>
-    <p class="body1">Слайдов пока нет. Создайте новый слайд</p>
+    <p class="body1">
+      {{ t("errors.Слайдов_пока_нет_Создайте_новый_слайд") }}
+    </p>
   </div>
   <SlideModal :open="openModal" :onClose="setModal" :editSlide="currentSlide" />
 </template>

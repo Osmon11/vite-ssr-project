@@ -4,10 +4,11 @@
 
   import Dialog from "@/shared/Dialog.vue";
   import { useStore } from "../store";
+  import { useI18n } from "vue-i18n";
 
   const props = defineProps(["open", "onClose"]);
   const store = useStore();
-
+  const { t } = useI18n();
   const valid = ref(false);
   const userName = ref("");
   const email = ref("");
@@ -46,7 +47,9 @@
       @submit.prevent="(event) => handleRequestSubmit(event)"
     >
       <div class="flex-box-center" style="margin-bottom: 40px">
-        <h3 class="title divider">Форма обратной связи</h3>
+        <h3 class="title divider">
+          {{ t("general['Форма обратной связи']") }}
+        </h3>
       </div>
       <div class="flex-box" style="gap: 20px">
         <v-text-field
@@ -54,9 +57,9 @@
           type="text"
           name="userName"
           variant="outlined"
-          label="Имя"
+          :label="t('general.Имя')"
           color="#61a375"
-          :rules="[(v) => !!v || 'Введите имя']"
+          :rules="[(v) => !!v || t('errors.Введите_имя')]"
           style="width: calc(50% - 10px)"
         ></v-text-field>
         <v-text-field
@@ -64,9 +67,9 @@
           type="email"
           name="email"
           variant="outlined"
-          label="Email"
+          :label="t('general.Email')"
           color="#61a375"
-          :rules="[(v) => !!v || 'Введите email']"
+          :rules="[(v) => !!v || t('errors.Введите_email')]"
           style="width: calc(50% - 10px)"
         ></v-text-field>
       </div>
@@ -75,9 +78,9 @@
         type="text"
         name="message"
         variant="outlined"
-        label="Сообщение"
+        :label="t('general.Сообщение')"
         color="#61a375"
-        :rules="[(v) => !!v || 'Введите сообщение']"
+        :rules="[(v) => !!v || t('errors.Введите_сообщение')]"
       ></v-textarea>
       <div class="flex-box-center">
         <v-btn
@@ -85,7 +88,7 @@
           class="text-white"
           type="submit"
           :loading="isLoading"
-          >Отправить сообщение</v-btn
+          >{{ t("general.отправить_сообщение") }}</v-btn
         >
       </div>
       <!-- <VueRecaptcha /> -->

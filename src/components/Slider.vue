@@ -7,7 +7,7 @@
   import { useI18n } from "vue-i18n";
 
   const store = useStore();
-  const { locale } = useI18n();
+  const { t, locale } = useI18n();
   const activeSlide = ref(0);
   const openFeedbackModal = ref(false);
   const loadedImg = ref({});
@@ -66,7 +66,7 @@
             class="text-white"
             @click="setFeedbackModal(true)"
           >
-            Contact us
+            {{ t("general['свяжитесь с нами']") }}
           </v-btn>
         </div>
       </div>

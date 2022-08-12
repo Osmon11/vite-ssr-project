@@ -12,13 +12,15 @@
 
   const store = useStore();
   const refs = ref({});
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const activeGoTop = ref(false);
   const headerPosition = ref("relative");
 
   onMounted(() => {
     window.addEventListener("scroll", handleScroll);
-    store.getNewsFeed({}, (success) => {});
+    store.getNewsFeed();
+    store.getPartnersList();
+    store.getServicesList();
   });
   onUnmounted(() => {
     window.removeEventListener("scroll", handleScroll);
@@ -366,42 +368,19 @@
       </section>
     </main>
   </div>
-  <section style="padding-top: 0px">
+  <section style="padding-top: 0px" v-if="store.partners.length">
     <MarqueeText class="gallery" :duration="15" :repeat="10">
       <main class="flex-box" style="width: 100vw; gap: 15px">
-        <div class="gallery_item">
+        <div
+          class="gallery_item"
+          v-for="partner in store.partners"
+          :key="partner._id"
+        >
           <img
             class="noselect"
-            src="/assets/9.png"
             style="width: auto"
-            alt=""
-            :draggable="false"
-          />
-        </div>
-        <div class="gallery_item">
-          <img
-            class="noselect"
-            src="/assets/7.png"
-            style="width: auto"
-            alt=""
-            :draggable="false"
-          />
-        </div>
-        <div class="gallery_item">
-          <img
-            class="noselect"
-            src="/assets/partnerre-logo.png"
-            style="width: auto"
-            alt=""
-            :draggable="false"
-          />
-        </div>
-        <div class="gallery_item">
-          <img
-            class="noselect"
-            src="/assets/8.png"
-            style="width: auto"
-            alt=""
+            :src="partner.logo"
+            :alt="partner[`name_${locale}`]"
             :draggable="false"
           />
         </div></main
@@ -417,7 +396,7 @@
           class="text-white"
           style="width: 100%; max-width: 1250px"
         >
-          подробней
+          {{ t("general.подробней") }}
         </v-btn></router-link
       >
     </div>
@@ -436,21 +415,30 @@
             <h3 class="title divider">{{ t("НАШИ УСЛУГИ") }}</h3>
           </div>
         </div>
-        <v-expansion-panels style="margin-bottom: 20px">
-          <v-expansion-panel v-for="item in accordeons" :key="item.summary">
+        <v-expansion-panels
+          style="margin-bottom: 20px"
+          v-if="store.services.length"
+        >
+          <v-expansion-panel
+            v-for="service in store.services"
+            :key="service._id"
+          >
             <v-expansion-panel-title>
-              {{ item.summary }}
+              {{ service[`name_${locale}`] }}
             </v-expansion-panel-title>
             <v-expansion-panel-text>
-              <div style="padding: 16px" v-html="item.details"></div>
+              <div
+                style="padding: 16px"
+                v-html="service[`content_${locale}`]"
+              ></div>
             </v-expansion-panel-text>
           </v-expansion-panel>
         </v-expansion-panels>
-        <router-link to="/our-services" class="text-decoration-none">
+        <!-- <router-link to="/our-services" class="text-decoration-none">
           <v-btn color="#61a375" class="text-white" style="width: 100%">
-            Смотреть все
+            {{ t("general.смотреть_все") }}
           </v-btn></router-link
-        >
+        > -->
       </section>
       <section
         :ref="
@@ -473,7 +461,7 @@
         </div>
         <router-link to="/our-news" class="text-decoration-none">
           <v-btn color="#61a375" class="text-white" style="width: 100%">
-            Посмотреть все новости
+            {{ t("general.посмотреть_все_новости") }}
           </v-btn></router-link
         >
       </section>

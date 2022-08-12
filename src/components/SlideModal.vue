@@ -3,9 +3,11 @@
 
   import Dialog from "@/shared/Dialog.vue";
   import { useStore } from "../store";
+  import { useI18n } from "vue-i18n";
 
   const { setSlide, updateSlide } = useStore();
   const props = defineProps(["open", "onClose", "editSlide"]);
+  const { t } = useI18n();
   const valid = ref(true);
   const title_en = ref("");
   const subtitle_en = ref("");
@@ -28,9 +30,9 @@
   );
 
   const fileInputLabel = computed(() =>
-    props.editSlide && !image.value[0]
+    props.editSlide && !image.value?.length
       ? props.editSlide["imageName"]
-      : "Изображение фона"
+      : t("general.Изображение_фона")
   );
 
   function callback(success) {
@@ -77,47 +79,53 @@
         @submit.prevent="submitHandler"
       >
         <p class="title text-center mb-4" style="width: 100%">
-          {{ props.editSlide ? "Редактировать слайд" : "Новый слайд" }}
+          {{
+            props.editSlide
+              ? t("general.Редактировать_слайд")
+              : t("general.Новый_слайд")
+          }}
         </p>
         <v-text-field
           v-model="title_ru"
           type="text"
           name="title_ru"
           variant="outlined"
-          label="Заголовок на русском"
+          :label="t('general.Заголовок_на_русском')"
           color="#61a375"
           required
-          :rules="[(v) => !!v || 'Введите заголовок на русском']"
+          :rules="[(v) => !!v || t('errors.Введите_заголовок_на_русском')]"
         ></v-text-field>
         <v-text-field
           v-model="subtitle_ru"
           type="text"
           name="subtitle_ru"
           variant="outlined"
-          label="Подзаголовок на русском"
+          :label="t('general.Подзаголовок_на_русском')"
           color="#61a375"
           required
-          :rules="[(v) => !!v || 'Введите подзаголовок на русском']"
+          :rules="[(v) => !!v || t('general.Введите_подзаголовок_на_русском')]"
         ></v-text-field>
         <v-text-field
           v-model="title_en"
           type="text"
           name="title_en"
           variant="outlined"
-          label="Заголовок на английском"
+          :label="t('general.Заголовок_на_английском')"
           color="#61a375"
           required
-          :rules="[(v) => !!v || 'Введите заголовок на английском']"
+          :rules="[(v) => !!v || t('errors.Введите_заголовок_на_английском')]"
         ></v-text-field>
         <v-text-field
           v-model="subtitle_en"
           type="text"
           name="subtitle_en"
           variant="outlined"
-          label="Подзаголовок на английском"
+          :label="t('general.Подзаголовок_на_английском')"
           color="#61a375"
           required
-          :rules="[(v) => !!v || 'Введите подзаголовок на английском']"
+          :rules="[
+            (v) => !!v || t('general.Введите_подзаголовок_на_английском'),
+          ]"
         ></v-text-field>
         <v-file-input
           name="image"
@@ -129,7 +137,9 @@
           :required="!editSlide"
           :rules="[
             (v) =>
-              !!v[0] || Boolean(editSlide) || 'Загрузите фоновое изображение',
+              !!v[0] ||
+              Boolean(editSlide) ||
+              t('errors.Загрузите_фоновое_изображение'),
           ]"
           show-size
         ></v-file-input>
@@ -139,7 +149,11 @@
             class="text-white"
             type="submit"
             :loading="isLoading"
-            >{{ props.editSlide ? "Обновить" : "Добавить слайд" }}</v-btn
+            >{{
+              props.editSlide
+                ? t("general.Обновить")
+                : t("general.Добавить_слайд")
+            }}</v-btn
           >
         </div>
       </v-form>

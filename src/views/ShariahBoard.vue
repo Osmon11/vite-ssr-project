@@ -5,14 +5,16 @@
   import { useI18n } from "vue-i18n";
 
   const store = useStore();
-  const { locale } = useI18n();
+  const { t, locale } = useI18n();
 </script>
 
 <template>
   <Header />
   <div class="flex-box-center">
     <main style="min-height: 100vh">
-      <p class="title py-5 mt-5 text-center" style="width: 100%">Сотрудники</p>
+      <p class="title py-5 mt-5 text-center" style="width: 100%">
+        {{ t("general.сотрудники") }}
+      </p>
       <div v-if="store.shariahBoard.length">
         <v-banner
           class="my-4"
