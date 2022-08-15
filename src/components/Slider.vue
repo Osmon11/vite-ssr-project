@@ -56,6 +56,7 @@
           @load="onLoadImg(slide.id)"
           :alt="slide.imageName"
         />
+        <div class="image-black-cover"></div>
         <div class="slide-inner flex-box-center flex-box-vertical">
           <div class="contain text-slider">
             <h2 class="maintitle">{{ slide[`title_${locale}`] }}</h2>
@@ -111,6 +112,14 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .image-black-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.25);
   }
   .slide-item.active {
     display: block;
@@ -171,7 +180,7 @@
   .subtitle {
     font-size: 30px;
     line-height: 40px;
-    padding: 20px 0 50px;
+    padding: 20px 20px 50px;
     font-weight: 300;
   }
   .text-slider {
@@ -197,6 +206,14 @@
     }
     to {
       right: 0;
+    }
+  }
+  @media (min-width: 0px) and (max-width: 600px) {
+    .maintitle {
+      font-size: 40px;
+    }
+    .subtitle {
+      font-size: 20px;
     }
   }
 </style>

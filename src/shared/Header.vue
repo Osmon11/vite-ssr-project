@@ -1,4 +1,5 @@
 <script setup>
+  import FeedbackModal from "@/components/FeedbackModal.vue";
   import { computed, onMounted, onUnmounted } from "@vue/runtime-core";
   import { useRoute, useRouter } from "vue-router";
   import { ref } from "@vue/reactivity";
@@ -8,7 +9,7 @@
   import Select from "@/shared/Select.vue";
   import { useStore } from "../store";
 
-  const props = defineProps(["scrollIntoHandler", "headerPosition"]);
+  const props = defineProps(["scrollIntoHandler"]);
 
   const store = useStore();
   const { t, locale } = useI18n();
@@ -27,10 +28,19 @@
   const token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY);
   const lang = ref("en");
   const isActive = ref(name === "home");
+  const background = ref(name === "home");
+  const drawer = ref(false);
+  const openFeedbackModal = ref(false);
+  const xs = computed(() => window.innerWidth <= 600);
 
+  function setFeedbackModal(value) {
+    openFeedbackModal.value = value;
+    drawer.value = !drawer.value;
+  }
   function handleScroll() {
     if (name === "home") {
       isActive.value = window.scrollY === 0;
+      background.value = window.scrollY < window.innerHeight - 50;
     }
   }
   function logoClick() {
@@ -46,6 +56,13 @@
     } else {
       navigate.push(item.to);
     }
+    if (xs.value) {
+      drawer.value = !drawer.value;
+    }
+  }
+  function mobileNavHandler(path) {
+    navigate.push(path);
+    drawer.value = !drawer.value;
   }
   function setLocale(value) {
     locale.value = value;
@@ -67,62 +84,231 @@
 </script>
 
 <template>
-  <header :class="{ active: isActive }" :style="{ position: headerPosition }">
+  <header :class="{ active: isActive, background: background }">
     <div class="flex-box-center">
       <div class="row flex-box-between">
         <div class="logo-wrapper flex-box" @click="logoClick">
           <img class="logo" src="/assets/AA_LOGO.svg" alt="logo" />
           <p class="logo-text activeLogoText">Amanat Advisory LLC</p>
         </div>
-        <nav class="flex-box" v-if="name === 'home'">
-          <div
-            class="nav-item"
-            v-for="item in homePageNavigation"
-            :key="item.label"
-            @click.stop="navHandler(item)"
+        <v-navigation-drawer
+          class="py-5 px-5"
+          style="width: 50%"
+          v-model="drawer"
+          location="right"
+          bottom
+          temporary
+          v-if="xs"
+        >
+          <Select
+            :value="locale"
+            @change="setLocale"
+            :class="{ activeSelect: !isActive }"
+            style="padding: 0px 10px"
           >
-            {{ t(item.label) }}
+            <template #render-value>
+              <div class="flex-box" style="gap: 8px; width: 42px">
+                <img
+                  :src="
+                    locale === 'en'
+                      ? '/assets/united-kingdom.svg'
+                      : '/assets/russia.svg'
+                  "
+                  :alt="
+                    locale === 'en' ? 'united kingdom flag' : 'russian flag'
+                  "
+                  style="width: 20px; height: 20px"
+                />
+                <p>{{ locale }}</p>
+              </div></template
+            >
+            <template #items="{ handleChange }"
+              ><div
+                class="select-item"
+                :class="{ active: 'en' === locale }"
+                @click="handleChange('en')"
+              >
+                <div class="flex-box" style="gap: 8px; width: 42px">
+                  <img
+                    src="/assets/united-kingdom.svg"
+                    alt="united kingdom flag"
+                    style="width: 20px; height: 20px"
+                  />
+                  <p>en</p>
+                </div>
+              </div>
+              <div
+                class="select-item"
+                :class="{ active: 'ru' === locale }"
+                @click="handleChange('ru')"
+              >
+                <div class="flex-box" style="gap: 8px; width: 42px">
+                  <img
+                    src="/assets/russia.svg"
+                    alt="russian flag"
+                    style="width: 20px; height: 20px"
+                  />
+                  <p>ru</p>
+                </div>
+              </div>
+            </template></Select
+          >
+          <v-list v-if="name === 'home'">
+            <v-list-subheader>{{ t("general.Навигация") }}</v-list-subheader>
+            <v-list-item
+              rounded="xl"
+              v-for="item in homePageNavigation"
+              :key="item.label"
+              @click.stop="navHandler(item)"
+            >
+              {{ t(item.label) }}
+            </v-list-item>
+            <v-list-item
+              rounded="xl"
+              @click="mobileNavHandler('/admin')"
+              v-if="token"
+              >{{ t("Админ") }}</v-list-item
+            >
+          </v-list>
+          <v-list v-else>
+            <v-list-subheader>{{ t("general.Навигация") }}</v-list-subheader>
+            <v-list-item rounded="xl" @click="mobileNavHandler('/')">{{
+              t("Главная")
+            }}</v-list-item>
+            <v-list-item rounded="xl" @click="mobileNavHandler('/our-news')">{{
+              t("НОВОСТИ")
+            }}</v-list-item>
+            <v-list-item
+              rounded="xl"
+              @click="mobileNavHandler('/admin')"
+              v-if="name !== 'admin'"
+              >{{ t("Админ") }}</v-list-item
+            >
+            <v-list-item rounded="xl" @click="logout" v-else>{{
+              t("выйти")
+            }}</v-list-item>
+          </v-list>
+          <div style="padding: 0px 16px">
+            <v-list-subheader>{{ t("Контакты") }}</v-list-subheader>
+            <div style="padding: 8px 0px">
+              <a class="body1 text-footer" href="tel:996555081071"
+                >+996555081071</a
+              >
+            </div>
+            <div style="padding: 8px 0px">
+              <a
+                class="body1 text-footer"
+                href="mailto:madalieva@amanatadvisory.kg"
+                >madalieva@amanatadvisory.kg</a
+              >
+            </div>
+            <div class="social-media-wrapper flex-box">
+              <div class="icon-wrapper">
+                <img
+                  :draggable="false"
+                  class="social-media-icon"
+                  src="/assets/gmail.png"
+                  alt="gmail icon"
+                  @click="setFeedbackModal(true)"
+                />
+              </div>
+              <a
+                class="icon-wrapper"
+                href="https://t.me/+996555081071"
+                target="_blank"
+              >
+                <img
+                  :draggable="false"
+                  class="social-media-icon"
+                  src="/assets/telegram.jpg"
+                  style="border-radius: 50%"
+                  alt="gmail icon"
+              /></a>
+              <a
+                class="icon-wrapper"
+                href="https://www.instagram.com/amanatadvisory.kg/"
+                target="_blank"
+              >
+                <img
+                  :draggable="false"
+                  class="social-media-icon"
+                  src="/assets/instagram.jpg"
+                  style="border-radius: 50%"
+                  alt="gmail icon"
+              /></a>
+              <a
+                class="icon-wrapper"
+                href="https://www.facebook.com/amanatadvisory.kg"
+                target="_blank"
+              >
+                <img
+                  :draggable="false"
+                  class="social-media-icon"
+                  src="/assets/facebook.jpg"
+                  style="border-radius: 50%"
+                  alt="gmail icon"
+              /></a>
+            </div>
           </div>
-          <router-link class="nav-item" to="/admin" v-if="token">{{
-            t("Админ")
-          }}</router-link>
-          <!-- <router-link class="nav-item" to="/login" v-else>{{
-            t("войти")
-          }}</router-link> -->
-        </nav>
-        <nav class="flex-box" v-if="name !== 'home'">
-          <router-link class="nav-item" to="/">{{ t("Главная") }}</router-link>
-          <router-link class="nav-item" to="/our-news">{{
-            t("НОВОСТИ")
-          }}</router-link>
-          <div v-if="name !== 'admin'">
+        </v-navigation-drawer>
+        <v-app-bar-nav-icon
+          color="white"
+          variant="text"
+          @click.stop="drawer = !drawer"
+          v-if="xs"
+        ></v-app-bar-nav-icon>
+        <nav v-else>
+          <span class="flex-box" v-if="name === 'home'">
+            <div
+              class="nav-item"
+              v-for="item in homePageNavigation"
+              :key="item.label"
+              @click.stop="navHandler(item)"
+            >
+              {{ t(item.label) }}
+            </div>
             <router-link class="nav-item" to="/admin" v-if="token">{{
               t("Админ")
             }}</router-link>
             <!-- <router-link class="nav-item" to="/login" v-else>{{
+            t("войти")
+          }}</router-link> -->
+          </span>
+          <span class="flex-box" v-else>
+            <router-link class="nav-item" to="/">{{
+              t("Главная")
+            }}</router-link>
+            <router-link class="nav-item" to="/our-news">{{
+              t("НОВОСТИ")
+            }}</router-link>
+            <div v-if="name !== 'admin'">
+              <router-link class="nav-item" to="/admin" v-if="token">{{
+                t("Админ")
+              }}</router-link>
+              <!-- <router-link class="nav-item" to="/login" v-else>{{
               t("войти")
             }}</router-link> -->
-          </div>
-          <div class="flex-box" style="cursor: pointer" @click="logout" v-else>
-            <p class="nav-item" style="padding-right: 10px">{{ t("выйти") }}</p>
-            <!-- <img
+            </div>
+            <div
+              class="flex-box"
+              style="cursor: pointer"
+              @click="logout"
+              v-else
+            >
+              <p class="nav-item" style="padding-right: 10px">
+                {{ t("выйти") }}
+              </p>
+              <!-- <img
               class="logout-icon"
               src="/assets/logout-svgrepo-com.svg"
               alt=""
             /> -->
-          </div>
+            </div>
+          </span>
         </nav>
       </div>
     </div>
-    <div class="toggle-language">
-      <!-- <v-select
-        class="color-white"
-        v-model="lang"
-        :items="['en', 'ru']"
-        variant="outlined"
-        density="compact"
-        hide-details
-      ></v-select> -->
+    <div class="toggle-language" v-if="!xs">
       <Select
         :value="locale"
         @change="setLocale"
@@ -174,6 +360,7 @@
         </template></Select
       >
     </div>
+    <FeedbackModal :open="openFeedbackModal" :onClose="setFeedbackModal" />
   </header>
 </template>
 

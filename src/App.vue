@@ -31,10 +31,6 @@
   }
 </script>
 
-<style>
-  @import url(./App.css);
-</style>
-
 <template>
   <v-app>
     <v-main>
@@ -75,3 +71,7 @@
     </v-main>
   </v-app>
 </template>
+
+<style>
+  @import url(./App.css);
+</style>

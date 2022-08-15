@@ -73,8 +73,76 @@
               {{ t("Наши цели в рамках развития ИПФ") }}
             </h3>
           </div>
-          <div class="flex-box-center">
-            <ul style="text-align: start">
+          <div
+            class="flex-box"
+            style="width: 100%; align-items: stretch; gap: 32px"
+          >
+            <v-card class="mx-auto" style="width: 25%">
+              <template v-slot:title>
+                <img
+                  class="py-5"
+                  src="/assets/goal.png"
+                  style="width: 50%; min-width: 54px"
+                />
+              </template>
+              <v-card-text>
+                <p class="body1">
+                  {{
+                    t(
+                      "Стать первым учреждением, охватывающим все аспекты деятельности исламского финансирования;"
+                    )
+                  }}
+                </p>
+              </v-card-text></v-card
+            >
+            <v-card class="mx-auto" style="width: 25%">
+              <template v-slot:title>
+                <img
+                  class="py-5"
+                  src="/assets/knowledge.png"
+                  style="width: 50%; min-width: 54px"
+                />
+              </template>
+              <v-card-text>
+                <p class="body1">
+                  {{
+                    t(
+                      "Внедрение передового международного опыта путем предоставления стратегических рекомендаций;"
+                    )
+                  }}
+                </p>
+              </v-card-text></v-card
+            >
+            <v-card class="mx-auto" style="width: 25%">
+              <template v-slot:title>
+                <img
+                  class="py-5"
+                  src="/assets/reward.png"
+                  style="width: 50%; min-width: 54px"
+                />
+              </template>
+              <v-card-text>
+                <p class="body1">
+                  {{ t("Предоставление качественных услуг;") }}
+                </p>
+              </v-card-text></v-card
+            >
+            <v-card class="mx-auto" style="width: 25%">
+              <template v-slot:title>
+                <img
+                  class="py-5"
+                  src="/assets/contract.png"
+                  style="width: 50%; min-width: 54px"
+                />
+              </template>
+              <v-card-text>
+                <p class="body1">
+                  {{ t("Взаимовыгодное партнерство;") }}
+                </p>
+              </v-card-text></v-card
+            >
+          </div>
+          <!-- <ul style="text-align: start">
               <li>
                 <p class="body1" style="margin-bottom: 20px">
                   {{
@@ -103,8 +171,7 @@
                   {{ t("Взаимовыгодное партнерство;") }}
                 </p>
               </li>
-            </ul>
-          </div>
+            </ul> -->
         </div>
       </section>
       <section
@@ -280,7 +347,7 @@
         fill="currentColor"
       /></svg
   ></a>
-  <Footer />
+  <Footer :scrollIntoHandler="scrollIntoHandler" />
 </template>
 
 <style scoped>
