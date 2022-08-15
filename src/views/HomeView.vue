@@ -278,7 +278,7 @@
   <Slider />
   <div class="flex-box-center">
     <main>
-      <!-- <section
+      <section
         style="text-align: center"
         :ref="
           (el) => {
@@ -288,28 +288,44 @@
       >
         <div class="column_wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">INTRODUCTION</h3>
+            <h3 class="title divider">
+              {{ t("Наши цели в рамках развития ИПФ") }}
+            </h3>
           </div>
-          <p class="body1" style="margin-bottom: 20px">
-            The current financial global crisis emanating from the sub-prime
-            meltdown have demonstrated that Islam, properly understood, presents
-            a viable alternative to conventional western financial practices for
-            managing the modern global economy.
-          </p>
-          <p class="body1" style="margin-bottom: 20px">
-            Some even argued that if Islam offers a viable set of contemporary
-            financial and commercial practices, then it also offers an
-            appropriate structure for social order as well. Wasn’t the crisis
-            the result of riba or the prohibited interest?
-          </p>
-          <p class="body1" style="margin-bottom: 20px">
-            Islamic finance is based primarily on the Quranic and hadith dictate
-            on the prohibition of riba, structured upon stringent governance
-            standards that emphasizes the importance of universal values and the
-            need for real sector growth.
-          </p>
+          <div class="flex-box-center">
+            <ul style="text-align: start">
+              <li>
+                <p class="body1" style="margin-bottom: 20px">
+                  {{
+                    t(
+                      "Стать первым учреждением, охватывающим все аспекты деятельности исламского финансирования;"
+                    )
+                  }}
+                </p>
+              </li>
+              <li>
+                <p class="body1" style="margin-bottom: 20px">
+                  {{
+                    t(
+                      "Внедрение передового международного опыта путем предоставления стратегических рекомендаций;"
+                    )
+                  }}
+                </p>
+              </li>
+              <li>
+                <p class="body1" style="margin-bottom: 20px">
+                  {{ t("Предоставление качественных услуг;") }}
+                </p>
+              </li>
+              <li>
+                <p class="body1" style="margin-bottom: 20px">
+                  {{ t("Взаимовыгодное партнерство;") }}
+                </p>
+              </li>
+            </ul>
+          </div>
         </div>
-      </section> -->
+      </section>
       <section
         class="flex-box"
         style="align-items: flex-start"
