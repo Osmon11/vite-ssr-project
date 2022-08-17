@@ -23,15 +23,17 @@
       key: "our_experiences",
     },
     { label: "НАШИ УСЛУГИ", key: "our_services" },
-    { label: "НОВОСТИ", key: "blog" },
+    { label: "Новости", key: "blog" },
   ];
   const token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY);
   const lang = ref("en");
   const isActive = ref(name === "home");
-  const background = ref(name === "home");
+  const isSticky = ref(name === "home");
+  const position = ref("static");
   const drawer = ref(false);
   const openFeedbackModal = ref(false);
   const xs = computed(() => window.innerWidth <= 600);
+  const sm = computed(() => window.innerWidth <= 960);
 
   function setFeedbackModal(value) {
     openFeedbackModal.value = value;
@@ -40,7 +42,7 @@
   function handleScroll() {
     if (name === "home") {
       isActive.value = window.scrollY === 0;
-      background.value = window.scrollY < window.innerHeight - 50;
+      isSticky.value = window.scrollY < window.innerHeight - 50;
     }
   }
   function logoClick() {
@@ -84,7 +86,7 @@
 </script>
 
 <template>
-  <header :class="{ active: isActive, background: background }">
+  <header :class="{ active: isActive, sticky: isSticky }">
     <div class="flex-box-center">
       <div class="row flex-box-between">
         <div class="logo-wrapper flex-box" @click="logoClick">
@@ -93,12 +95,12 @@
         </div>
         <v-navigation-drawer
           class="py-5 px-5"
-          style="width: 50%"
+          style="width: fit-content"
           v-model="drawer"
           location="right"
           bottom
           temporary
-          v-if="xs"
+          v-if="xs || sm"
         >
           <Select
             :value="locale"
@@ -176,8 +178,13 @@
               t("Главная")
             }}</v-list-item>
             <v-list-item rounded="xl" @click="mobileNavHandler('/our-news')">{{
-              t("НОВОСТИ")
+              t("Новости")
             }}</v-list-item>
+            <v-list-item
+              rounded="xl"
+              @click="mobileNavHandler('/shariah-board')"
+              >{{ t("ШАРИАТСКИЙ СОВЕТ") }}</v-list-item
+            >
             <v-list-item
               rounded="xl"
               @click="mobileNavHandler('/admin')"
@@ -255,7 +262,7 @@
           color="white"
           variant="text"
           @click.stop="drawer = !drawer"
-          v-if="xs"
+          v-if="xs || sm"
         ></v-app-bar-nav-icon>
         <nav v-else>
           <span class="flex-box" v-if="name === 'home'">
@@ -279,7 +286,10 @@
               t("Главная")
             }}</router-link>
             <router-link class="nav-item" to="/our-news">{{
-              t("НОВОСТИ")
+              t("Новости")
+            }}</router-link>
+            <router-link class="nav-item" to="/shariah-board">{{
+              t("ШАРИАТСКИЙ СОВЕТ")
             }}</router-link>
             <div v-if="name !== 'admin'">
               <router-link class="nav-item" to="/admin" v-if="token">{{
@@ -308,7 +318,7 @@
         </nav>
       </div>
     </div>
-    <div class="toggle-language" v-if="!xs">
+    <div class="toggle-language" v-if="!xs && !sm">
       <Select
         :value="locale"
         @change="setLocale"

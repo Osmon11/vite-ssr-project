@@ -1,9 +1,9 @@
 <script setup>
+  import { useRouter } from "vue-router";
   import { ref } from "@vue/reactivity";
+  import { useI18n } from "vue-i18n";
 
   import { useStore } from "@/store";
-  import { useRouter } from "vue-router";
-  import { useI18n } from "vue-i18n";
 
   defineProps(["news"]);
 
@@ -27,10 +27,10 @@
 <template>
   <article class="flex-box collapse" :class="{ expanded }">
     <img
-      :src="news.imageUrl"
-      class="cover"
       alt=""
+      class="cover"
       v-show="isLoaded"
+      :src="news.imageUrl"
       @load="isLoaded = true"
     />
     <div class="flex-box-center cover" v-show="!isLoaded">
@@ -52,7 +52,6 @@
   article {
     width: 100%;
     max-height: 300px;
-    min-height: 300px;
     overflow: hidden;
     position: relative;
     transition: all 0.5s ease;
@@ -67,22 +66,22 @@
   .expanded {
     max-height: 10000px;
   }
-  article .cover {
+  .cover {
     width: 400px;
   }
-  article .content {
+  .content {
     width: calc(100% - 420px);
   }
-  article .content .title {
+  .content .title {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
     max-height: 90px;
   }
-  article .expand-more {
+  .expand-more {
     position: absolute;
     right: 0px;
-    top: 229px;
+    bottom: 0px;
     width: calc(100% - 440px);
     height: 70px;
     background: linear-gradient(
@@ -91,5 +90,16 @@
       rgba(255, 255, 255, 1) 50%,
       transparent 110%
     );
+  }
+  @media (min-width: 600px) and (max-width: 960px) {
+    .cover {
+      width: 300px;
+    }
+    .content {
+      width: calc(100% - 340px);
+    }
+    .expand-more {
+      width: calc(100% - 340px);
+    }
   }
 </style>

@@ -17,8 +17,8 @@
 <template>
   <footer>
     <div class="flex-box-center">
-      <div class="footer-content flex-box" style="gap: 5%">
-        <div class="flex-box" style="width: 33%; gap: 20px">
+      <div class="footer-content flex-box">
+        <div class="flex-box column" style="gap: 20px">
           <img src="/AA_LOGO.png" style="width: 64px" />
           <div>
             <p class="body1 text-footer mb-3">
@@ -36,12 +36,12 @@
             </div>
           </div>
         </div>
-        <div style="width: 33%">
-          <p class="title">
+        <div class="column">
+          <p class="title" style="padding-bottom: 0">
             {{ t("general['О компании']") }}
           </p>
           <router-link class="nav-item text-footer" to="/our-news">{{
-            t("НОВОСТИ")
+            t("Новости")
           }}</router-link>
           <p
             class="nav-item text-footer"
@@ -50,12 +50,13 @@
           >
             {{ t("НАШИ УСЛУГИ") }}
           </p>
+          <br v-else />
           <router-link class="nav-item text-footer" to="/shariah-board">{{
             t("ШАРИАТСКИЙ СОВЕТ")
           }}</router-link>
         </div>
-        <div style="width: 33%">
-          <p class="title">
+        <div class="column">
+          <p class="title" style="padding-bottom: 0">
             {{ t("general.ПРИСОЕДИНЯЙТЕСЬ") }}
           </p>
           <div class="social-media-wrapper flex-box">
@@ -120,17 +121,19 @@
 
 <style scoped>
   footer {
-    padding: 95px 0px 37px;
+    padding: 70px 0px 35px;
     background: linear-gradient(to bottom, #7e8e8e, #4b5757);
   }
   .footer-content {
     width: 100%;
     max-width: 1250px;
     align-items: start;
-    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5%;
   }
   .title {
-    font-family: "Raleway", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 24px;
@@ -140,5 +143,27 @@
 
   .text-footer {
     color: #c5c5c5;
+  }
+  .column {
+    width: 28%;
+  }
+
+  @media (min-width: 0px) and (max-width: 600px) {
+    .footer-content {
+      padding: 0px 15px;
+      gap: 20px;
+    }
+    .column {
+      width: fit-content;
+    }
+  }
+  @media (min-width: 600px) and (max-width: 960px) {
+    .footer-content {
+      padding: 0px 15px;
+      gap: 20px;
+    }
+    .column {
+      width: fit-content;
+    }
   }
 </style>

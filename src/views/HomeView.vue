@@ -1,5 +1,5 @@
 <script setup>
-  import { ref } from "@vue/reactivity";
+  import { ref, computed } from "@vue/reactivity";
   import { onBeforeUpdate, onMounted, onUnmounted } from "@vue/runtime-core";
   import MarqueeText from "vue-marquee-text-component";
 
@@ -15,12 +15,14 @@
   const { t, locale } = useI18n();
   const activeGoTop = ref(false);
   const headerPosition = ref("fixed");
+  const xs = computed(() => window.innerWidth <= 600);
+  const sm = computed(() => window.innerWidth <= 960);
 
   onMounted(() => {
-    window.addEventListener("scroll", handleScroll);
     store.getNewsFeed();
     store.getPartnersList();
     store.getServicesList();
+    window.addEventListener("scroll", handleScroll);
   });
   onUnmounted(() => {
     window.removeEventListener("scroll", handleScroll);
@@ -57,7 +59,7 @@
     :headerPosition="headerPosition"
   />
   <Slider />
-  <div class="flex-box-center">
+  <div class="flex-box-center" :style="{ marginTop: xs ? '30px' : '80px' }">
     <main>
       <section
         style="text-align: center"
@@ -67,17 +69,22 @@
           }
         "
       >
-        <div class="column_wrap">
+        <div class="column-wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">
               {{ t("Наши цели в рамках развития ИПФ") }}
             </h3>
           </div>
           <div
-            class="flex-box"
-            style="width: 100%; align-items: stretch; gap: 32px"
+            class="flex-box-center"
+            :style="{
+              width: '100%',
+              alignItems: 'stretch',
+              gap: xs ? '16px' : sm ? '24px' : '32px',
+              flexWrap: 'wrap',
+            }"
           >
-            <v-card class="mx-auto" style="width: 25%">
+            <v-card class="goalsCard">
               <template v-slot:title>
                 <img
                   class="py-5"
@@ -85,17 +92,9 @@
                   style="width: 50%; min-width: 54px"
                 />
               </template>
-              <v-card-text>
-                <p class="body1">
-                  {{
-                    t(
-                      "Стать первым учреждением, охватывающим все аспекты деятельности исламского финансирования;"
-                    )
-                  }}
-                </p>
-              </v-card-text></v-card
-            >
-            <v-card class="mx-auto" style="width: 25%">
+              <v-card-text> <p class="body1"></p> </v-card-text
+            ></v-card>
+            <v-card class="goalsCard">
               <template v-slot:title>
                 <img
                   class="py-5"
@@ -103,17 +102,9 @@
                   style="width: 50%; min-width: 54px"
                 />
               </template>
-              <v-card-text>
-                <p class="body1">
-                  {{
-                    t(
-                      "Внедрение передового международного опыта путем предоставления стратегических рекомендаций;"
-                    )
-                  }}
-                </p>
-              </v-card-text></v-card
-            >
-            <v-card class="mx-auto" style="width: 25%">
+              <v-card-text> <p class="body1"></p> </v-card-text
+            ></v-card>
+            <v-card class="goalsCard">
               <template v-slot:title>
                 <img
                   class="py-5"
@@ -121,13 +112,9 @@
                   style="width: 50%; min-width: 54px"
                 />
               </template>
-              <v-card-text>
-                <p class="body1">
-                  {{ t("Предоставление качественных услуг;") }}
-                </p>
-              </v-card-text></v-card
-            >
-            <v-card class="mx-auto" style="width: 25%">
+              <v-card-text> <p class="body1"></p> </v-card-text
+            ></v-card>
+            <v-card class="goalsCard">
               <template v-slot:title>
                 <img
                   class="py-5"
@@ -135,67 +122,35 @@
                   style="width: 50%; min-width: 54px"
                 />
               </template>
-              <v-card-text>
-                <p class="body1">
-                  {{ t("Взаимовыгодное партнерство;") }}
-                </p>
-              </v-card-text></v-card
-            >
+              <v-card-text> <p class="body1"></p> </v-card-text
+            ></v-card>
           </div>
-          <!-- <ul style="text-align: start">
-              <li>
-                <p class="body1" style="margin-bottom: 20px">
-                  {{
-                    t(
-                      "Стать первым учреждением, охватывающим все аспекты деятельности исламского финансирования;"
-                    )
-                  }}
-                </p>
-              </li>
-              <li>
-                <p class="body1" style="margin-bottom: 20px">
-                  {{
-                    t(
-                      "Внедрение передового международного опыта путем предоставления стратегических рекомендаций;"
-                    )
-                  }}
-                </p>
-              </li>
-              <li>
-                <p class="body1" style="margin-bottom: 20px">
-                  {{ t("Предоставление качественных услуг;") }}
-                </p>
-              </li>
-              <li>
-                <p class="body1" style="margin-bottom: 20px">
-                  {{ t("Взаимовыгодное партнерство;") }}
-                </p>
-              </li>
-            </ul> -->
         </div>
       </section>
       <section
         class="flex-box"
-        style="align-items: flex-start"
+        :style="{
+          alignItems: 'flex-start',
+          gap: xs ? '16px' : '32px',
+          flexWrap: 'wrap',
+        }"
         :ref="
           (el) => {
             if (el) refs['about_us'] = el;
           }
         "
       >
-        <div class="column_wrap" style="width: 33%">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">{{ t("О НАС") }}</h3>
-          </div>
-          <p class="body1" style="margin-bottom: 20px">
-            {{ t("О компании") }}
-          </p>
-        </div>
-        <div class="column_wrap" style="width: 33%">
+        <div class="column-wrap info-item">
           <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">{{ t("Миссия компании") }}</h3>
           </div>
-          <p class="body1" style="margin-bottom: 20px">
+          <p
+            class="body1"
+            :style="{
+              marginBottom: '20px',
+              textAlign: xs ? 'center' : 'start',
+            }"
+          >
             {{
               t(
                 "Развитие и популяризация Исламского финансирования в Кыргызстане и в ближнем зарубежье."
@@ -203,7 +158,15 @@
             }}
           </p>
         </div>
-        <div class="column_wrap" style="width: 33%">
+        <div class="column-wrap info-item">
+          <div class="flex-box-center" style="margin-bottom: 40px">
+            <h3 class="title divider">{{ t("О НАС") }}</h3>
+          </div>
+          <p class="body1" style="margin-bottom: 20px">
+            {{ t("О компании") }}
+          </p>
+        </div>
+        <div class="column-wrap info-item">
           <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">{{ t("ПОЧЕМУ МЫ") }}</h3>
           </div>
@@ -215,6 +178,67 @@
             }}
           </p>
         </div>
+        <div class="column-wrap info-item">
+          <div class="flex-box-center" style="margin-bottom: 40px">
+            <h3 class="title divider">
+              {{ t("Наши цели в рамках развития ИПФ") }}
+            </h3>
+          </div>
+          <ul>
+            <li>
+              <p
+                class="body1"
+                :style="{
+                  marginBottom: '10px',
+                  textAlign: xs ? 'center' : 'start',
+                }"
+              >
+                {{
+                  t(
+                    "Стать первым учреждением, охватывающим все аспекты деятельности исламского финансирования;"
+                  )
+                }}
+              </p>
+            </li>
+            <li>
+              <p
+                class="body1"
+                :style="{
+                  marginBottom: '10px',
+                  textAlign: xs ? 'center' : 'start',
+                }"
+              >
+                {{
+                  t(
+                    "Внедрение передового международного опыта путем предоставления стратегических рекомендаций;"
+                  )
+                }}
+              </p>
+            </li>
+            <li>
+              <p
+                class="body1"
+                :style="{
+                  marginBottom: '10px',
+                  textAlign: xs ? 'center' : 'start',
+                }"
+              >
+                {{ t("Предоставление качественных услуг;") }}
+              </p>
+            </li>
+            <li>
+              <p
+                class="body1"
+                :style="{
+                  marginBottom: '10px',
+                  textAlign: xs ? 'center' : 'start',
+                }"
+              >
+                {{ t("Взаимовыгодное партнерство;") }}
+              </p>
+            </li>
+          </ul>
+        </div>
       </section>
       <section
         style="padding-bottom: 0px"
@@ -224,7 +248,7 @@
           }
         "
       >
-        <div class="column_wrap">
+        <div class="column-wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">{{ t("НАШ ОПЫТ") }}</h3>
           </div>
@@ -233,10 +257,18 @@
     </main>
   </div>
   <section style="padding-top: 0px" v-if="store.partners.length">
-    <MarqueeText class="gallery" :duration="15" :repeat="10">
-      <main class="flex-box" style="width: 100vw; gap: 15px">
+    <MarqueeText class="gallery" :repeat="10">
+      <div
+        class="flex-box"
+        :style="{
+          width: 'auto',
+          gap: xs ? '32px' : '16px',
+          marginRight: xs ? '32px' : '16px',
+          justifyContent: 'space-around',
+        }"
+      >
         <div
-          class="gallery_item"
+          class="gallery-item"
           v-for="partner in store.partners"
           :key="partner._id"
         >
@@ -247,9 +279,9 @@
             :alt="partner[`name_${locale}`]"
             :draggable="false"
           />
-        </div></main
+        </div></div
     ></MarqueeText>
-    <div class="flex-box-center" style="margin-top: 20px">
+    <div class="flex-box-center" style="margin-top: 20px; padding: 0px 15px">
       <router-link
         to="/experiences"
         class="text-decoration-none"
@@ -265,7 +297,10 @@
       >
     </div>
   </section>
-  <div class="flex-box-center">
+  <div
+    class="flex-box-center"
+    :style="{ marginBottom: xs ? '30px' : '80px', padding: '0px 15px' }"
+  >
     <main>
       <section
         :ref="
@@ -274,7 +309,7 @@
           }
         "
       >
-        <div class="column_wrap">
+        <div class="column-wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">{{ t("НАШИ УСЛУГИ") }}</h3>
           </div>
@@ -311,17 +346,25 @@
           }
         "
       >
-        <div class="column_wrap">
+        <div class="column-wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">{{ t("НОВОСТИ") }}</h3>
+            <h3 class="title divider">{{ t("Новости") }}</h3>
           </div>
         </div>
-        <div class="flex-box" style="gap: 20px" v-if="store.newsFeed.length">
-          <BlogCard
-            v-for="news in store.newsFeed"
+        <div
+          class="flex-box"
+          style="gap: 20px; align-items: stretch"
+          v-if="store.newsFeed.length"
+        >
+          <div
+            class="flex-box mb-5"
+            style="align-items: stretch"
+            :style="{ width: xs || sm ? '50%' : '33%' }"
+            v-for="news in store.newsFeed.slice(0, xs || sm ? 2 : 3)"
             :key="news._id"
-            :news="news"
-          />
+          >
+            <BlogCard :news="news" />
+          </div>
         </div>
         <router-link to="/our-news" class="text-decoration-none">
           <v-btn color="#61a375" class="text-white" style="width: 100%">
@@ -332,7 +375,7 @@
     </main>
   </div>
   <a
-    class="go_top"
+    class="go-top"
     :class="{ show: activeGoTop }"
     @click="scrollIntoHandler('top')"
     ><svg
@@ -351,13 +394,13 @@
 </template>
 
 <style scoped>
-  .column_wrap {
+  .column-wrap {
     padding: 15px;
   }
   section {
-    padding: 100px 0px;
+    padding: 80px 0px;
   }
-  .go_top {
+  .go-top {
     position: fixed !important;
     right: 20px;
     bottom: -45px;
@@ -387,7 +430,7 @@
     background-color: #61a375;
     padding: 8px;
   }
-  .go_top.show {
+  .go-top.show {
     opacity: 1;
     visibility: visible;
     bottom: 11px;
@@ -397,9 +440,39 @@
     padding: 100px 0px;
     background-color: #f5f5f5;
   }
-  .gallery_item {
-    width: 100%;
-    max-width: 25%;
+  .gallery-item {
+    display: inline-block;
+    width: 25vw;
     text-align: center;
+  }
+  .gallery-item img {
+    width: auto;
+    max-width: 100%;
+  }
+  .info-item {
+    width: calc(33% - 32px);
+  }
+
+  @media (min-width: 0px) and (max-width: 600px) {
+    section {
+      padding: 30px 0px;
+    }
+    .info-item {
+      width: calc(50% - 16px);
+    }
+    .gallery {
+      padding: 50px 0px;
+    }
+    .gallery-item {
+      width: 30vw;
+    }
+  }
+  @media (min-width: 600px) and (max-width: 960px) {
+    section {
+      padding: 40px 0px;
+    }
+    .gallery {
+      padding: 70px 0px;
+    }
   }
 </style>

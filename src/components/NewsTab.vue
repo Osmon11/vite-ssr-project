@@ -39,7 +39,7 @@
 
 <template>
   <div class="flex-box-between" style="margin-bottom: 16px">
-    <p class="title">{{ t("НОВОСТИ") }}</p>
+    <p class="title">{{ t("Новости") }}</p>
     <v-btn color="#61a375" class="text-white" @click="setModal(true)">{{
       t("general.добавить_новость")
     }}</v-btn>

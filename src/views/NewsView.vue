@@ -10,9 +10,11 @@
 
 <template>
   <Header />
-  <div class="flex-box-center">
-    <main style="padding: 5% 0px">
-      <p class="title">{{ store.currentNews[`title_${locale}`] }}</p>
+  <div class="flex-box-center py-5 px-5">
+    <main>
+      <p class="title divider text-center full-width my-5">
+        {{ store.currentNews[`title_${locale}`] }}
+      </p>
       <p class="text-caption">
         {{ store.currentNews.createdAt.split(" ")[0] }}
       </p>

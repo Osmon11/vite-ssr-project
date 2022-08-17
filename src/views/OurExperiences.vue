@@ -7,7 +7,7 @@
   <Header />
   <div class="flex-box-center" style="margin: 50px 0px">
     <main>
-      <div class="column_wrap">
+      <div class="column-wrap">
         <div class="flex-box-center" style="margin-bottom: 40px">
           <h3 class="title divider">OUR EXPERIENCES</h3>
         </div>

@@ -23,6 +23,7 @@
     "vue-marquee-text-component": "^2.0.1",
     "vue-recaptcha": "^2.0.2",
     "vue-router": "^4.0.16",
+    "vue3-carousel": "^0.1.46",
     "vuetify": "^3.0.0-beta.0",
     "webfontloader": "^1.0.0"
   },

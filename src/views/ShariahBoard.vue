@@ -1,4 +1,5 @@
 <script setup>
+  import { onMounted } from "vue";
   import { useStore } from "../store";
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
@@ -6,14 +7,18 @@
 
   const store = useStore();
   const { t, locale } = useI18n();
+
+  onMounted(() => {
+    store.getShariahBoard();
+  });
 </script>
 
 <template>
   <Header />
   <div class="flex-box-center">
     <main style="min-height: 100vh">
-      <p class="title py-5 mt-5 text-center" style="width: 100%">
-        {{ t("general.сотрудники") }}
+      <p class="title divider py-5 mt-5 text-center" style="width: 100%">
+        {{ t("ШАРИАТСКИЙ СОВЕТ") }}
       </p>
       <div v-if="store.shariahBoard.length">
         <v-banner

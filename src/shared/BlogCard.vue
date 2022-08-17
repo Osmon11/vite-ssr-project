@@ -20,7 +20,7 @@
   <article class="blog-card" @click="setCurrentNews">
     <figure><img :src="news.imageUrl" :alt="news.imageName" /></figure>
     <div class="blog_content">
-      <h3 class="title">
+      <h3 class="card-title">
         {{ news[`title_${locale}`] }}
       </h3>
     </div>
@@ -30,7 +30,6 @@
 <style scoped>
   .blog-card {
     width: 100%;
-    max-width: 33.33%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     cursor: pointer;
@@ -42,11 +41,10 @@
     background-color: #eaf0f6;
     border-radius: 3px;
     overflow: hidden;
-    margin: 0 1rem 1rem 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     flex-grow: 1;
     position: relative;
-    min-height: 475px;
   }
   .blog-card:hover {
     box-shadow: 0 10px 50px -5px rgb(51 71 91 / 12%);
@@ -76,12 +74,29 @@
     position: absolute;
     display: block;
   }
-  .blog-card h3 {
+  .card-title {
+    width: fit-content;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+    color: #443f3f;
+    text-transform: uppercase;
     padding: 16px;
   }
-  .blog-card h3 a {
+  .card-title h3 a {
     text-decoration: none;
     color: #33475b;
     font-weight: 600;
+  }
+
+  @media (min-width: 0px) and (max-width: 600px) {
+    .card-title {
+      font-size: 18px;
+    }
+  }
+  @media (min-width: 600px) and (max-width: 960px) {
+    .card-title {
+      font-size: 20px;
+    }
   }
 </style>

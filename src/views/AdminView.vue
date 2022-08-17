@@ -19,7 +19,7 @@
   <div class="d-flex flex-row admin-wrapper">
     <v-card class="py-10">
       <v-tabs v-model="tabs" direction="vertical" color="#61a375">
-        <v-tab value="news">{{ t("НОВОСТИ") }}</v-tab>
+        <v-tab value="news">{{ t("Новости") }}</v-tab>
         <v-tab value="slides">{{ t("Слайды") }}</v-tab>
         <v-tab value="partners">{{ t("Партнеры") }}</v-tab>
         <v-tab value="services">{{ t("Услуги") }}</v-tab>
@@ -41,5 +41,6 @@
     width: 100%;
     height: 100%;
     min-height: calc(100vh - 545px);
+    margin-top: 50px;
   }
 </style>

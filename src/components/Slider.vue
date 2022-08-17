@@ -1,10 +1,10 @@
 <script setup>
-  import { ref } from "@vue/reactivity";
   import { onMounted, onUnmounted } from "@vue/runtime-core";
+  import { ref } from "@vue/reactivity";
+  import { useI18n } from "vue-i18n";
 
   import { useStore } from "../store";
   import FeedbackModal from "@/components/FeedbackModal.vue";
-  import { useI18n } from "vue-i18n";
 
   const store = useStore();
   const { t, locale } = useI18n();
