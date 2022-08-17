@@ -25,13 +25,24 @@
               {{ t("Консалтинговые услуги по Исламским Финансам.") }}
             </p>
             <div>
+              <div class="flex-box" style="gap: 10px">
+                <!-- <div class="icon-wrapper">
+                  <img
+                    :draggable="false"
+                    class="social-media-icon"
+                    src="/assets/gmail.png"
+                    alt="gmail icon"
+                    @click="setFeedbackModal(true)"
+                  />
+                </div> -->
+                <a
+                  class="body1 text-footer"
+                  href="mailto:madalieva@amanatadvisory.kg"
+                  >madalieva@amanatadvisory.kg</a
+                >
+              </div>
               <a class="body1 text-footer" href="tel:996555081071"
                 >+996555081071</a
-              ><br />
-              <a
-                class="body1 text-footer"
-                href="mailto:madalieva@amanatadvisory.kg"
-                >madalieva@amanatadvisory.kg</a
               >
             </div>
           </div>
@@ -60,15 +71,6 @@
             {{ t("general.ПРИСОЕДИНЯЙТЕСЬ") }}
           </p>
           <div class="social-media-wrapper flex-box">
-            <div class="icon-wrapper">
-              <img
-                :draggable="false"
-                class="social-media-icon"
-                src="/assets/gmail.png"
-                alt="gmail icon"
-                @click="setFeedbackModal(true)"
-              />
-            </div>
             <a
               class="icon-wrapper"
               href="https://t.me/+996555081071"

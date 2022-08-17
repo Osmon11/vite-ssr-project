@@ -105,8 +105,9 @@
     background-position: 50% 0px;
     background-repeat: no-repeat;
     background-size: cover;
-    z-index: 0;
-    display: none;
+    z-index: -1;
+    opacity: 0;
+    transition: all 2s;
   }
   .slide-item .img {
     width: 100%;
@@ -122,16 +123,8 @@
     background-color: rgba(0, 0, 0, 0.25);
   }
   .slide-item.active {
-    display: block;
-    animation: splash 600ms ease-in-out;
-  }
-  @keyframes splash {
-    0% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-    }
+    z-index: 0;
+    opacity: 1;
   }
   .slide-inner {
     position: absolute;

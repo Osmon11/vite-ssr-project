@@ -39,7 +39,7 @@
   function scrollIntoHandler(key) {
     if (refs.value[key]) {
       refs.value[key].scrollIntoView({
-        block: key === "top" ? "start" : "center",
+        block: key === "top" ? "start" : key === "contacts" ? "end" : "center",
         behavior: "smooth",
       });
     }
@@ -61,72 +61,6 @@
   <Slider />
   <div class="flex-box-center" :style="{ marginTop: xs ? '30px' : '80px' }">
     <main>
-      <section
-        style="text-align: center"
-        :ref="
-          (el) => {
-            if (el) refs['introduction'] = el;
-          }
-        "
-      >
-        <div class="column-wrap">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">
-              {{ t("Наши цели в рамках развития ИПФ") }}
-            </h3>
-          </div>
-          <div
-            class="flex-box-center"
-            :style="{
-              width: '100%',
-              alignItems: 'stretch',
-              gap: xs ? '16px' : sm ? '24px' : '32px',
-              flexWrap: 'wrap',
-            }"
-          >
-            <v-card class="goalsCard">
-              <template v-slot:title>
-                <img
-                  class="py-5"
-                  src="/assets/goal.png"
-                  style="width: 50%; min-width: 54px"
-                />
-              </template>
-              <v-card-text> <p class="body1"></p> </v-card-text
-            ></v-card>
-            <v-card class="goalsCard">
-              <template v-slot:title>
-                <img
-                  class="py-5"
-                  src="/assets/knowledge.png"
-                  style="width: 50%; min-width: 54px"
-                />
-              </template>
-              <v-card-text> <p class="body1"></p> </v-card-text
-            ></v-card>
-            <v-card class="goalsCard">
-              <template v-slot:title>
-                <img
-                  class="py-5"
-                  src="/assets/reward.png"
-                  style="width: 50%; min-width: 54px"
-                />
-              </template>
-              <v-card-text> <p class="body1"></p> </v-card-text
-            ></v-card>
-            <v-card class="goalsCard">
-              <template v-slot:title>
-                <img
-                  class="py-5"
-                  src="/assets/contract.png"
-                  style="width: 50%; min-width: 54px"
-                />
-              </template>
-              <v-card-text> <p class="body1"></p> </v-card-text
-            ></v-card>
-          </div>
-        </div>
-      </section>
       <section
         class="flex-box"
         :style="{
@@ -391,6 +325,14 @@
       /></svg
   ></a>
   <Footer :scrollIntoHandler="scrollIntoHandler" />
+  <div
+    :ref="
+      (el) => {
+        if (el) refs['contacts'] = el;
+      }
+    "
+    style="height: 0px"
+  ></div>
 </template>
 
 <style scoped>
@@ -450,7 +392,7 @@
     max-width: 100%;
   }
   .info-item {
-    width: calc(33% - 32px);
+    width: calc(50% - 16px);
   }
 
   @media (min-width: 0px) and (max-width: 600px) {

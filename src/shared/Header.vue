@@ -24,6 +24,7 @@
     },
     { label: "НАШИ УСЛУГИ", key: "our_services" },
     { label: "Новости", key: "blog" },
+    { label: "Контакты", key: "contacts" },
   ];
   const token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY);
   const lang = ref("en");
@@ -177,12 +178,16 @@
             <v-list-item rounded="xl" @click="mobileNavHandler('/')">{{
               t("Главная")
             }}</v-list-item>
-            <v-list-item rounded="xl" @click="mobileNavHandler('/our-news')">{{
-              t("Новости")
-            }}</v-list-item>
+            <v-list-item
+              rounded="xl"
+              @click="mobileNavHandler('/our-news')"
+              v-if="name !== 'our-news'"
+              >{{ t("Новости") }}</v-list-item
+            >
             <v-list-item
               rounded="xl"
               @click="mobileNavHandler('/shariah-board')"
+              v-if="name !== '/shariah-board'"
               >{{ t("ШАРИАТСКИЙ СОВЕТ") }}</v-list-item
             >
             <v-list-item
@@ -285,12 +290,18 @@
             <router-link class="nav-item" to="/">{{
               t("Главная")
             }}</router-link>
-            <router-link class="nav-item" to="/our-news">{{
-              t("Новости")
-            }}</router-link>
-            <router-link class="nav-item" to="/shariah-board">{{
-              t("ШАРИАТСКИЙ СОВЕТ")
-            }}</router-link>
+            <router-link
+              class="nav-item"
+              to="/our-news"
+              v-if="name !== 'our-news'"
+              >{{ t("Новости") }}</router-link
+            >
+            <router-link
+              class="nav-item"
+              to="/shariah-board"
+              v-if="name !== '/shariah-board'"
+              >{{ t("ШАРИАТСКИЙ СОВЕТ") }}</router-link
+            >
             <div v-if="name !== 'admin'">
               <router-link class="nav-item" to="/admin" v-if="token">{{
                 t("Админ")
