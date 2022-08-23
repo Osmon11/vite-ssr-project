@@ -9,16 +9,20 @@
   import Footer from "@/shared/Footer.vue";
   import { useStore } from "../store/index.js";
   import { useI18n } from "vue-i18n";
+  import { useRoute } from "vue-router";
 
   const store = useStore();
-  const refs = ref({});
   const { t, locale } = useI18n();
+  const { params } = useRoute();
+  const refs = ref({});
   const activeGoTop = ref(false);
   const headerPosition = ref("fixed");
   const xs = computed(() => window.innerWidth <= 600);
   const sm = computed(() => window.innerWidth <= 960);
-
   onMounted(() => {
+    if (params.section) {
+      setTimeout(() => scrollIntoHandler(params.section), 0);
+    }
     store.getNewsFeed();
     store.getPartnersList();
     store.getServicesList();
@@ -76,6 +80,14 @@
       >
         <div class="column-wrap info-item">
           <div class="flex-box-center" style="margin-bottom: 40px">
+            <h3 class="title divider">{{ t("О НАС") }}</h3>
+          </div>
+          <p class="body1" style="margin-bottom: 20px">
+            {{ t("О компании") }}
+          </p>
+        </div>
+        <div class="column-wrap info-item">
+          <div class="flex-box-center" style="margin-bottom: 40px">
             <h3 class="title divider">{{ t("Миссия компании") }}</h3>
           </div>
           <p
@@ -88,26 +100,6 @@
             {{
               t(
                 "Развитие и популяризация Исламского финансирования в Кыргызстане и в ближнем зарубежье."
-              )
-            }}
-          </p>
-        </div>
-        <div class="column-wrap info-item">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">{{ t("О НАС") }}</h3>
-          </div>
-          <p class="body1" style="margin-bottom: 20px">
-            {{ t("О компании") }}
-          </p>
-        </div>
-        <div class="column-wrap info-item">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">{{ t("ПОЧЕМУ МЫ") }}</h3>
-          </div>
-          <p class="body1" style="margin-bottom: 20px">
-            {{
-              t(
-                "Наши услуги включают полный цикл процессов, от формирования кадрового состава до поставки программного комплекса по Исламскому Финансированию в кратчайшие сроки. Наша команда состоит из специалистов и членов Совета по надзору за исламскими финансовыми услугами, имеющие теоретические знания исламских принципов финансирования, а также многолетний практический опыт в данной области как в Кыргызстане, так и за рубежом"
               )
             }}
           </p>
@@ -172,6 +164,18 @@
               </p>
             </li>
           </ul>
+        </div>
+        <div class="column-wrap info-item">
+          <div class="flex-box-center" style="margin-bottom: 40px">
+            <h3 class="title divider">{{ t("ПОЧЕМУ МЫ") }}</h3>
+          </div>
+          <p class="body1" style="margin-bottom: 20px">
+            {{
+              t(
+                "Наши услуги включают полный цикл процессов, от формирования кадрового состава до поставки программного комплекса по Исламскому Финансированию в кратчайшие сроки. Наша команда состоит из специалистов и членов Совета по надзору за исламскими финансовыми услугами, имеющие теоретические знания исламских принципов финансирования, а также многолетний практический опыт в данной области как в Кыргызстане, так и за рубежом"
+              )
+            }}
+          </p>
         </div>
       </section>
       <section

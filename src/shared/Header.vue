@@ -17,13 +17,13 @@
   const { name } = useRoute();
   const homePageNavigation = [
     { label: "О НАС", key: "about_us" },
+    { label: "Новости", key: "blog" },
     { label: "ШАРИАТСКИЙ СОВЕТ", to: "/shariah-board" },
     {
       label: "НАШ ОПЫТ",
       key: "our_experiences",
     },
     { label: "НАШИ УСЛУГИ", key: "our_services" },
-    { label: "Новости", key: "blog" },
     { label: "Контакты", key: "contacts" },
   ];
   const token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY);
@@ -59,7 +59,7 @@
     } else {
       navigate.push(item.to);
     }
-    if (xs.value) {
+    if (xs.value || sm.value) {
       drawer.value = !drawer.value;
     }
   }
@@ -163,42 +163,54 @@
               v-for="item in homePageNavigation"
               :key="item.label"
               @click.stop="navHandler(item)"
+              :style="{ textTransform: 'uppercase' }"
             >
               {{ t(item.label) }}
             </v-list-item>
             <v-list-item
               rounded="xl"
               @click="mobileNavHandler('/admin')"
+              :style="{ textTransform: 'uppercase' }"
               v-if="token"
               >{{ t("Админ") }}</v-list-item
             >
           </v-list>
           <v-list v-else>
             <v-list-subheader>{{ t("general.Навигация") }}</v-list-subheader>
-            <v-list-item rounded="xl" @click="mobileNavHandler('/')">{{
-              t("Главная")
-            }}</v-list-item>
+            <v-list-item
+              rounded="xl"
+              @click="mobileNavHandler('/')"
+              :style="{ textTransform: 'uppercase' }"
+              >{{ t("Главная") }}</v-list-item
+            >
             <v-list-item
               rounded="xl"
               @click="mobileNavHandler('/our-news')"
+              :style="{ textTransform: 'uppercase' }"
               v-if="name !== 'our-news'"
               >{{ t("Новости") }}</v-list-item
             >
             <v-list-item
               rounded="xl"
               @click="mobileNavHandler('/shariah-board')"
+              :style="{ textTransform: 'uppercase' }"
               v-if="name !== '/shariah-board'"
               >{{ t("ШАРИАТСКИЙ СОВЕТ") }}</v-list-item
             >
             <v-list-item
               rounded="xl"
               @click="mobileNavHandler('/admin')"
+              :style="{ textTransform: 'uppercase' }"
               v-if="name !== 'admin'"
               >{{ t("Админ") }}</v-list-item
             >
-            <v-list-item rounded="xl" @click="logout" v-else>{{
-              t("выйти")
-            }}</v-list-item>
+            <v-list-item
+              rounded="xl"
+              @click="logout"
+              :style="{ textTransform: 'uppercase' }"
+              v-else
+              >{{ t("выйти") }}</v-list-item
+            >
           </v-list>
           <div style="padding: 0px 16px">
             <v-list-subheader>{{ t("Контакты") }}</v-list-subheader>
@@ -299,7 +311,7 @@
             <router-link
               class="nav-item"
               to="/shariah-board"
-              v-if="name !== '/shariah-board'"
+              v-if="name !== 'shariah-board'"
               >{{ t("ШАРИАТСКИЙ СОВЕТ") }}</router-link
             >
             <div v-if="name !== 'admin'">

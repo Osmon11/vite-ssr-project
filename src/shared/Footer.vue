@@ -1,16 +1,24 @@
 <script setup>
   import FeedbackModal from "@/components/FeedbackModal.vue";
+  import { useRoute, useRouter } from "vue-router";
   import { ref } from "@vue/reactivity";
   import { useI18n } from "vue-i18n";
-  import { useRoute } from "vue-router";
 
   const props = defineProps(["scrollIntoHandler"]);
   const { t } = useI18n();
   const { name } = useRoute();
+  const navigate = useRouter();
   const openFeedbackModal = ref(false);
 
   function setFeedbackModal(value) {
     openFeedbackModal.value = value;
+  }
+  function navigationHandler(path, name, params, scrollInto = false) {
+    if (scrollInto) {
+      props.scrollIntoHandler(path);
+    } else {
+      navigate.push({ name, params });
+    }
   }
 </script>
 
@@ -48,23 +56,46 @@
           </div>
         </div>
         <div class="column">
-          <p class="title" style="padding-bottom: 0">
-            {{ t("general['О компании']") }}
-          </p>
-          <router-link class="nav-item text-footer" to="/our-news">{{
-            t("Новости")
-          }}</router-link>
           <p
             class="nav-item text-footer"
-            @click="props.scrollIntoHandler('our_services')"
-            v-if="name === 'home'"
+            @click="
+              navigationHandler(
+                name === 'home' ? 'about_us' : '/',
+                'home',
+                { section: 'about_us' },
+                name === 'home'
+              )
+            "
+          >
+            {{ t("general['О компании']") }}
+          </p>
+          <p
+            v-if="name !== 'our-news'"
+            class="nav-item text-footer"
+            @click="navigationHandler('/our-news', 'our-news')"
+          >
+            {{ t("Новости") }}
+          </p>
+          <p
+            class="nav-item text-footer"
+            @click="
+              navigationHandler(
+                name === 'home' ? 'our_services' : '/',
+                'home',
+                { section: 'our_services' },
+                name === 'home'
+              )
+            "
           >
             {{ t("НАШИ УСЛУГИ") }}
           </p>
-          <br v-else />
-          <router-link class="nav-item text-footer" to="/shariah-board">{{
-            t("ШАРИАТСКИЙ СОВЕТ")
-          }}</router-link>
+          <p
+            v-if="name !== 'shariah-board'"
+            class="nav-item text-footer"
+            @click="navigationHandler('/shariah-board', 'shariah-board')"
+          >
+            {{ t("ШАРИАТСКИЙ СОВЕТ") }}
+          </p>
         </div>
         <div class="column">
           <p class="title" style="padding-bottom: 0">
@@ -115,7 +146,7 @@
       class="text-caption text-center"
       style="width: 100%; color: #c5c5c5; margin-top: 37px"
     >
-      {{ t("© 2022 Amanat Advisory. Все права защищены. All rights reserved") }}
+      {{ t("© 2022 Amanat Advisory. Все права защищены.") }}
     </p>
   </footer>
   <FeedbackModal :open="openFeedbackModal" :onClose="setFeedbackModal" />

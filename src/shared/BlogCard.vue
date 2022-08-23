@@ -92,11 +92,13 @@
   @media (min-width: 0px) and (max-width: 600px) {
     .card-title {
       font-size: 18px;
+      font-weight: 400;
     }
   }
   @media (min-width: 600px) and (max-width: 960px) {
     .card-title {
       font-size: 20px;
+      font-weight: 400;
     }
   }
 </style>

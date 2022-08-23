@@ -98,6 +98,10 @@
     .content {
       width: calc(100% - 340px);
     }
+    .content .title {
+      font-size: 20px;
+      font-weight: 400;
+    }
     .expand-more {
       width: calc(100% - 340px);
     }

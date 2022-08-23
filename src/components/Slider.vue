@@ -203,6 +203,14 @@
   }
   @media (min-width: 0px) and (max-width: 600px) {
     .maintitle {
+      font-size: 30px;
+    }
+    .subtitle {
+      font-size: 20px;
+    }
+  }
+  @media (min-width: 600px) and (max-width: 960px) {
+    .maintitle {
       font-size: 40px;
     }
     .subtitle {

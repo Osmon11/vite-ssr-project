@@ -16,7 +16,7 @@
   const isLoading = ref(false);
 
   function handleRequestSubmit() {
-    if (valid) {
+    if (valid.value) {
       isLoading.value = true;
       store.sendFeedback(
         {
