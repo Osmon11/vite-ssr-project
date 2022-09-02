@@ -1,12 +1,12 @@
 <script setup>
+  import { useI18n } from "vue-i18n";
   import { computed, ref, watch } from "vue";
   import CKEditor from "@ckeditor/ckeditor5-vue";
-  import ClassicEditor from "@ckeditor/ckeditor5-build-classic/";
+  import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
   import { useStore } from "../store";
   import Dialog from "@/shared/Dialog.vue";
   import { editorConfig } from "@/plugins/ckeditor.js";
-  import { useI18n } from "vue-i18n";
 
   const store = useStore();
   const props = defineProps(["open", "onClose", "editNews"]);
