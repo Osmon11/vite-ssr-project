@@ -11,6 +11,7 @@
   const prompSnackbar = ref(false);
 
   store.$subscribe((mutation, state) => {
+    console.log(mutation.events);
     if (mutation.events.key === "alert") {
       alertSnackbar.value = Boolean(state.alert.message);
     }
