@@ -1,6 +1,6 @@
 <script setup>
   import cookie_js from "cookie_js";
-  import { onMounted, ref } from "vue";
+  import { computed, onMounted, ref } from "vue";
   import { useI18n } from "vue-i18n";
 
   import { useStore } from "./store";
@@ -10,15 +10,11 @@
   const alertSnackbar = ref(false);
   const prompSnackbar = ref(false);
 
-  store.$subscribe((mutation, state) => {
-    console.log(mutation.events);
-    if (mutation.events.key === "alert") {
-      alertSnackbar.value = Boolean(state.alert.message);
-    }
-    if (mutation.events.key === "promp") {
-      prompSnackbar.value = Boolean(state.promp.message);
-    }
-  });
+  const alert = computed(() => store.getAlert);
+  const promp = computed(() => store.getPromp);
+
+  watch(alert, (value) => (alertSnackbar.value = Boolean(value)));
+  watch(promp, (value) => (prompSnackbar.value = Boolean(value)));
 
   onMounted(() => {
     if (cookie_js.get(import.meta.env.VITE_TOKEN_KEY) && !store.admin.token) {

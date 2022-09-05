@@ -29,6 +29,14 @@ export const useStore = defineStore("main", {
       message: "Hello there",
     },
   }),
+  getters: {
+    getAlert() {
+      return this.alert;
+    },
+    getPromp() {
+      return this.promp;
+    },
+  },
   actions: {
     authorize(data, remember = false, callback = () => {}) {
       makeRequest("/auth/login", "post", data).then((json) => {
