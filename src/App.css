@@ -443,6 +443,13 @@ input[type="checkbox"]:checked {
   }
 }
 @media (min-width: 960px) and (max-width: 1264px) {
+  .logo-text {
+    font-size: 16px;
+  }
+  .logo {
+    width: 30px;
+    height: 30px;
+  }
 }
 @media (min-width: 1264px) and (max-width: 1904) {
 }

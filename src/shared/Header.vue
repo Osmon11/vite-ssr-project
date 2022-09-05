@@ -35,6 +35,7 @@
   const openFeedbackModal = ref(false);
   const xs = computed(() => window.innerWidth <= 600);
   const sm = computed(() => window.innerWidth <= 960);
+  const md = computed(() => window.innerWidth <= 1264);
 
   function setFeedbackModal(value) {
     openFeedbackModal.value = value;
@@ -279,6 +280,7 @@
           color="white"
           variant="text"
           @click.stop="drawer = !drawer"
+          :style="{ margin: '0px 15px' }"
           v-if="xs || sm"
         ></v-app-bar-nav-icon>
         <nav v-else>
@@ -294,6 +296,60 @@
             <router-link class="nav-item" to="/admin" v-if="token">{{
               t("Админ")
             }}</router-link>
+            <Select
+              v-if="md"
+              :value="locale"
+              @change="setLocale"
+              :class="{ activeSelect: !isActive }"
+              :style="{ margin: '0px 15px' }"
+            >
+              <template #render-value>
+                <div class="flex-box" style="gap: 8px; width: 42px">
+                  <img
+                    :src="
+                      locale === 'en'
+                        ? '/assets/united-kingdom.svg'
+                        : '/assets/russia.svg'
+                    "
+                    :alt="
+                      locale === 'en' ? 'united kingdom flag' : 'russian flag'
+                    "
+                    style="width: 20px; height: 20px"
+                  />
+                  <p>{{ locale }}</p>
+                </div></template
+              >
+              <template #items="{ handleChange }"
+                ><div
+                  class="select-item"
+                  :class="{ active: 'en' === locale }"
+                  @click="handleChange('en')"
+                >
+                  <div class="flex-box" style="gap: 8px; width: 42px">
+                    <img
+                      src="/assets/united-kingdom.svg"
+                      alt="united kingdom flag"
+                      style="width: 20px; height: 20px"
+                    />
+                    <p>en</p>
+                  </div>
+                </div>
+                <div
+                  class="select-item"
+                  :class="{ active: 'ru' === locale }"
+                  @click="handleChange('ru')"
+                >
+                  <div class="flex-box" style="gap: 8px; width: 42px">
+                    <img
+                      src="/assets/russia.svg"
+                      alt="russian flag"
+                      style="width: 20px; height: 20px"
+                    />
+                    <p>ru</p>
+                  </div>
+                </div>
+              </template></Select
+            >
             <!-- <router-link class="nav-item" to="/login" v-else>{{
             t("войти")
           }}</router-link> -->
@@ -341,7 +397,7 @@
         </nav>
       </div>
     </div>
-    <div class="toggle-language" v-if="!xs && !sm">
+    <div class="toggle-language" v-if="!xs && !sm && !md">
       <Select
         :value="locale"
         @change="setLocale"
@@ -406,7 +462,7 @@
   .logo-wrapper {
     height: 40px;
     gap: 10px;
-    padding: 0px 10px;
+    padding: 0px 15px;
     cursor: pointer;
   }
   .logout-icon {
