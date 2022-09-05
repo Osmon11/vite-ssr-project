@@ -37,12 +37,12 @@
         variant="text"
         content-class="snackbar-transparent"
       >
-        <v-alert border="start" density="default" :type="store.alert.severity">
-          {{ store.alert.message }}
+        <v-alert border="start" density="default" :type="alert.severity">
+          {{ alert.message }}
         </v-alert></v-snackbar
       >
       <v-snackbar v-model="prompSnackbar" :timeout="-1" color="info">
-        {{ store.promp.message }}
+        {{ promp.message }}
         <template v-slot:actions
           ><div class="flex-box" style="gap: 20px">
             <v-btn
@@ -50,7 +50,7 @@
               variant="flat"
               class="text-white"
               size="small"
-              @click="prompHandler(store.promp.confirm)"
+              @click="prompHandler(promp.confirm)"
               >{{ t("general.да") }}</v-btn
             ><v-btn
               color="#F44336"
@@ -58,7 +58,7 @@
               variant="flat"
               class="text-white"
               size="small"
-              @click="prompHandler(store.promp.reject)"
+              @click="prompHandler(promp.reject)"
               >{{ t("general.отмена") }}</v-btn
             >
           </div></template
