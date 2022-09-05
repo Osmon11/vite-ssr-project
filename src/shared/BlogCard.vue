@@ -7,6 +7,7 @@
   const store = useStore();
   const navigate = useRouter();
   const { locale } = useI18n();
+  const backendUrl = import.meta.env.VITE_API_URL;
 
   function setCurrentNews() {
     store.$patch((state) => {
@@ -18,7 +19,9 @@
 
 <template>
   <article class="blog-card" @click="setCurrentNews">
-    <figure><img :src="news.imageUrl" :alt="news.imageName" /></figure>
+    <figure>
+      <img :src="`${backendUrl}${news.imageUrl}`" :alt="news.imageName" />
+    </figure>
     <div class="blog_content">
       <h3 class="card-title">
         {{ news[`title_${locale}`] }}

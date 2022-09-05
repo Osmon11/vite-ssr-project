@@ -6,6 +6,7 @@
 
   const store = useStore();
   const { locale } = useI18n();
+  const backendUrl = import.meta.env.VITE_API_URL;
 </script>
 
 <template>
@@ -19,7 +20,7 @@
         {{ store.currentNews.createdAt.split(" ")[0] }}
       </p>
       <img
-        :src="store.currentNews.imageUrl"
+        :src="`${backendUrl}${store.currentNews.imageUrl}`"
         :alt="store.currentNews.imageName"
       />
       <p class="text-subtitle py-5">

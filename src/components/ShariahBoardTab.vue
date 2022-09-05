@@ -9,6 +9,7 @@
   const { t, locale } = useI18n();
   const openModal = ref(false);
   const currentPerson = ref(null);
+  const backendUrl = import.meta.env.VITE_API_URL;
 
   onMounted(() => {
     store.getShariahBoard({}, (success) => {});
@@ -54,7 +55,7 @@
       <template #prepend
         ><v-avatar size="x-large">
           <v-img
-            :src="person.avatar"
+            :src="`${backendUrl}${person.avatar}`"
             :alt="person[`fullname_${locale}`]"
           ></v-img></v-avatar
       ></template>

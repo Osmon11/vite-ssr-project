@@ -22,13 +22,13 @@ export const makeRequest = (endpoint, method, data) => {
 
       store.setAlert({
         severity: "error",
-        message: response.data.message || "Токен больше не действителен",
+        message: response.data?.message || "Токен больше не действителен",
       });
       return;
     } else {
       store.setAlert({
         severity: "error",
-        message: response.data.message || `Ошибка в запросе на: ${endpoint}`,
+        message: response.data?.message || `Ошибка в запросе на: ${endpoint}`,
       });
     }
   }

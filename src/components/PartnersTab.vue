@@ -10,6 +10,7 @@
   const openModal = ref(false);
   const currentPartner = ref(null);
   const loadedImg = ref({});
+  const backendUrl = import.meta.env.VITE_API_URL;
 
   onMounted(() => {
     store.getPartnersList();
@@ -58,7 +59,7 @@
       <template #prepend
         ><v-avatar size="x-large" rounded="0">
           <v-img
-            :src="person.logo"
+            :src="`${backendUrl}${person.logo}`"
             :alt="person[`name_${locale}`]"
           ></v-img></v-avatar
       ></template>

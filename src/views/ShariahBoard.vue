@@ -4,6 +4,7 @@
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
   import { useI18n } from "vue-i18n";
+  const backendUrl = import.meta.env.VITE_API_URL;
 
   const store = useStore();
   const { t, locale } = useI18n();
@@ -30,7 +31,7 @@
           <template #prepend
             ><v-avatar size="x-large">
               <v-img
-                :src="person.avatar"
+                :src="`${backendUrl}${person.avatar}`"
                 :alt="person[`fullname_${locale}`]"
               ></v-img></v-avatar
           ></template>

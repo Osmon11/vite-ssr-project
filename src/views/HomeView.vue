@@ -17,8 +17,10 @@
   const refs = ref({});
   const activeGoTop = ref(false);
   const headerPosition = ref("fixed");
+  const backendUrl = import.meta.env.VITE_API_URL;
   const xs = computed(() => window.innerWidth <= 600);
   const sm = computed(() => window.innerWidth <= 960);
+
   onMounted(() => {
     if (params.section) {
       setTimeout(() => scrollIntoHandler(params.section), 0);
@@ -213,7 +215,7 @@
           <img
             class="noselect"
             style="width: auto"
-            :src="partner.logo"
+            :src="`${backendUrl}${partner.logo}`"
             :alt="partner[`name_${locale}`]"
             :draggable="false"
           />

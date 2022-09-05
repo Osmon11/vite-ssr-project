@@ -10,6 +10,7 @@
   const openModal = ref(false);
   const currentSlide = ref(null);
   const loadedImg = ref({});
+  const backendUrl = import.meta.env.VITE_API_URL;
 
   onMounted(() => {
     store.getSlides();
@@ -58,7 +59,7 @@
       <img
         class="img"
         v-show="loadedImg[slide._id]"
-        :src="slide.imageUrl"
+        :src="`${backendUrl}${slide.imageUrl}`"
         @load="onLoadImg(slide._id)"
         alt=""
       />

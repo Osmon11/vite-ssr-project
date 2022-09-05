@@ -3,7 +3,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-COPY ckeditor5-build-classic ./node_modules/@ckeditor/
 RUN npm run build
 
 # этап production (production-stage)
