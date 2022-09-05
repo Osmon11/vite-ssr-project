@@ -24,7 +24,7 @@
 
   function prompHandler(callback) {
     callback();
-    this.prompSnackbar = false;
+    prompSnackbar.value = false;
   }
 </script>
 
