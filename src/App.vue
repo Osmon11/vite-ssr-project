@@ -1,6 +1,6 @@
 <script setup>
   import cookie_js from "cookie_js";
-  import { computed, onMounted, ref } from "vue";
+  import { computed, onMounted, ref, watch } from "vue";
   import { useI18n } from "vue-i18n";
 
   import { useStore } from "./store";

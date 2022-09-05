@@ -46,15 +46,15 @@
   <div class="slider-container">
     <div
       v-for="(slide, index) in store.slides"
-      :key="slide.id"
+      :key="slide._id"
       class="slide-item"
       :class="{ active: activeSlide === index }"
     >
-      <div v-show="loadedImg[slide.id]" style="width: 100%; height: 100%">
+      <div v-show="loadedImg[slide._id]" style="width: 100%; height: 100%">
         <img
           class="img"
           :src="`${backendUrl}${slide.imageUrl}`"
-          @load="onLoadImg(slide.id)"
+          @load="onLoadImg(slide._id)"
           :alt="slide.imageName"
         />
         <div class="image-black-cover"></div>
@@ -73,7 +73,7 @@
         </div>
       </div>
       <div
-        v-show="!loadedImg[slide.id]"
+        v-show="!loadedImg[slide._id]"
         class="flex-box-center"
         style="width: 100%; height: 100%"
       >
