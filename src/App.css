@@ -59,7 +59,8 @@ header.sticky {
 }
 .flex-box,
 .flex-box-between,
-.flex-box-center {
+.flex-box-center,
+.flex-box-vertical {
   display: flex;
   align-items: center;
 }

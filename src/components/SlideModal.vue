@@ -8,6 +8,7 @@
   const { setSlide, updateSlide } = useStore();
   const props = defineProps(["open", "onClose", "editSlide"]);
   const { t } = useI18n();
+  const form = ref();
   const valid = ref(true);
   const title_en = ref("");
   const subtitle_en = ref("");
@@ -25,6 +26,8 @@
         title_ru.value = value.title_ru;
         subtitle_ru.value = value.subtitle_ru;
         image.value = [];
+      } else {
+        resetForm();
       }
     }
   );
@@ -34,15 +37,18 @@
       ? props.editSlide["imageName"]
       : t("general.Изображение_фона")
   );
-
+  const resetForm = () => {
+    title_en.value = "";
+    // subtitle_en.value = "";
+    // title_ru.value = "";
+    // subtitle_ru.value = "";
+    // image.value = [];
+    form.value.resetValidation();
+  };
   function callback(success) {
     isLoading.value = false;
     if (success) {
-      title_en.value = "";
-      subtitle_en.value = "";
-      title_ru.value = "";
-      subtitle_ru.value = "";
-      image.value = {};
+      resetForm();
       props.onClose(false);
     }
   }
@@ -76,7 +82,9 @@
       <v-form
         class="form-max-width"
         v-model="valid"
+        :ref="(ref) => (form = ref)"
         @submit.prevent="submitHandler"
+        lazy-validation
       >
         <p class="title text-center mb-4" style="width: 100%">
           {{

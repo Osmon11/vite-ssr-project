@@ -24,6 +24,9 @@
 
   function setModal(value) {
     openModal.value = value;
+    if (!value) {
+      currentSlide.value = null;
+    }
   }
   function setCurrentSlide(slide) {
     currentSlide.value = slide;
@@ -80,12 +83,12 @@
             icon="mdi-pencil"
             color="#61a375"
             @click="setCurrentSlide(slide)"
-            style="margin-bottom: 10px; color: #ffffff"
+            style="margin-bottom: 10px; color: #ffffff; width: 40px"
           ></v-btn
           ><v-btn
             icon="mdi-delete"
             color="#F44336"
-            style="color: #ffffff"
+            style="color: #ffffff; width: 40px"
             @click="deleteSlide(slide)"
           ></v-btn>
         </div>
