@@ -114,7 +114,7 @@ export const useStore = defineStore("main", {
           if (query.id) {
             this.news[query.id] = json;
           } else {
-            this.newsFeed = json;
+            this.newsFeed = json.reverse();
           }
         }
         callback(Boolean(json));

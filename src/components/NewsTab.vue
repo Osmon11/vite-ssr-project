@@ -84,11 +84,7 @@
   <div class="flex-box-center" v-else>
     <p class="body1">{{ t("errors.Новостей_пока_нет_Добавьте_новость") }}</p>
   </div>
-  <EditorModal
-    :open="openModal"
-    :onClose="onCloseModal"
-    :editNews="currentNews"
-  />
+  <EditorModal v-model="openModal" :editNews="currentNews" />
 </template>
 
 <style scoped>

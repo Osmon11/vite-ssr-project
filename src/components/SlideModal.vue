@@ -33,7 +33,7 @@
   );
 
   const fileInputLabel = computed(() =>
-    props.editSlide && !image.value?.length
+    props.editSlide && image.value.length === 0
       ? props.editSlide["imageName"]
       : t("general.Изображение_фона")
   );
@@ -71,7 +71,7 @@
         data.append("imageUrl", props.editSlide.imageUrl);
         updateSlide({ id: props.editSlide._id }, data, callback);
       }
-      image.value = null;
+      image.value = [];
     }
   }
 </script>

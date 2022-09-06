@@ -7,8 +7,10 @@
   import { useI18n } from "vue-i18n";
 
   const store = useStore();
-  const props = defineProps(["open", "onClose", "editPerson"]);
+  const props = defineProps(["modelValue", "editPerson"]);
+  const emit = defineEmits(["update:modelValue"]);
   const { t } = useI18n();
+  const form = ref();
   const valid = ref(false);
   const fullname_en = ref("");
   const biography_en = ref("");
@@ -17,7 +19,7 @@
   const image = ref([]);
   const isLoading = ref(false);
   const fileInputLabel = computed(() =>
-    props.editPerson && !image.value?.length
+    props.editPerson && image.value.length === 0
       ? props.editPerson["avatar"]
       : t("general.Фотография")
   );
@@ -34,18 +36,11 @@
       }
     }
   );
-  function resetForm() {
-    fullname_ru.value = "";
-    biography_ru.value = "";
-    fullname_en.value = "";
-    biography_en.value = "";
-    image.value = [];
-  }
+
   function callback(success) {
     isLoading.value = false;
     if (success) {
-      resetForm();
-      props.onClose(false);
+      closeHandler;
     }
   }
   function submitHandler() {
@@ -68,18 +63,19 @@
       }
     }
   }
+  function closeHandler() {
+    fullname_ru.value = "";
+    biography_ru.value = "";
+    fullname_en.value = "";
+    biography_en.value = "";
+    image.value = [];
+    form.value.resetValidation();
+    emit("update:modelValue", false);
+  }
 </script>
 
 <template>
-  <Dialog
-    :open="open"
-    :onClose="
-      (value) => {
-        resetForm();
-        onClose(value);
-      }
-    "
-  >
+  <Dialog :open="props.modelValue" :onClose="closeHandler">
     <p class="title text-center" style="width: 100%">
       {{
         props.editPerson
@@ -89,8 +85,9 @@
     </p>
     <div class="flex-box-center">
       <v-form
-        class="form-max-width"
+        ref="form"
         v-model="valid"
+        class="form-max-width"
         @submit.prevent="submitHandler"
       >
         <div class="editor-wrapper">
@@ -135,30 +132,33 @@
             :rules="[(v) => !!v || t('errors.Введите_биографию_на_английском')]"
           ></v-textarea>
           <v-file-input
+            v-model="image"
             name="image"
             accept="image/*"
             variant="outlined"
             :label="fileInputLabel"
             color="#61a375"
-            :model-value="image"
-            @update:model-value="(value) => (image = value)"
             :required="!editPerson"
-            :rules="[
-              (v) =>
-                !!v[0] || Boolean(editPerson) || t('errors.Загрузите_фото'),
-            ]"
+            :rules="[(v) => !!v || !!v.length || t('errors.Загрузите_фото')]"
             clearable
             show-size
           ></v-file-input>
         </div>
         <div class="flex-box-center">
-          <v-btn
-            type="submit"
-            color="#61a375"
-            class="text-white"
-            :loading="isLoading"
-            >{{ props.editPerson ? "Обновить" : "Добавить сотрудника" }}</v-btn
-          >
+          <div class="flex-box" style="gap: 20px">
+            <v-btn
+              type="submit"
+              color="#61a375"
+              class="text-white"
+              :loading="isLoading"
+              >{{
+                props.editPerson ? "Обновить" : "Добавить сотрудника"
+              }}</v-btn
+            >
+            <v-btn color="#F44336" class="text-white" @click="closeHandler">{{
+              t("general.отмена")
+            }}</v-btn>
+          </div>
         </div></v-form
       >
     </div></Dialog

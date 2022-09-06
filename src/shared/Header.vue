@@ -195,7 +195,7 @@
               rounded="xl"
               @click="mobileNavHandler('/shariah-board')"
               :style="{ textTransform: 'uppercase' }"
-              v-if="name !== '/shariah-board'"
+              v-if="name !== 'shariah-board'"
               >{{ t("ШАРИАТСКИЙ СОВЕТ") }}</v-list-item
             >
             <v-list-item
@@ -223,20 +223,12 @@
             <div style="padding: 8px 0px">
               <a
                 class="body1 text-footer"
+                @click="setFeedbackModal(true)"
                 href="mailto:madalieva@amanatadvisory.kg"
                 >madalieva@amanatadvisory.kg</a
               >
             </div>
             <div class="social-media-wrapper flex-box">
-              <div class="icon-wrapper">
-                <img
-                  :draggable="false"
-                  class="social-media-icon"
-                  src="/assets/gmail.png"
-                  alt="gmail icon"
-                  @click="setFeedbackModal(true)"
-                />
-              </div>
               <a
                 class="icon-wrapper"
                 href="https://t.me/+996555081071"
@@ -245,7 +237,7 @@
                 <img
                   :draggable="false"
                   class="social-media-icon"
-                  src="/assets/telegram.jpg"
+                  src="/assets/telegram.svg"
                   style="border-radius: 50%"
                   alt="gmail icon"
               /></a>
@@ -257,7 +249,7 @@
                 <img
                   :draggable="false"
                   class="social-media-icon"
-                  src="/assets/instagram.jpg"
+                  src="/assets/instagram.svg"
                   style="border-radius: 50%"
                   alt="gmail icon"
               /></a>
@@ -269,7 +261,7 @@
                 <img
                   :draggable="false"
                   class="social-media-icon"
-                  src="/assets/facebook.jpg"
+                  src="/assets/facebook.svg"
                   style="border-radius: 50%"
                   alt="gmail icon"
               /></a>

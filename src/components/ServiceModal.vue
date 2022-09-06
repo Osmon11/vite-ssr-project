@@ -1,16 +1,18 @@
 <script setup>
   import { computed, ref, watch } from "vue";
-  import CKEditor from "@ckeditor/ckeditor5-vue";
   import ClassicEditor from "@ckeditor/ckeditor5-build-classic/";
+  import CKEditor from "@ckeditor/ckeditor5-vue";
+  import { useI18n } from "vue-i18n";
 
   import { useStore } from "../store";
   import Dialog from "@/shared/Dialog.vue";
   import { editorConfig } from "@/plugins/ckeditor.js";
-  import { useI18n } from "vue-i18n";
 
   const store = useStore();
-  const props = defineProps(["open", "onClose", "editNews"]);
+  const props = defineProps(["modelValue", "editNews"]);
+  const emit = defineEmits(["update:modelValue"]);
   const { t } = useI18n();
+  const form = ref();
   const valid = ref(false);
   const name_en = ref("");
   const editorData_en = ref("");
@@ -18,7 +20,7 @@
   const editorData_ru = ref("");
   const isLoading = ref(false);
   const fileInputLabel = computed(() =>
-    props.editNews && !image.value?.length
+    props.editNews && image.value.length === 0
       ? props.editNews["imageName"]
       : t("general.Обложка")
   );
@@ -34,17 +36,11 @@
       }
     }
   );
-  function resetForm() {
-    name_en.value = "";
-    editorData_en.value = "";
-    name_ru.value = "";
-    editorData_ru.value = "";
-  }
+
   function callback(success) {
     isLoading.value = false;
     if (success) {
-      resetForm();
-      props.onClose(false);
+      closeHandler();
     }
   }
   function submitHandler() {
@@ -76,18 +72,18 @@
       }
     }
   }
+  function closeHandler() {
+    name_en.value = "";
+    editorData_en.value = "";
+    name_ru.value = "";
+    editorData_ru.value = "";
+    form.value.resetValidation();
+    emit("update:modelValue", false);
+  }
 </script>
 
 <template>
-  <Dialog
-    :open="open"
-    :onClose="
-      (value) => {
-        resetForm();
-        onClose(value);
-      }
-    "
-  >
+  <Dialog :open="props.modelValue" :onClose="closeHandler">
     <p class="title text-center" style="width: 100%; margin-bottom: 28px">
       {{
         props.editNews
@@ -97,8 +93,9 @@
     </p>
     <div class="flex-box-center">
       <v-form
-        class="form-max-width"
+        ref="form"
         v-model="valid"
+        class="form-max-width"
         @submit.prevent="submitHandler"
       >
         <div class="editor-wrapper">
@@ -142,15 +139,20 @@
           <div style="width: 100%; height: 38px"></div>
         </div>
         <div class="flex-box-center">
-          <v-btn
-            type="submit"
-            color="#61a375"
-            class="text-white"
-            :loading="isLoading"
-            >{{
-              props.editNews ? t("general.Обновить") : t("general.Создать")
-            }}</v-btn
-          >
+          <div class="flex-box" style="gap: 20px">
+            <v-btn
+              type="submit"
+              color="#61a375"
+              class="text-white"
+              :loading="isLoading"
+              >{{
+                props.editNews ? t("general.Обновить") : t("general.Создать")
+              }}</v-btn
+            >
+            <v-btn color="#F44336" class="text-white" @click="closeHandler">{{
+              t("general.отмена")
+            }}</v-btn>
+          </div>
         </div></v-form
       >
     </div></Dialog

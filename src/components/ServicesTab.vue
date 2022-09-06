@@ -14,12 +14,12 @@
     store.getServicesList();
   });
 
-  function setModal(value) {
-    openModal.value = value;
-  }
   function setCurrentService(service) {
     currentService.value = service;
-    openModal.value = true;
+    setModal(true);
+  }
+  function setModal(value) {
+    openModal.value = value;
   }
   function deleteService(service) {
     store.setPromp({
@@ -75,9 +75,5 @@
   <div class="flex-box-center" v-else>
     <p class="body1">{{ t("errors.Список_пуст_Добавьте_услуги") }}</p>
   </div>
-  <ServiceModal
-    :open="openModal"
-    :onClose="onCloseModal"
-    :editNews="currentService"
-  />
+  <ServiceModal v-model="openModal" :editNews="currentService" />
 </template>

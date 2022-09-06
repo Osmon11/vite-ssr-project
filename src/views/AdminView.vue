@@ -7,7 +7,7 @@
   import SlidesTab from "@/components/SlidesTab.vue";
   import PartnersTab from "@/components/PartnersTab.vue";
   import ServicesTab from "@/components/ServicesTab.vue";
-  import ShariahBoardTab from "@/components/ShariahBoardTab.vue";
+  import EmployeesTab from "@/components/EmployeesTab.vue";
   import { useI18n } from "vue-i18n";
 
   const { t } = useI18n();
@@ -30,7 +30,7 @@
       ><v-window-item value="slides"><SlidesTab /></v-window-item>
       <v-window-item value="partners"><PartnersTab /></v-window-item>
       <v-window-item value="services"><ServicesTab /></v-window-item>
-      <v-window-item value="employees"><ShariahBoardTab /></v-window-item
+      <v-window-item value="employees"><EmployeesTab /></v-window-item
     ></v-window>
   </div>
   <Footer />

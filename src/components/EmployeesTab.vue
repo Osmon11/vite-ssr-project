@@ -3,7 +3,7 @@
   import { useI18n } from "vue-i18n";
 
   import { useStore } from "../store";
-  import PersonModal from "./PersonModal.vue";
+  import EmployeeModal from "./EmployeeModal.vue";
 
   const store = useStore();
   const { t, locale } = useI18n();
@@ -12,15 +12,15 @@
   const backendUrl = import.meta.env.VITE_API_URL;
 
   onMounted(() => {
-    store.getShariahBoard({}, (success) => {});
+    store.getShariahBoard();
   });
 
-  function setModal(value) {
-    openModal.value = value;
-  }
   function setCurrentPerson(person) {
     currentPerson.value = person;
-    openModal.value = true;
+    setModal(true);
+  }
+  function setModal(value) {
+    openModal.value = value;
   }
   function deletePerson(person) {
     store.setPromp({
@@ -60,8 +60,8 @@
           ></v-img></v-avatar
       ></template>
       <v-banner-text
-        ><div class="flex-box-between" style="width: 100%">
-          <p class="title" style="font-size: 24px">
+        ><div class="flex-box-between" style="width: 100%; margin-bottom: 15px">
+          <p class="title" style="font-size: 24px; padding-bottom: 0px">
             {{ person[`fullname_${locale}`] }}
           </p>
           <div class="flex-box" style="gap: 20px">
@@ -86,11 +86,7 @@
   <div class="flex-box-center" v-else>
     <p class="body1">{{ t("errors.Список_пуст_Добавьте_сотрудника") }}</p>
   </div>
-  <PersonModal
-    :open="openModal"
-    :onClose="onCloseModal"
-    :editPerson="currentPerson"
-  />
+  <EmployeeModal v-model="openModal" :editPerson="currentPerson" />
 </template>
 
 <style scoped>

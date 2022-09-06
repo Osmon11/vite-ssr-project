@@ -48,12 +48,12 @@
           type="password"
           name="password"
           variant="outlined"
-          label="Пороль"
+          label="Пароль"
           color="#61a375"
           hide-details
           :autofocus="false"
           v-model="password"
-          :rules="[(v) => !!v || 'Введите Пороль']"
+          :rules="[(v) => !!v || 'Введите Пароль']"
         ></v-text-field>
         <v-checkbox
           name="remember"

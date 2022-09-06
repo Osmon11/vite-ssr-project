@@ -22,12 +22,12 @@
     );
   });
 
-  function setModal(value) {
-    openModal.value = value;
-  }
   function setCurrentPartner(partner) {
     currentPartner.value = partner;
-    openModal.value = true;
+    setModal(true);
+  }
+  function setModal(value) {
+    openModal.value = value;
   }
   function deletePartner(partner) {
     store.setPromp({
@@ -92,9 +92,5 @@
       {{ t("errors.Партнеров_пока_нет_Создайте_нового_партнера") }}
     </p>
   </div>
-  <PartnerModal
-    :open="openModal"
-    :onClose="setModal"
-    :editPartner="currentPartner"
-  />
+  <PartnerModal v-model="openModal" :editPartner="currentPartner" />
 </template>

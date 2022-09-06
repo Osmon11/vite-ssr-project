@@ -20,42 +20,107 @@
       navigate.push({ name, params });
     }
   }
+
+  const phoneNumber = import.meta.env.VITE_PHONE;
+  const emailAddress = import.meta.env.VITE_EMAIL;
 </script>
 
 <template>
   <footer>
     <div class="flex-box-center">
       <div class="footer-content flex-box">
-        <div class="flex-box column" style="gap: 20px">
-          <img src="/AA_LOGO.png" style="width: 64px" />
-          <div>
-            <p class="body1 text-footer mb-3">
-              {{ t("Консалтинговые услуги по Исламским Финансам.") }}
+        <div class="column">
+          <p class="title">{{ t("general['свяжитесь с нами']") }}</p>
+          <div class="social-media-wrapper flex-box">
+            <a
+              class="icon-wrapper"
+              href="https://t.me/+996555081071"
+              target="_blank"
+            >
+              <img
+                :draggable="false"
+                class="social-media-icon icon-color-white default"
+                src="/assets/telegram-white.svg"
+                alt="gmail icon" />
+              <img
+                :draggable="false"
+                class="social-media-icon active"
+                src="/assets/telegram-colorful.svg"
+                alt="gmail icon"
+            /></a>
+            <a
+              class="icon-wrapper"
+              href="https://www.instagram.com/amanatadvisory.kg/"
+              target="_blank"
+            >
+              <img
+                :draggable="false"
+                class="social-media-icon icon-color-white default"
+                src="/assets/instagram-white.svg"
+                alt="gmail icon" /><img
+                :draggable="false"
+                class="social-media-icon active"
+                src="/assets/instagram-colorful.svg"
+                alt="gmail icon"
+            /></a>
+            <a
+              class="icon-wrapper"
+              href="https://www.facebook.com/amanatadvisory.kg"
+              target="_blank"
+            >
+              <img
+                :draggable="false"
+                class="social-media-icon icon-color-white default"
+                src="/assets/facebook-white.svg"
+                alt="gmail icon" /><img
+                :draggable="false"
+                class="social-media-icon active"
+                src="/assets/facebook-colorful.svg"
+                alt="gmail icon"
+            /></a>
+            <a
+              class="icon-wrapper"
+              href="https://wa.me/996508081071"
+              target="_blank"
+            >
+              <img
+                :draggable="false"
+                class="social-media-icon icon-color-white default"
+                src="/assets/whatsapp-white.svg"
+                alt="gmail icon" /><img
+                :draggable="false"
+                class="social-media-icon active"
+                src="/assets/whatsapp-colorful.svg"
+                alt="gmail icon"
+            /></a>
+          </div>
+          <div class="flex-box" style="gap: 10px; margin-top: 15px">
+            <img
+              class="icon-color-white contact-icon"
+              src="/assets/adress.svg"
+            />
+            <p class="text-footer">
+              {{ t("Адрес") }}<span>{{ t("текс-адреса") }}</span>
             </p>
-            <div>
-              <div class="flex-box" style="gap: 10px">
-                <!-- <div class="icon-wrapper">
-                  <img
-                    :draggable="false"
-                    class="social-media-icon"
-                    src="/assets/gmail.png"
-                    alt="gmail icon"
-                    @click="setFeedbackModal(true)"
-                  />
-                </div> -->
-                <a
-                  class="body1 text-footer"
-                  href="mailto:madalieva@amanatadvisory.kg"
-                  >madalieva@amanatadvisory.kg</a
-                >
-              </div>
-              <a class="body1 text-footer" href="tel:996555081071"
-                >+996555081071</a
-              >
-            </div>
+          </div>
+          <div class="flex-box" style="gap: 10px">
+            <img class="icon-color-white contact-icon" src="/assets/tel.svg" />
+            <p class="text-footer">
+              {{ t("Телефон") }}<span>{{ `+${phoneNumber}` }}</span>
+            </p>
+          </div>
+          <div class="flex-box" style="gap: 10px">
+            <img
+              class="icon-color-white contact-icon"
+              src="/assets/email.svg"
+            />
+            <p class="text-footer">
+              {{ t("Адрес") }}<span>{{ emailAddress }}</span>
+            </p>
           </div>
         </div>
         <div class="column">
+          <p class="title">{{ t("Главная") }}</p>
           <p
             class="nav-item text-footer"
             @click="
@@ -68,13 +133,6 @@
             "
           >
             {{ t("general['О компании']") }}
-          </p>
-          <p
-            v-if="name !== 'our-news'"
-            class="nav-item text-footer"
-            @click="navigationHandler('/our-news', 'our-news')"
-          >
-            {{ t("Новости") }}
           </p>
           <p
             class="nav-item text-footer"
@@ -90,55 +148,29 @@
             {{ t("НАШИ УСЛУГИ") }}
           </p>
           <p
+            v-if="name !== 'our-news'"
+            class="nav-item text-footer"
+            @click="navigationHandler('/our-news', 'our-news')"
+          >
+            {{ t("Новости") }}
+          </p>
+        </div>
+        <div class="column">
+          <p class="title">{{ t("general.Штат") }}</p>
+          <p
             v-if="name !== 'shariah-board'"
             class="nav-item text-footer"
             @click="navigationHandler('/shariah-board', 'shariah-board')"
           >
             {{ t("ШАРИАТСКИЙ СОВЕТ") }}
           </p>
-        </div>
-        <div class="column">
-          <p class="title" style="padding-bottom: 0">
-            {{ t("general.ПРИСОЕДИНЯЙТЕСЬ") }}
+          <p
+            v-if="name !== 'management'"
+            class="nav-item text-footer"
+            @click="navigationHandler('/management', 'management')"
+          >
+            {{ t("general.Менеджмент") }}
           </p>
-          <div class="social-media-wrapper flex-box">
-            <a
-              class="icon-wrapper"
-              href="https://t.me/+996555081071"
-              target="_blank"
-            >
-              <img
-                :draggable="false"
-                class="social-media-icon"
-                src="/assets/telegram.jpg"
-                style="border-radius: 50%"
-                alt="gmail icon"
-            /></a>
-            <a
-              class="icon-wrapper"
-              href="https://www.instagram.com/amanatadvisory.kg/"
-              target="_blank"
-            >
-              <img
-                :draggable="false"
-                class="social-media-icon"
-                src="/assets/instagram.jpg"
-                style="border-radius: 50%"
-                alt="gmail icon"
-            /></a>
-            <a
-              class="icon-wrapper"
-              href="https://www.facebook.com/amanatadvisory.kg"
-              target="_blank"
-            >
-              <img
-                :draggable="false"
-                class="social-media-icon"
-                src="/assets/facebook.jpg"
-                style="border-radius: 50%"
-                alt="gmail icon"
-            /></a>
-          </div>
         </div>
       </div>
     </div>
@@ -170,17 +202,28 @@
     font-size: 16px;
     font-weight: 600;
     line-height: 24px;
-    color: #c5c5c5;
+    color: #ffffff;
     text-transform: uppercase;
   }
 
   .text-footer {
-    color: #c5c5c5;
+    width: fit-content;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 20px;
+    padding: 0px;
+  }
+  .text-footer span {
+    font-weight: 500;
   }
   .column {
     width: 28%;
   }
-
+  .contact-icon {
+    width: 14px;
+    height: 14px;
+  }
   @media (min-width: 0px) and (max-width: 600px) {
     .footer-content {
       padding: 0px 15px;

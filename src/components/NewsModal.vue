@@ -9,8 +9,10 @@
   import { editorConfig } from "@/plugins/ckeditor.js";
 
   const store = useStore();
-  const props = defineProps(["open", "onClose", "editNews"]);
+  const props = defineProps(["modelValue", "editNews"]);
+  const emit = defineEmits(["update:modelValue"]);
   const { t } = useI18n();
+  const form = ref();
   const valid = ref(false);
   const title_en = ref("");
   const subtitle_en = ref("");
@@ -21,7 +23,7 @@
   const image = ref([]);
   const isLoading = ref(false);
   const fileInputLabel = computed(() =>
-    props.editNews && !image.value?.length
+    props.editNews && image.value.length === 0
       ? props.editNews["imageName"]
       : t("general.Обложка")
   );
@@ -40,20 +42,10 @@
       }
     }
   );
-  function resetForm() {
-    title_en.value = "";
-    subtitle_en.value = "";
-    editorData_en.value = "";
-    title_ru.value = "";
-    subtitle_ru.value = "";
-    editorData_ru.value = "";
-    image.value = [];
-  }
   function callback(success) {
     isLoading.value = false;
     if (success) {
-      resetForm();
-      props.onClose(false);
+      closeHandler();
     }
   }
   function submitHandler() {
@@ -91,30 +83,35 @@
       }
     }
   }
+  function closeHandler() {
+    title_en.value = "";
+    subtitle_en.value = "";
+    editorData_en.value = "";
+    title_ru.value = "";
+    subtitle_ru.value = "";
+    editorData_ru.value = "";
+    image.value = [];
+    form.value.resetValidation();
+    emit("update:modelValue", false);
+  }
 </script>
 
 <template>
-  <Dialog
-    :open="open"
-    :onClose="
-      (value) => {
-        resetForm();
-        onClose(value);
-      }
-    "
-  >
+  <Dialog :open="props.modelValue" :onClose="closeHandler">
     <p class="title text-center" style="width: 100%; margin-bottom: 28px">
       {{
         props.editNews
           ? t("general.редактировать_новость")
-          : t("general.новая_новость")
+          : t("general.добавить_новость")
       }}
     </p>
     <div class="flex-box-center">
       <v-form
-        class="form-max-width"
+        ref="form"
         v-model="valid"
+        class="form-max-width"
         @submit.prevent="submitHandler"
+        lazy-validation
       >
         <div class="editor-wrapper">
           <v-text-field
@@ -180,36 +177,37 @@
           />
           <div style="width: 100%; height: 38px"></div>
           <v-file-input
+            v-model="image"
             name="image"
             accept="image/*"
             variant="outlined"
             :label="fileInputLabel"
             color="#61a375"
-            :model-value="image"
-            @update:model-value="(value) => (image = value)"
             :required="!editNews"
             :rules="[
               (v) =>
-                !!v[0] ||
-                Boolean(editNews) ||
-                t('errors.Загрузите_фоновое_изображение'),
+                !!v || !!v.length || t('errors.Загрузите_фоновое_изображение'),
             ]"
-            clearable
-            show-size
+            multiple
           ></v-file-input>
         </div>
         <div class="flex-box-center">
-          <v-btn
-            type="submit"
-            color="#61a375"
-            class="text-white"
-            :loading="isLoading"
-            >{{
-              props.editNews
-                ? t("general.Обновить")
-                : t("general.Добавить_новость")
-            }}</v-btn
-          >
+          <div class="flex-box" style="gap: 20px">
+            <v-btn
+              type="submit"
+              color="#61a375"
+              class="text-white"
+              :loading="isLoading"
+              >{{
+                props.editNews
+                  ? t("general.Обновить")
+                  : t("general.Добавить_новость")
+              }}</v-btn
+            >
+            <v-btn color="#F44336" class="text-white" @click="closeHandler">{{
+              t("general.отмена")
+            }}</v-btn>
+          </div>
         </div></v-form
       >
     </div></Dialog

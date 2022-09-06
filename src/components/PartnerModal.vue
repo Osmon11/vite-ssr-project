@@ -1,13 +1,15 @@
 <script setup>
   import { computed, ref, watch } from "vue";
+  import { useI18n } from "vue-i18n";
 
   import Dialog from "@/shared/Dialog.vue";
   import { useStore } from "../store";
-  import { useI18n } from "vue-i18n";
 
   const store = useStore();
-  const props = defineProps(["open", "onClose", "editPartner"]);
+  const props = defineProps(["modelValue", "editPartner"]);
+  const emit = defineEmits(["update:modelValue"]);
   const { t } = useI18n();
+  const form = ref();
   const valid = ref(true);
   const name_en = ref("");
   const name_ru = ref("");
@@ -26,7 +28,7 @@
   );
 
   const fileInputLabel = computed(() =>
-    props.editPartner && !image.value?.length
+    props.editPartner && image.value.length === 0
       ? props.editPartner["logo"]
       : t("general.Логотип_партнера")
   );
@@ -34,10 +36,7 @@
   function callback(success) {
     isLoading.value = false;
     if (success) {
-      name_en.value = "";
-      name_ru.value = "";
-      image.value = [];
-      props.onClose(false);
+      closeHandler();
     }
   }
   function submitHandler() {
@@ -46,28 +45,33 @@
       const data = new FormData();
       data.append("name_ru", name_ru.value);
       data.append("name_en", name_en.value);
-
       if (!props.editPartner) {
         data.append("image", image.value[0]);
         store.setPartner(data, callback);
       } else {
-        if (image.value[0]) {
-          data.append("image", image.value[0]);
-        }
+        if (image.value[0]) data.append("image", image.value[0]);
+
         data.append("logo", props.editPartner.logo);
         store.updatePartner({ id: props.editPartner._id }, data, callback);
       }
-      image.value = null;
     }
+  }
+  function closeHandler() {
+    name_en.value = "";
+    name_ru.value = "";
+    image.value = [];
+    form.value.resetValidation();
+    emit("update:modelValue", false);
   }
 </script>
 
 <template>
-  <Dialog :open="open" :onClose="onClose">
+  <Dialog :open="props.modelValue" :onClose="closeHandler">
     <div class="flex-box flex-box-center">
       <v-form
-        class="form-max-width"
+        ref="form"
         v-model="valid"
+        class="form-max-width"
         @submit.prevent="submitHandler"
       >
         <p class="title text-center mb-4" style="width: 100%">
@@ -102,33 +106,35 @@
         ></v-text-field>
 
         <v-file-input
+          v-model="image"
           name="image"
           accept="image/*"
           variant="outlined"
           :label="fileInputLabel"
           color="#61a375"
-          @update:model-value="(value) => (image = value)"
           :required="!editPartner"
           :rules="[
-            (v) =>
-              !!v[0] ||
-              Boolean(editPartner) ||
-              t('errors.Загрузите_логотип_партнера'),
+            (v) => !!v || !!v.length || t('errors.Загрузите_логотип_партнера'),
           ]"
           show-size
         ></v-file-input>
         <div class="flex-box-center">
-          <v-btn
-            color="#61a375"
-            class="text-white"
-            type="submit"
-            :loading="isLoading"
-            >{{
-              props.editPartner
-                ? t("general.Обновить")
-                : t("general.Добавить_партнера")
-            }}</v-btn
-          >
+          <div class="flex-box" style="gap: 20px">
+            <v-btn
+              color="#61a375"
+              class="text-white"
+              type="submit"
+              :loading="isLoading"
+              >{{
+                props.editPartner
+                  ? t("general.Обновить")
+                  : t("general.Добавить_партнера")
+              }}</v-btn
+            >
+            <v-btn color="#F44336" class="text-white" @click="closeHandler">{{
+              t("general.отмена")
+            }}</v-btn>
+          </div>
         </div>
       </v-form>
     </div></Dialog

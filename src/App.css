@@ -384,26 +384,47 @@ input[type="checkbox"]:checked {
   box-sizing: border-box;
 }
 .social-media-wrapper {
-  gap: 20px;
+  gap: 5px;
 }
 .icon-wrapper {
-  width: 40px;
-  height: 40px;
-  padding: 8px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
+  position: relative;
 }
-.icon-wrapper:hover {
-  background-color: transparent;
+.icon-wrapper .default {
+  opacity: 1;
+}
+.icon-wrapper .active {
+  opacity: 0;
+}
+.icon-wrapper:hover .default {
+  opacity: 0;
+}
+.icon-wrapper:hover .active {
+  opacity: 1;
+}
+.icon-wrapper .social-media-icon {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  z-index: 10;
+  transition: all ease-in 0.2s;
 }
 .social-media-icon {
   width: 24px;
   height: 24px;
+  border-radius: 50%;
 }
 .goalsCard {
   width: 25%;
 }
 .full-width {
   width: 100%;
+}
+.icon-color-white {
+  filter: invert(99%) sepia(96%) saturate(17%) hue-rotate(240deg)
+    brightness(104%) contrast(100%);
 }
 
 @media (min-width: 0px) and (max-width: 600px) {
