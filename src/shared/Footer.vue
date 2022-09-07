@@ -195,7 +195,7 @@
 <style scoped>
   footer {
     padding: 70px 0px 35px;
-    background: linear-gradient(to bottom, #7e8e8e, #4b5757);
+    background: #4b5757;
   }
   .footer-content {
     width: 100%;
