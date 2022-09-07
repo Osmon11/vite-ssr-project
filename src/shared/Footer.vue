@@ -29,7 +29,7 @@
   <footer>
     <div class="flex-box-center">
       <div class="footer-content flex-box">
-        <div class="column">
+        <div>
           <p class="title">{{ t("general['свяжитесь с нами']") }}</p>
           <div class="social-media-wrapper flex-box">
             <a
@@ -119,7 +119,7 @@
             </p>
           </div>
         </div>
-        <div class="column">
+        <div>
           <p class="title">{{ t("Главная") }}</p>
           <p
             class="nav-item text-footer"
@@ -155,7 +155,7 @@
             {{ t("Новости") }}
           </p>
         </div>
-        <div class="column">
+        <div>
           <p class="title">{{ t("general.Штат") }}</p>
           <p
             v-if="name !== 'shariah-board'"
@@ -164,14 +164,22 @@
           >
             {{ t("ШАРИАТСКИЙ СОВЕТ") }}
           </p>
-          <p
+          <!-- <p
             v-if="name !== 'management'"
             class="nav-item text-footer"
             @click="navigationHandler('/management', 'management')"
           >
             {{ t("general.Менеджмент") }}
-          </p>
+          </p> -->
         </div>
+        <v-btn
+          color="#61a375"
+          class="text-white"
+          @click="setFeedbackModal(true)"
+          style="margin-top: 40px"
+        >
+          {{ t("general['свяжитесь с нами']") }}
+        </v-btn>
       </div>
     </div>
     <p
@@ -181,7 +189,7 @@
       {{ t("© 2022 Amanat Advisory. Все права защищены.") }}
     </p>
   </footer>
-  <FeedbackModal :open="openFeedbackModal" :onClose="setFeedbackModal" />
+  <FeedbackModal v-model="openFeedbackModal" />
 </template>
 
 <style scoped>
@@ -195,7 +203,7 @@
     align-items: start;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 5%;
+    gap: 50px;
   }
   .title {
     font-family: "Roboto", sans-serif;
@@ -216,9 +224,6 @@
   }
   .text-footer span {
     font-weight: 500;
-  }
-  .column {
-    width: 28%;
   }
   .contact-icon {
     width: 14px;

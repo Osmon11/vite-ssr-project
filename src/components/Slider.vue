@@ -85,7 +85,7 @@
       </div>
     </div>
   </div>
-  <FeedbackModal :open="openFeedbackModal" :onClose="setFeedbackModal" />
+  <FeedbackModal v-model="openFeedbackModal" />
 </template>
 
 <style scoped>

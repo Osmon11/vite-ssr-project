@@ -8,7 +8,7 @@
   const store = useStore();
   const { t, locale } = useI18n();
   const openModal = ref(false);
-  const currentSlide = ref(null);
+  const currentSlide = ref({});
   const loadedImg = ref({});
   const backendUrl = import.meta.env.VITE_API_URL;
 
@@ -25,12 +25,12 @@
   function setModal(value) {
     openModal.value = value;
     if (!value) {
-      currentSlide.value = null;
+      currentSlide.value = {};
     }
   }
   function setCurrentSlide(slide) {
     currentSlide.value = slide;
-    openModal.value = true;
+    setModal(true);
   }
   function deleteSlide(slide) {
     store.setPromp({
@@ -100,7 +100,7 @@
       {{ t("errors.Слайдов_пока_нет_Создайте_новый_слайд") }}
     </p>
   </div>
-  <SlideModal :open="openModal" :onClose="setModal" :editSlide="currentSlide" />
+  <SlideModal v-model="openModal" :editSlide="currentSlide" />
 </template>
 
 <style scoped>

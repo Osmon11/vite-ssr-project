@@ -495,7 +495,7 @@
         </template></Select
       >
     </div>
-    <FeedbackModal :open="openFeedbackModal" :onClose="setFeedbackModal" />
+    <FeedbackModal v-model="openFeedbackModal" />
   </header>
 </template>
 

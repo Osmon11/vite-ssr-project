@@ -6,9 +6,11 @@
   import { useStore } from "../store";
   import { useI18n } from "vue-i18n";
 
-  const props = defineProps(["open", "onClose"]);
+  const props = defineProps(["modelValue"]);
+  const emit = defineEmits(["update:modelValue"]);
   const store = useStore();
   const { t } = useI18n();
+  const form = ref();
   const valid = ref(false);
   const userName = ref("");
   const email = ref("");
@@ -29,23 +31,21 @@
         (success) => {
           isLoading.value = false;
           if (success) {
-            userName.value = "";
-            email.value = "";
-            message.value = "";
-            props.onClose(false);
+            closeHandler();
           }
         }
       );
     }
   }
+  function closeHandler() {
+    form.value.reset();
+    emit("update:modelValue", false);
+  }
 </script>
 
 <template>
-  <Dialog :open="open" :onClose="onClose">
-    <v-form
-      v-model="valid"
-      @submit.prevent="(event) => handleRequestSubmit(event)"
-    >
+  <Dialog :open="props.modelValue" :onClose="closeHandler">
+    <v-form ref="form" v-model="valid" @submit.prevent="handleRequestSubmit">
       <div class="flex-box-center" style="margin-bottom: 40px">
         <h3 class="title divider">
           {{ t("general['Форма обратной связи']") }}
@@ -83,13 +83,18 @@
         :rules="[(v) => !!v || t('errors.Введите_сообщение')]"
       ></v-textarea>
       <div class="flex-box-center">
-        <v-btn
-          color="#61a375"
-          class="text-white"
-          type="submit"
-          :loading="isLoading"
-          >{{ t("general.отправить_сообщение") }}</v-btn
-        >
+        <div class="flex-box" style="gap: 20px">
+          <v-btn
+            color="#61a375"
+            class="text-white"
+            type="submit"
+            :loading="isLoading"
+            >{{ t("general.отправить_сообщение") }}</v-btn
+          >
+          <v-btn color="#F44336" class="text-white" @click="closeHandler">{{
+            t("general.отмена")
+          }}</v-btn>
+        </div>
       </div>
       <!-- <VueRecaptcha /> -->
     </v-form>

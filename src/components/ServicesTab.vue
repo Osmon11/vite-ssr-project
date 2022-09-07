@@ -20,6 +20,9 @@
   }
   function setModal(value) {
     openModal.value = value;
+    if (!value) {
+      currentService.value = null;
+    }
   }
   function deleteService(service) {
     store.setPromp({

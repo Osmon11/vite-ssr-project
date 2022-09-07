@@ -7,7 +7,6 @@ import NewsView from "@/views/NewsView.vue";
 import AdminView from "@/views/AdminView.vue";
 import LoginView from "@/views/LoginView.vue";
 import Management from "@/views/Management.vue";
-import OurServices from "@/views/OurServices.vue";
 import ShariahBoard from "@/views/ShariahBoard.vue";
 import OurExperiences from "@/views/OurExperiences.vue";
 
@@ -39,11 +38,6 @@ const router = createRouter({
       path: "/experiences",
       name: "experiences",
       component: OurExperiences,
-    },
-    {
-      path: "/our-services",
-      name: "our-services",
-      component: OurServices,
     },
     {
       path: "/shariah-board",

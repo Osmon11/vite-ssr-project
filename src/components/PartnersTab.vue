@@ -28,6 +28,9 @@
   }
   function setModal(value) {
     openModal.value = value;
+    if (!value) {
+      currentPartner.value = null;
+    }
   }
   function deletePartner(partner) {
     store.setPromp({

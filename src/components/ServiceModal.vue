@@ -73,11 +73,7 @@
     }
   }
   function closeHandler() {
-    name_en.value = "";
-    editorData_en.value = "";
-    name_ru.value = "";
-    editorData_ru.value = "";
-    form.value.resetValidation();
+    form.value.reset();
     emit("update:modelValue", false);
   }
 </script>

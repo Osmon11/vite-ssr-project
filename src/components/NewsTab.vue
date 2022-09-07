@@ -20,7 +20,9 @@
   }
   function setCurrentNews(news) {
     currentNews.value = news;
-    openModal.value = true;
+    if (!value) {
+      currentNews.value = null;
+    }
   }
   function deleteNews(news) {
     store.setPromp({

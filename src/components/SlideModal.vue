@@ -6,7 +6,8 @@
   import { useI18n } from "vue-i18n";
 
   const { setSlide, updateSlide } = useStore();
-  const props = defineProps(["open", "onClose", "editSlide"]);
+  const props = defineProps(["modelValue", "editSlide"]);
+  const emit = defineEmits(["update:modelValue"]);
   const { t } = useI18n();
   const form = ref();
   const valid = ref(true);
@@ -16,40 +17,26 @@
   const subtitle_ru = ref("");
   const image = ref([]);
   const isLoading = ref(false);
+  const slideToEdit = computed(() => props.editSlide);
+  const fileInputLabel = ref(t("general.Изображение_фона"));
 
-  watch(
-    () => props.editSlide,
-    (value) => {
-      if (value) {
-        title_en.value = value.title_en;
-        subtitle_en.value = value.subtitle_en;
-        title_ru.value = value.title_ru;
-        subtitle_ru.value = value.subtitle_ru;
-        image.value = [];
-      } else {
-        resetForm();
-      }
+  watch(slideToEdit, (value) => {
+    if (value) {
+      title_en.value = value.title_en;
+      subtitle_en.value = value.subtitle_en;
+      title_ru.value = value.title_ru;
+      subtitle_ru.value = value.subtitle_ru;
+      image.value = [];
+      fileInputLabel.value = value.imageName;
+    } else {
+      fileInputLabel.value = t("general.Изображение_фона");
     }
-  );
+  });
 
-  const fileInputLabel = computed(() =>
-    props.editSlide && image.value.length === 0
-      ? props.editSlide["imageName"]
-      : t("general.Изображение_фона")
-  );
-  const resetForm = () => {
-    title_en.value = "";
-    // subtitle_en.value = "";
-    // title_ru.value = "";
-    // subtitle_ru.value = "";
-    // image.value = [];
-    form.value.resetValidation();
-  };
   function callback(success) {
     isLoading.value = false;
     if (success) {
-      resetForm();
-      props.onClose(false);
+      closeHandler();
     }
   }
   function submitHandler() {
@@ -74,17 +61,25 @@
       image.value = [];
     }
   }
+  const closeHandler = () => {
+    title_en.value = "";
+    subtitle_en.value = "";
+    title_ru.value = "";
+    subtitle_ru.value = "";
+    image.value = [];
+    form.value.resetValidation();
+    emit("update:modelValue", false);
+  };
 </script>
 
 <template>
-  <Dialog :open="open" :onClose="onClose">
+  <Dialog :open="props.modelValue" :onClose="closeHandler">
     <div class="flex-box flex-box-center">
       <v-form
-        class="form-max-width"
+        ref="form"
         v-model="valid"
-        :ref="(ref) => (form = ref)"
+        class="form-max-width"
         @submit.prevent="submitHandler"
-        lazy-validation
       >
         <p class="title text-center mb-4" style="width: 100%">
           {{
@@ -152,17 +147,22 @@
           show-size
         ></v-file-input>
         <div class="flex-box-center">
-          <v-btn
-            color="#61a375"
-            class="text-white"
-            type="submit"
-            :loading="isLoading"
-            >{{
-              props.editSlide
-                ? t("general.Обновить")
-                : t("general.Добавить_слайд")
-            }}</v-btn
-          >
+          <div class="flex-box" style="gap: 20px">
+            <v-btn
+              color="#61a375"
+              class="text-white"
+              type="submit"
+              :loading="isLoading"
+              >{{
+                props.editSlide
+                  ? t("general.Обновить")
+                  : t("general.Добавить_слайд")
+              }}</v-btn
+            >
+            <v-btn color="#F44336" class="text-white" @click="closeHandler">{{
+              t("general.отмена")
+            }}</v-btn>
+          </div>
         </div>
       </v-form>
     </div></Dialog

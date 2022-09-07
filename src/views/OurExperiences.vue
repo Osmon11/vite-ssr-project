@@ -8,13 +8,20 @@
 
 <template>
   <Header />
-  <div class="flex-box-center" style="margin: 50px 0px">
+  <div
+    class="flex-box-center"
+    style="
+      min-height: calc(100vh - 100px);
+      align-items: flex-start;
+      margin: 50px 0px;
+    "
+  >
     <main>
       <div class="column-wrap">
         <div class="flex-box-center" style="margin-bottom: 40px">
           <h3 class="title divider">{{ t("НАШ ОПЫТ") }}</h3>
         </div>
-        <p class="body1" style="margin-bottom: 20px">
+        <p class="body1" style="margin-bottom: 20px; padding: 16px">
           {{ t("experiences") }}
         </p>
       </div>

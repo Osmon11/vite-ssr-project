@@ -21,6 +21,9 @@
   }
   function setModal(value) {
     openModal.value = value;
+    if (!value) {
+      currentPerson.value = null;
+    }
   }
   function deletePerson(person) {
     store.setPromp({
