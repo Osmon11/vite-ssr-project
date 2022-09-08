@@ -15,15 +15,15 @@
     store.getShariahBoard();
   });
 
-  function setCurrentPerson(person) {
-    currentPerson.value = person;
-    setModal(true);
-  }
   function setModal(value) {
     openModal.value = value;
     if (!value) {
       currentPerson.value = null;
     }
+  }
+  function setCurrentPerson(person) {
+    currentPerson.value = person;
+    setModal(true);
   }
   function deletePerson(person) {
     store.setPromp({

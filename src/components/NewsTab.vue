@@ -18,8 +18,8 @@
   function setModal(value) {
     openModal.value = value;
   }
-  function setCurrentNews(news) {
-    currentNews.value = news;
+  function setCurrentNews(value) {
+    currentNews.value = value;
     if (!value) {
       currentNews.value = null;
     }
