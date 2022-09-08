@@ -74,7 +74,7 @@
     :headerPosition="headerPosition"
   />
   <Slider />
-  <div class="flex-box-center">
+  <div class="flex-box-center" style="background-color: #f5f5f5">
     <main>
       <section
         class="flex-box"
@@ -84,7 +84,6 @@
           alignItems: 'flex-start',
           gap: xs ? '16px' : '32px',
           flexWrap: 'wrap',
-          backgroundColor: '#f5f5f5',
         }"
         :ref="
           (el) => {
@@ -153,6 +152,10 @@
           </p>
         </div>
       </section>
+    </main>
+  </div>
+  <div class="flex-box-center">
+    <main>
       <section
         style="padding-bottom: 0px"
         :ref="
