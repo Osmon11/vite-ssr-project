@@ -78,7 +78,7 @@ header.sticky {
 }
 .divider::before {
   content: "";
-  background-color: #61a375;
+  background-color: #006625;
   position: absolute;
   width: 50%;
   height: 1px;
@@ -120,9 +120,9 @@ header.sticky {
   text-decoration: underline;
 }
 .body1 {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 24px;
   color: #47425d;
   hyphens: manual;
@@ -220,6 +220,12 @@ input[type="checkbox"]:checked {
 }
 .title.divider::before {
   width: 50px;
+}
+.title.about-us.divider::before {
+  background-color: #006625;
+  height: 10px;
+  left: 0px;
+  transform: none;
 }
 @-webkit-keyframes fadeInAndScale {
   from {
@@ -426,6 +432,14 @@ input[type="checkbox"]:checked {
   filter: invert(99%) sepia(96%) saturate(17%) hue-rotate(240deg)
     brightness(104%) contrast(100%);
 }
+.dot {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 50%;
+  background-color: #47425d;
+}
 
 @media (min-width: 0px) and (max-width: 600px) {
   header {
@@ -471,6 +485,16 @@ input[type="checkbox"]:checked {
   .logo {
     width: 30px;
     height: 30px;
+  }
+  .nav-item {
+    font-size: 12px;
+  }
+  .select-item {
+    font-size: 16px;
+  }
+  .select-item svg {
+    width: 16px;
+    height: 16px;
   }
 }
 @media (min-width: 1264px) and (max-width: 1904) {

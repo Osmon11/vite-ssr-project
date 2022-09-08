@@ -3,12 +3,12 @@
   import { VueRecaptcha } from "vue-recaptcha";
 
   import Dialog from "@/shared/Dialog.vue";
-  import { useStore } from "../store";
+  import appStore from "../store";
   import { useI18n } from "vue-i18n";
 
   const props = defineProps(["modelValue"]);
   const emit = defineEmits(["update:modelValue"]);
-  const store = useStore();
+  const store = appStore.useStore();
   const { t } = useI18n();
   const form = ref();
   const valid = ref(false);

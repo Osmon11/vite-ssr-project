@@ -3,9 +3,9 @@
   import { useI18n } from "vue-i18n";
 
   import Dialog from "@/shared/Dialog.vue";
-  import { useStore } from "../store";
+  import appStore from "../store";
 
-  const store = useStore();
+  const store = appStore.useStore();
   const props = defineProps(["modelValue", "editPartner"]);
   const emit = defineEmits(["update:modelValue"]);
   const { t } = useI18n();

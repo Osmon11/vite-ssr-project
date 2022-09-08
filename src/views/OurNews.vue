@@ -2,13 +2,13 @@
   import { computed, onMounted, ref } from "vue";
   import { useI18n } from "vue-i18n";
 
-  import { useStore } from "../store";
+  import appStore from "../store";
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
   import BlogListItem from "@/shared/BlogListItem.vue";
   import BlogCard from "../shared/BlogCard.vue";
 
-  const store = useStore();
+  const store = appStore.useStore();
   const { t } = useI18n();
   const loadedImg = ref({});
   const xs = computed(() => window.innerWidth <= 600);

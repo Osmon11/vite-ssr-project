@@ -1,6 +1,6 @@
 import cookie_js from "cookie_js";
 
-export const editorConfig = {
+const editorConfig = {
   language: "en",
   toolbar: {
     items: [
@@ -80,3 +80,5 @@ export const editorConfig = {
     headers: { Authorization: cookie_js.get(import.meta.env.VITE_TOKEN_KEY) }, // optional (eg. in asp.net core for CSRF prevention you would have headers : { "RequestVerificationToken": _serverSideGeneratedCSRFToken })
   },
 };
+
+export default { editorConfig };

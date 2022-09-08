@@ -7,11 +7,11 @@
   import Slider from "@/components/Slider.vue";
   import BlogCard from "@/shared/BlogCard.vue";
   import Footer from "@/shared/Footer.vue";
-  import { useStore } from "../store/index.js";
+  import appStore from "../store/index.js";
   import { useI18n } from "vue-i18n";
   import { useRoute } from "vue-router";
 
-  const store = useStore();
+  const store = appStore.useStore();
   const { t, locale } = useI18n();
   const { params } = useRoute();
   const refs = ref({});
@@ -50,6 +50,15 @@
       });
     }
   }
+
+  const companyGoals = [
+    "lang-28dc5e63-dc50-42ba-aad9-6e3dc49a0b0b",
+    "lang-ee090b3a-b8da-496f-8b2a-266675b14d99",
+    "lang-dbedc239-b6e9-44ae-bc60-b71a5dc7caeb",
+    "lang-cd5985f4-4c1c-4a54-96b7-88bac0aaa28c",
+    "lang-3f74141c-349b-4418-9765-a1e1501270dd",
+    "lang-f4991c13-f04c-48de-a96e-b066ec9f2dcf",
+  ];
 </script>
 
 <template>
@@ -65,14 +74,17 @@
     :headerPosition="headerPosition"
   />
   <Slider />
-  <div class="flex-box-center" :style="{ marginTop: xs ? '30px' : '80px' }">
+  <div class="flex-box-center">
     <main>
       <section
         class="flex-box"
         :style="{
+          paddingLeft: '15px',
+          paddingRight: '15px',
           alignItems: 'flex-start',
           gap: xs ? '16px' : '32px',
           flexWrap: 'wrap',
+          backgroundColor: '#f5f5f5',
         }"
         :ref="
           (el) => {
@@ -81,16 +93,18 @@
         "
       >
         <div class="column-wrap info-item">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">{{ t("О НАС") }}</h3>
+          <div class="flex-box" style="margin-bottom: 40px">
+            <h3 class="title about-us divider">
+              {{ t("general['О компании']") }}
+            </h3>
           </div>
           <p class="body1" style="margin-bottom: 20px">
             {{ t("О компании") }}
           </p>
         </div>
         <div class="column-wrap info-item">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">{{ t("Миссия компании") }}</h3>
+          <div class="flex-box" style="margin-bottom: 40px">
+            <h3 class="title about-us divider">{{ t("Миссия компании") }}</h3>
           </div>
           <p
             class="body1"
@@ -107,76 +121,35 @@
           </p>
         </div>
         <div class="column-wrap info-item">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">
-              {{ t("Наши цели в рамках развития ИПФ") }}
+          <div class="flex-box" style="margin-bottom: 40px">
+            <h3 class="title about-us divider">
+              {{ t("Цели компании") }}
             </h3>
           </div>
-          <ul>
-            <li>
-              <p
-                class="body1"
-                :style="{
-                  marginBottom: '10px',
-                  textAlign: xs ? 'center' : 'start',
-                }"
-              >
-                {{
-                  t(
-                    "Стать первым учреждением, охватывающим все аспекты деятельности исламского финансирования;"
-                  )
-                }}
-              </p>
-            </li>
-            <li>
-              <p
-                class="body1"
-                :style="{
-                  marginBottom: '10px',
-                  textAlign: xs ? 'center' : 'start',
-                }"
-              >
-                {{
-                  t(
-                    "Внедрение передового международного опыта путем предоставления стратегических рекомендаций;"
-                  )
-                }}
-              </p>
-            </li>
-            <li>
-              <p
-                class="body1"
-                :style="{
-                  marginBottom: '10px',
-                  textAlign: xs ? 'center' : 'start',
-                }"
-              >
-                {{ t("Предоставление качественных услуг;") }}
-              </p>
-            </li>
-            <li>
-              <p
-                class="body1"
-                :style="{
-                  marginBottom: '10px',
-                  textAlign: xs ? 'center' : 'start',
-                }"
-              >
-                {{ t("Взаимовыгодное партнерство;") }}
-              </p>
-            </li>
-          </ul>
+          <div
+            class="flex-box"
+            style="gap: 20px"
+            v-for="goal in companyGoals"
+            :key="goal"
+          >
+            <span class="dot"></span>
+            <p
+              class="body1"
+              :style="{
+                marginBottom: '10px',
+                textAlign: xs ? 'center' : 'start',
+              }"
+            >
+              {{ t(goal) }}
+            </p>
+          </div>
         </div>
         <div class="column-wrap info-item">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">{{ t("ПОЧЕМУ МЫ") }}</h3>
+          <div class="flex-box" style="margin-bottom: 40px">
+            <h3 class="title about-us divider">{{ t("ПОЧЕМУ МЫ?") }}</h3>
           </div>
           <p class="body1" style="margin-bottom: 20px">
-            {{
-              t(
-                "Наши услуги включают полный цикл процессов, от формирования кадрового состава до поставки программного комплекса по Исламскому Финансированию в кратчайшие сроки. Наша команда состоит из специалистов и членов Совета по надзору за исламскими финансовыми услугами, имеющие теоретические знания исламских принципов финансирования, а также многолетний практический опыт в данной области как в Кыргызстане, так и за рубежом"
-              )
-            }}
+            {{ t("leng-32b348ac-d056-4e10-8437-993e2f81f112") }}
           </p>
         </div>
       </section>

@@ -7,11 +7,11 @@
   import cookie_js from "cookie_js";
 
   import Select from "@/shared/Select.vue";
-  import { useStore } from "../store";
+  import appStore from "../store";
 
   const props = defineProps(["scrollIntoHandler"]);
 
-  const store = useStore();
+  const store = appStore.useStore();
   const { t, locale } = useI18n();
   const navigate = useRouter();
   const { name } = useRoute();
@@ -516,5 +516,10 @@
     height: 24px;
     filter: invert(15%) sepia(89%) saturate(7500%) hue-rotate(3deg)
       brightness(93%) contrast(121%);
+  }
+  @media (min-width: 960px) and (max-width: 1264px) {
+    .row {
+      gap: 20px;
+    }
   }
 </style>

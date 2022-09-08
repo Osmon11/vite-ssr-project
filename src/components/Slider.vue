@@ -3,10 +3,10 @@
   import { ref } from "@vue/reactivity";
   import { useI18n } from "vue-i18n";
 
-  import { useStore } from "../store";
+  import appStore from "../store";
   import FeedbackModal from "@/components/FeedbackModal.vue";
 
-  const store = useStore();
+  const store = appStore.useStore();
   const { t, locale } = useI18n();
   const activeSlide = ref(0);
   const openFeedbackModal = ref(false);

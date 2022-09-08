@@ -1,4 +1,4 @@
-export const getUrlString = (obj) => {
+export default function getUrlString(obj) {
   let url = "";
   let keys = Object.keys(obj).filter((key) => Boolean(obj[key]));
 
@@ -8,4 +8,4 @@ export const getUrlString = (obj) => {
   );
 
   return url;
-};
+}

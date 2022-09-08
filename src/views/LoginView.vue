@@ -2,9 +2,9 @@
   import { ref } from "vue";
   import { useRouter } from "vue-router";
 
-  import { useStore } from "../store";
+  import appStore from "../store";
 
-  const store = useStore();
+  const store = appStore.useStore();
   const navigate = useRouter();
   const valid = ref(false);
   const login = ref("");

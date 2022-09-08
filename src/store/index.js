@@ -2,10 +2,10 @@ import moment from "moment";
 import cookie_js from "cookie_js";
 import { defineStore } from "pinia";
 
-import { getUrlString } from "../utils";
-import { appAxios, makeRequest } from "../api";
+import getUrlString from "../utils";
+import API from "../api";
 
-export const useStore = defineStore("main", {
+const useStore = defineStore("main", {
   state: () => ({
     admin: {},
     slides: [],
@@ -39,7 +39,7 @@ export const useStore = defineStore("main", {
   },
   actions: {
     authorize(data, remember = false, callback = () => {}) {
-      makeRequest("/auth/login", "post", data).then((json) => {
+      API.makeRequest("/auth/login", "post", data).then((json) => {
         if (json) {
           let bearerToken = `Bearer ${json.token}`;
           cookie_js.set(import.meta.env.VITE_TOKEN_KEY, bearerToken, {
@@ -48,7 +48,7 @@ export const useStore = defineStore("main", {
             ).toUTCString(),
             path: "/",
           });
-          appAxios.defaults.headers["authorization"] = bearerToken;
+          API.appAxios.defaults.headers["authorization"] = bearerToken;
           this.admin = json;
         }
         callback(Boolean(json));
@@ -56,10 +56,10 @@ export const useStore = defineStore("main", {
     },
     logout() {
       cookie_js.removeSpecific(import.meta.env.VITE_TOKEN_KEY, { path: "/" });
-      appAxios.defaults.headers["authorization"] = null;
+      API.appAxios.defaults.headers["authorization"] = null;
     },
     getUserInfo() {
-      makeRequest("/user/info", "get").then((json) => {
+      API.makeRequest("/user/info", "get").then((json) => {
         if (json) {
           this.admin = json;
         }
@@ -72,7 +72,7 @@ export const useStore = defineStore("main", {
       this.promp = { ...this.promp, ...promp };
     },
     getSlides(query = {}, callback = () => {}) {
-      makeRequest(`/slides?${getUrlString(query)}`, "get").then((json) => {
+      API.makeRequest(`/slides?${getUrlString(query)}`, "get").then((json) => {
         if (json) {
           if (query.id) {
             this.slide[query.id] = json;
@@ -84,7 +84,7 @@ export const useStore = defineStore("main", {
       });
     },
     setSlide(data, callback = () => {}) {
-      makeRequest("/slides", "post", data).then((json) => {
+      API.makeRequest("/slides", "post", data).then((json) => {
         if (json) {
           this.slides = json;
         }
@@ -92,7 +92,7 @@ export const useStore = defineStore("main", {
       });
     },
     updateSlide(query = {}, data, callback = () => {}) {
-      makeRequest(`/slides?${getUrlString(query)}`, "put", data).then(
+      API.makeRequest(`/slides?${getUrlString(query)}`, "put", data).then(
         (json) => {
           if (json) {
             this.slides = json.data;
@@ -102,26 +102,30 @@ export const useStore = defineStore("main", {
       );
     },
     deleteSlide(query = {}) {
-      makeRequest(`/slides?${getUrlString(query)}`, "delete").then((json) => {
-        if (json) {
-          this.slides = json.data;
-        }
-      });
-    },
-    getNewsFeed(query = {}, callback = () => {}) {
-      makeRequest(`/news-feed?${getUrlString(query)}`, "get").then((json) => {
-        if (json) {
-          if (query.id) {
-            this.news[query.id] = json;
-          } else {
-            this.newsFeed = json.reverse();
+      API.makeRequest(`/slides?${getUrlString(query)}`, "delete").then(
+        (json) => {
+          if (json) {
+            this.slides = json.data;
           }
         }
-        callback(Boolean(json));
-      });
+      );
+    },
+    getNewsFeed(query = {}, callback = () => {}) {
+      API.makeRequest(`/news-feed?${getUrlString(query)}`, "get").then(
+        (json) => {
+          if (json) {
+            if (query.id) {
+              this.news[query.id] = json;
+            } else {
+              this.newsFeed = json.reverse();
+            }
+          }
+          callback(Boolean(json));
+        }
+      );
     },
     setNews(data, callback = () => {}) {
-      makeRequest("/news-feed", "post", data).then((json) => {
+      API.makeRequest("/news-feed", "post", data).then((json) => {
         if (json) {
           this.newsFeed = json;
         }
@@ -129,7 +133,7 @@ export const useStore = defineStore("main", {
       });
     },
     updateNews(query = {}, data, callback = () => {}) {
-      makeRequest(`/news-feed?${getUrlString(query)}`, "put", data).then(
+      API.makeRequest(`/news-feed?${getUrlString(query)}`, "put", data).then(
         (json) => {
           if (json) {
             this.newsFeed = json.data;
@@ -139,7 +143,7 @@ export const useStore = defineStore("main", {
       );
     },
     deleteNews(query = {}) {
-      makeRequest(`/news-feed?${getUrlString(query)}`, "delete").then(
+      API.makeRequest(`/news-feed?${getUrlString(query)}`, "delete").then(
         (json) => {
           if (json) {
             this.newsFeed = json.data;
@@ -148,7 +152,7 @@ export const useStore = defineStore("main", {
       );
     },
     getShariahBoard(query = {}, callback = () => {}) {
-      makeRequest(`/shariah-board?${getUrlString(query)}`, "get").then(
+      API.makeRequest(`/shariah-board?${getUrlString(query)}`, "get").then(
         (json) => {
           if (json) {
             if (query.id) {
@@ -162,7 +166,7 @@ export const useStore = defineStore("main", {
       );
     },
     setEmployee(data, callback = () => {}) {
-      makeRequest("/shariah-board", "post", data).then((json) => {
+      API.makeRequest("/shariah-board", "post", data).then((json) => {
         if (json) {
           this.shariahBoard = json;
         }
@@ -170,17 +174,19 @@ export const useStore = defineStore("main", {
       });
     },
     updateEmployee(query = {}, data, callback = () => {}) {
-      makeRequest(`/shariah-board?${getUrlString(query)}`, "put", data).then(
-        (json) => {
-          if (json) {
-            this.shariahBoard = json.data;
-          }
-          callback(Boolean(json));
+      API.makeRequest(
+        `/shariah-board?${getUrlString(query)}`,
+        "put",
+        data
+      ).then((json) => {
+        if (json) {
+          this.shariahBoard = json.data;
         }
-      );
+        callback(Boolean(json));
+      });
     },
     deleteEmployee(query = {}) {
-      makeRequest(`/shariah-board?${getUrlString(query)}`, "delete").then(
+      API.makeRequest(`/shariah-board?${getUrlString(query)}`, "delete").then(
         (json) => {
           if (json) {
             this.shariahBoard = json.data;
@@ -189,19 +195,21 @@ export const useStore = defineStore("main", {
       );
     },
     getPartnersList(query = {}, callback = () => {}) {
-      makeRequest(`/partners?${getUrlString(query)}`, "get").then((json) => {
-        if (json) {
-          if (query.id) {
-            this.partner[query.id] = json;
-          } else {
-            this.partners = json;
+      API.makeRequest(`/partners?${getUrlString(query)}`, "get").then(
+        (json) => {
+          if (json) {
+            if (query.id) {
+              this.partner[query.id] = json;
+            } else {
+              this.partners = json;
+            }
           }
+          callback(Boolean(json));
         }
-        callback(Boolean(json));
-      });
+      );
     },
     setPartner(data, callback = () => {}) {
-      makeRequest("/partners", "post", data).then((json) => {
+      API.makeRequest("/partners", "post", data).then((json) => {
         if (json) {
           this.partners = json;
         }
@@ -209,7 +217,7 @@ export const useStore = defineStore("main", {
       });
     },
     updatePartner(query = {}, data, callback = () => {}) {
-      makeRequest(`/partners?${getUrlString(query)}`, "put", data).then(
+      API.makeRequest(`/partners?${getUrlString(query)}`, "put", data).then(
         (json) => {
           if (json) {
             this.partners = json.data;
@@ -219,26 +227,30 @@ export const useStore = defineStore("main", {
       );
     },
     deletePartner(query = {}) {
-      makeRequest(`/partners?${getUrlString(query)}`, "delete").then((json) => {
-        if (json) {
-          this.partners = json.data;
-        }
-      });
-    },
-    getServicesList(query = {}, callback = () => {}) {
-      makeRequest(`/services?${getUrlString(query)}`, "get").then((json) => {
-        if (json) {
-          if (query.id) {
-            this.service[query.id] = json;
-          } else {
-            this.services = json;
+      API.makeRequest(`/partners?${getUrlString(query)}`, "delete").then(
+        (json) => {
+          if (json) {
+            this.partners = json.data;
           }
         }
-        callback(Boolean(json));
-      });
+      );
+    },
+    getServicesList(query = {}, callback = () => {}) {
+      API.makeRequest(`/services?${getUrlString(query)}`, "get").then(
+        (json) => {
+          if (json) {
+            if (query.id) {
+              this.service[query.id] = json;
+            } else {
+              this.services = json;
+            }
+          }
+          callback(Boolean(json));
+        }
+      );
     },
     setSetvice(data, callback = () => {}) {
-      makeRequest("/services", "post", data).then((json) => {
+      API.makeRequest("/services", "post", data).then((json) => {
         if (json) {
           this.services = json;
         }
@@ -246,7 +258,7 @@ export const useStore = defineStore("main", {
       });
     },
     updateService(query = {}, data, callback = () => {}) {
-      makeRequest(`/services?${getUrlString(query)}`, "put", data).then(
+      API.makeRequest(`/services?${getUrlString(query)}`, "put", data).then(
         (json) => {
           if (json) {
             this.services = json.data;
@@ -256,14 +268,16 @@ export const useStore = defineStore("main", {
       );
     },
     deleteService(query = {}) {
-      makeRequest(`/services?${getUrlString(query)}`, "delete").then((json) => {
-        if (json) {
-          this.services = json.data;
+      API.makeRequest(`/services?${getUrlString(query)}`, "delete").then(
+        (json) => {
+          if (json) {
+            this.services = json.data;
+          }
         }
-      });
+      );
     },
     sendFeedback(data, callback) {
-      makeRequest("/mail/feedback", "post", data).then((json) => {
+      API.makeRequest("/mail/feedback", "post", data).then((json) => {
         this.alert = json
           ? { severity: "success", message: "Успешно отправлена" }
           : { severity: "error", message: "Произошла не предвиденная ошибка" };
@@ -271,7 +285,9 @@ export const useStore = defineStore("main", {
       });
     },
     editorUpload(data) {
-      return makeRequest("/editor-uploads", "post", data);
+      return API.makeRequest("/editor-uploads", "post", data);
     },
   },
 });
+
+export default { useStore };

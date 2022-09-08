@@ -1,10 +1,10 @@
 <script setup>
   import { useI18n } from "vue-i18n";
   import { useRouter } from "vue-router";
-  import { useStore } from "../store/index.js";
+  import appStore from "../store/index.js";
 
   const props = defineProps(["news"]);
-  const store = useStore();
+  const store = appStore.useStore();
   const navigate = useRouter();
   const { locale } = useI18n();
   const backendUrl = import.meta.env.VITE_API_URL;

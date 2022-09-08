@@ -3,10 +3,10 @@
   import cookie_js from "cookie_js";
 
   import Dialog from "@/shared/Dialog.vue";
-  import { useStore } from "../store";
+  import appStore from "../store";
   import { useI18n } from "vue-i18n";
 
-  const store = useStore();
+  const store = appStore.useStore();
   const props = defineProps(["modelValue", "editPerson"]);
   const emit = defineEmits(["update:modelValue"]);
   const { t } = useI18n();

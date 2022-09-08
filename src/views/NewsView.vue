@@ -1,10 +1,10 @@
 <script setup>
-  import { useStore } from "../store";
+  import appStore from "../store";
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
   import { useI18n } from "vue-i18n";
 
-  const store = useStore();
+  const store = appStore.useStore();
   const { locale } = useI18n();
   const backendUrl = import.meta.env.VITE_API_URL;
 </script>

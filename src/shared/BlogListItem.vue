@@ -3,11 +3,11 @@
   import { ref } from "@vue/reactivity";
   import { useI18n } from "vue-i18n";
 
-  import { useStore } from "@/store";
+  import appStore from "@/store";
 
   defineProps(["news"]);
 
-  const store = useStore();
+  const store = appStore.useStore();
   const navigate = useRouter();
   const { t, locale } = useI18n();
   const isLoaded = ref(false);

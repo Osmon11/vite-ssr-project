@@ -4,11 +4,11 @@
   import CKEditor from "@ckeditor/ckeditor5-vue";
   import { useI18n } from "vue-i18n";
 
-  import { useStore } from "../store";
+  import appStore from "../store";
   import Dialog from "@/shared/Dialog.vue";
-  import { editorConfig } from "@/plugins/ckeditor.js";
+  import ckeditor from "@/plugins/ckeditor.js";
 
-  const store = useStore();
+  const store = appStore.useStore();
   const props = defineProps(["modelValue", "editNews"]);
   const emit = defineEmits(["update:modelValue"]);
   const { t } = useI18n();
@@ -109,7 +109,7 @@
             v-model="editorData_ru"
             :editor="ClassicEditor"
             :config="{
-              ...editorConfig,
+              ...ckeditor.editorConfig,
               placeholder: t('general.Напишите_контент_на_русском'),
             }"
           />
@@ -128,7 +128,7 @@
             v-model="editorData_en"
             :editor="ClassicEditor"
             :config="{
-              ...editorConfig,
+              ...ckeditor.editorConfig,
               placeholder: t('general.Напишите_контент_на_английском'),
             }"
           />

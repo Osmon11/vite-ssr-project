@@ -2,10 +2,10 @@
   import { onMounted, ref } from "vue";
   import { useI18n } from "vue-i18n";
 
-  import { useStore } from "../store";
+  import appStore from "../store";
   import PartnerModal from "./PartnerModal.vue";
 
-  const store = useStore();
+  const store = appStore.useStore();
   const { t, locale } = useI18n();
   const openModal = ref(false);
   const currentPartner = ref(null);

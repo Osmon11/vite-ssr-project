@@ -1,6 +1,6 @@
 import axios from "axios";
 import cookie_js from "cookie_js";
-import { useStore } from "../store";
+import appStore from "../store";
 
 let token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY),
   headers = { "X-CSRF-TOKEN": "CSRF-Token" };
@@ -14,7 +14,7 @@ export const appAxios = axios.create({
 });
 
 export const makeRequest = (endpoint, method, data) => {
-  const store = useStore();
+  const store = appStore.useStore();
   function errorHandler({ response }) {
     if (response.status === 401) {
       cookie_js.remove(import.meta.env.VITE_TOKEN_KEY);
@@ -62,3 +62,5 @@ export const makeRequest = (endpoint, method, data) => {
     }
   }
 };
+
+export default { appAxios, makeRequest };

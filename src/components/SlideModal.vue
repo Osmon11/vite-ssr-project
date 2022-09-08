@@ -2,10 +2,10 @@
   import { computed, ref, watch } from "vue";
 
   import Dialog from "@/shared/Dialog.vue";
-  import { useStore } from "../store";
+  import appStore from "../store";
   import { useI18n } from "vue-i18n";
 
-  const { setSlide, updateSlide } = useStore();
+  const { setSlide, updateSlide } = appStore.useStore();
   const props = defineProps(["modelValue", "editSlide"]);
   const emit = defineEmits(["update:modelValue"]);
   const { t } = useI18n();
