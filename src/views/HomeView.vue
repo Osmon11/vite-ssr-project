@@ -159,23 +159,17 @@
       </section>
     </main>
   </div>
-  <div class="flex-box-center">
-    <main>
-      <section
-        style="padding-bottom: 0px"
-        :ref="
-          (el) => {
-            if (el) refs['our_experiences'] = el;
-          }
-        "
-      >
-        <div class="column-wrap">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h2 class="title divider">{{ t("НАШ ОПЫТ") }}</h2>
-          </div>
-        </div>
-      </section>
-    </main>
+  <div
+    class="column-wrap"
+    :ref="
+      (el) => {
+        if (el) refs['our_experiences'] = el;
+      }
+    "
+  >
+    <div class="flex-box-center" :style="{ margin: '40px 0px' }">
+      <h2 class="title divider">{{ t("НАШ ОПЫТ") }}</h2>
+    </div>
   </div>
   <section style="padding-top: 0px" v-if="store.partners.length">
     <MarqueeText class="gallery" :repeat="10">
@@ -218,9 +212,18 @@
       >
     </div>
   </section>
+  <div class="column-wrap">
+    <div class="flex-box-center" style="margin-bottom: 40px">
+      <h2 class="title divider">{{ t("НАШИ УСЛУГИ") }}</h2>
+    </div>
+  </div>
   <div
     class="flex-box-center"
-    :style="{ marginBottom: xs ? '30px' : '80px', padding: '0px 15px' }"
+    :style="{
+      paddingBottom: xs ? '30px' : '80px',
+      padding: '0px 15px',
+      backgroundColor: '#f5f5f5',
+    }"
   >
     <main>
       <section
@@ -230,11 +233,6 @@
           }
         "
       >
-        <div class="column-wrap">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h2 class="title divider">{{ t("НАШИ УСЛУГИ") }}</h2>
-          </div>
-        </div>
         <v-expansion-panels
           style="margin-bottom: 20px"
           v-if="store.services.length"
@@ -260,6 +258,22 @@
           </v-btn></router-link
         > -->
       </section>
+    </main>
+  </div>
+  <div class="column-wrap">
+    <div class="flex-box-center" :style="{ margin: '40px 0px' }">
+      <h2 class="title divider">{{ t("Новости") }}</h2>
+    </div>
+  </div>
+  <div
+    class="flex-box-center"
+    :style="{
+      paddingBottom: xs ? '30px' : '80px',
+      padding: '0px 15px',
+      backgroundColor: '#f5f5f5',
+    }"
+  >
+    <main>
       <section
         :ref="
           (el) => {
@@ -267,11 +281,6 @@
           }
         "
       >
-        <div class="column-wrap">
-          <div class="flex-box-center" style="margin-bottom: 40px">
-            <h2 class="title divider">{{ t("Новости") }}</h2>
-          </div>
-        </div>
         <div
           class="flex-box"
           style="gap: 20px; align-items: stretch"

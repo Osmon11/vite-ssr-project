@@ -47,9 +47,9 @@
   <Dialog :open="props.modelValue" :onClose="closeHandler">
     <v-form ref="form" v-model="valid" @submit.prevent="handleRequestSubmit">
       <div class="flex-box-center" style="margin-bottom: 40px">
-        <h3 class="title divider">
+        <h2 class="title divider">
           {{ t("general['Форма обратной связи']") }}
-        </h3>
+        </h2>
       </div>
       <div class="flex-box" style="gap: 20px">
         <v-text-field

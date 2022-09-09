@@ -19,7 +19,7 @@
     <main>
       <div class="column-wrap">
         <div class="flex-box-center" style="margin-bottom: 40px">
-          <h3 class="title divider">{{ t("НАШ ОПЫТ") }}</h3>
+          <h2 class="title divider">{{ t("НАШ ОПЫТ") }}</h2>
         </div>
         <p class="body1" style="margin-bottom: 20px; padding: 16px">
           {{ t("experiences") }}
