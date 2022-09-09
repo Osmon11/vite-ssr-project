@@ -13,11 +13,11 @@
   function setFeedbackModal(value) {
     openFeedbackModal.value = value;
   }
-  function navigationHandler(path, name, params, scrollInto = false) {
+  function navigationHandler(path, name, query, scrollInto = false) {
     if (scrollInto) {
       props.scrollIntoHandler(path);
     } else {
-      navigate.push({ name, params });
+      navigate.push({ name, query });
     }
   }
 
@@ -29,7 +29,7 @@
   <footer>
     <div class="flex-box-center">
       <div class="footer-content flex-box">
-        <div>
+        <div class="column">
           <p class="title">{{ t("general['свяжитесь с нами']") }}</p>
           <div class="social-media-wrapper flex-box">
             <a
@@ -132,7 +132,7 @@
             </p>
           </div>
         </div>
-        <div>
+        <div class="column">
           <p class="title">{{ t("Главная") }}</p>
           <p
             class="nav-item text-footer"
@@ -161,17 +161,15 @@
             {{ t("НАШИ УСЛУГИ") }}
           </p>
           <p
-            v-if="name !== 'our-news'"
             class="nav-item text-footer"
             @click="navigationHandler('/our-news', 'our-news')"
           >
             {{ t("Новости") }}
           </p>
         </div>
-        <div>
+        <div class="column">
           <p class="title">{{ t("general.Штат") }}</p>
           <p
-            v-if="name !== 'shariah-board'"
             class="nav-item text-footer"
             @click="navigationHandler('/shariah-board', 'shariah-board')"
           >
@@ -185,14 +183,16 @@
             {{ t("general.Менеджмент") }}
           </p> -->
         </div>
-        <v-btn
-          color="#61a375"
-          class="text-white"
-          @click="setFeedbackModal(true)"
-          style="margin-top: 40px"
-        >
-          {{ t("general['свяжитесь с нами']") }}
-        </v-btn>
+        <div class="column">
+          <v-btn
+            color="#61a375"
+            class="text-white"
+            @click="setFeedbackModal(true)"
+            :style="{ marginTop: xs || sm ? 40 : 0 }"
+          >
+            {{ t("general['свяжитесь с нами']") }}
+          </v-btn>
+        </div>
       </div>
     </div>
     <p
@@ -243,22 +243,29 @@
     width: 14px;
     height: 14px;
   }
+  .column {
+    width: fit-content;
+  }
   @media (min-width: 0px) and (max-width: 600px) {
     .footer-content {
       padding: 0px 15px;
       gap: 20px;
+      justify-content: flex-start;
     }
     .column {
       width: fit-content;
+      min-width: 40%;
     }
   }
   @media (min-width: 600px) and (max-width: 960px) {
     .footer-content {
       padding: 0px 15px;
       gap: 20px;
+      justify-content: flex-start;
     }
     .column {
       width: fit-content;
+      min-width: calc(25% - 50px);
     }
   }
 </style>

@@ -13,7 +13,7 @@
 
   const store = appStore.useStore();
   const { t, locale } = useI18n();
-  const { params } = useRoute();
+  const route = useRoute();
   const refs = ref({});
   const activeGoTop = ref(false);
   const headerPosition = ref("fixed");
@@ -22,8 +22,8 @@
   const sm = computed(() => window.innerWidth <= 960);
 
   onMounted(() => {
-    if (params.section) {
-      setTimeout(() => scrollIntoHandler(params.section), 0);
+    if (route.query) {
+      setTimeout(() => scrollIntoHandler(route.query.section), 0);
     }
     store.getNewsFeed();
     store.getPartnersList();
@@ -45,7 +45,12 @@
   function scrollIntoHandler(key) {
     if (refs.value[key]) {
       refs.value[key].scrollIntoView({
-        block: key === "top" ? "start" : key === "contacts" ? "end" : "center",
+        block:
+          key === "top" || key === "about_us"
+            ? "start"
+            : key === "contacts"
+            ? "end"
+            : "center",
         behavior: "smooth",
       });
     }

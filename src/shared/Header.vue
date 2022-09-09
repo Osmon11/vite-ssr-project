@@ -16,15 +16,17 @@
   const navigate = useRouter();
   const { name } = useRoute();
   const homePageNavigation = [
-    { label: "О НАС", key: "about_us" },
-    { label: "Новости", key: "blog" },
-    { label: "ШАРИАТСКИЙ СОВЕТ", to: "/shariah-board" },
+    { label: "О НАС", to: "/", key: "about_us", name: "home" },
+    { label: "Новости", to: "our-news", name: "our-news" },
+    { label: "ШАРИАТСКИЙ СОВЕТ", to: "/shariah-board", name: "shariah-board" },
     {
       label: "НАШ ОПЫТ",
+      to: "/",
       key: "our_experiences",
+      name: "home",
     },
-    { label: "НАШИ УСЛУГИ", key: "our_services" },
-    { label: "Контакты", key: "contacts" },
+    { label: "НАШИ УСЛУГИ", to: "/", key: "our_services", name: "home" },
+    { label: "Контакты", to: "/", key: "contacts", name: "home" },
   ];
   const token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY);
   const lang = ref("en");
@@ -55,10 +57,17 @@
     }
   }
   function navHandler(item) {
-    if (item.key) {
+    if (item.key && name === "home") {
       props.scrollIntoHandler(item.key);
+    } else if (item.key === "contacts") {
+      window.scroll({ top: 1000000, behavior: "smooth" });
     } else {
-      navigate.push(item.to);
+      navigate.push({
+        name: item.name,
+        params: item.key ? { section: item.key } : null,
+        path: item.to,
+        query: item.key ? { section: item.key } : null,
+      });
     }
     if (xs.value || sm.value) {
       drawer.value = !drawer.value;
@@ -100,7 +109,7 @@
         </div>
         <v-navigation-drawer
           class="py-5 px-5"
-          style="width: fit-content"
+          :style="{ width: 'fit-content', background: '#4b5757' }"
           v-model="drawer"
           location="right"
           bottom
@@ -160,7 +169,7 @@
               </div>
             </template></Select
           >
-          <v-list v-if="name === 'home'">
+          <v-list class="v-list">
             <v-list-subheader>{{ t("general.Навигация") }}</v-list-subheader>
             <v-list-item
               rounded="xl"
@@ -179,48 +188,14 @@
               >{{ t("Админ") }}</v-list-item
             >
           </v-list>
-          <v-list v-else>
-            <v-list-subheader>{{ t("general.Навигация") }}</v-list-subheader>
-            <v-list-item
-              rounded="xl"
-              @click="mobileNavHandler('/')"
-              :style="{ textTransform: 'uppercase' }"
-              >{{ t("Главная") }}</v-list-item
-            >
-            <v-list-item
-              rounded="xl"
-              @click="mobileNavHandler('/our-news')"
-              :style="{ textTransform: 'uppercase' }"
-              v-if="name !== 'our-news'"
-              >{{ t("Новости") }}</v-list-item
-            >
-            <v-list-item
-              rounded="xl"
-              @click="mobileNavHandler('/shariah-board')"
-              :style="{ textTransform: 'uppercase' }"
-              v-if="name !== 'shariah-board'"
-              >{{ t("ШАРИАТСКИЙ СОВЕТ") }}</v-list-item
-            >
-            <v-list-item
-              rounded="xl"
-              @click="mobileNavHandler('/admin')"
-              :style="{ textTransform: 'uppercase' }"
-              v-if="name !== 'admin'"
-              >{{ t("Админ") }}</v-list-item
-            >
-            <v-list-item
-              rounded="xl"
-              @click="logout"
-              :style="{ textTransform: 'uppercase' }"
-              v-else
-              >{{ t("выйти") }}</v-list-item
-            >
-          </v-list>
           <div style="padding: 0px 16px">
             <v-list-subheader>{{ t("Контакты") }}</v-list-subheader>
             <div class="flex-box" style="gap: 10px">
-              <img class="contact-icon" src="/assets/adress.svg" />
-              <p class="text-footer">
+              <img
+                class="contact-icon icon-color-white"
+                src="/assets/adress.svg"
+              />
+              <p class="text-header">
                 {{ t("Адрес")
                 }}<a
                   :href="`http://maps.google.com/?q=${t('текс-адреса')}`"
@@ -231,15 +206,21 @@
               </p>
             </div>
             <div class="flex-box" style="gap: 10px">
-              <img class="contact-icon" src="/assets/tel.svg" />
-              <p class="text-footer">
+              <img
+                class="contact-icon icon-color-white"
+                src="/assets/tel.svg"
+              />
+              <p class="text-header">
                 {{ t("Телефон")
                 }}<a :href="`tel:${phoneNumber}`">{{ `+${phoneNumber}` }}</a>
               </p>
             </div>
             <div class="flex-box" style="gap: 10px">
-              <img class="contact-icon" src="/assets/email.svg" />
-              <p class="text-footer">
+              <img
+                class="contact-icon icon-color-white"
+                src="/assets/email.svg"
+              />
+              <p class="text-header">
                 {{ t("Адрес")
                 }}<a
                   :href="`https://mail.google.com/mail/?view=cm&fs=1&to=${emailAddress}`"
@@ -257,9 +238,13 @@
               >
                 <img
                   :draggable="false"
-                  class="social-media-icon"
-                  src="/assets/telegram.svg"
-                  style="border-radius: 50%"
+                  class="social-media-icon icon-color-white default"
+                  src="/assets/telegram-white.svg"
+                  alt="gmail icon" />
+                <img
+                  :draggable="false"
+                  class="social-media-icon active"
+                  src="/assets/telegram-colorful.svg"
                   alt="gmail icon"
               /></a>
               <a
@@ -269,9 +254,12 @@
               >
                 <img
                   :draggable="false"
-                  class="social-media-icon"
-                  src="/assets/instagram.svg"
-                  style="border-radius: 50%"
+                  class="social-media-icon icon-color-white default"
+                  src="/assets/instagram-white.svg"
+                  alt="gmail icon" /><img
+                  :draggable="false"
+                  class="social-media-icon active"
+                  src="/assets/instagram-colorful.svg"
                   alt="gmail icon"
               /></a>
               <a
@@ -281,9 +269,27 @@
               >
                 <img
                   :draggable="false"
-                  class="social-media-icon"
-                  src="/assets/facebook.svg"
-                  style="border-radius: 50%"
+                  class="social-media-icon icon-color-white default"
+                  src="/assets/facebook-white.svg"
+                  alt="gmail icon" /><img
+                  :draggable="false"
+                  class="social-media-icon active"
+                  src="/assets/facebook-colorful.svg"
+                  alt="gmail icon"
+              /></a>
+              <a
+                class="icon-wrapper"
+                href="https://wa.me/996508081071"
+                target="_blank"
+              >
+                <img
+                  :draggable="false"
+                  class="social-media-icon icon-color-white default"
+                  src="/assets/whatsapp-white.svg"
+                  alt="gmail icon" /><img
+                  :draggable="false"
+                  class="social-media-icon active"
+                  src="/assets/whatsapp-colorful.svg"
                   alt="gmail icon"
               /></a>
             </div>
@@ -297,7 +303,7 @@
           v-if="xs || sm"
         ></v-app-bar-nav-icon>
         <nav v-else>
-          <span class="flex-box" v-if="name === 'home'">
+          <div class="flex-box">
             <div
               class="nav-item"
               v-for="item in homePageNavigation"
@@ -363,99 +369,7 @@
                 </div>
               </template></Select
             >
-            <!-- <router-link class="nav-item" to="/login" v-else>{{
-            t("войти")
-          }}</router-link> -->
-          </span>
-          <span class="flex-box" v-else>
-            <router-link class="nav-item" to="/">{{
-              t("Главная")
-            }}</router-link>
-            <router-link
-              class="nav-item"
-              to="/our-news"
-              v-if="name !== 'our-news'"
-              >{{ t("Новости") }}</router-link
-            >
-            <router-link
-              class="nav-item"
-              to="/shariah-board"
-              v-if="name !== 'shariah-board'"
-              >{{ t("ШАРИАТСКИЙ СОВЕТ") }}</router-link
-            >
-            <div v-if="name !== 'admin'">
-              <router-link class="nav-item" to="/admin" v-if="token">{{
-                t("Админ")
-              }}</router-link>
-              <!-- <router-link class="nav-item" to="/login" v-else>{{
-              t("войти")
-            }}</router-link> -->
-            </div>
-            <div class="flex-box" style="cursor: pointer" v-else>
-              <p class="nav-item" style="padding-right: 10px" @click="logout">
-                {{ t("выйти") }}
-              </p>
-              <Select
-                v-if="md"
-                :value="locale"
-                @change="setLocale"
-                :class="{ activeSelect: !isActive }"
-                :style="{ margin: '0px 15px' }"
-              >
-                <template #render-value>
-                  <div class="flex-box" style="gap: 8px; width: 42px">
-                    <img
-                      :src="
-                        locale === 'en'
-                          ? '/assets/united-kingdom.svg'
-                          : '/assets/russia.svg'
-                      "
-                      :alt="
-                        locale === 'en' ? 'united kingdom flag' : 'russian flag'
-                      "
-                      style="width: 20px; height: 20px"
-                    />
-                    <p>{{ locale }}</p>
-                  </div></template
-                >
-                <template #items="{ handleChange }"
-                  ><div
-                    class="select-item"
-                    :class="{ active: 'en' === locale }"
-                    @click="handleChange('en')"
-                  >
-                    <div class="flex-box" style="gap: 8px; width: 42px">
-                      <img
-                        src="/assets/united-kingdom.svg"
-                        alt="united kingdom flag"
-                        style="width: 20px; height: 20px"
-                      />
-                      <p>en</p>
-                    </div>
-                  </div>
-                  <div
-                    class="select-item"
-                    :class="{ active: 'ru' === locale }"
-                    @click="handleChange('ru')"
-                  >
-                    <div class="flex-box" style="gap: 8px; width: 42px">
-                      <img
-                        src="/assets/russia.svg"
-                        alt="russian flag"
-                        style="width: 20px; height: 20px"
-                      />
-                      <p>ru</p>
-                    </div>
-                  </div>
-                </template></Select
-              >
-              <!-- <img
-              class="logout-icon"
-              src="/assets/logout-svgrepo-com.svg"
-              alt=""
-            /> -->
-            </div>
-          </span>
+          </div>
         </nav>
       </div>
     </div>
@@ -534,21 +448,33 @@
       brightness(93%) contrast(121%);
   }
 
-  .text-footer {
+  .text-header {
     width: fit-content;
-    color: #000;
+    color: #fff;
     font-size: 12px;
     font-weight: 300;
     line-height: 20px;
     padding: 0px;
   }
-  .text-footer a {
-    color: #000;
+  .text-header a {
+    color: #fff;
     font-weight: 500;
   }
   .contact-icon {
     width: 14px;
     height: 14px;
+  }
+  @media (min-width: 0px) and (max-width: 600px) {
+    .text-header,
+    .text-header a {
+      font-weight: 400;
+    }
+  }
+  @media (min-width: 600px) and (max-width: 960px) {
+    .text-header,
+    .text-header a {
+      font-weight: 400;
+    }
   }
   @media (min-width: 960px) and (max-width: 1264px) {
     .row {

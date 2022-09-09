@@ -20,15 +20,12 @@ header {
   top: 0px;
   left: 0px;
   width: 100%;
+  max-width: 100vw;
   z-index: 1000;
   padding: 5px 0px;
   transition: all 0.2s;
   position: sticky;
-  background: linear-gradient(
-    0deg,
-    rgba(128, 134, 134, 0.9808298319327731) 0%,
-    rgba(75, 87, 87, 0.9500175070028011) 100%
-  );
+  background: #4b5757;
 }
 header.active {
   border: none;
@@ -440,16 +437,17 @@ input[type="checkbox"]:checked {
   border-radius: 50%;
   background-color: #47425d;
 }
+.v-list {
+  background: #4b5757 !important;
+}
+.v-list-subheader,
+.v-list .v-list-item {
+  color: #fff;
+}
 
 @media (min-width: 0px) and (max-width: 600px) {
   header {
     padding: 10px;
-  }
-  .custom-select:hover {
-    border: 1px solid #000000;
-  }
-  .custom-select p {
-    color: #000000;
   }
   .title {
     font-size: 22px;

@@ -14,44 +14,44 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
       name: "home",
+      path: "/",
       component: HomeView,
     },
     {
-      path: "/admin",
       name: "admin",
+      path: "/admin/",
       component: AdminView,
       meta: { requiresAuth: true },
     },
     {
-      path: "/our-news",
       name: "our-news",
+      path: "/our/-news",
       component: OurNews,
     },
     {
-      path: "/news",
       name: "news",
+      path: "/news/",
       component: NewsView,
     },
     {
-      path: "/experiences",
       name: "experiences",
+      path: "/experiences/",
       component: OurExperiences,
     },
     {
-      path: "/shariah-board",
       name: "shariah-board",
+      path: "/shariah/-board",
       component: ShariahBoard,
     },
     {
-      path: "/management",
       name: "management",
+      path: "/management/",
       component: Management,
     },
     {
-      path: "/login",
       name: "login",
+      path: "/login/",
       component: LoginView,
       meta: { requiresLogout: true },
     },
