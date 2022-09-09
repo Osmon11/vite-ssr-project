@@ -15,11 +15,12 @@
     store.getNewsFeed();
   });
 
+  function setCurrentNews(news) {
+    currentNews.value = news;
+    setModal(true);
+  }
   function setModal(value) {
     openModal.value = value;
-  }
-  function setCurrentNews(value) {
-    currentNews.value = value;
     if (!value) {
       currentNews.value = null;
     }

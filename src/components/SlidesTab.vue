@@ -22,15 +22,15 @@
     );
   });
 
+  function setCurrentSlide(slide) {
+    currentSlide.value = slide;
+    setModal(true);
+  }
   function setModal(value) {
     openModal.value = value;
     if (!value) {
       currentSlide.value = {};
     }
-  }
-  function setCurrentSlide(slide) {
-    currentSlide.value = slide;
-    setModal(true);
   }
   function deleteSlide(slide) {
     store.setPromp({

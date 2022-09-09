@@ -100,13 +100,20 @@
               src="/assets/adress.svg"
             />
             <p class="text-footer">
-              {{ t("Адрес") }}<span>{{ t("текс-адреса") }}</span>
+              {{ t("Адрес")
+              }}<a
+                :href="`http://maps.google.com/?q=${t('текс-адреса')}`"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{{ t("текс-адреса") }}</a
+              >
             </p>
           </div>
           <div class="flex-box" style="gap: 10px">
             <img class="icon-color-white contact-icon" src="/assets/tel.svg" />
             <p class="text-footer">
-              {{ t("Телефон") }}<span>{{ `+${phoneNumber}` }}</span>
+              {{ t("Телефон")
+              }}<a :href="`tel:${phoneNumber}`">{{ `+${phoneNumber}` }}</a>
             </p>
           </div>
           <div class="flex-box" style="gap: 10px">
@@ -115,7 +122,13 @@
               src="/assets/email.svg"
             />
             <p class="text-footer">
-              {{ t("Адрес") }}<span>{{ emailAddress }}</span>
+              {{ t("Адрес")
+              }}<a
+                :href="`https://mail.google.com/mail/?view=cm&fs=1&to=${emailAddress}`"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{{ emailAddress }}</a
+              >
             </p>
           </div>
         </div>
@@ -222,7 +235,8 @@
     line-height: 20px;
     padding: 0px;
   }
-  .text-footer span {
+  .text-footer a {
+    color: #ffffff;
     font-weight: 500;
   }
   .contact-icon {
