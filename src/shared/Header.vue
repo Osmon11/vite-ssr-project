@@ -391,13 +391,8 @@
               t("войти")
             }}</router-link> -->
             </div>
-            <div
-              class="flex-box"
-              style="cursor: pointer"
-              @click="logout"
-              v-else
-            >
-              <p class="nav-item" style="padding-right: 10px">
+            <div class="flex-box" style="cursor: pointer" v-else>
+              <p class="nav-item" style="padding-right: 10px" @click="logout">
                 {{ t("выйти") }}
               </p>
               <Select
