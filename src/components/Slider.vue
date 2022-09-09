@@ -60,7 +60,7 @@
         <div class="image-black-cover"></div>
         <div class="slide-inner flex-box-center flex-box-vertical">
           <div class="contain text-slider">
-            <h2 class="maintitle">{{ slide[`title_${locale}`] }}</h2>
+            <h1 class="maintitle">{{ slide[`title_${locale}`] }}</h1>
             <p class="subtitle">{{ slide[`subtitle_${locale}`] }}</p>
           </div>
           <v-btn

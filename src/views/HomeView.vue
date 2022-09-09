@@ -171,7 +171,7 @@
       >
         <div class="column-wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">{{ t("НАШ ОПЫТ") }}</h3>
+            <h2 class="title divider">{{ t("НАШ ОПЫТ") }}</h2>
           </div>
         </div>
       </section>
@@ -232,7 +232,7 @@
       >
         <div class="column-wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">{{ t("НАШИ УСЛУГИ") }}</h3>
+            <h2 class="title divider">{{ t("НАШИ УСЛУГИ") }}</h2>
           </div>
         </div>
         <v-expansion-panels
@@ -269,7 +269,7 @@
       >
         <div class="column-wrap">
           <div class="flex-box-center" style="margin-bottom: 40px">
-            <h3 class="title divider">{{ t("Новости") }}</h3>
+            <h2 class="title divider">{{ t("Новости") }}</h2>
           </div>
         </div>
         <div
