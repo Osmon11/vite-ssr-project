@@ -127,7 +127,7 @@ const useStore = defineStore("main", {
     setNews(data, callback = () => {}) {
       API.makeRequest("/news-feed", "post", data).then((json) => {
         if (json) {
-          this.newsFeed = json;
+          this.newsFeed = json.reverse();
         }
         callback(Boolean(json));
       });
@@ -136,7 +136,7 @@ const useStore = defineStore("main", {
       API.makeRequest(`/news-feed?${getUrlString(query)}`, "put", data).then(
         (json) => {
           if (json) {
-            this.newsFeed = json.data;
+            this.newsFeed = json.data.reverse();
           }
           callback(Boolean(json));
         }
@@ -146,7 +146,7 @@ const useStore = defineStore("main", {
       API.makeRequest(`/news-feed?${getUrlString(query)}`, "delete").then(
         (json) => {
           if (json) {
-            this.newsFeed = json.data;
+            this.newsFeed = json.data.reverse();
           }
         }
       );
