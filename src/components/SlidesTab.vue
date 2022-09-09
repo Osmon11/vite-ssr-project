@@ -64,7 +64,7 @@
         v-show="loadedImg[slide._id]"
         :src="`${backendUrl}${slide.imageUrl}`"
         @load="onLoadImg(slide._id)"
-        alt=""
+        :alt="slide.imageName"
       />
       <div class="img flex-box-center" v-show="!loadedImg[slide._id]">
         <img

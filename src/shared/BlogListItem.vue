@@ -28,14 +28,14 @@
 <template>
   <article class="flex-box collapse" :class="{ expanded }">
     <img
-      alt=""
       class="cover"
       v-show="isLoaded"
       :src="`${backendUrl}${news.imageUrl}`"
+      :alt="news.imageName"
       @load="isLoaded = true"
     />
     <div class="flex-box-center cover" v-show="!isLoaded">
-      <img src="/public/assets/loading-12bras.gif" alt="" />
+      <img src="/public/assets/loading-12bras.gif" alt="loading gif" />
     </div>
     <div class="content">
       <h1 class="title">{{ news[`title_${locale}`] }}</h1>

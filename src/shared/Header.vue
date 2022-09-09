@@ -104,7 +104,7 @@
     <div class="flex-box-center">
       <div class="row flex-box-between">
         <div class="logo-wrapper flex-box" @click="logoClick">
-          <img class="logo" src="/assets/AA_LOGO.svg" alt="logo" />
+          <img class="logo" src="/assets/AA_LOGO.svg" alt="Amanat Advisory" />
           <p class="logo-text activeLogoText">Amanat Advisory LLC</p>
         </div>
         <v-navigation-drawer
@@ -194,6 +194,7 @@
               <img
                 class="contact-icon icon-color-white"
                 src="/assets/adress.svg"
+                alt="address icon"
               />
               <p class="text-header">
                 {{ t("Адрес")
@@ -209,6 +210,7 @@
               <img
                 class="contact-icon icon-color-white"
                 src="/assets/tel.svg"
+                alt="phone icon"
               />
               <p class="text-header">
                 {{ t("Телефон")
@@ -219,6 +221,7 @@
               <img
                 class="contact-icon icon-color-white"
                 src="/assets/email.svg"
+                alt="email icon"
               />
               <p class="text-header">
                 {{ t("Адрес")
@@ -240,12 +243,12 @@
                   :draggable="false"
                   class="social-media-icon icon-color-white default"
                   src="/assets/telegram-white.svg"
-                  alt="gmail icon" />
+                  alt="telegram icon" />
                 <img
                   :draggable="false"
                   class="social-media-icon active"
                   src="/assets/telegram-colorful.svg"
-                  alt="gmail icon"
+                  alt="telegram icon"
               /></a>
               <a
                 class="icon-wrapper"
@@ -256,11 +259,11 @@
                   :draggable="false"
                   class="social-media-icon icon-color-white default"
                   src="/assets/instagram-white.svg"
-                  alt="gmail icon" /><img
+                  alt="instagram icon" /><img
                   :draggable="false"
                   class="social-media-icon active"
                   src="/assets/instagram-colorful.svg"
-                  alt="gmail icon"
+                  alt="instagram icon"
               /></a>
               <a
                 class="icon-wrapper"
@@ -271,11 +274,11 @@
                   :draggable="false"
                   class="social-media-icon icon-color-white default"
                   src="/assets/facebook-white.svg"
-                  alt="gmail icon" /><img
+                  alt="facebook icon" /><img
                   :draggable="false"
                   class="social-media-icon active"
                   src="/assets/facebook-colorful.svg"
-                  alt="gmail icon"
+                  alt="facebook icon"
               /></a>
               <a
                 class="icon-wrapper"
@@ -286,11 +289,11 @@
                   :draggable="false"
                   class="social-media-icon icon-color-white default"
                   src="/assets/whatsapp-white.svg"
-                  alt="gmail icon" /><img
+                  alt="whatsapp icon" /><img
                   :draggable="false"
                   class="social-media-icon active"
                   src="/assets/whatsapp-colorful.svg"
-                  alt="gmail icon"
+                  alt="whatsapp icon"
               /></a>
             </div>
           </div>

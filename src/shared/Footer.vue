@@ -41,12 +41,12 @@
                 :draggable="false"
                 class="social-media-icon icon-color-white default"
                 src="/assets/telegram-white.svg"
-                alt="gmail icon" />
+                alt="telegram icon" />
               <img
                 :draggable="false"
                 class="social-media-icon active"
                 src="/assets/telegram-colorful.svg"
-                alt="gmail icon"
+                alt="telegram icon"
             /></a>
             <a
               class="icon-wrapper"
@@ -57,11 +57,11 @@
                 :draggable="false"
                 class="social-media-icon icon-color-white default"
                 src="/assets/instagram-white.svg"
-                alt="gmail icon" /><img
+                alt="instagram icon" /><img
                 :draggable="false"
                 class="social-media-icon active"
                 src="/assets/instagram-colorful.svg"
-                alt="gmail icon"
+                alt="instagram icon"
             /></a>
             <a
               class="icon-wrapper"
@@ -72,11 +72,11 @@
                 :draggable="false"
                 class="social-media-icon icon-color-white default"
                 src="/assets/facebook-white.svg"
-                alt="gmail icon" /><img
+                alt="facebook icon" /><img
                 :draggable="false"
                 class="social-media-icon active"
                 src="/assets/facebook-colorful.svg"
-                alt="gmail icon"
+                alt="facebook icon"
             /></a>
             <a
               class="icon-wrapper"
@@ -87,17 +87,18 @@
                 :draggable="false"
                 class="social-media-icon icon-color-white default"
                 src="/assets/whatsapp-white.svg"
-                alt="gmail icon" /><img
+                alt="whatsapp icon" /><img
                 :draggable="false"
                 class="social-media-icon active"
                 src="/assets/whatsapp-colorful.svg"
-                alt="gmail icon"
+                alt="whatsapp icon"
             /></a>
           </div>
           <div class="flex-box" style="gap: 10px; margin-top: 15px">
             <img
               class="icon-color-white contact-icon"
               src="/assets/adress.svg"
+              alt="adress icon"
             />
             <p class="text-footer">
               {{ t("Адрес")
@@ -110,7 +111,11 @@
             </p>
           </div>
           <div class="flex-box" style="gap: 10px">
-            <img class="icon-color-white contact-icon" src="/assets/tel.svg" />
+            <img
+              class="icon-color-white contact-icon"
+              src="/assets/tel.svg"
+              alt="phone icon"
+            />
             <p class="text-footer">
               {{ t("Телефон")
               }}<a :href="`tel:${phoneNumber}`">{{ `+${phoneNumber}` }}</a>
@@ -120,6 +125,7 @@
             <img
               class="icon-color-white contact-icon"
               src="/assets/email.svg"
+              alt="email icon"
             />
             <p class="text-footer">
               {{ t("Адрес")
