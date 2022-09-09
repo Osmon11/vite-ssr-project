@@ -85,6 +85,9 @@
   onUnmounted(() => {
     window.removeEventListener("scroll", handleScroll);
   });
+
+  const phoneNumber = import.meta.env.VITE_PHONE;
+  const emailAddress = import.meta.env.VITE_EMAIL;
 </script>
 
 <template>
@@ -215,18 +218,36 @@
           </v-list>
           <div style="padding: 0px 16px">
             <v-list-subheader>{{ t("Контакты") }}</v-list-subheader>
-            <div style="padding: 8px 0px">
-              <a class="body1 text-footer" href="tel:996555081071"
-                >+996555081071</a
-              >
+            <div class="flex-box" style="gap: 10px">
+              <img class="contact-icon" src="/assets/adress.svg" />
+              <p class="text-footer">
+                {{ t("Адрес")
+                }}<a
+                  :href="`http://maps.google.com/?q=${t('текс-адреса')}`"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >{{ t("текс-адреса") }}</a
+                >
+              </p>
             </div>
-            <div style="padding: 8px 0px">
-              <a
-                class="body1 text-footer"
-                @click="setFeedbackModal(true)"
-                href="mailto:madalieva@amanatadvisory.kg"
-                >madalieva@amanatadvisory.kg</a
-              >
+            <div class="flex-box" style="gap: 10px">
+              <img class="contact-icon" src="/assets/tel.svg" />
+              <p class="text-footer">
+                {{ t("Телефон")
+                }}<a :href="`tel:${phoneNumber}`">{{ `+${phoneNumber}` }}</a>
+              </p>
+            </div>
+            <div class="flex-box" style="gap: 10px">
+              <img class="contact-icon" src="/assets/email.svg" />
+              <p class="text-footer">
+                {{ t("Адрес")
+                }}<a
+                  :href="`https://mail.google.com/mail/?view=cm&fs=1&to=${emailAddress}`"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >{{ emailAddress }}</a
+                >
+              </p>
             </div>
             <div class="social-media-wrapper flex-box">
               <a
@@ -516,6 +537,23 @@
     height: 24px;
     filter: invert(15%) sepia(89%) saturate(7500%) hue-rotate(3deg)
       brightness(93%) contrast(121%);
+  }
+
+  .text-footer {
+    width: fit-content;
+    color: #000;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 20px;
+    padding: 0px;
+  }
+  .text-footer a {
+    color: #000;
+    font-weight: 500;
+  }
+  .contact-icon {
+    width: 14px;
+    height: 14px;
   }
   @media (min-width: 960px) and (max-width: 1264px) {
     .row {
