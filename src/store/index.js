@@ -28,6 +28,13 @@ const useStore = defineStore("main", {
       reject: () => "Nope",
       message: "Hello there",
     },
+    defaultAppTitle: import.meta.env.VITE_SITE_TITLE,
+    defaultAppDescription: {
+      en: import.meta.env.VITE_SITE_DESCRIPTION_EN,
+      ru: import.meta.env.VITE_SITE_DESCRIPTION_RU,
+    },
+    keywords: import.meta.env.VITE_SITE_KEYWORDS,
+    backendUrl: import.meta.env.VITE_API_URL,
   }),
   getters: {
     getAlert() {

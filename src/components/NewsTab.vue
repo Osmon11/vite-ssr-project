@@ -9,7 +9,6 @@
   const { t, locale } = useI18n();
   const openModal = ref(false);
   const currentNews = ref(null);
-  const backendUrl = import.meta.env.VITE_API_URL;
 
   onMounted(() => {
     store.getNewsFeed();
@@ -74,7 +73,7 @@
           <div class="flex-box" style="align-items: flex-start">
             <img
               class="news-item-img"
-              :src="`${backendUrl}${newsItem.imageUrl}`"
+              :src="`${store.backendUrl}${newsItem.imageUrl}`"
               :alt="newsItem.imageName"
             />
             <p style="display: inline">{{ newsItem[`subtitle_${locale}`] }}</p>

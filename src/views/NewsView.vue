@@ -1,15 +1,27 @@
 <script setup>
+  import { useI18n } from "vue-i18n";
+  import { useMeta } from "vue-meta";
+
   import appStore from "../store";
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
-  import { useI18n } from "vue-i18n";
 
   const store = appStore.useStore();
   const { locale } = useI18n();
-  const backendUrl = import.meta.env.VITE_API_URL;
+
+  useMeta({
+    title: store.currentNews[`title_${locale.value}`] || store.defaultAppTitle,
+    description: store.defaultAppDescription[locale.value],
+    keywords: store.keywords,
+  });
 </script>
 
 <template>
+  <metainfo>
+    <template v-slot:title="{ content, metainfo }">{{
+      `${content} | ${metainfo.description}`
+    }}</template>
+  </metainfo>
   <Header />
   <div class="flex-box-center py-5 px-5">
     <main>
@@ -20,7 +32,7 @@
         {{ store.currentNews.createdAt.split(" ")[0] }}
       </p>
       <img
-        :src="`${backendUrl}${store.currentNews.imageUrl}`"
+        :src="`${store.backendUrl}${store.currentNews.imageUrl}`"
         :alt="store.currentNews.imageName"
       />
       <p class="text-subtitle py-5">

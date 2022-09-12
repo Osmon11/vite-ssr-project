@@ -5,6 +5,7 @@ import router from "./router";
 import localization from "./plugins/i18n";
 import vuetify from "./plugins/vuetify";
 import { loadFonts } from "./plugins/webfontloader";
+import { createMetaManager } from "vue-meta";
 
 loadFonts();
 const app = createApp(App);
@@ -14,5 +15,6 @@ app.use(localization.i18n);
 app.use(pinia);
 app.use(router);
 app.use(vuetify);
+app.use(createMetaManager(false));
 
 app.mount("#app");

@@ -1,6 +1,8 @@
 import cookie_js from "cookie_js";
 import { createRouter, createWebHistory } from "vue-router";
 
+import appStore from "../store";
+
 import OurNews from "@/views/OurNews.vue";
 import HomeView from "@/views/HomeView.vue";
 import NewsView from "@/views/NewsView.vue";
@@ -26,13 +28,14 @@ const router = createRouter({
     },
     {
       name: "our-news",
-      path: "/our/-news",
+      path: "/our-news",
       component: OurNews,
     },
     {
       name: "news",
       path: "/news/",
       component: NewsView,
+      meta: { requiresCurrentNews: true },
     },
     {
       name: "experiences",
@@ -53,19 +56,23 @@ const router = createRouter({
       name: "login",
       path: "/login/",
       component: LoginView,
-      meta: { requiresLogout: true },
+      meta: { requiresDeauth: true },
     },
   ],
   scrollBehavior(to, from, savedPosition) {
-    // always scroll to top
+    // always scroll to top when page changed
     return { top: 0 };
   },
 });
 
 router.beforeResolve((to) => {
+  const store = appStore.useStore();
   let token = cookie_js.get(import.meta.env.VITE_TOKEN_KEY);
+
   if (to.meta.requiresAuth && !token) return "/login";
-  if (to.meta.requiresLogout && token) return "/";
+  if (to.meta.requiresDeauth && token) return "/";
+
+  if (to.meta.requiresCurrentNews && !store.currentNews._id) return "/our-news";
 });
 
 export default router;

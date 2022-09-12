@@ -1,6 +1,7 @@
 <script setup>
   import { computed, onMounted, ref } from "vue";
   import { useI18n } from "vue-i18n";
+  import { useMeta } from "vue-meta";
 
   import appStore from "../store";
   import Header from "@/shared/Header.vue";
@@ -9,7 +10,12 @@
   import BlogCard from "../shared/BlogCard.vue";
 
   const store = appStore.useStore();
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  useMeta({
+    title: store.defaultAppTitle,
+    description: store.defaultAppDescription[locale.value],
+    keywords: store.keywords,
+  });
   const loadedImg = ref({});
   const xs = computed(() => window.innerWidth <= 600);
 
@@ -19,6 +25,11 @@
 </script>
 
 <template>
+  <metainfo>
+    <template v-slot:title="{ content, metainfo }">{{
+      `${content} - ${t("general.новостная_лента")} | ${metainfo.description}`
+    }}</template>
+  </metainfo>
   <Header />
   <div class="blog-list-wrapper flex-box-center">
     <main>

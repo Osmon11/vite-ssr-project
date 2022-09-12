@@ -1,13 +1,19 @@
 <script setup>
   import { onMounted } from "vue";
+  import { useI18n } from "vue-i18n";
+  import { useMeta } from "vue-meta";
+
   import appStore from "../store";
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
-  import { useI18n } from "vue-i18n";
-  const backendUrl = import.meta.env.VITE_API_URL;
 
   const store = appStore.useStore();
   const { t, locale } = useI18n();
+  useMeta({
+    title: store.defaultAppTitle,
+    description: store.defaultAppDescription[locale.value],
+    keywords: store.keywords,
+  });
 
   onMounted(() => {
     store.getShariahBoard();
@@ -15,6 +21,11 @@
 </script>
 
 <template>
+  <metainfo>
+    <template v-slot:title="{ content, metainfo }">{{
+      `${content} - ${t("ШАРИАТСКИЙ СОВЕТ")} | ${metainfo.description}`
+    }}</template>
+  </metainfo>
   <Header />
   <div class="flex-box-center">
     <main style="min-height: 100vh">
@@ -31,7 +42,7 @@
           <template #prepend
             ><v-avatar size="x-large">
               <v-img
-                :src="`${backendUrl}${person.avatar}`"
+                :src="`${store.backendUrl}${person.avatar}`"
                 :alt="person[`fullname_${locale}`]"
               ></v-img></v-avatar
           ></template>

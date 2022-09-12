@@ -1,10 +1,18 @@
 <script setup>
   import { ref } from "vue";
+  import { useI18n } from "vue-i18n";
+  import { useMeta } from "vue-meta";
   import { useRouter } from "vue-router";
 
   import appStore from "../store";
 
   const store = appStore.useStore();
+  const { locale } = useI18n();
+  useMeta({
+    title: store.defaultAppTitle,
+    description: store.defaultAppDescription[locale.value],
+    keywords: store.keywords,
+  });
   const navigate = useRouter();
   const valid = ref(false);
   const login = ref("");
@@ -27,6 +35,11 @@
 </script>
 
 <template>
+  <metainfo>
+    <template v-slot:title="{ content, metainfo }">{{
+      `${content} | ${metainfo.description}`
+    }}</template>
+  </metainfo>
   <div class="login_wrapper flex-box-center">
     <main class="flex-box-center">
       <v-form

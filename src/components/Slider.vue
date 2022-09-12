@@ -11,7 +11,6 @@
   const activeSlide = ref(0);
   const openFeedbackModal = ref(false);
   const loadedImg = ref({});
-  const backendUrl = import.meta.env.VITE_API_URL;
 
   let interval;
   onMounted(() => {
@@ -53,7 +52,7 @@
       <div v-show="loadedImg[slide._id]" style="width: 100%; height: 100%">
         <img
           class="img"
-          :src="`${backendUrl}${slide.imageUrl}`"
+          :src="`${store.backendUrl}${slide.imageUrl}`"
           @load="onLoadImg(slide._id)"
           :alt="slide.imageName"
         />

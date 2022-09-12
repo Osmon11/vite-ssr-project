@@ -17,7 +17,7 @@
   const { name } = useRoute();
   const homePageNavigation = [
     { label: "О НАС", to: "/", key: "about_us", name: "home" },
-    { label: "Новости", to: "our-news", name: "our-news" },
+    { label: "Новости", to: "/our-news", name: "our-news" },
     { label: "ШАРИАТСКИЙ СОВЕТ", to: "/shariah-board", name: "shariah-board" },
     {
       label: "НАШ ОПЫТ",

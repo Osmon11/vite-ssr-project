@@ -1,12 +1,26 @@
 <script setup>
+  import { useI18n } from "vue-i18n";
+  import { useMeta } from "vue-meta";
+
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
-  import { useI18n } from "vue-i18n";
+  import appStore from "../store";
 
-  const { t } = useI18n();
+  const store = appStore.useStore();
+  const { t, locale } = useI18n();
+  useMeta({
+    title: store.defaultAppTitle,
+    description: store.defaultAppDescription[locale.value],
+    keywords: store.keywords,
+  });
 </script>
 
 <template>
+  <metainfo>
+    <template v-slot:title="{ content, metainfo }">{{
+      `${content} - ${t("НАШ ОПЫТ")} | ${metainfo.description}`
+    }}</template>
+  </metainfo>
   <Header />
   <div
     class="flex-box-center"

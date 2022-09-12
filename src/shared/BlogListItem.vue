@@ -12,7 +12,6 @@
   const { t, locale } = useI18n();
   const isLoaded = ref(false);
   const expanded = ref(false);
-  const backendUrl = import.meta.env.VITE_API_URL;
 
   function setExpanded(value) {
     expanded.value = value;
@@ -30,7 +29,7 @@
     <img
       class="cover"
       v-show="isLoaded"
-      :src="`${backendUrl}${news.imageUrl}`"
+      :src="`${store.backendUrl}${news.imageUrl}`"
       :alt="news.imageName"
       @load="isLoaded = true"
     />

@@ -1,15 +1,16 @@
 <script setup>
+  import { useI18n } from "vue-i18n";
+  import { useMeta } from "vue-meta";
+  import { useRoute } from "vue-router";
   import { ref, computed } from "@vue/reactivity";
-  import { onBeforeUpdate, onMounted, onUnmounted } from "@vue/runtime-core";
   import MarqueeText from "vue-marquee-text-component";
+  import { onBeforeUpdate, onMounted, onUnmounted } from "@vue/runtime-core";
 
   import Header from "@/shared/Header.vue";
   import Slider from "@/components/Slider.vue";
   import BlogCard from "@/shared/BlogCard.vue";
   import Footer from "@/shared/Footer.vue";
   import appStore from "../store/index.js";
-  import { useI18n } from "vue-i18n";
-  import { useRoute } from "vue-router";
 
   const store = appStore.useStore();
   const { t, locale } = useI18n();
@@ -17,9 +18,14 @@
   const refs = ref({});
   const activeGoTop = ref(false);
   const headerPosition = ref("fixed");
-  const backendUrl = import.meta.env.VITE_API_URL;
   const xs = computed(() => window.innerWidth <= 600);
   const sm = computed(() => window.innerWidth <= 960);
+
+  useMeta({
+    title: store.defaultAppTitle,
+    description: store.defaultAppDescription[locale.value],
+    keywords: store.keywords,
+  });
 
   onMounted(() => {
     if (route.query) {
@@ -67,6 +73,11 @@
 </script>
 
 <template>
+  <metainfo>
+    <template v-slot:title="{ content, metainfo }">{{
+      `${content} | ${metainfo.description}`
+    }}</template>
+  </metainfo>
   <span
     :ref="
       (el) => {
@@ -102,7 +113,7 @@
               {{ t("general['О компании']") }}
             </h3>
           </div>
-          <p class="body1" style="margin-bottom: 20px">
+          <p class="body1 text-justify" style="margin-bottom: 20px">
             {{ t("О компании") }}
           </p>
         </div>
@@ -111,7 +122,7 @@
             <h3 class="title about-us divider">{{ t("Миссия компании") }}</h3>
           </div>
           <p
-            class="body1"
+            class="body1 text-justify"
             :style="{
               marginBottom: '20px',
               textAlign: xs ? 'center' : 'start',
@@ -138,7 +149,7 @@
           >
             <span class="dot"></span>
             <p
-              class="body1"
+              class="body1 text-justify"
               :style="{
                 marginBottom: '10px',
                 textAlign: xs ? 'center' : 'start',
@@ -152,7 +163,7 @@
           <div class="flex-box" style="margin-bottom: 40px">
             <h3 class="title about-us divider">{{ t("ПОЧЕМУ МЫ?") }}</h3>
           </div>
-          <p class="body1" style="margin-bottom: 20px">
+          <p class="body1 text-justify" style="margin-bottom: 20px">
             {{ t("leng-32b348ac-d056-4e10-8437-993e2f81f112") }}
           </p>
         </div>
@@ -190,7 +201,7 @@
           <img
             class="noselect"
             style="width: auto"
-            :src="`${backendUrl}${partner.logo}`"
+            :src="`${store.backendUrl}${partner.logo}`"
             :alt="partner[`name_${locale}`]"
             :draggable="false"
           />
