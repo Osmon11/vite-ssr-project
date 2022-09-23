@@ -10,7 +10,6 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^34.2.0",
     "@ckeditor/ckeditor5-vue": "^4.0.1",
-    "@mdi/font": "5.9.55",
     "axios": "^0.27.2",
     "cookie_js": "^1.4.2",
     "moment": "^2.29.4",
@@ -29,6 +28,7 @@
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
+    "@mdi/font": "^7.0.96",
     "@vitejs/plugin-vue": "^2.3.3",
     "vite": "^2.9.12",
     "vite-plugin-vuetify": "^1.0.0-alpha.0",

@@ -1,7 +1,7 @@
 <script setup>
   import FeedbackModal from "@/components/FeedbackModal.vue";
   import { useRoute, useRouter } from "vue-router";
-  import { ref } from "@vue/reactivity";
+  import { ref, computed } from "@vue/reactivity";
   import { useI18n } from "vue-i18n";
 
   const props = defineProps(["scrollIntoHandler"]);
@@ -9,6 +9,8 @@
   const { name } = useRoute();
   const navigate = useRouter();
   const openFeedbackModal = ref(false);
+  const xs = computed(() => window.innerWidth <= 600);
+  const sm = computed(() => window.innerWidth <= 960);
 
   function setFeedbackModal(value) {
     openFeedbackModal.value = value;
@@ -20,6 +22,9 @@
       navigate.push({ name, query });
     }
   }
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   const phoneNumber = import.meta.env.VITE_PHONE;
   const emailAddress = import.meta.env.VITE_EMAIL;
@@ -27,6 +32,54 @@
 
 <template>
   <footer>
+    <div class="floating-container">
+      <div class="floating-button" @click="scrollToTop">
+        <v-icon icon="$chevronUp"></v-icon>
+      </div>
+      <div class="element-container">
+        <span class="float-element flex-box-center tooltip-left"
+          ><a href="https://www.facebook.com/amanatadvisory.kg" target="_blank"
+            ><img
+              :draggable="false"
+              class="social-media-icon active"
+              src="/assets/facebook-colorful.svg"
+              alt="facebook icon" /></a
+        ></span>
+        <span class="float-element flex-box-center"
+          ><a href="https://wa.me/996508081071" target="_blank"
+            ><img
+              :draggable="false"
+              class="social-media-icon active"
+              src="/assets/whatsapp-colorful.svg"
+              alt="whatsapp icon" /></a
+        ></span>
+        <span class="float-element flex-box-center"
+          ><a href="https://t.me/+996555081071" target="_blank"
+            ><img
+              :draggable="false"
+              class="social-media-icon active"
+              src="/assets/telegram-colorful.svg"
+              alt="telegram icon" /></a
+        ></span>
+        <span class="float-element flex-box-center"
+          ><a
+            href="https://www.instagram.com/amanatadvisory.kg/"
+            target="_blank"
+            ><img
+              :draggable="false"
+              class="social-media-icon active"
+              src="/assets/instagram-colorful.svg"
+              alt="instagram icon" /></a
+        ></span>
+        <span class="float-element flex-box-center tooltip-left"
+          ><a :href="`tel:${phoneNumber}`"
+            ><img
+              class="icon-color-white contact-icon"
+              src="/assets/tel.svg"
+              alt="phone icon" /></a
+        ></span>
+      </div>
+    </div>
     <div class="flex-box-center">
       <div class="footer-content flex-box">
         <div class="column">

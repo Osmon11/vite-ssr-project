@@ -5,4 +5,11 @@ import "vuetify/styles";
 // Vuetify
 import { createVuetify } from "vuetify";
 
-export default createVuetify({ theme: { defaultTheme: "light" } });
+export default createVuetify({
+  theme: { defaultTheme: "light" },
+  icons: {
+    aliases: {
+      chevronUp: "mdi-chevron-up",
+    },
+  },
+});

@@ -71,4 +71,5 @@
 
 <style>
   @import url(./App.css);
+  @import url(./styles/fab.css);
 </style>
