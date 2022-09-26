@@ -68,7 +68,7 @@
             ><img
               :draggable="false"
               class="social-media-icon active"
-              src="/assets/instagram-colorful.svg"
+              src="/assets/instagram-round-color-icon.svg"
               alt="instagram icon" /></a
         ></span>
         <span class="float-element flex-box-center tooltip-left"
