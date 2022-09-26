@@ -8,5 +8,8 @@
 </template>
 
 <script lang="ts" setup>
-import Counter from './Counter.vue'
+  import Counter from "./Counter.vue";
+  import { useSlidesStore } from "../../stores/slides";
+
+  const slidesStore = useSlidesStore();
 </script>
