@@ -1,21 +1,21 @@
-// `usePageContext` allows us to access `pageContext` in any Vue component.
+// Hook `usePageContext()` to make `pageContext` available from any Vue component.
 // See https://vite-plugin-ssr.com/pageContext-anywhere
 
-import { inject } from 'vue'
-import type { App, InjectionKey } from 'vue'
-import { PageContext } from './types'
+import { inject } from "vue";
+import type { App } from "vue";
+import { PageContext } from "./types";
+import { PageContextBuiltInClient } from "vite-plugin-ssr/client/router";
 
-export { usePageContext }
-export { setPageContext }
+export { usePageContext };
+export { setPageContext };
 
-const key: InjectionKey<PageContext> = Symbol()
+const key = Symbol();
 
-function usePageContext() {
-  const pageContext = inject(key)
-  if (!pageContext) throw new Error('setPageContext() not called in parent')
-  return pageContext
+function usePageContext(): PageContextBuiltInClient & PageContext {
+  const pageContext: PageContextBuiltInClient & PageContext = inject(key);
+  return pageContext;
 }
 
 function setPageContext(app: App, pageContext: PageContext) {
-  app.provide(key, pageContext)
+  app.provide(key, pageContext);
 }
