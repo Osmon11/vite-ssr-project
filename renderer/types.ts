@@ -7,9 +7,11 @@ export type PageContext = {
   exports: {
     documentProps?: {
       title: string;
+      description: string;
     };
   };
   documentProps?: {
     title: string;
+    description: string;
   };
 };

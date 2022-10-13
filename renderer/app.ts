@@ -1,5 +1,4 @@
-import { createSSRApp, defineComponent, h, markRaw, reactive } from "vue";
-import PageShell from "./PageShell.vue";
+import { createSSRApp, defineComponent, h, reactive } from "vue";
 import type { Component, PageContext } from "./types";
 import { setPageContext } from "./usePageContext";
 import vuetify from "@/plugins/vuetify";
@@ -12,23 +11,11 @@ function createApp(pageContext: PageContext) {
 
   let rootComponent: Component;
   const PageWithWrapper = defineComponent({
-    data: () => ({
-      Page: markRaw(Page),
-      pageProps: markRaw(pageContext.pageProps || {}),
-    }),
     created() {
       rootComponent = this;
     },
     render() {
-      return h(
-        PageShell,
-        {},
-        {
-          default: () => {
-            return h(this.Page, this.pageProps);
-          },
-        }
-      );
+      return h(Page, pageContext.pageProps || {});
     },
   });
 
@@ -41,8 +28,8 @@ function createApp(pageContext: PageContext) {
   objectAssign(app, {
     changePage: (pageContext: PageContext) => {
       Object.assign(pageContextReactive, pageContext);
-      rootComponent.Page = markRaw(pageContext.Page);
-      rootComponent.pageProps = markRaw(pageContext.pageProps || {});
+      rootComponent.Page = pageContext.Page;
+      rootComponent.pageProps = pageContext.pageProps || {};
     },
   });
 

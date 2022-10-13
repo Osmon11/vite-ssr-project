@@ -3,6 +3,7 @@ import { createPinia } from "pinia";
 import { getPageTitle } from "./getPageTitle";
 import type { PageContext } from "./types";
 import type { PageContextBuiltInClient } from "vite-plugin-ssr/client/router";
+import "@/styles/index.css";
 
 export const clientRouting = true;
 export const prefetchStaticAssets = { when: "VIEWPORT" };
