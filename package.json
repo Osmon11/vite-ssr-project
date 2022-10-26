@@ -20,7 +20,7 @@
     "vite": "^3.0.4",
     "vite-plugin-md": "^0.11.8",
     "vite-plugin-ssr": "0.4.40",
-    "vue": "3.2.33",
+    "vue": "3.2.40",
     "vue-i18n": "^9.2.2",
     "vuetify": "^3.0.0-beta.11"
   },
