@@ -4,8 +4,9 @@
   import { useI18n } from "vue-i18n";
 
   import appStore from "@/store";
+  import {isImageLoaded} from '@/utils'
 
-  defineProps(["news"]);
+  const props = defineProps(["news"]);
 
   const store = appStore.useStore();
   const navigate = useRouter();
@@ -22,6 +23,10 @@
     });
     navigate.push("/news");
   }
+  function onImageLoad() {
+    console.log(true);
+    isLoaded.value = true
+  }
 </script>
 
 <template>
@@ -31,9 +36,9 @@
       v-show="isLoaded"
       :src="`${store.backendUrl}${news.imageUrl}`"
       :alt="news.imageName"
-      @load="isLoaded = true"
+      @load="onImageLoad"
     />
-    <div class="flex-box-center cover" v-show="!isLoaded">
+    <div class="flex-box-center cover" v-if="!isLoaded">
       <img src="/public/assets/loading-12bras.gif" alt="loading gif" />
     </div>
     <div class="content">
