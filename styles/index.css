@@ -51,8 +51,9 @@ header.sticky {
   transform: translateY(-50%);
 }
 .activeSelect svg {
-  filter: invert(68%) sepia(18%) saturate(774%) hue-rotate(51deg)
-    brightness(92%) contrast(91%);
+  filter: invert(68%) sepia(18%) saturate(774%)
+    hue-rotate(51deg) brightness(92%)
+    contrast(91%);
 }
 .flex-box,
 .flex-box-between,
@@ -69,6 +70,9 @@ header.sticky {
 }
 .flex-box-vertical {
   flex-direction: column;
+}
+.gap {
+  gap: 20px;
 }
 .divider {
   position: relative;
@@ -165,8 +169,9 @@ header.sticky {
   vertical-align: middle;
   fill: currentColor;
   overflow: hidden;
-  filter: invert(25%) sepia(4%) saturate(4101%) hue-rotate(211deg)
-    brightness(84%) contrast(80%);
+  filter: invert(25%) sepia(4%) saturate(4101%)
+    hue-rotate(211deg) brightness(84%)
+    contrast(80%);
   transition: all 0.2s ease-out;
 }
 .input {
@@ -180,8 +185,9 @@ header.sticky {
 .input img {
   width: 24px;
   height: 24px;
-  filter: invert(81%) sepia(5%) saturate(100%) hue-rotate(219deg)
-    brightness(82%) contrast(90%);
+  filter: invert(81%) sepia(5%) saturate(100%)
+    hue-rotate(219deg) brightness(82%)
+    contrast(90%);
 }
 .input input,
 .input textarea {
@@ -298,8 +304,9 @@ input[type="checkbox"]:checked {
   position: absolute;
   top: calc(50% - 6px);
   right: 12px;
-  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(320deg)
-    brightness(104%) contrast(102%);
+  filter: invert(100%) sepia(100%) saturate(0%)
+    hue-rotate(320deg) brightness(104%)
+    contrast(102%);
 }
 .popper {
   width: 100%;
@@ -310,7 +317,8 @@ input[type="checkbox"]:checked {
   border-radius: 6px;
   background-color: #ffffff;
   box-shadow: rgb(0 0 0 / 20%) 0px 5px 5px -3px,
-    rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px;
+    rgb(0 0 0 / 14%) 0px 8px 10px 1px,
+    rgb(0 0 0 / 12%) 0px 3px 14px 2px;
   padding: 12px 0px;
 }
 .select-item {
@@ -381,9 +389,11 @@ input[type="checkbox"]:checked {
   min-height: 450px;
   background: #fff;
   border-radius: 8px;
-  -webkit-box-shadow: 0 24px 24px -18px rgb(69 104 129 / 33%),
+  -webkit-box-shadow: 0 24px 24px -18px rgb(69 104
+          129 / 33%),
     0 9px 45px 0 rgb(114 119 160 / 12%);
-  box-shadow: 0 24px 24px -18px rgb(69 104 129 / 33%),
+  box-shadow: 0 24px 24px -18px rgb(69 104 129 /
+          33%),
     0 9px 45px 0 rgb(114 119 160 / 12%);
   padding: 70px 50px;
   margin: 32px auto;
@@ -431,8 +441,9 @@ input[type="checkbox"]:checked {
   width: 100%;
 }
 .icon-color-white {
-  filter: invert(99%) sepia(96%) saturate(17%) hue-rotate(240deg)
-    brightness(104%) contrast(100%);
+  filter: invert(99%) sepia(96%) saturate(17%)
+    hue-rotate(240deg) brightness(104%)
+    contrast(100%);
 }
 .dot {
   width: 8px;

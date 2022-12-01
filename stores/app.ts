@@ -1,17 +1,20 @@
 import { defineStore } from "pinia";
-import { IAppStoreState, ILanguages } from "./app.types";
-
-const storeDefaults: IAppStoreState = {
-  token: null,
-  languages: {
-    primary: import.meta.env.VITE_PRIMARY_LANGUAGE,
-    secondary: import.meta.env.VITE_SECONDARY_LANGUAGE,
-  },
-};
+import {
+  IAppStoreState,
+  ILanguages,
+} from "./app.types";
 
 export const useAppStore = defineStore("app", {
   state(): IAppStoreState {
-    return { ...storeDefaults };
+    return {
+      token: null,
+      languages: {
+        primary: import.meta.env
+          .VITE_PRIMARY_LANGUAGE,
+        secondary: import.meta.env
+          .VITE_SECONDARY_LANGUAGE,
+      },
+    };
   },
   getters: {
     isAdmin(): boolean {

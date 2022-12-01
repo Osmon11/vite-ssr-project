@@ -5,21 +5,29 @@ import { createApp } from "./app";
 import { getPageTitle } from "./getPageTitle";
 import type { PageContext } from "./types";
 import type { PageContextBuiltIn } from "vite-plugin-ssr";
+import "@/styles/index.css";
 
 export { onBeforeRender };
 export { passToClient };
 export { render };
 
-const passToClient = ["initialStoreState", "pageProps", "documentProps"];
+const passToClient = [
+  "initialStoreState",
+  "pageProps",
+  "documentProps",
+];
 
-async function render(pageContext: PageContextBuiltIn & PageContext) {
+async function render(
+  pageContext: PageContextBuiltIn & PageContext
+) {
   const app = createApp(pageContext);
   const stream = renderToNodeStream(app);
 
   const { documentProps } = pageContext.exports;
   const title = getPageTitle(pageContext);
   const description =
-    (documentProps && documentProps.description) ||
+    (documentProps &&
+      documentProps.description) ||
     "App using Vite + vite-plugin-ssr";
 
   const documentHtml = escapeInject`<!DOCTYPE html>
@@ -70,7 +78,9 @@ async function render(pageContext: PageContextBuiltIn & PageContext) {
   };
 }
 
-async function onBeforeRender(pageContext: PageContextBuiltIn & PageContext) {
+async function onBeforeRender(
+  pageContext: PageContextBuiltIn & PageContext
+) {
   const app = createApp(pageContext);
 
   const store = createPinia();
