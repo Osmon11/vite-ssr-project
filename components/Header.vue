@@ -56,8 +56,12 @@
             <Link
               class="nav-item"
               href="/admin"
-              v-if="authorized"
-              >{{ $t("Админ") }}</Link
+              v-if="isAdmin"
+              >{{
+                $t(
+                  "lang-a0924aa2-9523-4a96-88ce-a5292f398c6a"
+                )
+              }}</Link
             >
             <Select
               :value="locale"
@@ -172,13 +176,15 @@
   import Select from "./shared/Select.vue";
   import { useAppStore } from "@/stores/app";
   import { usePageContext } from "@/renderer/usePageContext";
+  import { useAuthStore } from "@/stores/auth";
 
   const { locale } = useI18n();
   const pageContext = usePageContext();
   const appStore = useAppStore();
+  const authStore = useAuthStore();
 
-  const authorized = computed(
-    () => appStore.isAdmin
+  const isAdmin = computed(
+    () => authStore.isAdmin
   );
   const isHome = computed(
     () => pageContext.urlPathname === "/"

@@ -7,7 +7,6 @@ import {
 export const useAppStore = defineStore("app", {
   state(): IAppStoreState {
     return {
-      token: null,
       languages: {
         primary: import.meta.env
           .VITE_PRIMARY_LANGUAGE,
@@ -17,9 +16,6 @@ export const useAppStore = defineStore("app", {
     };
   },
   getters: {
-    isAdmin(): boolean {
-      return Boolean(this.token);
-    },
     getLanguages(): ILanguages {
       return this.languages;
     },

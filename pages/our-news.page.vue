@@ -13,11 +13,14 @@
   const { t, locale } = useI18n();
   useMeta({
     title: store.defaultAppTitle,
-    description: store.defaultAppDescription[locale.value],
+    description:
+      store.defaultAppDescription[locale.value],
     keywords: store.keywords,
   });
   const loadedImg = ref({});
-  const xs = computed(() => window.innerWidth <= 600);
+  const xs = computed(
+    () => window.innerWidth <= 600
+  );
 
   onMounted(() => {
     store.getNewsFeed();
@@ -26,17 +29,32 @@
 
 <template>
   <metainfo>
-    <template v-slot:title="{ content, metainfo }">{{
-      `${content} - ${t("general.новостная_лента")} | ${metainfo.description}`
-    }}</template>
+    <template
+      v-slot:title="{ content, metainfo }"
+      >{{
+        `${content} - ${t(
+          "lang-fe822a05-8604-4300-b532-491d82716a23"
+        )} | ${metainfo.description}`
+      }}</template
+    >
   </metainfo>
   <Header />
   <div class="blog-list-wrapper flex-box-center">
     <main>
-      <p class="title divider py-5 my-5 text-center" style="width: 100%">
-        {{ t("general.новостная_лента") }}
+      <p
+        class="title divider py-5 my-5 text-center"
+        style="width: 100%"
+      >
+        {{
+          t(
+            "lang-fe822a05-8604-4300-b532-491d82716a23"
+          )
+        }}
       </p>
-      <div v-if="xs" class="px-5">
+      <div
+        v-if="xs"
+        class="px-5"
+      >
         <div
           class="full-width mb-5"
           v-for="news in store.newsFeed"

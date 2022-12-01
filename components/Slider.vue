@@ -33,7 +33,11 @@
             class="text-white"
             @click="feedbackModal = true"
           >
-            {{ t("general['свяжитесь с нами']") }}
+            {{
+              t(
+                "lang-a3bed61a-5493-4c37-9959-704e03364489"
+              )
+            }}
           </v-btn>
         </div>
       </div>

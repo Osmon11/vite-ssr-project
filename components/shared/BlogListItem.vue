@@ -4,7 +4,7 @@
   import { useI18n } from "vue-i18n";
 
   import appStore from "@/store";
-  import {isImageLoaded} from '@/utils'
+  import { isImageLoaded } from "@/utils";
 
   const props = defineProps(["news"]);
 
@@ -25,12 +25,15 @@
   }
   function onImageLoad() {
     console.log(true);
-    isLoaded.value = true
+    isLoaded.value = true;
   }
 </script>
 
 <template>
-  <article class="flex-box collapse" :class="{ expanded }">
+  <article
+    class="flex-box collapse"
+    :class="{ expanded }"
+  >
     <img
       class="cover"
       v-show="isLoaded"
@@ -38,16 +41,36 @@
       :alt="news.imageName"
       @load="onImageLoad"
     />
-    <div class="flex-box-center cover" v-if="!isLoaded">
-      <img src="/public/assets/loading-12bras.gif" alt="loading gif" />
+    <div
+      class="flex-box-center cover"
+      v-if="!isLoaded"
+    >
+      <img
+        src="/public/assets/loading-12bras.gif"
+        alt="loading gif"
+      />
     </div>
     <div class="content">
-      <h1 class="title">{{ news[`title_${locale}`] }}</h1>
-      <p class="short-text body1 py-4">{{ news[`subtitle_${locale}`] }}</p>
+      <h1 class="title">
+        {{ news[`title_${locale}`] }}
+      </h1>
+      <p class="short-text body1 py-4">
+        {{ news[`subtitle_${locale}`] }}
+      </p>
     </div>
-    <div class="expand-more flex-box-center" v-if="!expanded">
-      <p class="nav-item nav-item-secondary" @click="setCurrentNews(news)">
-        {{ t("general.подробней") }}
+    <div
+      class="expand-more flex-box-center"
+      v-if="!expanded"
+    >
+      <p
+        class="nav-item nav-item-secondary"
+        @click="setCurrentNews(news)"
+      >
+        {{
+          t(
+            "lang-affa9989-3199-4634-95af-469c8881aca2"
+          )
+        }}
       </p>
     </div>
   </article>

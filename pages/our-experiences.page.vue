@@ -10,16 +10,22 @@
   const { t, locale } = useI18n();
   useMeta({
     title: store.defaultAppTitle,
-    description: store.defaultAppDescription[locale.value],
+    description:
+      store.defaultAppDescription[locale.value],
     keywords: store.keywords,
   });
 </script>
 
 <template>
   <metainfo>
-    <template v-slot:title="{ content, metainfo }">{{
-      `${content} - ${t("НАШ ОПЫТ")} | ${metainfo.description}`
-    }}</template>
+    <template
+      v-slot:title="{ content, metainfo }"
+      >{{
+        `${content} - ${t(
+          "lang-ef952636-74de-4f4c-a2b1-df869f04e844"
+        )} | ${metainfo.description}`
+      }}</template
+    >
   </metainfo>
   <Header />
   <div
@@ -32,11 +38,30 @@
   >
     <main>
       <div class="column-wrap">
-        <div class="flex-box-center" style="margin-bottom: 40px">
-          <h2 class="title divider">{{ t("НАШ ОПЫТ") }}</h2>
+        <div
+          class="flex-box-center"
+          style="margin-bottom: 40px"
+        >
+          <h2 class="title divider">
+            {{
+              t(
+                "lang-ef952636-74de-4f4c-a2b1-df869f04e844"
+              )
+            }}
+          </h2>
         </div>
-        <p class="body1" style="margin-bottom: 20px; padding: 16px">
-          {{ t("experiences") }}
+        <p
+          class="body1"
+          style="
+            margin-bottom: 20px;
+            padding: 16px;
+          "
+        >
+          {{
+            t(
+              "lang-29b886c8-b489-489f-b369-1bd6d0403126"
+            )
+          }}
         </p>
       </div>
     </main>

@@ -6,7 +6,10 @@
   import appStore from "../store";
 
   const store = appStore.useStore();
-  const props = defineProps(["modelValue", "editPartner"]);
+  const props = defineProps([
+    "modelValue",
+    "editPartner",
+  ]);
   const emit = defineEmits(["update:modelValue"]);
   const { t } = useI18n();
   const form = ref();
@@ -30,7 +33,9 @@
   const fileInputLabel = computed(() =>
     props.editPartner && image.value.length === 0
       ? props.editPartner["logo"]
-      : t("general.Логотип_партнера")
+      : t(
+          "lang-75f7377c-2c49-4516-b2ea-551f90458b15"
+        )
   );
 
   function callback(success) {
@@ -49,10 +54,18 @@
         data.append("image", image.value[0]);
         store.setPartner(data, callback);
       } else {
-        if (image.value[0]) data.append("image", image.value[0]);
+        if (image.value[0])
+          data.append("image", image.value[0]);
 
-        data.append("logo", props.editPartner.logo);
-        store.updatePartner({ id: props.editPartner._id }, data, callback);
+        data.append(
+          "logo",
+          props.editPartner.logo
+        );
+        store.updatePartner(
+          { id: props.editPartner._id },
+          data,
+          callback
+        );
       }
     }
   }
@@ -66,7 +79,10 @@
 </script>
 
 <template>
-  <Dialog :open="props.modelValue" :onClose="closeHandler">
+  <Dialog
+    :open="props.modelValue"
+    :onClose="closeHandler"
+  >
     <div class="flex-box flex-box-center">
       <v-form
         ref="form"
@@ -74,11 +90,18 @@
         class="form-max-width"
         @submit.prevent="submitHandler"
       >
-        <p class="title text-center mb-4" style="width: 100%">
+        <p
+          class="title text-center mb-4"
+          style="width: 100%"
+        >
           {{
-            props.editPartner
-              ? t("general.Редактировать_партнера")
-              : t("general.Новый_партнер")
+            !props.editPartner
+              ? t(
+                  "lang-e6e7353b-1dfd-42fd-9ee8-ee112edee550"
+                )
+              : t(
+                  "lang-8bb75dc4-3000-407f-b131-d662b43deb0b"
+                )
           }}
         </p>
         <v-text-field
@@ -86,10 +109,14 @@
           type="text"
           name="title_ru"
           variant="outlined"
-          :label="t('general.Наименование_на_русском')"
+          :label="
+            t(
+              'lang-379107af-bf56-44da-808b-dad8d112f3d7'
+            )
+          "
           color="#61a375"
           required
-          :rules="[(v) => !!v || t('errors.Введите_Наименование_на_русском')]"
+          :rules="[(v) => !!v || t('errors.')]"
         ></v-text-field>
 
         <v-text-field
@@ -97,12 +124,14 @@
           type="text"
           name="title_en"
           variant="outlined"
-          :label="t('general.Наименование_на_английском')"
+          :label="
+            t(
+              'lang-0491248f-ddc0-4fa6-ab05-bab1658d4149'
+            )
+          "
           color="#61a375"
           required
-          :rules="[
-            (v) => !!v || t('errors.Введите_Наименование_на_английском'),
-          ]"
+          :rules="[(v) => !!v || t('errors.')]"
         ></v-text-field>
 
         <v-file-input
@@ -114,12 +143,20 @@
           color="#61a375"
           :required="!editPartner"
           :rules="[
-            (v) => !!v || !!v.length || t('errors.Загрузите_логотип_партнера'),
+            (v) =>
+              !!v ||
+              !!v.length ||
+              t(
+                'lang-e84a07db-3933-412b-b386-3cab06799321'
+              ),
           ]"
           show-size
         ></v-file-input>
         <div class="flex-box-center">
-          <div class="flex-box" style="gap: 20px">
+          <div
+            class="flex-box"
+            style="gap: 20px"
+          >
             <v-btn
               color="#61a375"
               class="text-white"
@@ -127,13 +164,24 @@
               :loading="isLoading"
               >{{
                 props.editPartner
-                  ? t("general.Обновить")
-                  : t("general.Добавить_партнера")
+                  ? t(
+                      "lang-d32bd46b-3317-4367-bb12-c53c36e494f5"
+                    )
+                  : t(
+                      "lang-4b9703fc-3398-45f9-bd06-14ba7c65b28b"
+                    )
               }}</v-btn
             >
-            <v-btn color="#F44336" class="text-white" @click="closeHandler">{{
-              t("general.отмена")
-            }}</v-btn>
+            <v-btn
+              color="#F44336"
+              class="text-white"
+              @click="closeHandler"
+              >{{
+                t(
+                  "lang-13ae4b92-8336-4cdd-adbb-ead122b87cb3"
+                )
+              }}</v-btn
+            >
           </div>
         </div>
       </v-form>

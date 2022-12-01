@@ -11,7 +11,8 @@
   const { t, locale } = useI18n();
   useMeta({
     title: store.defaultAppTitle,
-    description: store.defaultAppDescription[locale.value],
+    description:
+      store.defaultAppDescription[locale.value],
     keywords: store.keywords,
   });
 
@@ -22,15 +23,27 @@
 
 <template>
   <metainfo>
-    <template v-slot:title="{ content, metainfo }">{{
-      `${content} - ${t("ШАРИАТСКИЙ СОВЕТ")} | ${metainfo.description}`
-    }}</template>
+    <template
+      v-slot:title="{ content, metainfo }"
+      >{{
+        `${content} - ${t(
+          "lang-55f459ef-9533-4515-971c-ccd8e9d578be"
+        )} | ${metainfo.description}`
+      }}</template
+    >
   </metainfo>
   <Header />
   <div class="flex-box-center">
     <main style="min-height: 100vh">
-      <p class="title divider py-5 mt-5 text-center" style="width: 100%">
-        {{ t("ШАРИАТСКИЙ СОВЕТ") }}
+      <p
+        class="title divider py-5 mt-5 text-center"
+        style="width: 100%"
+      >
+        {{
+          t(
+            "lang-55f459ef-9533-4515-971c-ccd8e9d578be"
+          )
+        }}
       </p>
       <div v-if="store.shariahBoard.length">
         <v-banner
@@ -43,14 +56,21 @@
             ><v-avatar size="x-large">
               <v-img
                 :src="`${store.backendUrl}${person.avatar}`"
-                :alt="person[`fullname_${locale}`]"
+                :alt="
+                  person[`fullname_${locale}`]
+                "
               ></v-img></v-avatar
           ></template>
           <v-banner-text
-            ><p class="title" style="font-size: 24px">
+            ><p
+              class="title"
+              style="font-size: 24px"
+            >
               {{ person[`fullname_${locale}`] }}
             </p>
-            {{ person[`biography_${locale}`] }}</v-banner-text
+            {{
+              person[`biography_${locale}`]
+            }}</v-banner-text
           ></v-banner
         >
       </div>

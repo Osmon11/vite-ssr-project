@@ -15,7 +15,8 @@
     store.getPartnersList();
     setTimeout(
       store.partners.forEach(
-        (partner) => (loadedImg.value[partner._id] = true),
+        (partner) =>
+          (loadedImg.value[partner._id] = true),
         10000
       )
     );
@@ -33,7 +34,9 @@
   }
   function deletePartner(partner) {
     store.setPromp({
-      message: t("questions.Подтверждаете_удаление_партнера"),
+      message: t(
+        "lang-55cb3f2e-34db-488a-a78c-386e34be0bde"
+      ),
       confirm() {
         store.deletePartner({ id: partner._id });
       },
@@ -45,11 +48,27 @@
 </script>
 
 <template>
-  <div class="flex-box-between" style="margin-bottom: 16px">
-    <p class="title">{{ t("Партнеры") }}</p>
-    <v-btn color="#61a375" class="text-white" @click="setModal(true)">{{
-      t("general.Новый_партнер")
-    }}</v-btn>
+  <div
+    class="flex-box-between"
+    style="margin-bottom: 16px"
+  >
+    <p class="title">
+      {{
+        t(
+          "lang-1d767a32-84fc-4c69-9690-8c0578515b97"
+        )
+      }}
+    </p>
+    <v-btn
+      color="#61a375"
+      class="text-white"
+      @click="setModal(true)"
+      >{{
+        t(
+          "lang-e6e7353b-1dfd-42fd-9ee8-ee112edee550"
+        )
+      }}</v-btn
+    >
   </div>
   <div v-if="store.partners.length">
     <v-banner
@@ -59,40 +78,74 @@
       :key="person._id"
     >
       <template #prepend
-        ><v-avatar size="x-large" rounded="0">
+        ><v-avatar
+          size="x-large"
+          rounded="0"
+        >
           <v-img
             :src="`${store.backendUrl}${person.logo}`"
             :alt="person[`name_${locale}`]"
           ></v-img></v-avatar
       ></template>
       <v-banner-text
-        ><div class="flex-box-between" style="width: 100%">
-          <p class="title" style="font-size: 24px">
+        ><div
+          class="flex-box-between"
+          style="width: 100%"
+        >
+          <p
+            class="title"
+            style="font-size: 24px"
+          >
             {{ person[`name_${locale}`] }}
           </p>
-          <div class="flex-box" style="gap: 20px">
+          <div
+            class="flex-box"
+            style="gap: 20px"
+          >
             <v-btn
               color="#61a375"
               class="text-white"
-              @click.stop="setCurrentPartner(person)"
-              >{{ t("general.редактировать") }}</v-btn
+              @click.stop="
+                setCurrentPartner(person)
+              "
+              >{{
+                t(
+                  "lang-37a7870d-ae54-4fe1-8767-fa261b98007e"
+                )
+              }}</v-btn
             >
             <v-btn
               color="#F44336"
               class="text-white"
               @click.stop="deletePartner(person)"
-              >{{ t("general.удалить") }}</v-btn
+              >{{
+                t(
+                  "lang-3b8a75a6-406e-416b-b06a-ac4a8e9e7690"
+                )
+              }}</v-btn
             >
           </div>
         </div>
-        {{ person[`biography_${locale}`] }}</v-banner-text
+        {{
+          person[`biography_${locale}`]
+        }}</v-banner-text
       ></v-banner
     >
   </div>
-  <div class="flex-box-center" v-else>
+  <div
+    class="flex-box-center"
+    v-else
+  >
     <p class="body1">
-      {{ t("errors.Партнеров_пока_нет_Создайте_нового_партнера") }}
+      {{
+        t(
+          "lang-783e3082-1406-4f31-8d6e-799b8cd1db50"
+        )
+      }}
     </p>
   </div>
-  <PartnerModal v-model="openModal" :editPartner="currentPartner" />
+  <PartnerModal
+    v-model="openModal"
+    :editPartner="currentPartner"
+  />
 </template>

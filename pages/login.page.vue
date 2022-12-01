@@ -1,51 +1,18 @@
-<script setup>
-  import { ref } from "vue";
-  import { useI18n } from "vue-i18n";
-  import { useMeta } from "vue-meta";
-  import { useRouter } from "vue-router";
-
-  import appStore from "../store";
-
-  const store = appStore.useStore();
-  const { locale } = useI18n();
-  useMeta({
-    title: store.defaultAppTitle,
-    description: store.defaultAppDescription[locale.value],
-    keywords: store.keywords,
-  });
-  const navigate = useRouter();
-  const valid = ref(false);
-  const login = ref("");
-  const password = ref("");
-  const remember = ref(false);
-
-  function handleLoginSubmit() {
-    if (valid.value) {
-      store.authorize(
-        { login: login.value, password: password.value },
-        remember.value,
-        (success) => {
-          if (success) {
-            navigate.push("/admin");
-          }
-        }
-      );
-    }
-  }
-</script>
-
 <template>
   <metainfo>
-    <template v-slot:title="{ content, metainfo }">{{
-      `${content} | ${metainfo.description}`
-    }}</template>
+    <template
+      v-slot:title="{ content, metainfo }"
+      >{{
+        `${content} | ${metainfo.description}`
+      }}</template
+    >
   </metainfo>
   <div class="login_wrapper flex-box-center">
     <main class="flex-box-center">
       <v-form
         class="form"
         v-model="valid"
-        @submit.prevent="(event) => handleLoginSubmit(event)"
+        @submit.prevent="handleLoginSubmit"
       >
         <v-text-field
           type="email"
@@ -54,7 +21,10 @@
           label="Логин"
           color="#61a375"
           :autofocus="false"
-          v-model="login"
+          :modelValue="form.login"
+          @update:modelValue="
+            onUpdate('login', $event)
+          "
           :rules="[(v) => !!v || 'Введите Логин']"
         ></v-text-field>
         <v-text-field
@@ -65,17 +35,14 @@
           color="#61a375"
           hide-details
           :autofocus="false"
-          v-model="password"
-          :rules="[(v) => !!v || 'Введите Пароль']"
+          :modelValue="form.password"
+          @update:modelValue="
+            onUpdate('password', $event)
+          "
+          :rules="[
+            (v) => !!v || 'Введите Пароль',
+          ]"
         ></v-text-field>
-        <v-checkbox
-          name="remember"
-          label="Запомнить ?"
-          color="#61a375"
-          hide-details
-          :autofocus="false"
-          v-model="remember"
-        ></v-checkbox>
         <v-btn
           color="#61a375"
           class="text-white"
@@ -88,6 +55,34 @@
     </main>
   </div>
 </template>
+
+<script lang="ts" setup>
+  import { computed, ref } from "vue";
+  import { useI18n } from "vue-i18n";
+  import { useAuthStore } from "@/stores/auth";
+  import { isUserInfoData } from "@/api/index.guards";
+
+  const authStore = useAuthStore();
+  const { locale } = useI18n();
+
+  // --> FORM
+  const form = computed(
+    () => authStore.getLoginForm
+  );
+  const valid = ref(false);
+  // actions
+  function onUpdate(key: string, value: any) {
+    authStore.updateLoginForm(key, value);
+  }
+  function handleLoginSubmit() {
+    if (valid.value) {
+      authStore.login().then((data) => {
+        if (isUserInfoData(data)) {
+        }
+      });
+    }
+  }
+</script>
 
 <style scoped>
   .form {

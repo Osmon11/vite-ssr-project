@@ -15,9 +15,7 @@ import {
 
 // --> Authorization
 // login
-export const authorize = (
-  payload: IAuthPayload
-) =>
+export const login = (payload: IAuthPayload) =>
   new Promise<IUserInfo | IRequestFailed>(
     (resolve, reject) =>
       axios

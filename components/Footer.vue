@@ -1,21 +1,35 @@
 <script setup>
   import FeedbackModal from "@/components/FeedbackModal.vue";
-  import { useRoute, useRouter } from "vue-router";
+  import {
+    useRoute,
+    useRouter,
+  } from "vue-router";
   import { ref, computed } from "@vue/reactivity";
   import { useI18n } from "vue-i18n";
 
-  const props = defineProps(["scrollIntoHandler"]);
+  const props = defineProps([
+    "scrollIntoHandler",
+  ]);
   const { t } = useI18n();
   const { name } = useRoute();
   const navigate = useRouter();
   const openFeedbackModal = ref(false);
-  const xs = computed(() => window.innerWidth <= 600);
-  const sm = computed(() => window.innerWidth <= 960);
+  const xs = computed(
+    () => window.innerWidth <= 600
+  );
+  const sm = computed(
+    () => window.innerWidth <= 960
+  );
 
   function setFeedbackModal(value) {
     openFeedbackModal.value = value;
   }
-  function navigationHandler(path, name, query, scrollInto = false) {
+  function navigationHandler(
+    path,
+    name,
+    query,
+    scrollInto = false
+  ) {
     if (scrollInto) {
       props.scrollIntoHandler(path);
     } else {
@@ -23,7 +37,10 @@
     }
   }
   function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
   const phoneNumber = import.meta.env.VITE_PHONE;
@@ -33,35 +50,48 @@
 <template>
   <footer>
     <div class="floating-container">
-      <div class="floating-button" @click="scrollToTop">
+      <div
+        class="floating-button"
+        @click="scrollToTop"
+      >
         <v-icon icon="$chevronUp"></v-icon>
       </div>
       <div class="element-container">
-        <span class="float-element flex-box-center tooltip-left"
-          ><a href="https://www.facebook.com/amanatadvisory.kg" target="_blank"
+        <span
+          class="float-element flex-box-center tooltip-left"
+          ><a
+            href="https://www.facebook.com/amanatadvisory.kg"
+            target="_blank"
             ><img
               :draggable="false"
               class="social-media-icon active"
               src="/assets/facebook-colorful.svg"
               alt="facebook icon" /></a
         ></span>
-        <span class="float-element flex-box-center"
-          ><a href="https://wa.me/996508081071" target="_blank"
+        <span
+          class="float-element flex-box-center"
+          ><a
+            href="https://wa.me/996508081071"
+            target="_blank"
             ><img
               :draggable="false"
               class="social-media-icon active"
               src="/assets/whatsapp-colorful.svg"
               alt="whatsapp icon" /></a
         ></span>
-        <span class="float-element flex-box-center"
-          ><a href="https://t.me/+996555081071" target="_blank"
+        <span
+          class="float-element flex-box-center"
+          ><a
+            href="https://t.me/+996555081071"
+            target="_blank"
             ><img
               :draggable="false"
               class="social-media-icon active"
               src="/assets/telegram-colorful.svg"
               alt="telegram icon" /></a
         ></span>
-        <span class="float-element flex-box-center"
+        <span
+          class="float-element flex-box-center"
           ><a
             href="https://www.instagram.com/amanatadvisory.kg/"
             target="_blank"
@@ -71,7 +101,8 @@
               src="/assets/instagram-round-color-icon.svg"
               alt="instagram icon" /></a
         ></span>
-        <span class="float-element flex-box-center tooltip-left"
+        <span
+          class="float-element flex-box-center tooltip-left"
           ><a :href="`tel:${phoneNumber}`"
             ><img
               class="icon-color-white contact-icon"
@@ -83,8 +114,16 @@
     <div class="flex-box-center">
       <div class="footer-content flex-box">
         <div class="column">
-          <p class="title">{{ t("general['свяжитесь с нами']") }}</p>
-          <div class="social-media-wrapper flex-box">
+          <p class="title">
+            {{
+              t(
+                "lang-a3bed61a-5493-4c37-9959-704e03364489"
+              )
+            }}
+          </p>
+          <div
+            class="social-media-wrapper flex-box"
+          >
             <a
               class="icon-wrapper"
               href="https://t.me/+996555081071"
@@ -147,41 +186,67 @@
                 alt="whatsapp icon"
             /></a>
           </div>
-          <div class="flex-box" style="gap: 10px; margin-top: 15px">
+          <div
+            class="flex-box"
+            style="gap: 10px; margin-top: 15px"
+          >
             <img
               class="icon-color-white contact-icon"
               src="/assets/adress.svg"
               alt="adress icon"
             />
             <p class="text-footer">
-              {{ t("Адрес")
+              {{
+                t(
+                  "lang-08f5ef7e-a2f5-40ff-8030-9928c3e9711b"
+                )
               }}<a
-                :href="`http://maps.google.com/?q=${t('текс-адреса')}`"
+                :href="`http://maps.google.com/?q=${t(
+                  'lang-81aabe66-1dce-4aa8-b0f2-c8c3ef08ee08'
+                )}`"
                 target="_blank"
                 rel="noopener noreferrer"
-                >{{ t("текс-адреса") }}</a
+                >{{
+                  t(
+                    "lang-81aabe66-1dce-4aa8-b0f2-c8c3ef08ee08"
+                  )
+                }}</a
               >
             </p>
           </div>
-          <div class="flex-box" style="gap: 10px">
+          <div
+            class="flex-box"
+            style="gap: 10px"
+          >
             <img
               class="icon-color-white contact-icon"
               src="/assets/tel.svg"
               alt="phone icon"
             />
             <p class="text-footer">
-              {{ t("Телефон")
-              }}<a :href="`tel:${phoneNumber}`">{{ `+${phoneNumber}` }}</a>
+              {{
+                t(
+                  "lang-ecf45fc4-2864-49bf-af25-72d4c5cd361d"
+                )
+              }}<a :href="`tel:${phoneNumber}`">{{
+                `+${phoneNumber}`
+              }}</a>
             </p>
           </div>
-          <div class="flex-box" style="gap: 10px">
+          <div
+            class="flex-box"
+            style="gap: 10px"
+          >
             <img
               class="icon-color-white contact-icon"
               src="/assets/email.svg"
               alt="email icon"
             />
             <p class="text-footer">
-              {{ t("Адрес")
+              {{
+                t(
+                  "lang-08f5ef7e-a2f5-40ff-8030-9928c3e9711b"
+                )
               }}<a
                 :href="`https://mail.google.com/mail/?view=cm&fs=1&to=${emailAddress}`"
                 target="_blank"
@@ -192,73 +257,122 @@
           </div>
         </div>
         <div class="column">
-          <p class="title">{{ t("Главная") }}</p>
+          <p class="title">
+            {{
+              t(
+                "lang-9e2584b8-3eac-467b-907a-f571afa1580d"
+              )
+            }}
+          </p>
           <p
             class="nav-item text-footer"
             @click="
               navigationHandler(
-                name === 'home' ? 'about_us' : '/',
+                name === 'home'
+                  ? 'about_us'
+                  : '/',
                 'home',
                 { section: 'about_us' },
                 name === 'home'
               )
             "
           >
-            {{ t("general['О компании']") }}
+            {{
+              t(
+                "lang-de48119e-6e58-4638-9e52-b157c06d43d8"
+              )
+            }}
           </p>
           <p
             class="nav-item text-footer"
             @click="
               navigationHandler(
-                name === 'home' ? 'our_services' : '/',
+                name === 'home'
+                  ? 'our_services'
+                  : '/',
                 'home',
                 { section: 'our_services' },
                 name === 'home'
               )
             "
           >
-            {{ t("НАШИ УСЛУГИ") }}
+            {{
+              t(
+                "lang-789737de-eb6a-47de-ab69-33aa5670867e"
+              )
+            }}
           </p>
           <p
             class="nav-item text-footer"
-            @click="navigationHandler('/our-news', 'our-news')"
+            @click="
+              navigationHandler(
+                '/our-news',
+                'our-news'
+              )
+            "
           >
-            {{ t("Новости") }}
+            {{
+              t(
+                "lang-43551998-d49d-41a1-8287-25a880594e94"
+              )
+            }}
           </p>
         </div>
         <div class="column">
-          <p class="title">{{ t("general.Штат") }}</p>
+          <p class="title">
+            {{
+              t(
+                "lang-10432732-d2f2-4a3e-8f17-0b26965ee54b"
+              )
+            }}
+          </p>
           <p
             class="nav-item text-footer"
-            @click="navigationHandler('/shariah-board', 'shariah-board')"
+            @click="
+              navigationHandler(
+                '/shariah-board',
+                'shariah-board'
+              )
+            "
           >
-            {{ t("ШАРИАТСКИЙ СОВЕТ") }}
+            {{
+              t(
+                "lang-55f459ef-9533-4515-971c-ccd8e9d578be"
+              )
+            }}
           </p>
-          <!-- <p
-            v-if="name !== 'management'"
-            class="nav-item text-footer"
-            @click="navigationHandler('/management', 'management')"
-          >
-            {{ t("general.Менеджмент") }}
-          </p> -->
         </div>
         <div class="column">
           <v-btn
             color="#61a375"
             class="text-white"
             @click="setFeedbackModal(true)"
-            :style="{ marginTop: xs || sm ? 40 : 0 }"
+            :style="{
+              marginTop: xs || sm ? 40 : 0,
+            }"
           >
-            {{ t("general['свяжитесь с нами']") }}
+            {{
+              t(
+                "lang-a3bed61a-5493-4c37-9959-704e03364489"
+              )
+            }}
           </v-btn>
         </div>
       </div>
     </div>
     <p
       class="text-caption text-center"
-      style="width: 100%; color: #c5c5c5; margin-top: 37px"
+      style="
+        width: 100%;
+        color: #c5c5c5;
+        margin-top: 37px;
+      "
     >
-      {{ t("© 2022 Amanat Advisory. Все права защищены.") }}
+      {{
+        t(
+          "lang-4a3ec30f-b262-4c79-91a8-2badeb083969"
+        )
+      }}
     </p>
   </footer>
   <FeedbackModal v-model="openFeedbackModal" />

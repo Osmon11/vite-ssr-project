@@ -15,7 +15,8 @@
     store.getSlides();
     setTimeout(
       store.slides.forEach(
-        (slide) => (loadedImg.value[slide._id] = true),
+        (slide) =>
+          (loadedImg.value[slide._id] = true),
         10000
       )
     );
@@ -33,7 +34,9 @@
   }
   function deleteSlide(slide) {
     store.setPromp({
-      message: t("questions.Подтверждаете_удаление_слайда"),
+      message: t(
+        "lang-004708ab-a907-48db-9c1b-8c99fb35a283"
+      ),
       confirm() {
         store.deleteSlide({ id: slide._id });
       },
@@ -45,11 +48,27 @@
 </script>
 
 <template>
-  <div class="flex-box-between" style="margin-bottom: 16px">
-    <p class="title">{{ t("Слайды") }}</p>
-    <v-btn color="#61a375" class="text-white" @click="setModal(true)">{{
-      t("general.Новый_слайд")
-    }}</v-btn>
+  <div
+    class="flex-box-between"
+    style="margin-bottom: 16px"
+  >
+    <p class="title">
+      {{
+        t(
+          "lang-a7fbb933-403c-437a-8cb8-96eefb0b8309"
+        )
+      }}
+    </p>
+    <v-btn
+      color="#61a375"
+      class="text-white"
+      @click="setModal(true)"
+      >{{
+        t(
+          "lang-2729514f-a39b-4cf6-981d-956ca5e814eb"
+        )
+      }}</v-btn
+    >
   </div>
   <div v-if="store.slides.length">
     <div
@@ -65,24 +84,38 @@
         @load="onLoadImg(slide._id)"
         :alt="slide.imageName"
       />
-      <div class="img flex-box-center" v-show="!loadedImg[slide._id]">
+      <div
+        class="img flex-box-center"
+        v-show="!loadedImg[slide._id]"
+      >
         <img
           class="loading-gif"
           src="/assets/loading-8bars.gif"
           alt="loading gif"
         />
       </div>
-      <div class="flex-box-between" style="width: calc(100% - 220px)">
+      <div
+        class="flex-box-between"
+        style="width: calc(100% - 220px)"
+      >
         <div>
-          <p class="title">{{ slide[`title_${locale}`] }}</p>
-          <p class="subtitle">{{ slide[`subtitle_${locale}`] }}</p>
+          <p class="title">
+            {{ slide[`title_${locale}`] }}
+          </p>
+          <p class="subtitle">
+            {{ slide[`subtitle_${locale}`] }}
+          </p>
         </div>
         <div class="flex-box-vertical">
           <v-btn
             icon="mdi-pencil"
             color="#61a375"
             @click="setCurrentSlide(slide)"
-            style="margin-bottom: 10px; color: #ffffff; width: 40px"
+            style="
+              margin-bottom: 10px;
+              color: #ffffff;
+              width: 40px;
+            "
           ></v-btn
           ><v-btn
             icon="mdi-delete"
@@ -94,12 +127,22 @@
       </div>
     </div>
   </div>
-  <div class="flex-box-center" v-else>
+  <div
+    class="flex-box-center"
+    v-else
+  >
     <p class="body1">
-      {{ t("errors.Слайдов_пока_нет_Создайте_новый_слайд") }}
+      {{
+        t(
+          "lang-f1c57f05-0cea-4b81-b860-c6ac8ef3fa05"
+        )
+      }}
     </p>
   </div>
-  <SlideModal v-model="openModal" :editSlide="currentSlide" />
+  <SlideModal
+    v-model="openModal"
+    :editSlide="currentSlide"
+  />
 </template>
 
 <style scoped>

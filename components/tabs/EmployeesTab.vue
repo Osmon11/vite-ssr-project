@@ -26,7 +26,9 @@
   }
   function deletePerson(person) {
     store.setPromp({
-      message: t("questions.Подтверждаете_удаление_сотрудника"),
+      message: t(
+        "lang-9e461e6a-86a1-4cc4-8265-0768d776da8c"
+      ),
       confirm() {
         store.deleteEmployee({ id: person._id });
       },
@@ -41,11 +43,27 @@
 </script>
 
 <template>
-  <div class="flex-box-between" style="margin-bottom: 16px">
-    <p class="title">{{ t("Сотрудники") }}</p>
-    <v-btn color="#61a375" class="text-white" @click="setModal(true)">{{
-      t("general.Добавить_сотрудника")
-    }}</v-btn>
+  <div
+    class="flex-box-between"
+    style="margin-bottom: 16px"
+  >
+    <p class="title">
+      {{
+        t(
+          "lang-17988631-887c-48a8-9636-4eafe2657f2d"
+        )
+      }}
+    </p>
+    <v-btn
+      color="#61a375"
+      class="text-white"
+      @click="setModal(true)"
+      >{{
+        t(
+          "lang-2b0b4316-3cd1-4db5-84cd-3e3da8788fdc"
+        )
+      }}</v-btn
+    >
   </div>
   <div v-if="store.shariahBoard.length">
     <v-banner
@@ -62,33 +80,69 @@
           ></v-img></v-avatar
       ></template>
       <v-banner-text
-        ><div class="flex-box-between" style="width: 100%; margin-bottom: 15px">
-          <p class="title" style="font-size: 24px; padding-bottom: 0px">
+        ><div
+          class="flex-box-between"
+          style="width: 100%; margin-bottom: 15px"
+        >
+          <p
+            class="title"
+            style="
+              font-size: 24px;
+              padding-bottom: 0px;
+            "
+          >
             {{ person[`fullname_${locale}`] }}
           </p>
-          <div class="flex-box" style="gap: 20px">
+          <div
+            class="flex-box"
+            style="gap: 20px"
+          >
             <v-btn
               color="#61a375"
               class="text-white"
-              @click.stop="setCurrentPerson(person)"
-              >{{ t("general.редактировать") }}</v-btn
+              @click.stop="
+                setCurrentPerson(person)
+              "
+              >{{
+                t(
+                  "lang-37a7870d-ae54-4fe1-8767-fa261b98007e"
+                )
+              }}</v-btn
             >
             <v-btn
               color="#F44336"
               class="text-white"
               @click.stop="deletePerson(person)"
-              >{{ t("general.удалить") }}</v-btn
+              >{{
+                t(
+                  "lang-3b8a75a6-406e-416b-b06a-ac4a8e9e7690"
+                )
+              }}</v-btn
             >
           </div>
         </div>
-        {{ person[`biography_${locale}`] }}</v-banner-text
+        {{
+          person[`biography_${locale}`]
+        }}</v-banner-text
       ></v-banner
     >
   </div>
-  <div class="flex-box-center" v-else>
-    <p class="body1">{{ t("errors.Список_пуст_Добавьте_сотрудника") }}</p>
+  <div
+    class="flex-box-center"
+    v-else
+  >
+    <p class="body1">
+      {{
+        t(
+          "lang-959ff8bf-ed3e-4a46-8d9d-2d234d5b3bca"
+        )
+      }}
+    </p>
   </div>
-  <EmployeeModal v-model="openModal" :editPerson="currentPerson" />
+  <EmployeeModal
+    v-model="openModal"
+    :editPerson="currentPerson"
+  />
 </template>
 
 <style scoped>
