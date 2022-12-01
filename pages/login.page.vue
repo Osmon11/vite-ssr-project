@@ -1,12 +1,4 @@
 <template>
-  <metainfo>
-    <template
-      v-slot:title="{ content, metainfo }"
-      >{{
-        `${content} | ${metainfo.description}`
-      }}</template
-    >
-  </metainfo>
   <div class="login_wrapper flex-box-center">
     <main class="flex-box-center">
       <v-form

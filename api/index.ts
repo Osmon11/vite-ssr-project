@@ -35,7 +35,7 @@ export const getUserInfo = () =>
   );
 // --> SLIDES
 // get slide list
-export const getSlideList = (query: IQueryId) =>
+export const getSlideList = (query?: IQueryId) =>
   new Promise<TSlideList | IRequestFailed>(
     (resolve, reject) =>
       axios
@@ -146,7 +146,7 @@ export const deleteNews = (query: IQueryId) =>
 // --> EMPLOYEE
 // get employee list
 export const getEmployeeList = (
-  query: IQueryId
+  query?: IQueryId
 ) =>
   new Promise<TEmployeeList | IRequestFailed>(
     (resolve, reject) =>
@@ -204,7 +204,9 @@ export const deleteEmployee = (query: IQueryId) =>
   );
 // --> PARTNER
 // get partner list
-export const getPartnerList = (query: IQueryId) =>
+export const getPartnerList = (
+  query?: IQueryId
+) =>
   new Promise<TPartnerList | IRequestFailed>(
     (resolve, reject) =>
       axios
@@ -261,7 +263,9 @@ export const deletePartner = (query: IQueryId) =>
   );
 // --> SERVICE
 // get service list
-export const getServiceList = (query: IQueryId) =>
+export const getServiceList = (
+  query?: IQueryId
+) =>
   new Promise<TServiceList | IRequestFailed>(
     (resolve, reject) =>
       axios

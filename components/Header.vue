@@ -94,7 +94,7 @@
                       height: 20px;
                     "
                   />
-                  <p>{{ formattedLocale }}</p>
+                  <p>{{ locale }}</p>
                 </div></template
               >
               <template #items="{ handleChange }"
@@ -217,9 +217,6 @@
   // --> SELECT LANGUAGE
   const languages = computed(
     () => appStore.getLanguages
-  );
-  const formattedLocale = computed(
-    () => locale.value.split("-")[0]
   );
   // on change language
   function onLocaleChange(newlocale: string) {

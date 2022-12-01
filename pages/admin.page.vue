@@ -1,37 +1,4 @@
-<script setup>
-  import { ref } from "vue";
-  import { useI18n } from "vue-i18n";
-  import { useMeta } from "vue-meta";
-
-  import Header from "@/shared/Header.vue";
-  import Footer from "@/shared/Footer.vue";
-  import NewsTab from "@/components/NewsTab.vue";
-  import SlidesTab from "@/components/SlidesTab.vue";
-  import PartnersTab from "@/components/PartnersTab.vue";
-  import ServicesTab from "@/components/ServicesTab.vue";
-  import EmployeesTab from "@/components/EmployeesTab.vue";
-  import appStore from "../store/index.js";
-
-  const store = appStore.useStore();
-  const { t, locale } = useI18n();
-  useMeta({
-    title: store.defaultAppTitle,
-    description:
-      store.defaultAppDescription[locale.value],
-    keywords: store.keywords,
-  });
-  const tabs = ref("news");
-</script>
-
 <template>
-  <metainfo>
-    <template
-      v-slot:title="{ content, metainfo }"
-      >{{
-        `${content} | ${metainfo.description}`
-      }}</template
-    >
-  </metainfo>
   <Header />
   <div class="d-flex flex-row admin-wrapper">
     <v-card class="py-10">
@@ -87,6 +54,22 @@
   </div>
   <Footer />
 </template>
+
+<script lang="ts" setup>
+  import { ref } from "vue";
+  import { useI18n } from "vue-i18n";
+
+  import Header from "@/shared/Header.vue";
+  import Footer from "@/shared/Footer.vue";
+  import NewsTab from "@/components/NewsTab.vue";
+  import SlidesTab from "@/components/SlidesTab.vue";
+  import PartnersTab from "@/components/PartnersTab.vue";
+  import ServicesTab from "@/components/ServicesTab.vue";
+  import EmployeesTab from "@/components/EmployeesTab.vue";
+
+  const { t, locale } = useI18n();
+  const tabs = ref("news");
+</script>
 
 <style scoped>
   .admin-wrapper {

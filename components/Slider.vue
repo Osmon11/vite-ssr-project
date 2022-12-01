@@ -1,7 +1,7 @@
 <template>
   <div class="slider-container">
     <div
-      v-for="(slide, index) in store.slides"
+      v-for="(slide, index) in slideList"
       :key="slide._id"
       class="slide-item"
       :class="{ active: activeSlide === index }"
@@ -12,7 +12,7 @@
       >
         <img
           class="img"
-          :src="`${store.backendUrl}${slide.imageUrl}`"
+          :src="`${apiUrl}${slide.imageUrl}`"
           @load="onLoadImg(slide._id)"
           :alt="slide.imageName"
         />
@@ -59,24 +59,46 @@
 
 <script setup>
   import {
+    computed,
     onMounted,
     onUnmounted,
-  } from "@vue/runtime-core";
+  } from "vue";
   import { ref } from "@vue/reactivity";
   import { useI18n } from "vue-i18n";
 
-  import { useSlidesStore } from "@/stores/slides";
+  import { useSliderStore } from "@/stores/slider";
   import FeedbackModal from "@/components/dialogs/FeedbackModal.vue";
+  import { apiUrl } from "@/utils/constants";
+  import { isSlideList } from "@/api/index.guards";
 
-  const store = useSlidesStore();
+  const sliderStore = useSliderStore();
   const { t, locale } = useI18n();
   const activeSlide = ref(0);
   const feedbackModal = ref(false);
   const loadedImg = ref({});
+  console.log(locale.value);
+  const slideList = computed(
+    () => sliderStore.getSlides
+  );
 
   let interval;
   onMounted(() => {
-    store.fetchSlides();
+    sliderStore.fetchSlides().then((data) => {
+      if (isSlideList(data)) {
+        setTimeout(() => {
+          interval = setInterval(() => {
+            if (
+              activeSlide.value + 1 !==
+              sliderStore.slides.length
+            ) {
+              activeSlide.value += 1;
+            } else {
+              activeSlide.value = 0;
+            }
+          }, 5000);
+        }, 5000);
+      }
+    });
   });
   onUnmounted(() => {
     clearInterval(interval);

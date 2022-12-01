@@ -15,7 +15,7 @@
         <h2 class="title divider">
           {{
             t(
-              "lang-1f1c3873-d471-4827-a6c6-aa1a37c58fdc']"
+              "lang-1f1c3873-d471-4827-a6c6-aa1a37c58fdc"
             )
           }}
         </h2>

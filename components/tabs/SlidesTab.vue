@@ -1,52 +1,3 @@
-<script setup>
-  import { onMounted, ref } from "vue";
-  import { useI18n } from "vue-i18n";
-
-  import appStore from "../store";
-  import SlideModal from "./SlideModal.vue";
-
-  const store = appStore.useStore();
-  const { t, locale } = useI18n();
-  const openModal = ref(false);
-  const currentSlide = ref({});
-  const loadedImg = ref({});
-
-  onMounted(() => {
-    store.getSlides();
-    setTimeout(
-      store.slides.forEach(
-        (slide) =>
-          (loadedImg.value[slide._id] = true),
-        10000
-      )
-    );
-  });
-
-  function setCurrentSlide(slide) {
-    currentSlide.value = slide;
-    setModal(true);
-  }
-  function setModal(value) {
-    openModal.value = value;
-    if (!value) {
-      currentSlide.value = {};
-    }
-  }
-  function deleteSlide(slide) {
-    store.setPromp({
-      message: t(
-        "lang-004708ab-a907-48db-9c1b-8c99fb35a283"
-      ),
-      confirm() {
-        store.deleteSlide({ id: slide._id });
-      },
-    });
-  }
-  function onLoadImg(id) {
-    loadedImg.value[id] = true;
-  }
-</script>
-
 <template>
   <div
     class="flex-box-between"
@@ -70,7 +21,7 @@
       }}</v-btn
     >
   </div>
-  <div v-if="store.slides.length">
+  <!-- <div v-if="store.slides.length">
     <div
       class="slide_item flex-box"
       style="align-items: flex-start"
@@ -80,7 +31,7 @@
       <img
         class="img"
         v-show="loadedImg[slide._id]"
-        :src="`${store.backendUrl}${slide.imageUrl}`"
+        :src="`${apiUrl}${slide.imageUrl}`"
         @load="onLoadImg(slide._id)"
         :alt="slide.imageName"
       />
@@ -138,12 +89,51 @@
         )
       }}
     </p>
-  </div>
+  </div> -->
   <SlideModal
     v-model="openModal"
     :editSlide="currentSlide"
   />
 </template>
+
+<script lang="ts" setup>
+  import { apiUrl } from "@/utils/constants";
+  import { onMounted, ref } from "vue";
+  import { useI18n } from "vue-i18n";
+
+  import SlideModal from "./SlideModal.vue";
+
+  const { t, locale } = useI18n();
+  const openModal = ref(false);
+  const currentSlide = ref({});
+  const loadedImg = ref({});
+
+  onMounted(() => {});
+
+  // function setCurrentSlide(slide) {
+  //   currentSlide.value = slide;
+  //   setModal(true);
+  // }
+  function setModal(value: boolean) {
+    openModal.value = value;
+    if (!value) {
+      currentSlide.value = {};
+    }
+  }
+  // function deleteSlide(slide) {
+  //   store.setPromp({
+  //     message: t(
+  //       "lang-004708ab-a907-48db-9c1b-8c99fb35a283"
+  //     ),
+  //     confirm() {
+  //       store.deleteSlide({ id: slide._id });
+  //     },
+  //   });
+  // }
+  // function onLoadImg(id) {
+  //   loadedImg.value[id] = true;
+  // }
+</script>
 
 <style scoped>
   .slide_item {

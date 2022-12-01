@@ -1,4 +1,5 @@
 <script setup>
+  import { apiUrl } from "@/utils/constants";
   import { useI18n } from "vue-i18n";
   import { useRouter } from "vue-router";
   import appStore from "../store/index.js";
@@ -17,9 +18,15 @@
 </script>
 
 <template>
-  <article class="blog-card" @click="setCurrentNews">
+  <article
+    class="blog-card"
+    @click="setCurrentNews"
+  >
     <figure>
-      <img :src="`${store.backendUrl}${news.imageUrl}`" :alt="news.imageName" />
+      <img
+        :src="`${apiUrl}${news.imageUrl}`"
+        :alt="news.imageName"
+      />
     </figure>
     <div class="blog_content">
       <h3 class="card-title">
@@ -37,8 +44,10 @@
     cursor: pointer;
     transition: box-shadow 0.15s ease-in-out,
       -webkit-transform 0.15s ease-in-out;
-    transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
-    transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out,
+    transition: box-shadow 0.15s ease-in-out,
+      transform 0.15s ease-in-out;
+    transition: box-shadow 0.15s ease-in-out,
+      transform 0.15s ease-in-out,
       -webkit-transform 0.15s ease-in-out;
     background-color: #eaf0f6;
     border-radius: 3px;
@@ -49,7 +58,8 @@
     position: relative;
   }
   .blog-card:hover {
-    box-shadow: 0 10px 50px -5px rgb(51 71 91 / 12%);
+    box-shadow: 0 10px 50px -5px rgb(51 71 91 /
+          12%);
     -webkit-transform: scale(1.014);
     transform: scale(1.014);
   }

@@ -1,47 +1,3 @@
-<script setup>
-  import { onMounted, ref } from "vue";
-  import { useI18n } from "vue-i18n";
-
-  import appStore from "../store";
-  import EmployeeModal from "./EmployeeModal.vue";
-
-  const store = appStore.useStore();
-  const { t, locale } = useI18n();
-  const openModal = ref(false);
-  const currentPerson = ref(null);
-
-  onMounted(() => {
-    store.getShariahBoard();
-  });
-
-  function setModal(value) {
-    openModal.value = value;
-    if (!value) {
-      currentPerson.value = null;
-    }
-  }
-  function setCurrentPerson(person) {
-    currentPerson.value = person;
-    setModal(true);
-  }
-  function deletePerson(person) {
-    store.setPromp({
-      message: t(
-        "lang-9e461e6a-86a1-4cc4-8265-0768d776da8c"
-      ),
-      confirm() {
-        store.deleteEmployee({ id: person._id });
-      },
-    });
-  }
-  function onCloseModal(value) {
-    setModal(value);
-    if (currentPerson) {
-      currentPerson.value = null;
-    }
-  }
-</script>
-
 <template>
   <div
     class="flex-box-between"
@@ -65,7 +21,7 @@
       }}</v-btn
     >
   </div>
-  <div v-if="store.shariahBoard.length">
+  <!-- <div v-if="store.shariahBoard.length">
     <v-banner
       class="my-4"
       lines="5"
@@ -75,7 +31,7 @@
       <template #prepend
         ><v-avatar size="x-large">
           <v-img
-            :src="`${store.backendUrl}${person.avatar}`"
+            :src="`${apiUrl}${person.avatar}`"
             :alt="person[`fullname_${locale}`]"
           ></v-img></v-avatar
       ></template>
@@ -126,8 +82,8 @@
         }}</v-banner-text
       ></v-banner
     >
-  </div>
-  <div
+  </div> -->
+  <!-- <div
     class="flex-box-center"
     v-else
   >
@@ -138,12 +94,53 @@
         )
       }}
     </p>
-  </div>
+  </div> -->
   <EmployeeModal
     v-model="openModal"
     :editPerson="currentPerson"
   />
 </template>
+
+<script lang="ts" setup>
+  import { apiUrl } from "@/utils/constants";
+  import { onMounted, ref } from "vue";
+  import { useI18n } from "vue-i18n";
+
+  import EmployeeModal from "./EmployeeModal.vue";
+
+  const { t, locale } = useI18n();
+  const openModal = ref(false);
+  const currentPerson = ref(null);
+
+  onMounted(() => {});
+
+  function setModal(value: boolean) {
+    openModal.value = value;
+    if (!value) {
+      currentPerson.value = null;
+    }
+  }
+  // function setCurrentPerson(person) {
+  //   currentPerson.value = person;
+  //   setModal(true);
+  // }
+  // function deletePerson(person) {
+  //   store.setPromp({
+  //     message: t(
+  //       "lang-9e461e6a-86a1-4cc4-8265-0768d776da8c"
+  //     ),
+  //     confirm() {
+  //       store.deleteEmployee({ id: person._id });
+  //     },
+  //   });
+  // }
+  function onCloseModal(value: boolean) {
+    setModal(value);
+    if (currentPerson) {
+      currentPerson.value = null;
+    }
+  }
+</script>
 
 <style scoped>
   .news-item-img {

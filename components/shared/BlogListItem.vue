@@ -5,6 +5,7 @@
 
   import appStore from "@/store";
   import { isImageLoaded } from "@/utils";
+  import { apiUrl } from "@/utils/constants";
 
   const props = defineProps(["news"]);
 
@@ -37,7 +38,7 @@
     <img
       class="cover"
       v-show="isLoaded"
-      :src="`${store.backendUrl}${news.imageUrl}`"
+      :src="`${apiUrl}${news.imageUrl}`"
       :alt="news.imageName"
       @load="onImageLoad"
     />

@@ -1,32 +1,4 @@
-<script setup>
-  import { useI18n } from "vue-i18n";
-  import { useMeta } from "vue-meta";
-
-  import Header from "@/shared/Header.vue";
-  import Footer from "@/shared/Footer.vue";
-  import appStore from "../store";
-
-  const store = appStore.useStore();
-  const { t, locale } = useI18n();
-  useMeta({
-    title: store.defaultAppTitle,
-    description:
-      store.defaultAppDescription[locale.value],
-    keywords: store.keywords,
-  });
-</script>
-
 <template>
-  <metainfo>
-    <template
-      v-slot:title="{ content, metainfo }"
-      >{{
-        `${content} - ${t(
-          "lang-ef952636-74de-4f4c-a2b1-df869f04e844"
-        )} | ${metainfo.description}`
-      }}</template
-    >
-  </metainfo>
   <Header />
   <div
     class="flex-box-center"
@@ -68,3 +40,12 @@
   </div>
   <Footer />
 </template>
+
+<script lang="ts" setup>
+  import { useI18n } from "vue-i18n";
+
+  import Header from "@/shared/Header.vue";
+  import Footer from "@/shared/Footer.vue";
+
+  const { t, locale } = useI18n();
+</script>

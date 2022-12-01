@@ -7,13 +7,14 @@ type MessageSchema_ru_RF = typeof ru;
 
 export default createI18n<
   [MessageSchema_en_US, MessageSchema_ru_RF],
-  "en-US" | "ru-RF"
+  "en" | "ru"
 >({
   allowComposition: true,
   locale: import.meta.env.VITE_PRIMARY_LANGUAGE,
-  fallbackLocale: import.meta.env.VITE_SECONDARY_LANGUAGE,
+  fallbackLocale: import.meta.env
+    .VITE_SECONDARY_LANGUAGE,
   messages: {
-    "en-US": en,
-    "ru-RF": ru,
+    en: en,
+    ru: ru,
   },
 });

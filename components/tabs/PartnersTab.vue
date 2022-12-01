@@ -1,52 +1,3 @@
-<script setup>
-  import { onMounted, ref } from "vue";
-  import { useI18n } from "vue-i18n";
-
-  import appStore from "../store";
-  import PartnerModal from "./PartnerModal.vue";
-
-  const store = appStore.useStore();
-  const { t, locale } = useI18n();
-  const openModal = ref(false);
-  const currentPartner = ref(null);
-  const loadedImg = ref({});
-
-  onMounted(() => {
-    store.getPartnersList();
-    setTimeout(
-      store.partners.forEach(
-        (partner) =>
-          (loadedImg.value[partner._id] = true),
-        10000
-      )
-    );
-  });
-
-  function setCurrentPartner(partner) {
-    currentPartner.value = partner;
-    setModal(true);
-  }
-  function setModal(value) {
-    openModal.value = value;
-    if (!value) {
-      currentPartner.value = null;
-    }
-  }
-  function deletePartner(partner) {
-    store.setPromp({
-      message: t(
-        "lang-55cb3f2e-34db-488a-a78c-386e34be0bde"
-      ),
-      confirm() {
-        store.deletePartner({ id: partner._id });
-      },
-    });
-  }
-  function onLoadImg(id) {
-    loadedImg.value[id] = true;
-  }
-</script>
-
 <template>
   <div
     class="flex-box-between"
@@ -70,7 +21,7 @@
       }}</v-btn
     >
   </div>
-  <div v-if="store.partners.length">
+  <!-- <div v-if="store.partners.length">
     <v-banner
       class="my-4"
       lines="5"
@@ -83,7 +34,7 @@
           rounded="0"
         >
           <v-img
-            :src="`${store.backendUrl}${person.logo}`"
+            :src="`${apiUrl}${person.logo}`"
             :alt="person[`name_${locale}`]"
           ></v-img></v-avatar
       ></template>
@@ -143,9 +94,48 @@
         )
       }}
     </p>
-  </div>
+  </div> -->
   <PartnerModal
     v-model="openModal"
     :editPartner="currentPartner"
   />
 </template>
+
+<script lang="ts" setup>
+  import { onMounted, ref } from "vue";
+  import { useI18n } from "vue-i18n";
+  import { apiUrl } from "@/utils/constants";
+
+  import PartnerModal from "./PartnerModal.vue";
+
+  const { t, locale } = useI18n();
+  const openModal = ref(false);
+  const currentPartner = ref(null);
+  const loadedImg = ref({});
+
+  onMounted(() => {});
+
+  // function setCurrentPartner(partner) {
+  //   currentPartner.value = partner;
+  //   setModal(true);
+  // }
+  function setModal(value: boolean) {
+    openModal.value = value;
+    if (!value) {
+      currentPartner.value = null;
+    }
+  }
+  // function deletePartner(partner) {
+  //   store.setPromp({
+  //     message: t(
+  //       "lang-55cb3f2e-34db-488a-a78c-386e34be0bde"
+  //     ),
+  //     confirm() {
+  //       store.deletePartner({ id: partner._id });
+  //     },
+  //   });
+  // }
+  // function onLoadImg(id) {
+  //   loadedImg.value[id] = true;
+  // }
+</script>

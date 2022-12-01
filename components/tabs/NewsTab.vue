@@ -1,47 +1,3 @@
-<script setup>
-  import { onMounted, ref } from "vue";
-
-  import EditorModal from "@/components/NewsModal.vue";
-  import appStore from "../store";
-  import { useI18n } from "vue-i18n";
-
-  const store = appStore.useStore();
-  const { t, locale } = useI18n();
-  const openModal = ref(false);
-  const currentNews = ref(null);
-
-  onMounted(() => {
-    store.getNewsFeed();
-  });
-
-  function setCurrentNews(news) {
-    currentNews.value = news;
-    setModal(true);
-  }
-  function setModal(value) {
-    openModal.value = value;
-    if (!value) {
-      currentNews.value = null;
-    }
-  }
-  function deleteNews(news) {
-    store.setPromp({
-      message: t(
-        "lang-241de744-3917-4521-b15d-81aba17a4857"
-      ),
-      confirm() {
-        store.deleteNews({ id: news._id });
-      },
-    });
-  }
-  function onCloseModal(value) {
-    setModal(value);
-    if (currentNews) {
-      currentNews.value = null;
-    }
-  }
-</script>
-
 <template>
   <div
     class="flex-box-between"
@@ -65,7 +21,7 @@
       }}</v-btn
     >
   </div>
-  <v-expansion-panels
+  <!-- <v-expansion-panels
     style="margin-bottom: 20px"
     v-if="store.newsFeed.length"
   >
@@ -118,7 +74,7 @@
           >
             <img
               class="news-item-img"
-              :src="`${store.backendUrl}${newsItem.imageUrl}`"
+              :src="`${apiUrl}${newsItem.imageUrl}`"
               :alt="newsItem.imageName"
             />
             <p style="display: inline">
@@ -132,8 +88,8 @@
         </div>
       </v-expansion-panel-text>
     </v-expansion-panel>
-  </v-expansion-panels>
-  <div
+  </v-expansion-panels> -->
+  <!-- <div
     class="flex-box-center"
     v-else
   >
@@ -144,12 +100,53 @@
         )
       }}
     </p>
-  </div>
+  </div> -->
   <EditorModal
     v-model="openModal"
     :editNews="currentNews"
   />
 </template>
+
+<script lang="ts" setup>
+  import { onMounted, ref } from "vue";
+
+  import EditorModal from "@/components/NewsModal.vue";
+  import { useI18n } from "vue-i18n";
+  import { apiUrl } from "@/utils/constants";
+
+  const { t, locale } = useI18n();
+  const openModal = ref(false);
+  const currentNews = ref(null);
+
+  onMounted(() => {});
+
+  // function setCurrentNews(news) {
+  //   currentNews.value = news;
+  //   setModal(true);
+  // }
+  function setModal(value: boolean) {
+    openModal.value = value;
+    if (!value) {
+      currentNews.value = null;
+    }
+  }
+  // function deleteNews(news) {
+  //   store.setPromp({
+  //     message: t(
+  //       "lang-241de744-3917-4521-b15d-81aba17a4857"
+  //     ),
+  //     confirm() {
+  //       store.deleteNews({ id: news._id });
+  //     },
+  //   });
+  // }
+  function onCloseModal(value: boolean) {
+    setModal(value);
+    if (currentNews) {
+      currentNews.value = null;
+    }
+  }
+</script>
 
 <style scoped>
   .news-item-img {
