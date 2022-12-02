@@ -1,122 +1,15 @@
-<script setup>
-  import FeedbackModal from "@/components/FeedbackModal.vue";
-  import {
-    useRoute,
-    useRouter,
-  } from "vue-router";
-  import { ref, computed } from "@vue/reactivity";
-  import { useI18n } from "vue-i18n";
-
-  const props = defineProps([
-    "scrollIntoHandler",
-  ]);
-  const { t } = useI18n();
-  const { name } = useRoute();
-  const navigate = useRouter();
-  const openFeedbackModal = ref(false);
-  const xs = computed(
-    () => window.innerWidth <= 600
-  );
-  const sm = computed(
-    () => window.innerWidth <= 960
-  );
-
-  function setFeedbackModal(value) {
-    openFeedbackModal.value = value;
-  }
-  function navigationHandler(
-    path,
-    name,
-    query,
-    scrollInto = false
-  ) {
-    if (scrollInto) {
-      props.scrollIntoHandler(path);
-    } else {
-      navigate.push({ name, query });
-    }
-  }
-  function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }
-
-  const phoneNumber = import.meta.env.VITE_PHONE;
-  const emailAddress = import.meta.env.VITE_EMAIL;
-</script>
-
 <template>
   <footer>
-    <div class="floating-container">
+    <div
+      class="d-flex justify-center align-center"
+    >
       <div
-        class="floating-button"
-        @click="scrollToTop"
+        class="footer-content d-flex flex-row justify-center align-start flex-wrap"
       >
-        <v-icon icon="$chevronUp"></v-icon>
-      </div>
-      <div class="element-container">
-        <span
-          class="float-element flex-box-center tooltip-left"
-          ><a
-            href="https://www.facebook.com/amanatadvisory.kg"
-            target="_blank"
-            ><img
-              :draggable="false"
-              class="social-media-icon active"
-              src="/assets/facebook-colorful.svg"
-              alt="facebook icon" /></a
-        ></span>
-        <span
-          class="float-element flex-box-center"
-          ><a
-            href="https://wa.me/996508081071"
-            target="_blank"
-            ><img
-              :draggable="false"
-              class="social-media-icon active"
-              src="/assets/whatsapp-colorful.svg"
-              alt="whatsapp icon" /></a
-        ></span>
-        <span
-          class="float-element flex-box-center"
-          ><a
-            href="https://t.me/+996555081071"
-            target="_blank"
-            ><img
-              :draggable="false"
-              class="social-media-icon active"
-              src="/assets/telegram-colorful.svg"
-              alt="telegram icon" /></a
-        ></span>
-        <span
-          class="float-element flex-box-center"
-          ><a
-            href="https://www.instagram.com/amanatadvisory.kg/"
-            target="_blank"
-            ><img
-              :draggable="false"
-              class="social-media-icon active"
-              src="/assets/instagram-round-color-icon.svg"
-              alt="instagram icon" /></a
-        ></span>
-        <span
-          class="float-element flex-box-center tooltip-left"
-          ><a :href="`tel:${phoneNumber}`"
-            ><img
-              class="icon-color-white contact-icon"
-              src="/assets/tel.svg"
-              alt="phone icon" /></a
-        ></span>
-      </div>
-    </div>
-    <div class="flex-box-center">
-      <div class="footer-content flex-box">
         <div class="column">
           <p class="title">
             {{
-              t(
+              $t(
                 "lang-a3bed61a-5493-4c37-9959-704e03364489"
               )
             }}
@@ -195,22 +88,32 @@
               src="/assets/adress.svg"
               alt="adress icon"
             />
-            <p class="text-footer">
+            <p
+              class="text-footer d-flex align-center"
+            >
               {{
-                t(
+                $t(
                   "lang-08f5ef7e-a2f5-40ff-8030-9928c3e9711b"
                 )
               }}<a
-                :href="`http://maps.google.com/?q=${t(
+                class="hover-effect"
+                :href="`http://maps.google.com/?q=${$t(
                   'lang-81aabe66-1dce-4aa8-b0f2-c8c3ef08ee08'
                 )}`"
                 target="_blank"
                 rel="noopener noreferrer"
-                >{{
-                  t(
-                    "lang-81aabe66-1dce-4aa8-b0f2-c8c3ef08ee08"
-                  )
-                }}</a
+                ><span
+                  :data-hover="
+                    $t(
+                      'lang-81aabe66-1dce-4aa8-b0f2-c8c3ef08ee08'
+                    )
+                  "
+                  >{{
+                    $t(
+                      "lang-81aabe66-1dce-4aa8-b0f2-c8c3ef08ee08"
+                    )
+                  }}</span
+                ></a
               >
             </p>
           </div>
@@ -223,14 +126,21 @@
               src="/assets/tel.svg"
               alt="phone icon"
             />
-            <p class="text-footer">
+            <p
+              class="text-footer d-flex align-center"
+            >
               {{
-                t(
+                $t(
                   "lang-ecf45fc4-2864-49bf-af25-72d4c5cd361d"
                 )
-              }}<a :href="`tel:${phoneNumber}`">{{
-                `+${phoneNumber}`
-              }}</a>
+              }}<a
+                class="hover-effect"
+                :href="`tel:${phoneNumber}`"
+                ><span
+                  :data-hover="`+${phoneNumber}`"
+                  >{{ `+${phoneNumber}` }}</span
+                ></a
+              >
             </p>
           </div>
           <div
@@ -242,16 +152,22 @@
               src="/assets/email.svg"
               alt="email icon"
             />
-            <p class="text-footer">
+            <p
+              class="text-footer d-flex align-center"
+            >
               {{
-                t(
+                $t(
                   "lang-08f5ef7e-a2f5-40ff-8030-9928c3e9711b"
                 )
               }}<a
+                class="hover-effect"
                 :href="`https://mail.google.com/mail/?view=cm&fs=1&to=${emailAddress}`"
                 target="_blank"
                 rel="noopener noreferrer"
-                >{{ emailAddress }}</a
+                ><span
+                  :data-hover="emailAddress"
+                  >{{ emailAddress }}</span
+                ></a
               >
             </p>
           </div>
@@ -259,7 +175,7 @@
         <div class="column">
           <p class="title">
             {{
-              t(
+              $t(
                 "lang-9e2584b8-3eac-467b-907a-f571afa1580d"
               )
             }}
@@ -268,18 +184,18 @@
             class="nav-item text-footer"
             @click="
               navigationHandler(
-                name === 'home'
+                routeName === 'home'
                   ? 'about_us'
                   : '/',
                 'home',
                 { section: 'about_us' },
-                name === 'home'
+                routeName === 'home'
               )
             "
           >
             {{
-              t(
-                "lang-de48119e-6e58-4638-9e52-b157c06d43d8"
+              $t(
+                "lang-d8bf7dcf-c03c-4fd6-ab84-5702e4f0c7b8"
               )
             }}
           </p>
@@ -287,17 +203,17 @@
             class="nav-item text-footer"
             @click="
               navigationHandler(
-                name === 'home'
+                routeName === 'home'
                   ? 'our_services'
                   : '/',
                 'home',
                 { section: 'our_services' },
-                name === 'home'
+                routeName === 'home'
               )
             "
           >
             {{
-              t(
+              $t(
                 "lang-789737de-eb6a-47de-ab69-33aa5670867e"
               )
             }}
@@ -312,7 +228,7 @@
             "
           >
             {{
-              t(
+              $t(
                 "lang-43551998-d49d-41a1-8287-25a880594e94"
               )
             }}
@@ -321,7 +237,7 @@
         <div class="column">
           <p class="title">
             {{
-              t(
+              $t(
                 "lang-10432732-d2f2-4a3e-8f17-0b26965ee54b"
               )
             }}
@@ -336,7 +252,7 @@
             "
           >
             {{
-              t(
+              $t(
                 "lang-55f459ef-9533-4515-971c-ccd8e9d578be"
               )
             }}
@@ -346,13 +262,13 @@
           <v-btn
             color="#61a375"
             class="text-white"
-            @click="setFeedbackModal(true)"
+            @click="feedbackModal = true"
             :style="{
               marginTop: xs || sm ? 40 : 0,
             }"
           >
             {{
-              t(
+              $t(
                 "lang-a3bed61a-5493-4c37-9959-704e03364489"
               )
             }}
@@ -369,16 +285,151 @@
       "
     >
       {{
-        t(
+        $t(
           "lang-4a3ec30f-b262-4c79-91a8-2badeb083969"
         )
       }}
     </p>
   </footer>
-  <FeedbackModal v-model="openFeedbackModal" />
+  <div class="floating-container">
+    <div
+      class="floating-button"
+      @click="scrollToTop"
+    >
+      <v-icon icon="mdi-chevron-up"></v-icon>
+    </div>
+    <div class="element-container">
+      <span
+        class="float-element flex-box-center tooltip-left"
+        ><a
+          href="https://www.facebook.com/amanatadvisory.kg"
+          target="_blank"
+          ><img
+            :draggable="false"
+            class="social-media-icon active"
+            src="/assets/facebook-colorful.svg"
+            alt="facebook icon" /></a
+      ></span>
+      <span class="float-element flex-box-center"
+        ><a
+          href="https://wa.me/996508081071"
+          target="_blank"
+          ><img
+            :draggable="false"
+            class="social-media-icon active"
+            src="/assets/whatsapp-colorful.svg"
+            alt="whatsapp icon" /></a
+      ></span>
+      <span class="float-element flex-box-center"
+        ><a
+          href="https://t.me/+996555081071"
+          target="_blank"
+          ><img
+            :draggable="false"
+            class="social-media-icon active"
+            src="/assets/telegram-colorful.svg"
+            alt="telegram icon" /></a
+      ></span>
+      <span class="float-element flex-box-center"
+        ><a
+          href="https://www.instagram.com/amanatadvisory.kg/"
+          target="_blank"
+          ><img
+            :draggable="false"
+            class="social-media-icon active"
+            src="/assets/instagram-round-color-icon.svg"
+            alt="instagram icon" /></a
+      ></span>
+      <span
+        class="float-element flex-box-center tooltip-left"
+        ><a :href="`tel:${phoneNumber}`"
+          ><img
+            class="icon-color-white contact-icon"
+            src="/assets/tel.svg"
+            alt="phone icon" /></a
+      ></span>
+    </div>
+  </div>
+  <FeedbackModal v-model="feedbackModal" />
 </template>
 
+<script lang="ts" setup>
+  import { ref, computed } from "@vue/reactivity";
+  import { usePageContext } from "@/renderer/usePageContext";
+
+  import FeedbackModal from "@/components/dialogs/FeedbackModal.vue";
+
+  const pageContext = usePageContext();
+
+  const props = defineProps([
+    "scrollIntoHandler",
+  ]);
+  const feedbackModal = ref(false);
+  const xs = computed(() =>
+    import.meta.env.SSR
+      ? 0
+      : window.innerWidth <= 600
+  );
+  const sm = computed(() =>
+    import.meta.env.SSR
+      ? 0
+      : window.innerWidth <= 960
+  );
+
+  function navigationHandler(
+    path: string,
+    name: string,
+    query?: { section: string },
+    scrollInto = false
+  ) {
+    if (scrollInto) {
+      props.scrollIntoHandler(path);
+    } else {
+      console.log({ name, query });
+    }
+  }
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  const phoneNumber = import.meta.env.VITE_PHONE;
+  const emailAddress = import.meta.env.VITE_EMAIL;
+  const routeName = pageContext.urlPathname;
+</script>
+
 <style scoped>
+  .hover-effect {
+    position: relative;
+    display: inline-block;
+    outline: none;
+    overflow: hidden;
+    text-transform: lowercase;
+  }
+  .hover-effect span {
+    position: relative;
+    display: inline-block;
+    -webkit-transition: -webkit-transform 0.3s;
+    -moz-transition: -moz-transform 0.3s;
+    transition: transform 0.3s;
+  }
+  .hover-effect span::before {
+    position: absolute;
+    top: 100%;
+    content: attr(data-hover);
+    font-weight: 700;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  .hover-effect:hover span,
+  .hover-effect:focus span {
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
   footer {
     padding: 70px 0px 35px;
     background: #4b5757;
@@ -386,9 +437,6 @@
   .footer-content {
     width: 100%;
     max-width: 1250px;
-    align-items: start;
-    justify-content: center;
-    flex-wrap: wrap;
     gap: 50px;
   }
   .title {
@@ -407,8 +455,10 @@
     font-weight: 300;
     line-height: 20px;
     padding: 0px;
+    gap: 5px;
   }
-  .text-footer a {
+  .text-footer a,
+  .text-footer span {
     color: #ffffff;
     font-weight: 500;
   }

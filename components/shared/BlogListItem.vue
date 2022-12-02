@@ -1,35 +1,3 @@
-<script setup>
-  import { useRouter } from "vue-router";
-  import { ref } from "@vue/reactivity";
-  import { useI18n } from "vue-i18n";
-
-  import appStore from "@/store";
-  import { isImageLoaded } from "@/utils";
-  import { apiUrl } from "@/utils/constants";
-
-  const props = defineProps(["news"]);
-
-  const store = appStore.useStore();
-  const navigate = useRouter();
-  const { t, locale } = useI18n();
-  const isLoaded = ref(false);
-  const expanded = ref(false);
-
-  function setExpanded(value) {
-    expanded.value = value;
-  }
-  function setCurrentNews(news) {
-    store.$patch((state) => {
-      state.currentNews = news;
-    });
-    navigate.push("/news");
-  }
-  function onImageLoad() {
-    console.log(true);
-    isLoaded.value = true;
-  }
-</script>
-
 <template>
   <article
     class="flex-box collapse"
@@ -38,8 +6,8 @@
     <img
       class="cover"
       v-show="isLoaded"
-      :src="`${apiUrl}${news.imageUrl}`"
-      :alt="news.imageName"
+      :src="`${apiUrl}${props.news.imageUrl}`"
+      :alt="props.news.imageName"
       @load="onImageLoad"
     />
     <div
@@ -53,10 +21,10 @@
     </div>
     <div class="content">
       <h1 class="title">
-        {{ news[`title_${locale}`] }}
+        {{ props.news[`title_${locale}`] }}
       </h1>
       <p class="short-text body1 py-4">
-        {{ news[`subtitle_${locale}`] }}
+        {{ props.news[`subtitle_${locale}`] }}
       </p>
     </div>
     <div
@@ -65,7 +33,7 @@
     >
       <p
         class="nav-item nav-item-secondary"
-        @click="setCurrentNews(news)"
+        @click="setCurrentNews(props.news)"
       >
         {{
           t(
@@ -76,6 +44,28 @@
     </div>
   </article>
 </template>
+
+<script lang="ts" setup>
+  import { ref } from "@vue/reactivity";
+  import { useI18n } from "vue-i18n";
+
+  import { apiUrl } from "@/utils/constants";
+  import { INews } from "@/api/index.types";
+
+  const props = defineProps(["news"]);
+
+  const { t, locale } = useI18n();
+  const isLoaded = ref(false);
+  const expanded = ref(false);
+
+  function setCurrentNews(news: INews) {
+    console.log(news);
+  }
+  function onImageLoad() {
+    console.log(true);
+    isLoaded.value = true;
+  }
+</script>
 
 <style scoped>
   article {

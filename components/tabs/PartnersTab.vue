@@ -104,14 +104,12 @@
 <script lang="ts" setup>
   import { onMounted, ref } from "vue";
   import { useI18n } from "vue-i18n";
-  import { apiUrl } from "@/utils/constants";
 
   import PartnerModal from "./PartnerModal.vue";
 
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const openModal = ref(false);
   const currentPartner = ref(null);
-  const loadedImg = ref({});
 
   onMounted(() => {});
 

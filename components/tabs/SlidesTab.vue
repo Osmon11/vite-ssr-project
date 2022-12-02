@@ -5,7 +5,7 @@
   >
     <p class="title">
       {{
-        t(
+        $t(
           "lang-a7fbb933-403c-437a-8cb8-96eefb0b8309"
         )
       }}
@@ -15,7 +15,7 @@
       class="text-white"
       @click="setModal(true)"
       >{{
-        t(
+        $t(
           "lang-2729514f-a39b-4cf6-981d-956ca5e814eb"
         )
       }}</v-btn
@@ -84,7 +84,7 @@
   >
     <p class="body1">
       {{
-        t(
+        $t(
           "lang-f1c57f05-0cea-4b81-b860-c6ac8ef3fa05"
         )
       }}
@@ -97,16 +97,16 @@
 </template>
 
 <script lang="ts" setup>
-  import { apiUrl } from "@/utils/constants";
+  // import { apiUrl } from "@/utils/constants";
   import { onMounted, ref } from "vue";
-  import { useI18n } from "vue-i18n";
+  // import { useI18n } from "vue-i18n";
 
   import SlideModal from "./SlideModal.vue";
 
-  const { t, locale } = useI18n();
+  // const { t } = useI18n();
   const openModal = ref(false);
   const currentSlide = ref({});
-  const loadedImg = ref({});
+  // const loadedImg = ref({});
 
   onMounted(() => {});
 

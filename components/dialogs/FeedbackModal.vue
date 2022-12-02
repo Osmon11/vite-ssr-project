@@ -14,7 +14,7 @@
       >
         <h2 class="title divider">
           {{
-            t(
+            $t(
               "lang-1f1c3873-d471-4827-a6c6-aa1a37c58fdc"
             )
           }}
@@ -30,7 +30,7 @@
           name="userName"
           variant="outlined"
           :label="
-            t(
+            $t(
               'lang-fcb1dfa0-9bc4-4f68-aa27-cfea199b636e'
             )
           "
@@ -38,7 +38,7 @@
           :rules="[
             (v) =>
               !!v ||
-              t(
+              $t(
                 'lang-d6579f01-7d46-491a-855a-788dfbd1aeae'
               ),
           ]"
@@ -50,7 +50,7 @@
           name="email"
           variant="outlined"
           :label="
-            t(
+            $t(
               'lang-f6988f0f-2bf4-4fbb-91bd-7d7b5ba90a44'
             )
           "
@@ -58,7 +58,7 @@
           :rules="[
             (v) =>
               !!v ||
-              t(
+              $t(
                 'lang-0fa19fd6-2ad1-46ff-be56-c367ceff6d9e'
               ),
           ]"
@@ -71,7 +71,7 @@
         name="message"
         variant="outlined"
         :label="
-          t(
+          $t(
             'lang-89b06887-112d-4634-8d31-877399ce045e'
           )
         "
@@ -79,7 +79,7 @@
         :rules="[
           (v) =>
             !!v ||
-            t(
+            $t(
               'lang-a631c2b6-1a5f-4a11-b089-abca736861d1'
             ),
         ]"
@@ -95,7 +95,7 @@
             type="submit"
             :loading="isLoading"
             >{{
-              t(
+              $t(
                 "lang-3d74e643-f6a3-4805-a399-de2a65317236"
               )
             }}</v-btn
@@ -105,27 +105,24 @@
             class="text-white"
             @click="closeHandler"
             >{{
-              t(
+              $t(
                 "lang-13ae4b92-8336-4cdd-adbb-ead122b87cb3"
               )
             }}</v-btn
           >
         </div>
       </div>
-      <!-- <VueRecaptcha /> -->
     </v-form>
   </Dialog>
 </template>
 
-<script setup>
+<script lang="ts" setup>
   import { ref } from "vue";
 
   import Dialog from "./Dialog.vue";
-  import { useI18n } from "vue-i18n";
 
   const props = defineProps(["modelValue"]);
   const emit = defineEmits(["update:modelValue"]);
-  const { t } = useI18n();
   const form = ref();
   const valid = ref(false);
   const userName = ref("");

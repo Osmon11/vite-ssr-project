@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
   import { computed, watch } from "vue";
 
   const props = defineProps({
@@ -51,9 +51,11 @@
     }
   );
 
-  function closeModalHandler(event) {
+  function closeModalHandler(event: Event) {
     if (
-      event.target.hasAttribute("data-container")
+      (event.target as HTMLElement).hasAttribute(
+        "data-container"
+      )
     ) {
       props.onClose(false);
     }

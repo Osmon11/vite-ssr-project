@@ -46,7 +46,7 @@
 
   // const loadedImg = ref({});
   // const xs = computed(
-  //   () => window.innerWidth <= 600
+  //   () => import.meta.env.SSR ? 0 : window.innerWidth <= 600
   // );
 
   onMounted(() => {});

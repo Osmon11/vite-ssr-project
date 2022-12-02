@@ -5,7 +5,7 @@
   >
     <p class="title">
       {{
-        t(
+        $t(
           "lang-17988631-887c-48a8-9636-4eafe2657f2d"
         )
       }}
@@ -15,7 +15,7 @@
       class="text-white"
       @click="setModal(true)"
       >{{
-        t(
+        $t(
           "lang-2b0b4316-3cd1-4db5-84cd-3e3da8788fdc"
         )
       }}</v-btn
@@ -60,7 +60,7 @@
                 setCurrentPerson(person)
               "
               >{{
-                t(
+                $t(
                   "lang-37a7870d-ae54-4fe1-8767-fa261b98007e"
                 )
               }}</v-btn
@@ -70,7 +70,7 @@
               class="text-white"
               @click.stop="deletePerson(person)"
               >{{
-                t(
+                $t(
                   "lang-3b8a75a6-406e-416b-b06a-ac4a8e9e7690"
                 )
               }}</v-btn
@@ -89,7 +89,7 @@
   >
     <p class="body1">
       {{
-        t(
+        $t(
           "lang-959ff8bf-ed3e-4a46-8d9d-2d234d5b3bca"
         )
       }}
@@ -102,13 +102,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { apiUrl } from "@/utils/constants";
   import { onMounted, ref } from "vue";
-  import { useI18n } from "vue-i18n";
+  // import { useI18n } from "vue-i18n";
+  // import { apiUrl } from "@/utils/constants";
 
   import EmployeeModal from "./EmployeeModal.vue";
 
-  const { t, locale } = useI18n();
+  // const { t, } = useI18n();
   const openModal = ref(false);
   const currentPerson = ref(null);
 
@@ -126,7 +126,7 @@
   // }
   // function deletePerson(person) {
   //   store.setPromp({
-  //     message: t(
+  //     message: $t(
   //       "lang-9e461e6a-86a1-4cc4-8265-0768d776da8c"
   //     ),
   //     confirm() {
@@ -134,12 +134,12 @@
   //     },
   //   });
   // }
-  function onCloseModal(value: boolean) {
-    setModal(value);
-    if (currentPerson) {
-      currentPerson.value = null;
-    }
-  }
+  // function onCloseModal(value: boolean) {
+  //   setModal(value);
+  //   if (currentPerson) {
+  //     currentPerson.value = null;
+  //   }
+  // }
 </script>
 
 <style scoped>

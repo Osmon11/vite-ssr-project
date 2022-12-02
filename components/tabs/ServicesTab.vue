@@ -1,47 +1,3 @@
-<script setup>
-  import { onMounted, ref } from "vue";
-
-  import ServiceModal from "@/components/ServiceModal.vue";
-  import appStore from "../store";
-  import { useI18n } from "vue-i18n";
-
-  const store = appStore.useStore();
-  const { t, locale } = useI18n();
-  const openModal = ref(false);
-  const currentService = ref(null);
-
-  onMounted(() => {
-    store.getServicesList();
-  });
-
-  function setCurrentService(service) {
-    currentService.value = service;
-    setModal(true);
-  }
-  function setModal(value) {
-    openModal.value = value;
-    if (!value) {
-      currentService.value = null;
-    }
-  }
-  function deleteService(service) {
-    store.setPromp({
-      message: t(
-        "lang-9e461e6a-86a1-4cc4-8265-0768d776da8c"
-      ),
-      confirm() {
-        store.deleteService({ id: service._id });
-      },
-    });
-  }
-  function onCloseModal(value) {
-    setModal(value);
-    if (currentService) {
-      currentService.value = null;
-    }
-  }
-</script>
-
 <template>
   <div
     class="flex-box-between"
@@ -49,7 +5,7 @@
   >
     <p class="title">
       {{
-        t(
+        $t(
           "lang-63796838-a08d-4eba-b900-ce805c2df2ac"
         )
       }}
@@ -59,13 +15,13 @@
       class="text-white"
       @click="setModal(true)"
       >{{
-        t(
+        $t(
           "lang-d9a9824d-4f4a-4f98-a4a7-cca0102fee59"
         )
       }}</v-btn
     >
   </div>
-  <v-expansion-panels
+  <!-- <v-expansion-panels
     style="margin-bottom: 20px"
     v-if="store.services.length"
   >
@@ -92,7 +48,7 @@
                 setCurrentService(service)
               "
               >{{
-                t(
+                $t(
                   "lang-37a7870d-ae54-4fe1-8767-fa261b98007e"
                 )
               }}</v-btn
@@ -102,7 +58,7 @@
               class="text-white"
               @click.stop="deleteService(service)"
               >{{
-                t(
+                $t(
                   "lang-3b8a75a6-406e-416b-b06a-ac4a8e9e7690"
                 )
               }}</v-btn
@@ -119,21 +75,61 @@
         </div>
       </v-expansion-panel-text>
     </v-expansion-panel>
-  </v-expansion-panels>
-  <div
+  </v-expansion-panels> -->
+  <!-- <div
     class="flex-box-center"
     v-else
   >
     <p class="body1">
       {{
-        t(
+        $t(
           "lang-40f56028-ec4e-4dc9-a177-6bc817fe50e2"
         )
       }}
     </p>
-  </div>
+  </div> -->
   <ServiceModal
     v-model="openModal"
     :editNews="currentService"
   />
 </template>
+
+<script lang="ts" setup>
+  import { onMounted, ref } from "vue";
+
+  import ServiceModal from "@/components/ServiceModal.vue";
+  // import { useI18n } from "vue-i18n";
+
+  // const { t } = useI18n();
+  const openModal = ref(false);
+  const currentService = ref(null);
+
+  onMounted(() => {});
+
+  // function setCurrentService(service) {
+  //   currentService.value = service;
+  //   setModal(true);
+  // }
+  function setModal(value: boolean) {
+    openModal.value = value;
+    if (!value) {
+      currentService.value = null;
+    }
+  }
+  // function deleteService(service) {
+  //   store.setPromp({
+  //     message: $t(
+  //       "lang-9e461e6a-86a1-4cc4-8265-0768d776da8c"
+  //     ),
+  //     confirm() {
+  //       store.deleteService({ id: service._id });
+  //     },
+  //   });
+  // }
+  // function onCloseModal(value: boolean) {
+  //   setModal(value);
+  //   if (currentService) {
+  //     currentService.value = null;
+  //   }
+  // }
+</script>

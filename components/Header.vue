@@ -7,9 +7,9 @@
   >
     <div class="flex-box-center">
       <div class="row flex-box-between gap">
-        <a
+        <div
           class="logo-wrapper flex-box gap"
-          href="/"
+          @click="onLogoClick"
           static
         >
           <img
@@ -20,73 +20,102 @@
           <p class="logo-text activeLogoText">
             Amanat Advisory LLC
           </p>
-        </a>
+        </div>
         <nav>
           <div class="flex-box">
-            <a
+            <p
+              @click="
+                navHandler(
+                  '/?section=about_us',
+                  'about_us'
+                )
+              "
               class="nav-item"
-              href="/?section=about_us"
-              >{{
+            >
+              {{
                 $t(
                   "lang-ebf0cb3f-12e2-4ce5-9184-3d7d8a9936b0"
                 )
-              }}</a
-            >
-            <a
+              }}
+            </p>
+            <p
+              @click="navHandler('/our-news')"
               class="nav-item"
-              href="/our-news"
-              >{{
+            >
+              {{
                 $t(
                   "lang-43551998-d49d-41a1-8287-25a880594e94"
                 )
-              }}</a
-            >
-            <a
+              }}
+            </p>
+            <p
+              @click="
+                navHandler('/shariah-board')
+              "
               class="nav-item"
-              href="/shariah-board"
-              >{{
+            >
+              {{
                 $t(
                   "lang-55f459ef-9533-4515-971c-ccd8e9d578be"
                 )
-              }}</a
-            >
-            <a
+              }}
+            </p>
+            <p
+              @click="
+                navHandler(
+                  '/?section=our_experiences',
+                  'our_experiences'
+                )
+              "
               class="nav-item"
-              href="/?section=our_experiences"
-              >{{
+            >
+              {{
                 $t(
                   "lang-ef952636-74de-4f4c-a2b1-df869f04e844"
                 )
-              }}</a
-            >
-            <a
+              }}
+            </p>
+            <p
+              @click="
+                navHandler(
+                  '/?section=our_services',
+                  'our_services'
+                )
+              "
               class="nav-item"
-              href="/?section=our_services"
-              >{{
+            >
+              {{
                 $t(
                   "lang-789737de-eb6a-47de-ab69-33aa5670867e"
                 )
-              }}</a
-            >
-            <a
+              }}
+            </p>
+            <p
+              @click="
+                navHandler(
+                  '/?section=contacts',
+                  'contacts'
+                )
+              "
               class="nav-item"
-              href="/?section=contacts"
-              >{{
+            >
+              {{
                 $t(
                   "lang-46a7bb85-b9d4-460e-b0cd-d5b7ac7a870e"
                 )
-              }}</a
-            >
-            <a
+              }}
+            </p>
+            <p
+              @click="navHandler('/admin')"
               class="nav-item"
-              href="/admin"
               v-if="isAdmin"
-              >{{
+            >
+              {{
                 $t(
                   "lang-a0924aa2-9523-4a96-88ce-a5292f398c6a"
                 )
-              }}</a
-            >
+              }}
+            </p>
             <Select
               :value="locale"
               @change="onLocaleChange"
@@ -193,6 +222,7 @@
     computed,
     onMounted,
     onUnmounted,
+    PropType,
   } from "vue";
   import { useI18n } from "vue-i18n";
 
@@ -200,6 +230,16 @@
   import { useAppStore } from "@/stores/app";
   import { usePageContext } from "@/renderer/usePageContext";
   import { useAuthStore } from "@/stores/auth";
+  import { navigate } from "vite-plugin-ssr/client/router";
+
+  const props = defineProps({
+    scrollIntoHandler: {
+      type: Function as PropType<
+        (key: string) => void
+      >,
+      default: () => {},
+    },
+  });
 
   const { locale } = useI18n();
   const pageContext = usePageContext();
@@ -218,23 +258,27 @@
   const isTransparent = ref(isHome.value);
 
   function handleScroll() {
-    if (isHome.value) {
+    if (!import.meta.env.SSR && isHome.value) {
       isTransparent.value = window.scrollY === 0;
       isSticky.value =
         window.scrollY < window.innerHeight - 50;
     }
   }
   onMounted(() => {
-    window.addEventListener(
-      "scroll",
-      handleScroll
-    );
+    if (!import.meta.env.SSR) {
+      window.addEventListener(
+        "scroll",
+        handleScroll
+      );
+    }
   });
   onUnmounted(() => {
-    window.removeEventListener(
-      "scroll",
-      handleScroll
-    );
+    if (!import.meta.env.SSR) {
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+    }
   });
 
   // --> SELECT LANGUAGE
@@ -245,13 +289,37 @@
   function onLocaleChange(newlocale: string) {
     locale.value = newlocale;
   }
+
+  // --> NAVIGATION
+  // action handlers
+  function onLogoClick() {
+    if (isHome.value) {
+      props.scrollIntoHandler("top");
+    } else {
+      navigate("/");
+    }
+  }
+  function navHandler(
+    route: string,
+    section?: string
+  ) {
+    if (section && isHome.value) {
+      props.scrollIntoHandler(section);
+    } else if (section === "contacts") {
+      window.scroll({
+        top: 1000000,
+        behavior: "smooth",
+      });
+    } else {
+      navigate(route);
+    }
+  }
 </script>
 
 <style scoped>
   .row {
     width: 100%;
     max-width: 1250px;
-    gap: 5vw;
   }
   .logo-wrapper {
     height: 40px;
@@ -296,8 +364,5 @@
     }
   }
   @media (min-width: 960px) and (max-width: 1264px) {
-    .row {
-      gap: 20px;
-    }
   }
 </style>

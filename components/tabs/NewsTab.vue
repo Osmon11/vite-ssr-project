@@ -5,7 +5,7 @@
   >
     <p class="title">
       {{
-        t(
+        $t(
           "lang-43551998-d49d-41a1-8287-25a880594e94"
         )
       }}
@@ -15,7 +15,7 @@
       class="text-white"
       @click="setModal(true)"
       >{{
-        t(
+        $t(
           "lang-c7c4caaa-a029-4b61-9837-ee2f3711a07a"
         )
       }}</v-btn
@@ -48,7 +48,7 @@
                 setCurrentNews(newsItem)
               "
               >{{
-                t(
+                $t(
                   "lang-37a7870d-ae54-4fe1-8767-fa261b98007e"
                 )
               }}</v-btn
@@ -58,7 +58,7 @@
               class="text-white"
               @click.stop="deleteNews(newsItem)"
               >{{
-                t(
+                $t(
                   "lang-3b8a75a6-406e-416b-b06a-ac4a8e9e7690"
                 )
               }}</v-btn
@@ -95,7 +95,7 @@
   >
     <p class="body1">
       {{
-        t(
+        $t(
           "lang-2c5d8a3a-7aa6-4e97-9028-fc8c18aab920"
         )
       }}
@@ -111,10 +111,10 @@
   import { onMounted, ref } from "vue";
 
   import EditorModal from "@/components/NewsModal.vue";
-  import { useI18n } from "vue-i18n";
-  import { apiUrl } from "@/utils/constants";
+  // import { useI18n } from "vue-i18n";
+  // import { apiUrl } from "@/utils/constants";
 
-  const { t, locale } = useI18n();
+  // const { t, } = useI18n();
   const openModal = ref(false);
   const currentNews = ref(null);
 
@@ -132,7 +132,7 @@
   }
   // function deleteNews(news) {
   //   store.setPromp({
-  //     message: t(
+  //     message: $t(
   //       "lang-241de744-3917-4521-b15d-81aba17a4857"
   //     ),
   //     confirm() {
@@ -140,12 +140,12 @@
   //     },
   //   });
   // }
-  function onCloseModal(value: boolean) {
-    setModal(value);
-    if (currentNews) {
-      currentNews.value = null;
-    }
-  }
+  // function onCloseModal(value: boolean) {
+  //   setModal(value);
+  //   if (currentNews) {
+  //     currentNews.value = null;
+  //   }
+  // }
 </script>
 
 <style scoped>

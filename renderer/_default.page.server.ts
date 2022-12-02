@@ -6,6 +6,8 @@ import { getPageTitle } from "./getPageTitle";
 import type { PageContext } from "./types";
 import type { PageContextBuiltIn } from "vite-plugin-ssr";
 import "@/styles/index.css";
+// fab -> floating action button - styles
+import "@/styles/fab.css";
 
 export { onBeforeRender };
 export { passToClient };

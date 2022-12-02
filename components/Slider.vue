@@ -22,10 +22,18 @@
         >
           <div class="contain text-slider">
             <h1 class="maintitle">
-              {{ slide[`title_${locale}`] }}
+              {{
+                slide[
+                  `title_${locale}` as keyof typeof slide
+                ]
+              }}
             </h1>
             <p class="subtitle">
-              {{ slide[`subtitle_${locale}`] }}
+              {{
+                slide[
+                  `subtitle_${locale}` as keyof typeof slide
+                ]
+              }}
             </p>
           </div>
           <v-btn
@@ -57,7 +65,7 @@
   <FeedbackModal v-model="feedbackModal" />
 </template>
 
-<script setup>
+<script lang="ts" setup>
   import {
     computed,
     onMounted,
@@ -70,18 +78,19 @@
   import FeedbackModal from "@/components/dialogs/FeedbackModal.vue";
   import { apiUrl } from "@/utils/constants";
   import { isSlideList } from "@/api/index.guards";
+  import { IIndexable } from "../types/interfaces";
 
   const sliderStore = useSliderStore();
   const { t, locale } = useI18n();
   const activeSlide = ref(0);
   const feedbackModal = ref(false);
-  const loadedImg = ref({});
+  const loadedImg = ref<IIndexable>({});
 
   const slideList = computed(
     () => sliderStore.getSlides
   );
 
-  let interval;
+  let interval: NodeJS.Timer;
   onMounted(() => {
     sliderStore.fetchSlides().then((data) => {
       if (isSlideList(data)) {
@@ -104,7 +113,7 @@
     clearInterval(interval);
   });
 
-  function onLoadImg(id) {
+  function onLoadImg(id: string) {
     loadedImg.value[id] = true;
   }
 </script>

@@ -1,22 +1,3 @@
-<script setup>
-  import { apiUrl } from "@/utils/constants";
-  import { useI18n } from "vue-i18n";
-  import { useRouter } from "vue-router";
-  import appStore from "../store/index.js";
-
-  const props = defineProps(["news"]);
-  const store = appStore.useStore();
-  const navigate = useRouter();
-  const { locale } = useI18n();
-
-  function setCurrentNews() {
-    store.$patch((state) => {
-      state.currentNews = props.news;
-    });
-    navigate.push("/news");
-  }
-</script>
-
 <template>
   <article
     class="blog-card"
@@ -24,17 +5,29 @@
   >
     <figure>
       <img
-        :src="`${apiUrl}${news.imageUrl}`"
-        :alt="news.imageName"
+        :src="`${apiUrl}${props.news.imageUrl}`"
+        :alt="props.news.imageName"
       />
     </figure>
     <div class="blog_content">
       <h3 class="card-title">
-        {{ news[`title_${locale}`] }}
+        {{ props.news[`title_${locale}`] }}
       </h3>
     </div>
   </article>
 </template>
+
+<script lang="ts" setup>
+  import { apiUrl } from "@/utils/constants";
+  import { useI18n } from "vue-i18n";
+
+  const props = defineProps(["news"]);
+  const { locale } = useI18n();
+
+  function setCurrentNews() {
+    // navigate.push("/news");
+  }
+</script>
 
 <style scoped>
   .blog-card {
