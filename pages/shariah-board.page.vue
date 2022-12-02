@@ -7,7 +7,7 @@
         style="width: 100%"
       >
         {{
-          t(
+          $t(
             "lang-55f459ef-9533-4515-971c-ccd8e9d578be"
           )
         }}
@@ -48,13 +48,10 @@
 
 <script lang="ts" setup>
   import { onMounted } from "vue";
-  import { useI18n } from "vue-i18n";
-  import { apiUrl } from "@/utils/constants";
+  // import { apiUrl } from "@/utils/constants";
 
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
-
-  const { t, locale } = useI18n();
 
   onMounted(() => {});
 </script>

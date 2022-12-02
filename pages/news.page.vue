@@ -35,11 +35,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { useI18n } from "vue-i18n";
-  import { apiUrl } from "@/utils/constants";
+  // import { useI18n } from "vue-i18n";
+  // import { apiUrl } from "@/utils/constants";
 
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
-
-  const { locale } = useI18n();
 </script>

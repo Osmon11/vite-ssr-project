@@ -11,6 +11,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "strictNullChecks": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]

@@ -8,27 +8,27 @@
         color="#61a375"
       >
         <v-tab value="news">{{
-          t(
+          $t(
             "lang-43551998-d49d-41a1-8287-25a880594e94"
           )
         }}</v-tab>
         <v-tab value="slides">{{
-          t(
+          $t(
             "lang-a7fbb933-403c-437a-8cb8-96eefb0b8309"
           )
         }}</v-tab>
         <v-tab value="partners">{{
-          t(
+          $t(
             "lang-1d767a32-84fc-4c69-9690-8c0578515b97"
           )
         }}</v-tab>
         <v-tab value="services">{{
-          t(
+          $t(
             "lang-63796838-a08d-4eba-b900-ce805c2df2ac"
           )
         }}</v-tab>
         <v-tab value="employees">{{
-          t(
+          $t(
             "lang-17988631-887c-48a8-9636-4eafe2657f2d"
           )
         }}</v-tab>
@@ -67,7 +67,6 @@
   import ServicesTab from "@/components/ServicesTab.vue";
   import EmployeesTab from "@/components/EmployeesTab.vue";
 
-  const { t, locale } = useI18n();
   const tabs = ref("news");
 </script>
 

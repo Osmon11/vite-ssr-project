@@ -7,8 +7,8 @@
   >
     <div class="flex-box-center">
       <div class="row flex-box-between gap">
-        <Link
-          class="logo-wrapper flex-box"
+        <a
+          class="logo-wrapper flex-box gap"
           href="/"
           static
         >
@@ -20,40 +20,64 @@
           <p class="logo-text activeLogoText">
             Amanat Advisory LLC
           </p>
-        </Link>
+        </a>
         <nav>
           <div class="flex-box">
-            <Link
+            <a
               class="nav-item"
               href="/?section=about_us"
-              >О НАС</Link
+              >{{
+                $t(
+                  "lang-ebf0cb3f-12e2-4ce5-9184-3d7d8a9936b0"
+                )
+              }}</a
             >
-            <Link
+            <a
               class="nav-item"
               href="/our-news"
-              >Новости</Link
+              >{{
+                $t(
+                  "lang-43551998-d49d-41a1-8287-25a880594e94"
+                )
+              }}</a
             >
-            <Link
+            <a
               class="nav-item"
               href="/shariah-board"
-              >ШАРИАТСКИЙ СОВЕТ</Link
+              >{{
+                $t(
+                  "lang-55f459ef-9533-4515-971c-ccd8e9d578be"
+                )
+              }}</a
             >
-            <Link
+            <a
               class="nav-item"
               href="/?section=our_experiences"
-              >НАШ ОПЫТ</Link
+              >{{
+                $t(
+                  "lang-ef952636-74de-4f4c-a2b1-df869f04e844"
+                )
+              }}</a
             >
-            <Link
+            <a
               class="nav-item"
               href="/?section=our_services"
-              >НАШИ УСЛУГИ</Link
+              >{{
+                $t(
+                  "lang-789737de-eb6a-47de-ab69-33aa5670867e"
+                )
+              }}</a
             >
-            <Link
+            <a
               class="nav-item"
               href="/?section=contacts"
-              >Контакты</Link
+              >{{
+                $t(
+                  "lang-46a7bb85-b9d4-460e-b0cd-d5b7ac7a870e"
+                )
+              }}</a
             >
-            <Link
+            <a
               class="nav-item"
               href="/admin"
               v-if="isAdmin"
@@ -61,7 +85,7 @@
                 $t(
                   "lang-a0924aa2-9523-4a96-88ce-a5292f398c6a"
                 )
-              }}</Link
+              }}</a
             >
             <Select
               :value="locale"
@@ -172,7 +196,6 @@
   } from "vue";
   import { useI18n } from "vue-i18n";
 
-  import Link from "./shared/Link.vue";
   import Select from "./shared/Select.vue";
   import { useAppStore } from "@/stores/app";
   import { usePageContext } from "@/renderer/usePageContext";
@@ -223,3 +246,58 @@
     locale.value = newlocale;
   }
 </script>
+
+<style scoped>
+  .row {
+    width: 100%;
+    max-width: 1250px;
+    gap: 5vw;
+  }
+  .logo-wrapper {
+    height: 40px;
+    gap: 10px;
+    padding: 0px 15px;
+    cursor: pointer;
+  }
+  .logout-icon {
+    width: 24px;
+    height: 24px;
+    filter: invert(15%) sepia(89%) saturate(7500%)
+      hue-rotate(3deg) brightness(93%)
+      contrast(121%);
+  }
+
+  .text-header {
+    width: fit-content;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 20px;
+    padding: 0px;
+  }
+  .text-header a {
+    color: #fff;
+    /* font-weight: 500; */
+  }
+  .contact-icon {
+    width: 14px;
+    height: 14px;
+  }
+  @media (min-width: 0px) and (max-width: 600px) {
+    .text-header,
+    .text-header a {
+      font-weight: 400;
+    }
+  }
+  @media (min-width: 600px) and (max-width: 960px) {
+    .text-header,
+    .text-header a {
+      font-weight: 400;
+    }
+  }
+  @media (min-width: 960px) and (max-width: 1264px) {
+    .row {
+      gap: 20px;
+    }
+  }
+</style>

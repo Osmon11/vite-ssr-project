@@ -6,6 +6,10 @@
   position: relative;
   font-weight: normal;
 }
+a {
+  text-decoration: none;
+  text-transform: uppercase;
+}
 main {
   width: 100%;
   max-width: 1250px;

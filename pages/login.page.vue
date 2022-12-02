@@ -10,20 +10,34 @@
           type="email"
           name="login"
           variant="outlined"
-          label="Логин"
+          :label="
+            $t(
+              'lang-9edf35fc-0287-4a0f-a4b8-e469ad12ea39'
+            )
+          "
           color="#61a375"
           :autofocus="false"
           :modelValue="form.login"
           @update:modelValue="
             onUpdate('login', $event)
           "
-          :rules="[(v) => !!v || 'Введите Логин']"
+          :rules="[
+            (v) =>
+              !!v ||
+              $t(
+                'lang-091f36a9-4ea2-4fc9-829d-1b079c267987'
+              ),
+          ]"
         ></v-text-field>
         <v-text-field
           type="password"
           name="password"
           variant="outlined"
-          label="Пароль"
+          :label="
+            $t(
+              'lang-850b7b87-adeb-4dc5-b303-629b582c8be5'
+            )
+          "
           color="#61a375"
           hide-details
           :autofocus="false"
@@ -32,7 +46,11 @@
             onUpdate('password', $event)
           "
           :rules="[
-            (v) => !!v || 'Введите Пароль',
+            (v) =>
+              !!v ||
+              $t(
+                'lang-d4cf3bf5-74de-4ca4-9d32-bd64ae17c69d'
+              ),
           ]"
         ></v-text-field>
         <v-btn
@@ -41,7 +59,11 @@
           style="width: 200px"
           type="submit"
         >
-          Войти
+          {{
+            $t(
+              "lang-2e36c4e6-cae9-4d49-a2bc-60df31ec947c"
+            )
+          }}
         </v-btn>
       </v-form>
     </main>
@@ -50,12 +72,10 @@
 
 <script lang="ts" setup>
   import { computed, ref } from "vue";
-  import { useI18n } from "vue-i18n";
   import { useAuthStore } from "@/stores/auth";
   import { isUserInfoData } from "@/api/index.guards";
 
   const authStore = useAuthStore();
-  const { locale } = useI18n();
 
   // --> FORM
   const form = computed(

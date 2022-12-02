@@ -76,7 +76,7 @@
   const activeSlide = ref(0);
   const feedbackModal = ref(false);
   const loadedImg = ref({});
-  console.log(locale.value);
+
   const slideList = computed(
     () => sliderStore.getSlides
   );

@@ -7,7 +7,7 @@
         style="width: 100%"
       >
         {{
-          t(
+          $t(
             "lang-fe822a05-8604-4300-b532-491d82716a23"
           )
         }}
@@ -37,19 +37,17 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref } from "vue";
-  import { useI18n } from "vue-i18n";
+  import { onMounted } from "vue";
 
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
-  import BlogListItem from "@/shared/BlogListItem.vue";
-  import BlogCard from "../shared/BlogCard.vue";
+  // import BlogListItem from "@/shared/BlogListItem.vue";
+  // import BlogCard from "../shared/BlogCard.vue";
 
-  const { t, locale } = useI18n();
-  const loadedImg = ref({});
-  const xs = computed(
-    () => window.innerWidth <= 600
-  );
+  // const loadedImg = ref({});
+  // const xs = computed(
+  //   () => window.innerWidth <= 600
+  // );
 
   onMounted(() => {});
 </script>

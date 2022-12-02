@@ -16,7 +16,7 @@
         >
           <h2 class="title divider">
             {{
-              t(
+              $t(
                 "lang-ef952636-74de-4f4c-a2b1-df869f04e844"
               )
             }}
@@ -30,7 +30,7 @@
           "
         >
           {{
-            t(
+            $t(
               "lang-29b886c8-b489-489f-b369-1bd6d0403126"
             )
           }}
@@ -42,10 +42,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { useI18n } from "vue-i18n";
-
   import Header from "@/shared/Header.vue";
   import Footer from "@/shared/Footer.vue";
-
-  const { t, locale } = useI18n();
 </script>
