@@ -223,7 +223,7 @@
           </p>
           <p
             class="nav-item text-footer"
-            @click="navHandler('/shariah-board')"
+            @click="navHandler('/employees')"
           >
             {{
               $t(
@@ -361,7 +361,9 @@
     if (section && isHome.value) {
       props.scrollIntoHandler(section);
     } else {
-      navigate(route);
+      navigate(route, {
+        keepScrollPosition: true,
+      });
     }
   }
   function scrollToTop() {
@@ -394,6 +396,7 @@
     position: absolute;
     top: 100%;
     content: attr(data-hover);
+    white-space: nowrap;
     font-weight: 700;
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);

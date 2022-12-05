@@ -17,10 +17,8 @@
         <DataContainer
           :loading="loading"
           :noData="Boolean(!newsFeed)"
-          :noDataText="
-            $t(
+          noDataText="
               'lang-52a77386-baca-42ad-b12e-bd9fe630bfb1'
-            )
           "
         >
           <div

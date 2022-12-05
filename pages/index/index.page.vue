@@ -422,11 +422,7 @@
     if (refs.value[key]) {
       refs.value[key].scrollIntoView({
         block:
-          key === "about_us"
-            ? "start"
-            : key === "contacts"
-            ? "end"
-            : "center",
+          key === "contacts" ? "end" : "start",
         behavior: "smooth",
       });
     }

@@ -24,7 +24,7 @@
   <!-- <div v-if="store.shariahBoard.length">
     <v-banner
       class="my-4"
-      lines="5"
+      lines="three"
       v-for="person in store.shariahBoard"
       :key="person._id"
     >

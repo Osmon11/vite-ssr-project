@@ -2,11 +2,11 @@ import { createI18n } from "vue-i18n";
 import en from "./en.json";
 import ru from "./ru.json";
 
-type MessageSchema_en_US = typeof en;
-type MessageSchema_ru_RF = typeof ru;
+type MessageSchema_en = typeof en;
+type MessageSchema_ru = typeof ru;
 
 export default createI18n<
-  [MessageSchema_en_US, MessageSchema_ru_RF],
+  [MessageSchema_en, MessageSchema_ru],
   "en" | "ru"
 >({
   allowComposition: true,

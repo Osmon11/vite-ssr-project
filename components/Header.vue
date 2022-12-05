@@ -49,9 +49,7 @@
               }}
             </p>
             <p
-              @click="
-                navHandler('/shariah-board')
-              "
+              @click="navHandler('/employees')"
               class="nav-item"
             >
               {{
@@ -63,7 +61,7 @@
             <p
               @click="
                 navHandler(
-                  '/?section=our_experiences',
+                  '/experiences',
                   'our_experiences'
                 )
               "
@@ -133,14 +131,16 @@
                 >
                   <img
                     :src="
-                      locale === languages.primary
-                        ? '/assets/united-kingdom.svg'
-                        : '/assets/russia.svg'
+                      locale ===
+                      languages.secondary
+                        ? '/assets/russia.svg'
+                        : '/assets/united-kingdom.svg'
                     "
                     :alt="
-                      locale === languages.primary
-                        ? 'united kingdom flag'
-                        : 'russian flag'
+                      locale ===
+                      languages.secondary
+                        ? 'russian flag'
+                        : 'united kingdom flag'
                     "
                     style="
                       width: 20px;
@@ -311,7 +311,9 @@
         behavior: "smooth",
       });
     } else {
-      navigate(route);
+      navigate(route, {
+        keepScrollPosition: true,
+      });
     }
   }
 </script>
