@@ -1,9 +1,9 @@
 <template>
-  <div class="content">
+  <div class="page_container">
     <Header
       :scrollIntoHandler="props.scrollIntoHandler"
     />
-    <slot></slot>
+    <div class="content"><slot></slot></div>
     <Footer
       :scrollIntoHandler="props.scrollIntoHandler"
     />

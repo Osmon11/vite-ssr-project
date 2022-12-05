@@ -1,31 +1,46 @@
 <template>
   <article
     class="blog-card"
-    @click="setCurrentNews"
+    @click="viewNews"
   >
     <figure>
       <img
-        :src="`${apiUrl}${props.news.imageUrl}`"
-        :alt="props.news.imageName"
+        :src="`${apiUrl}${news.imageUrl}`"
+        :alt="news.imageName"
       />
     </figure>
     <div class="blog_content">
       <h3 class="card-title">
-        {{ props.news[`title_${locale}`] }}
+        {{
+          news[
+            `title_${locale}` as keyof typeof news
+          ]
+        }}
       </h3>
     </div>
   </article>
 </template>
 
 <script lang="ts" setup>
-  import { apiUrl } from "@/utils/constants";
+  import { computed, PropType } from "vue";
   import { useI18n } from "vue-i18n";
+  import { navigate } from "vite-plugin-ssr/client/router";
 
-  const props = defineProps(["news"]);
+  import { INews } from "@/api/index.types";
+  import { apiUrl } from "@/utils/constants";
+
+  const props = defineProps({
+    news: {
+      type: Object as PropType<INews>,
+      default: {},
+    },
+  });
+  const news = computed(() => props.news);
+
   const { locale } = useI18n();
 
-  function setCurrentNews() {
-    // navigate.push("/news");
+  function viewNews() {
+    navigate(`/news?id=${news.value._id}`);
   }
 </script>
 

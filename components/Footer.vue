@@ -182,16 +182,7 @@
           </p>
           <p
             class="nav-item text-footer"
-            @click="
-              navigationHandler(
-                routeName === 'home'
-                  ? 'about_us'
-                  : '/',
-                'home',
-                { section: 'about_us' },
-                routeName === 'home'
-              )
-            "
+            @click="navHandler('/', 'about_us')"
           >
             {{
               $t(
@@ -202,14 +193,7 @@
           <p
             class="nav-item text-footer"
             @click="
-              navigationHandler(
-                routeName === 'home'
-                  ? 'our_services'
-                  : '/',
-                'home',
-                { section: 'our_services' },
-                routeName === 'home'
-              )
+              navHandler('/', 'our_services')
             "
           >
             {{
@@ -220,12 +204,7 @@
           </p>
           <p
             class="nav-item text-footer"
-            @click="
-              navigationHandler(
-                '/our-news',
-                'our-news'
-              )
-            "
+            @click="navHandler('/news-feed')"
           >
             {{
               $t(
@@ -244,12 +223,7 @@
           </p>
           <p
             class="nav-item text-footer"
-            @click="
-              navigationHandler(
-                '/shariah-board',
-                'shariah-board'
-              )
-            "
+            @click="navHandler('/shariah-board')"
           >
             {{
               $t(
@@ -358,6 +332,7 @@
   import { usePageContext } from "@/renderer/usePageContext";
 
   import FeedbackModal from "@/components/dialogs/FeedbackModal.vue";
+  import { navigate } from "vite-plugin-ssr/client/router";
 
   const pageContext = usePageContext();
 
@@ -375,17 +350,18 @@
       ? 0
       : window.innerWidth <= 960
   );
+  const isHome = computed(
+    () => pageContext.urlPathname === "/"
+  );
 
-  function navigationHandler(
-    path: string,
-    name: string,
-    query?: { section: string },
-    scrollInto = false
+  function navHandler(
+    route: string,
+    section?: string
   ) {
-    if (scrollInto) {
-      props.scrollIntoHandler(path);
+    if (section && isHome.value) {
+      props.scrollIntoHandler(section);
     } else {
-      console.log({ name, query });
+      navigate(route);
     }
   }
   function scrollToTop() {
@@ -397,7 +373,6 @@
 
   const phoneNumber = import.meta.env.VITE_PHONE;
   const emailAddress = import.meta.env.VITE_EMAIL;
-  const routeName = pageContext.urlPathname;
 </script>
 
 <style scoped>

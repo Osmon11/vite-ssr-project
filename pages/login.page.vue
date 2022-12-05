@@ -4,7 +4,7 @@
       <v-form
         class="form"
         v-model="valid"
-        @submit.prevent="handleLoginSubmit"
+        @submit.prevent="onLoginSubmit"
       >
         <v-text-field
           type="email"
@@ -74,6 +74,7 @@
   import { computed, ref } from "vue";
   import { useAuthStore } from "@/stores/auth";
   import { isUserInfoData } from "@/api/index.guards";
+  import { navigate } from "vite-plugin-ssr/client/router";
 
   const authStore = useAuthStore();
 
@@ -82,14 +83,15 @@
     () => authStore.getLoginForm
   );
   const valid = ref(false);
-  // actions
+  // action handlers
   function onUpdate(key: string, value: any) {
     authStore.updateLoginForm(key, value);
   }
-  function handleLoginSubmit() {
+  function onLoginSubmit() {
     if (valid.value) {
       authStore.login().then((data) => {
         if (isUserInfoData(data)) {
+          navigate("/admin");
         }
       });
     }

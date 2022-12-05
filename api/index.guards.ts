@@ -6,6 +6,7 @@ import {
   TEmployeeList,
   TPartnerList,
   TServiceList,
+  INews,
 } from "./index.types";
 
 // --> USER
@@ -20,6 +21,12 @@ export const isSlideList = (
 export const isNewsFeed = (
   data: TNewsFeed | IRequestFailed
 ): data is TNewsFeed => Array.isArray(data);
+export const isNewsInfo = (
+  data: [INews] | IRequestFailed
+): data is [INews] =>
+  Array.isArray(data) &&
+  data[0] &&
+  "_id" in data[0];
 // --> EMPLOYEE
 export const isEmployeeList = (
   data: TEmployeeList | IRequestFailed

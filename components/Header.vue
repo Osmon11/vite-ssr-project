@@ -39,7 +39,7 @@
               }}
             </p>
             <p
-              @click="navHandler('/our-news')"
+              @click="navHandler('/news-feed')"
               class="nav-item"
             >
               {{

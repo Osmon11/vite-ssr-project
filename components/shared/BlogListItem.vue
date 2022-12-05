@@ -6,8 +6,8 @@
     <img
       class="cover"
       v-show="isLoaded"
-      :src="`${apiUrl}${props.news.imageUrl}`"
-      :alt="props.news.imageName"
+      :src="`${apiUrl}${news.imageUrl}`"
+      :alt="news.imageName"
       @load="onImageLoad"
     />
     <div
@@ -15,16 +15,24 @@
       v-if="!isLoaded"
     >
       <img
-        src="/public/assets/loading-12bras.gif"
+        src="/assets/loading-12bras.gif"
         alt="loading gif"
       />
     </div>
     <div class="content">
       <h1 class="title">
-        {{ props.news[`title_${locale}`] }}
+        {{
+          news[
+            `title_${locale}` as keyof typeof news
+          ]
+        }}
       </h1>
       <p class="short-text body1 py-4">
-        {{ props.news[`subtitle_${locale}`] }}
+        {{
+          news[
+            `subtitle_${locale}` as keyof typeof news
+          ]
+        }}
       </p>
     </div>
     <div
@@ -33,7 +41,7 @@
     >
       <p
         class="nav-item nav-item-secondary"
-        @click="setCurrentNews(props.news)"
+        @click="viewNews()"
       >
         {{
           t(
@@ -46,23 +54,29 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from "@vue/reactivity";
   import { useI18n } from "vue-i18n";
+  import { ref, PropType, computed } from "vue";
+  import { navigate } from "vite-plugin-ssr/client/router";
 
   import { apiUrl } from "@/utils/constants";
   import { INews } from "@/api/index.types";
 
-  const props = defineProps(["news"]);
+  const props = defineProps({
+    news: {
+      type: Object as PropType<INews>,
+      default: {},
+    },
+  });
+  const news = computed(() => props.news);
 
   const { t, locale } = useI18n();
   const isLoaded = ref(false);
   const expanded = ref(false);
 
-  function setCurrentNews(news: INews) {
-    console.log(news);
+  function viewNews() {
+    navigate(`/news?id=${news.value._id}`);
   }
   function onImageLoad() {
-    console.log(true);
     isLoaded.value = true;
   }
 </script>

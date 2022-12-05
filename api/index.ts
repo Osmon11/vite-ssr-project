@@ -11,6 +11,7 @@ import {
   TSlideList,
   IFeedbackCreateData,
   IFeedbackPayload,
+  INews,
 } from "./index.types";
 
 // --> Authorization
@@ -89,9 +90,9 @@ export const deleteSlide = (query: IQueryId) =>
         .catch((err) => reject(err))
   );
 // --> NEWS FEED
-// get newsfeed
-export const getNewsFeed = (query: IQueryId) =>
-  new Promise<TNewsFeed | IRequestFailed>(
+// get news by id
+export const getNewsInfo = (query?: IQueryId) =>
+  new Promise<[INews] | IRequestFailed>(
     (resolve, reject) =>
       axios
         .get("/news-feed", {
@@ -100,6 +101,15 @@ export const getNewsFeed = (query: IQueryId) =>
             indexes: null,
           },
         })
+        .then((res) => resolve(res.data))
+        .catch((err) => reject(err))
+  );
+// get newsfeed
+export const getNewsFeed = () =>
+  new Promise<TNewsFeed | IRequestFailed>(
+    (resolve, reject) =>
+      axios
+        .get("/news-feed")
         .then((res) => resolve(res.data))
         .catch((err) => reject(err))
   );

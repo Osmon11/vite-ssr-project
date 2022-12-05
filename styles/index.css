@@ -38,6 +38,9 @@ header.sticky {
   position: fixed;
   background: transparent;
 }
+.content {
+  min-height: calc(100vh - 360px);
+}
 .hide-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
