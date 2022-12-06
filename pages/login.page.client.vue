@@ -90,6 +90,7 @@
   function onLoginSubmit() {
     if (valid.value) {
       authStore.login().then((data) => {
+        authStore.resetLoginForm();
         if (isUserInfoData(data)) {
           navigate("/admin");
         }

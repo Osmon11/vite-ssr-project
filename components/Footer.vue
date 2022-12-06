@@ -236,7 +236,7 @@
           <v-btn
             color="#61a375"
             class="text-white"
-            @click="feedbackModal = true"
+            @click="feedbackDialog = true"
             :style="{
               marginTop: xs || sm ? 40 : 0,
             }"
@@ -324,14 +324,14 @@
       ></span>
     </div>
   </div>
-  <FeedbackModal v-model="feedbackModal" />
+  <FeedbackDialog v-model="feedbackDialog" />
 </template>
 
 <script lang="ts" setup>
   import { ref, computed } from "@vue/reactivity";
   import { usePageContext } from "@/renderer/usePageContext";
 
-  import FeedbackModal from "@/components/dialogs/FeedbackModal.vue";
+  import FeedbackDialog from "@/components/dialogs/FeedbackDialog.vue";
   import { navigate } from "vite-plugin-ssr/client/router";
 
   const pageContext = usePageContext();
@@ -339,7 +339,7 @@
   const props = defineProps([
     "scrollIntoHandler",
   ]);
-  const feedbackModal = ref(false);
+  const feedbackDialog = ref(false);
   const xs = computed(() =>
     import.meta.env.SSR
       ? 0

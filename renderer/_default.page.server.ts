@@ -22,7 +22,7 @@ const passToClient = [
 async function render(
   pageContext: PageContextBuiltIn & PageContext
 ) {
-  const app = createApp(pageContext);
+  const app = createApp(pageContext, false);
   const stream = renderToNodeStream(app);
 
   const { documentProps } = pageContext.exports;
@@ -83,7 +83,7 @@ async function render(
 async function onBeforeRender(
   pageContext: PageContextBuiltIn & PageContext
 ) {
-  const app = createApp(pageContext);
+  const app = createApp(pageContext, false);
 
   const store = createPinia();
   app.use(store);

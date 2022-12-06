@@ -21,8 +21,11 @@ async function render(
     PageContext
 ) {
   let app: ReturnType<typeof createApp>;
+  const isSPAPages =
+    pageContext.urlOriginal === "/admin" ||
+    pageContext.urlOriginal === "/login";
   if (!app) {
-    app = createApp(pageContext);
+    app = createApp(pageContext, isSPAPages);
 
     const store = createPinia();
     app.use(store);

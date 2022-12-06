@@ -8,7 +8,7 @@
       style="width: 100%"
     >
       {{
-        !props.editPerson
+        !editMod
           ? $t(
               "lang-887dd0c0-ac04-48ce-aa48-1bd1190577d9"
             )
@@ -22,11 +22,14 @@
         ref="form"
         v-model="valid"
         class="form-max-width"
-        @submit.prevent="submitHandler"
+        @submit.prevent="onSubmit"
       >
         <div class="editor-wrapper">
           <v-text-field
-            v-model="fullname_ru"
+            :modelValue="form.fullname_ru"
+            @update:modelValue="
+              onUpdate('fullname_ru', $event)
+            "
             type="text"
             name="fullname_ru"
             variant="outlined"
@@ -46,7 +49,10 @@
             ]"
           ></v-text-field>
           <v-textarea
-            v-model="biography_ru"
+            :modelValue="form.biography_ru"
+            @update:modelValue="
+              onUpdate('biography_ru', $event)
+            "
             type="text"
             name="biography_ru"
             variant="outlined"
@@ -66,7 +72,10 @@
             ]"
           ></v-textarea>
           <v-text-field
-            v-model="fullname_en"
+            :modelValue="form.fullname_en"
+            @update:modelValue="
+              onUpdate('fullname_en', $event)
+            "
             type="text"
             name="fullname_en"
             variant="outlined"
@@ -86,7 +95,10 @@
             ]"
           ></v-text-field>
           <v-textarea
-            v-model="biography_en"
+            :modelValue="form.biography_en"
+            @update:modelValue="
+              onUpdate('biography_en', $event)
+            "
             type="text"
             name="biography_en"
             variant="outlined"
@@ -106,13 +118,16 @@
             ]"
           ></v-textarea>
           <v-file-input
-            v-model="image"
+            :modelValue="form.image"
+            @update:modelValue="
+              onUpdate('image', $event)
+            "
             name="image"
             accept="image/*"
             variant="outlined"
             :label="fileInputLabel"
             color="#61a375"
-            :required="!editPerson"
+            :required="!editMod"
             :rules="[
               (v) =>
                 !!v ||
@@ -134,9 +149,9 @@
               type="submit"
               color="#61a375"
               class="text-white"
-              :loading="isLoading"
+              :loading="loading"
               >{{
-                props.editPerson
+                editMod
                   ? $t(
                       "lang-d32bd46b-3317-4367-bb12-c53c36e494f5"
                     )
@@ -163,85 +178,49 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch } from "vue";
-
-  import Dialog from "@/shared/Dialog.vue";
   import { useI18n } from "vue-i18n";
+  import { computed, ref } from "vue";
 
-  const props = defineProps([
-    "modelValue",
-    "editPerson",
-  ]);
+  import Dialog from "@/components/dialogs/Dialog.vue";
+
+  import { useEmployeeStore } from "@/stores/employee";
+
+  const props = defineProps(["modelValue"]);
   const emit = defineEmits(["update:modelValue"]);
+
   const { t } = useI18n();
-  const form = ref();
+  const employeeStore = useEmployeeStore();
+
+  // FORM
+  const form = computed(
+    () => employeeStore.getForm
+  );
   const valid = ref(false);
-  const fullname_en = ref("");
-  const biography_en = ref("");
-  const fullname_ru = ref("");
-  const biography_ru = ref("");
-  const image = ref([]);
-  const isLoading = ref(false);
+  const loading = ref(false);
+  const editMod = computed(
+    () => employeeStore.isEditMod
+  );
   const fileInputLabel = computed(() =>
-    props.editPerson && image.value.length === 0
-      ? props.editPerson["avatar"]
+    editMod.value && form.value.image === null
+      ? form.value.avatar
       : t(
           "lang-800ebbd8-b6eb-4da0-9bdf-24f7dab85c77"
         )
   );
-
-  watch(
-    () => props.editPerson,
-    (value) => {
-      if (value) {
-        fullname_ru.value = value.fullname_ru;
-        biography_ru.value = value.biography_ru;
-        fullname_en.value = value.fullname_en;
-        biography_en.value = value.biography_en;
-        image.value = [];
-      }
-    }
-  );
-  function submitHandler() {
+  // action handlers
+  function onUpdate(key: string, value: any) {
+    employeeStore.updateForm(key, value);
+  }
+  function onSubmit() {
     if (valid.value) {
-      isLoading.value = true;
-      let data = new FormData();
-      data.append(
-        "fullname_en",
-        fullname_en.value
-      );
-      data.append(
-        "biography_en",
-        biography_en.value
-      );
-      data.append(
-        "fullname_ru",
-        fullname_ru.value
-      );
-      data.append(
-        "biography_ru",
-        biography_ru.value
-      );
-      if (!props.editPerson) {
-        data.append("image", image.value[0]);
-      } else {
-        if (image.value[0]) {
-          data.append("image", image.value[0]);
-        }
-        data.append(
-          "avatar",
-          props.editPerson.avatar
-        );
-      }
+      loading.value = true;
+      employeeStore.save().then(closeHandler);
     }
   }
+
   function closeHandler() {
-    fullname_ru.value = "";
-    biography_ru.value = "";
-    fullname_en.value = "";
-    biography_en.value = "";
-    image.value = [];
-    form.value.resetValidation();
+    loading.value = false;
+    employeeStore.resetForm();
     emit("update:modelValue", false);
   }
 </script>

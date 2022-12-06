@@ -8,7 +8,7 @@
       style="width: 100%; margin-bottom: 28px"
     >
       {{
-        props.editNews
+        editMod
           ? $t(
               "lang-67ea05f8-55ba-4c75-b44f-1f24164cd1a3"
             )
@@ -22,12 +22,15 @@
         ref="form"
         v-model="valid"
         class="form-max-width"
-        @submit.prevent="submitHandler"
+        @submit.prevent="onSubmit"
         lazy-validation
       >
         <div class="editor-wrapper">
           <v-text-field
-            v-model="title_ru"
+            :modelValue="form.title_ru"
+            @update:modelValue="
+              onUpdate('title_ru', $event)
+            "
             type="text"
             name="title_ru"
             variant="outlined"
@@ -47,7 +50,10 @@
             ]"
           ></v-text-field>
           <v-textarea
-            v-model="subtitle_ru"
+            :modelValue="form.subtitle_ru"
+            @update:modelValue="
+              onUpdate('subtitle_ru', $event)
+            "
             type="text"
             name="subtitle_ru"
             variant="outlined"
@@ -67,7 +73,10 @@
             ]"
           ></v-textarea>
           <CKEditor.component
-            v-model="editorData_ru"
+            :modelValue="form.content_ru"
+            @update:modelValue="
+              onUpdate('content_ru', $event)
+            "
             :editor="ClassicEditor"
             :config="{
               ...ckeditor.editorConfig,
@@ -80,7 +89,10 @@
             style="width: 100%; height: 38px"
           ></div>
           <v-text-field
-            v-model="title_en"
+            :modelValue="form.title_en"
+            @update:modelValue="
+              onUpdate('title_en', $event)
+            "
             type="text"
             name="title_en"
             variant="outlined"
@@ -100,7 +112,10 @@
             ]"
           ></v-text-field>
           <v-textarea
-            v-model="subtitle_en"
+            :modelValue="form.subtitle_en"
+            @update:modelValue="
+              onUpdate('subtitle_en', $event)
+            "
             type="text"
             name="subtitle_en"
             variant="outlined"
@@ -120,7 +135,10 @@
             ]"
           ></v-textarea>
           <CKEditor.component
-            v-model="editorData_en"
+            :modelValue="form.content_en"
+            @update:modelValue="
+              onUpdate('content_en', $event)
+            "
             :editor="ClassicEditor"
             :config="{
               ...ckeditor.editorConfig,
@@ -133,13 +151,16 @@
             style="width: 100%; height: 38px"
           ></div>
           <v-file-input
-            v-model="image"
+            :modelValue="form.image"
+            @update:modelValue="
+              onUpdate('image', $event)
+            "
             name="image"
             accept="image/*"
             variant="outlined"
             :label="fileInputLabel"
             color="#61a375"
-            :required="!editNews"
+            :required="!editMod"
             :rules="[
               (v) =>
                 !!v ||
@@ -160,9 +181,9 @@
               type="submit"
               color="#61a375"
               class="text-white"
-              :loading="isLoading"
+              :loading="loading"
               >{{
-                props.editNews
+                editMod
                   ? $t(
                       "lang-d32bd46b-3317-4367-bb12-c53c36e494f5"
                     )
@@ -190,55 +211,43 @@
 
 <script lang="ts" setup>
   import { useI18n } from "vue-i18n";
-  import { computed, ref, watch } from "vue";
+  import { computed, ref } from "vue";
   // @ts-ignore
   import CKEditor from "@ckeditor/ckeditor5-vue";
   // @ts-ignore
-  import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+  import ClassicEditor from "@ckeditor/ckeditor5-build-classic/build/ckeditor";
 
-  import Dialog from "@/shared/Dialog.vue";
+  import Dialog from "@/components/dialogs/Dialog.vue";
   import ckeditor from "@/plugins/ckeditor.js";
+  import { useNewsStore } from "@/stores/news";
 
-  const props = defineProps([
-    "modelValue",
-    "editNews",
-  ]);
+  const props = defineProps(["modelValue"]);
   const emit = defineEmits(["update:modelValue"]);
+
   const { t } = useI18n();
-  const form = ref();
+
+  const newsStore = useNewsStore();
+
+  // FORM
+  const form = computed(() => newsStore.getForm);
   const valid = ref(false);
-  const title_en = ref("");
-  const subtitle_en = ref("");
-  const editorData_en = ref("");
-  const title_ru = ref("");
-  const subtitle_ru = ref("");
-  const editorData_ru = ref("");
-  const image = ref([]);
-  const isLoading = ref(false);
+  const loading = ref(false);
+  const editMod = computed(
+    () => newsStore.isEditMod
+  );
   const fileInputLabel = computed(() =>
-    props.editNews && image.value.length === 0
-      ? props.editNews["imageName"]
+    editMod.value && form.value.image === null
+      ? form.value.imageName
       : t(
           "lang-e04aebbb-af6d-45fb-ae3f-c3dac8e7df81"
         )
   );
-
-  watch(
-    () => props.editNews,
-    (value) => {
-      if (value) {
-        title_en.value = value.title_en;
-        subtitle_en.value = value.subtitle_en;
-        editorData_en.value = value.content_en;
-        title_ru.value = value.title_ru;
-        subtitle_ru.value = value.subtitle_ru;
-        editorData_ru.value = value.content_ru;
-        image.value = [];
-      }
-    }
-  );
-  function submitHandler() {
-    if (!editorData_ru.value) {
+  // action handlers
+  function onUpdate(key: string, value: any) {
+    newsStore.updateForm(key, value);
+  }
+  function onSubmit() {
+    if (!form.value.content_ru) {
       // return store.setAlert({
       //   severity: "error",
       //   message: t(
@@ -246,7 +255,7 @@
       //   ),
       // });
     }
-    if (!editorData_en.value) {
+    if (!form.value.content_en) {
       // return store.setAlert({
       //   severity: "error",
       //   message: t(
@@ -256,48 +265,14 @@
     }
 
     if (valid.value) {
-      isLoading.value = true;
-      let data = new FormData();
-      data.append("title_en", title_en.value);
-      data.append(
-        "subtitle_en",
-        subtitle_en.value
-      );
-      data.append(
-        "content_en",
-        editorData_en.value
-      );
-      data.append("title_ru", title_ru.value);
-      data.append(
-        "subtitle_ru",
-        subtitle_ru.value
-      );
-      data.append(
-        "content_ru",
-        editorData_ru.value
-      );
-      if (!props.editNews) {
-        data.append("image", image.value[0]);
-      } else {
-        if (image.value[0]) {
-          data.append("image", image.value[0]);
-        }
-        data.append(
-          "imageUrl",
-          props.editNews.imageUrl
-        );
-      }
+      loading.value = true;
+      newsStore.save().then(closeHandler);
     }
   }
+
   function closeHandler() {
-    title_en.value = "";
-    subtitle_en.value = "";
-    editorData_en.value = "";
-    title_ru.value = "";
-    subtitle_ru.value = "";
-    editorData_ru.value = "";
-    image.value = [];
-    form.value.resetValidation();
+    loading.value = false;
+    newsStore.resetForm();
     emit("update:modelValue", false);
   }
 </script>

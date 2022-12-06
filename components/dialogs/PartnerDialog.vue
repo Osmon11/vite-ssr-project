@@ -8,14 +8,14 @@
         ref="form"
         v-model="valid"
         class="form-max-width"
-        @submit.prevent="submitHandler"
+        @submit.prevent="onSubmit"
       >
         <p
           class="title text-center mb-4"
           style="width: 100%"
         >
           {{
-            !props.editPartner
+            !editMod
               ? $t(
                   "lang-e6e7353b-1dfd-42fd-9ee8-ee112edee550"
                 )
@@ -25,7 +25,10 @@
           }}
         </p>
         <v-text-field
-          v-model="name_ru"
+          :modelValue="form.name_ru"
+          @update:modelValue="
+            onUpdate('name_ru', $event)
+          "
           type="text"
           name="title_ru"
           variant="outlined"
@@ -40,7 +43,10 @@
         ></v-text-field>
 
         <v-text-field
-          v-model="name_en"
+          :modelValue="form.name_en"
+          @update:modelValue="
+            onUpdate('name_en', $event)
+          "
           type="text"
           name="title_en"
           variant="outlined"
@@ -55,13 +61,16 @@
         ></v-text-field>
 
         <v-file-input
-          v-model="image"
+          :modelValue="form.image"
+          @update:modelValue="
+            onUpdate('image', $event)
+          "
           name="image"
           accept="image/*"
           variant="outlined"
           :label="fileInputLabel"
           color="#61a375"
-          :required="!editPartner"
+          :required="!editMod"
           :rules="[
             (v) =>
               !!v ||
@@ -81,9 +90,9 @@
               color="#61a375"
               class="text-white"
               type="submit"
-              :loading="isLoading"
+              :loading="loading"
               >{{
-                props.editPartner
+                editMod
                   ? $t(
                       "lang-d32bd46b-3317-4367-bb12-c53c36e494f5"
                     )
@@ -110,67 +119,48 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch } from "vue";
+  import { computed, ref } from "vue";
   import { useI18n } from "vue-i18n";
 
-  import Dialog from "@/shared/Dialog.vue";
+  import Dialog from "@/components/dialogs/Dialog.vue";
 
-  const props = defineProps([
-    "modelValue",
-    "editPartner",
-  ]);
+  import { usePartnerStore } from "@/stores/partner";
+
+  const props = defineProps(["modelValue"]);
   const emit = defineEmits(["update:modelValue"]);
+
   const { t } = useI18n();
-  const form = ref();
-  const valid = ref(true);
-  const name_en = ref("");
-  const name_ru = ref("");
-  const image = ref([]);
-  const isLoading = ref(false);
+  const partnerStore = usePartnerStore();
 
-  watch(
-    () => props.editPartner,
-    (value) => {
-      if (value) {
-        name_en.value = value.name_en;
-        name_ru.value = value.name_ru;
-        image.value = [];
-      }
-    }
+  // FORM
+  const form = computed(
+    () => partnerStore.getForm
   );
-
+  const valid = ref(true);
+  const loading = ref(true);
+  const editMod = computed(
+    () => partnerStore.isEditMod
+  );
   const fileInputLabel = computed(() =>
-    props.editPartner && image.value.length === 0
-      ? props.editPartner["logo"]
+    editMod.value && form.value.image === null
+      ? form.value.logo
       : t(
           "lang-75f7377c-2c49-4516-b2ea-551f90458b15"
         )
   );
-
-  function submitHandler() {
+  // action handlers
+  function onUpdate(key: string, value: any) {
+    partnerStore.updateForm(key, value);
+  }
+  function onSubmit() {
     if (valid.value) {
-      isLoading.value = true;
-      const data = new FormData();
-      data.append("name_ru", name_ru.value);
-      data.append("name_en", name_en.value);
-      if (!props.editPartner) {
-        data.append("image", image.value[0]);
-      } else {
-        if (image.value[0])
-          data.append("image", image.value[0]);
-
-        data.append(
-          "logo",
-          props.editPartner.logo
-        );
-      }
+      loading.value = true;
+      partnerStore.save().then(closeHandler);
     }
   }
   function closeHandler() {
-    name_en.value = "";
-    name_ru.value = "";
-    image.value = [];
-    form.value.resetValidation();
+    loading.value = false;
+    partnerStore.resetForm();
     emit("update:modelValue", false);
   }
 </script>

@@ -1,46 +1,49 @@
 import { defineStore } from "pinia";
 import { useFormDataCreator } from "@/utils/useFormDataCreator";
 import {
-  createPartner,
-  deletePartner,
-  editPartner,
-  getPartnerList,
+  createSlide,
+  deleteSlide,
+  editSlide,
+  getSlideList,
 } from "@/api";
-import { isPartnerList } from "@/api/index.guards";
+import { isSlideList } from "@/api/index.guards";
 import {
-  IPartner,
   IRequestFailed,
-  TPartnerList,
+  ISlide,
+  TSlideList,
 } from "@/api/index.types";
 import {
-  IPartnerForm,
-  IPartnerState,
-} from "./partner.types";
+  ISlideForm,
+  ISlideState,
+} from "./slide.types";
 
-const formDefaults: IPartnerForm = {
-  name_en: null,
-  name_ru: null,
+const formDefaults: ISlideForm = {
+  createdAt: null,
+  imageName: null,
+  imageUrl: null,
+  subtitle_en: null,
+  subtitle_ru: null,
+  title_en: null,
+  title_ru: null,
   _id: null,
-  image: [],
-  logo: null,
 };
 
-export const usePartnerStore = defineStore(
-  "app.partner",
+export const useSlideStore = defineStore(
+  "app.slide",
   {
-    state(): IPartnerState {
+    state(): ISlideState {
       return {
         // form
         form: JSON.parse(
           JSON.stringify(formDefaults)
         ),
         // list
-        partners: [],
+        slides: [],
       };
     },
     getters: {
       // form
-      getForm(): IPartnerForm {
+      getForm(): ISlideForm {
         return this.form;
       },
       getFormData(): FormData {
@@ -55,8 +58,8 @@ export const usePartnerStore = defineStore(
         return typeof this.form._id === "string";
       },
       // list
-      getPartners(): TPartnerList {
-        return this.partners;
+      getSlides(): TSlideList {
+        return this.slides;
       },
     },
     actions: {
@@ -65,18 +68,18 @@ export const usePartnerStore = defineStore(
         this.form[key] = value;
       },
       // SET
-      setForm(partner: IPartner) {
-        this.form = partner;
+      setForm(slide: ISlide) {
+        this.form = slide;
       },
       // LIST
-      fetchPartnerList() {
+      fetchSlideList() {
         return new Promise<
-          TPartnerList | IRequestFailed
+          TSlideList | IRequestFailed
         >((resolve, reject) =>
-          getPartnerList()
+          getSlideList()
             .then((data) => {
-              if (isPartnerList(data)) {
-                this.partners = data;
+              if (isSlideList(data)) {
+                this.slides = data;
                 resolve(data);
               }
             })
@@ -92,12 +95,12 @@ export const usePartnerStore = defineStore(
       // CREATE
       create() {
         return new Promise<
-          TPartnerList | IRequestFailed
+          TSlideList | IRequestFailed
         >((resolve, reject) =>
-          createPartner(this.getFormData)
+          createSlide(this.getFormData)
             .then((data) => {
-              if (isPartnerList(data)) {
-                this.partners = data;
+              if (isSlideList(data)) {
+                this.slides = data;
                 resolve(data);
               }
             })
@@ -107,15 +110,15 @@ export const usePartnerStore = defineStore(
       // EDIT
       edit() {
         return new Promise<
-          TPartnerList | IRequestFailed
+          TSlideList | IRequestFailed
         >((resolve, reject) =>
-          editPartner(
+          editSlide(
             { id: this.form._id },
             this.getFormData
           )
             .then((data) => {
-              if (isPartnerList(data)) {
-                this.partners = data;
+              if (isSlideList(data)) {
+                this.slides = data;
                 resolve(data);
               }
             })
@@ -125,12 +128,12 @@ export const usePartnerStore = defineStore(
       // DELETE
       delete(id: string) {
         return new Promise<
-          TPartnerList | IRequestFailed
+          TSlideList | IRequestFailed
         >((resolve, reject) =>
-          deletePartner({ id })
+          deleteSlide({ id })
             .then((data) => {
-              if (isPartnerList(data)) {
-                this.partners = data;
+              if (isSlideList(data)) {
+                this.slides = data;
                 resolve(data);
               }
             })

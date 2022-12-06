@@ -39,7 +39,7 @@
           <v-btn
             color="#61a375"
             class="text-white"
-            @click="feedbackModal = true"
+            @click="feedbackDialog = true"
           >
             {{
               t(
@@ -62,7 +62,7 @@
       </div>
     </div>
   </div>
-  <FeedbackModal v-model="feedbackModal" />
+  <FeedbackDialog v-model="feedbackDialog" />
 </template>
 
 <script lang="ts" setup>
@@ -70,20 +70,22 @@
     computed,
     onMounted,
     onUnmounted,
+    ref,
   } from "vue";
-  import { ref } from "@vue/reactivity";
   import { useI18n } from "vue-i18n";
 
-  import { useSliderStore } from "@/stores/slider";
-  import FeedbackModal from "@/components/dialogs/FeedbackModal.vue";
+  import FeedbackDialog from "@/components/dialogs/FeedbackDialog.vue";
+
   import { apiUrl } from "@/utils/constants";
   import { isSlideList } from "@/api/index.guards";
   import { IIndexable } from "../types/interfaces";
 
-  const sliderStore = useSliderStore();
+  import { useSlideStore } from "@/stores/slide";
+
+  const sliderStore = useSlideStore();
   const { t, locale } = useI18n();
   const activeSlide = ref(0);
-  const feedbackModal = ref(false);
+  const feedbackDialog = ref(false);
   const loadedImg = ref<IIndexable>({});
 
   const slideList = computed(
@@ -92,7 +94,7 @@
 
   let interval: NodeJS.Timer;
   onMounted(() => {
-    sliderStore.fetchSlides().then((data) => {
+    sliderStore.fetchSlideList().then((data) => {
       if (isSlideList(data)) {
         setTimeout(() => {
           interval = setInterval(() => {

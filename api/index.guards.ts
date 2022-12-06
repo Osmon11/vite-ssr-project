@@ -9,6 +9,15 @@ import {
   INews,
 } from "./index.types";
 
+// --> GENERAL
+export const isFile = (
+  data: Object
+): data is File =>
+  data &&
+  "size" in data &&
+  "type" in data &&
+  "name" in data &&
+  "lastModified" in data;
 // --> USER
 export const isUserInfoData = (
   data: IUserInfo | IRequestFailed

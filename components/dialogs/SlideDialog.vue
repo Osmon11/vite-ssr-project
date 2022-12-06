@@ -8,7 +8,7 @@
         ref="form"
         v-model="valid"
         class="form-max-width"
-        @submit.prevent="submitHandler"
+        @submit.prevent="onSubmit"
       >
         <p
           class="title text-center mb-4"
@@ -25,7 +25,10 @@
           }}
         </p>
         <v-text-field
-          v-model="title_ru"
+          :modelValue="form.title_ru"
+          @update:modelValue="
+            onUpdate('title_ru', $event)
+          "
           type="text"
           name="title_ru"
           variant="outlined"
@@ -45,7 +48,10 @@
           ]"
         ></v-text-field>
         <v-text-field
-          v-model="subtitle_ru"
+          :modelValue="form.subtitle_ru"
+          @update:modelValue="
+            onUpdate('subtitle_ru', $event)
+          "
           type="text"
           name="subtitle_ru"
           variant="outlined"
@@ -65,7 +71,10 @@
           ]"
         ></v-text-field>
         <v-text-field
-          v-model="title_en"
+          :modelValue="form.title_en"
+          @update:modelValue="
+            onUpdate('title_en', $event)
+          "
           type="text"
           name="title_en"
           variant="outlined"
@@ -85,7 +94,10 @@
           ]"
         ></v-text-field>
         <v-text-field
-          v-model="subtitle_en"
+          :modelValue="form.subtitle_en"
+          @update:modelValue="
+            onUpdate('subtitle_en', $event)
+          "
           type="text"
           name="subtitle_en"
           variant="outlined"
@@ -105,14 +117,15 @@
           ]"
         ></v-text-field>
         <v-file-input
+          :modelValue="form.image"
+          @update:modleValue="
+            onUpdate('image', $event)
+          "
           name="image"
           accept="image/*"
           variant="outlined"
           :label="fileInputLabel"
           color="#61a375"
-          @update:model-value="
-            (value) => (image = value)
-          "
           :required="!editSlide"
           :rules="[
             (v) =>
@@ -133,7 +146,7 @@
               color="#61a375"
               class="text-white"
               type="submit"
-              :loading="isLoading"
+              :loading="loading"
               >{{
                 props.editSlide
                   ? $t(
@@ -162,83 +175,50 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch } from "vue";
-
-  import Dialog from "@/shared/Dialog.vue";
   import { useI18n } from "vue-i18n";
+  import { computed, ref } from "vue";
+
+  import Dialog from "@/components/dialogs/Dialog.vue";
+
+  import { useSlideStore } from "@/stores/slide";
 
   const props = defineProps([
     "modelValue",
     "editSlide",
   ]);
   const emit = defineEmits(["update:modelValue"]);
+
   const { t } = useI18n();
-  const form = ref();
+
+  const slideStore = useSlideStore();
+
+  // --> FORM
+  const form = computed(() => slideStore.getForm);
   const valid = ref(true);
-  const title_en = ref("");
-  const subtitle_en = ref("");
-  const title_ru = ref("");
-  const subtitle_ru = ref("");
-  const image = ref([]);
-  const isLoading = ref(false);
-  const slideToEdit = computed(
-    () => props.editSlide
+  const loading = ref(false);
+  const editMod = computed(
+    () => slideStore.isEditMod
   );
-  const fileInputLabel = ref(
-    t("lang-06c97754-3b15-4867-866e-c0c8e09f401d")
+  const fileInputLabel = computed(() =>
+    editMod.value && form.value.image === null
+      ? form.value.imageName
+      : t(
+          "lang-06c97754-3b15-4867-866e-c0c8e09f401d"
+        )
   );
-
-  watch(slideToEdit, (value) => {
-    if (value) {
-      title_en.value = value.title_en;
-      subtitle_en.value = value.subtitle_en;
-      title_ru.value = value.title_ru;
-      subtitle_ru.value = value.subtitle_ru;
-      image.value = [];
-      fileInputLabel.value = value.imageName;
-    } else {
-      fileInputLabel.value = t(
-        "lang-06c97754-3b15-4867-866e-c0c8e09f401d"
-      );
-    }
-  });
-
-  function submitHandler() {
+  // action handlers
+  function onUpdate(key: string, value: any) {
+    slideStore.updateForm(key, value);
+  }
+  function onSubmit() {
     if (valid.value) {
-      isLoading.value = true;
-      const data = new FormData();
-      data.append("title_ru", title_ru.value);
-      data.append(
-        "subtitle_ru",
-        subtitle_ru.value
-      );
-      data.append("title_en", title_en.value);
-      data.append(
-        "subtitle_en",
-        subtitle_en.value
-      );
-
-      if (!props.editSlide) {
-        data.append("image", image.value[0]);
-      } else {
-        if (image.value[0]) {
-          data.append("image", image.value[0]);
-        }
-        data.append(
-          "imageUrl",
-          props.editSlide.imageUrl
-        );
-      }
-      image.value = [];
+      loading.value = true;
+      slideStore.save().then(closeHandler);
     }
   }
   const closeHandler = () => {
-    title_en.value = "";
-    subtitle_en.value = "";
-    title_ru.value = "";
-    subtitle_ru.value = "";
-    image.value = [];
-    form.value.resetValidation();
+    loading.value = true;
+    slideStore.resetForm();
     emit("update:modelValue", false);
   };
 </script>

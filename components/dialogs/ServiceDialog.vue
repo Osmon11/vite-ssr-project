@@ -8,7 +8,7 @@
       style="width: 100%; margin-bottom: 28px"
     >
       {{
-        !props.editNews
+        !editMod
           ? $t(
               "lang-c4a55d33-b1e5-49c0-b560-34cb25845d12"
             )
@@ -22,11 +22,14 @@
         ref="form"
         v-model="valid"
         class="form-max-width"
-        @submit.prevent="submitHandler"
+        @submit.prevent="onSubmit"
       >
         <div class="editor-wrapper">
           <v-text-field
-            v-model="name_ru"
+            :modelValue="form.name_ru"
+            @update:modelValue="
+              onUpdate('name_ru', $event)
+            "
             type="text"
             name="title_ru"
             variant="outlined"
@@ -46,7 +49,10 @@
             ]"
           ></v-text-field>
           <CKEditor.component
-            v-model="editorData_ru"
+            :modelValue="form.content_ru"
+            @update:modelValue="
+              onUpdate('content_ru', $event)
+            "
             :editor="ClassicEditor"
             :config="{
               ...ckeditor.editorConfig,
@@ -59,7 +65,10 @@
             style="width: 100%; height: 38px"
           ></div>
           <v-text-field
-            v-model="name_en"
+            :modelValue="form.name_en"
+            @update:modelValue="
+              onUpdate('name_en', $event)
+            "
             type="text"
             name="title_en"
             variant="outlined"
@@ -79,7 +88,10 @@
             ]"
           ></v-text-field>
           <CKEditor.component
-            v-model="editorData_en"
+            :modelValue="form.content_en"
+            @update:modelValue="
+              onUpdate('content_en', $event)
+            "
             :editor="ClassicEditor"
             :config="{
               ...ckeditor.editorConfig,
@@ -101,9 +113,9 @@
               type="submit"
               color="#61a375"
               class="text-white"
-              :loading="isLoading"
+              :loading="loading"
               >{{
-                props.editNews
+                editMod
                   ? $t(
                       "lang-d32bd46b-3317-4367-bb12-c53c36e494f5"
                     )
@@ -130,51 +142,37 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from "vue";
+  import { computed, ref } from "vue";
   // @ts-ignore
   import ClassicEditor from "@ckeditor/ckeditor5-build-classic/";
   // @ts-ignore
   import CKEditor from "@ckeditor/ckeditor5-vue";
-  // import { useI18n } from "vue-i18n";
 
-  import Dialog from "@/shared/Dialog.vue";
+  import Dialog from "@/components/dialogs/Dialog.vue";
   import ckeditor from "@/plugins/ckeditor.js";
 
-  const props = defineProps([
-    "modelValue",
-    "editNews",
-  ]);
+  import { useServiceStore } from "@/stores/service";
+
+  const props = defineProps(["modelValue"]);
   const emit = defineEmits(["update:modelValue"]);
-  // const { t } = useI18n();
-  const form = ref();
-  const valid = ref(false);
-  const name_en = ref("");
-  const editorData_en = ref("");
-  const name_ru = ref("");
-  const editorData_ru = ref("");
-  const isLoading = ref(false);
-  // const fileInputLabel = computed(() =>
-  //   props.editNews && image.value.length === 0
-  //     ? props.editNews["imageName"]
-  //     : $t(
-  //         "lang-e04aebbb-af6d-45fb-ae3f-c3dac8e7df81"
-  //       )
-  // );
 
-  watch(
-    () => props.editNews,
-    (value) => {
-      if (value) {
-        name_en.value = value.name_en;
-        editorData_en.value = value.content_en;
-        name_ru.value = value.name_ru;
-        editorData_ru.value = value.content_ru;
-      }
-    }
+  const serviceStore = useServiceStore();
+
+  // FORM
+  const form = computed(
+    () => serviceStore.getForm
   );
-
-  function submitHandler() {
-    if (!editorData_ru.value) {
+  const valid = ref(false);
+  const loading = ref(false);
+  const editMod = computed(
+    () => serviceStore.isEditMod
+  );
+  // action handlers
+  function onUpdate(key: string, value: any) {
+    serviceStore.updateForm(key, value);
+  }
+  function onSubmit() {
+    if (!form.value.content_ru) {
       // return store.setAler$t({
       //   message: t(
       //     "lang-5f8ac396-82b4-4598-9226-f09d13bb2e9e"
@@ -182,7 +180,7 @@
       //   severity: "error",
       // });
     }
-    if (!editorData_en.value) {
+    if (!form.value.content_en) {
       // return store.setAler$t({
       //   severity: "error",
       //   message: t(
@@ -192,20 +190,13 @@
     }
 
     if (valid.value) {
-      // isLoading.value = true;
-      // let data = {
-      //   name_en: name_en.value,
-      //   content_en: editorData_en.value,
-      //   name_ru: name_ru.value,
-      //   content_ru: editorData_ru.value,
-      // };
-      // if (!props.editNews) {
-      // } else {
-      // }
+      loading.value = true;
+      serviceStore.save().then(closeHandler);
     }
   }
   function closeHandler() {
-    form.value.reset();
+    loading.value = false;
+    serviceStore.resetForm();
     emit("update:modelValue", false);
   }
 </script>

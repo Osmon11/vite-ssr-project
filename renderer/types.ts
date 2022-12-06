@@ -10,8 +10,4 @@ export type PageContext = {
       description: string;
     };
   };
-  documentProps?: {
-    title: string;
-    description: string;
-  };
 };

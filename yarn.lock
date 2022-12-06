@@ -381,6 +381,11 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
+"@types/cookie_js@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@types/cookie_js/-/cookie_js-1.2.1.tgz#b654240ccca3feb85f9582880e455b69e63d8b5a"
+  integrity sha512-FUWgrNwHn3IjQDEJ47sLWWsX5ijaoysQQ/gKCQi5l7qUSOw4gO+l5wdIVngF1bfO2oeXITUJHmGb8w/xqAzuuA==
+
 "@types/linkify-it@*":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@types/linkify-it/-/linkify-it-3.0.2.tgz#fd2cd2edbaa7eaac7e7f3c1748b52a19143846c9"
@@ -639,6 +644,11 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
+
+cookie_js@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/cookie_js/-/cookie_js-1.4.2.tgz#f9ea928e425511e642df7d4670fccdbad9e57e81"
+  integrity sha512-hET/a12Sl4L6Oix5G4ZmLY75XKnN8+zE9cGl4T3rSpWh61cCKuA1yl3Uvbdw6bRPUhhWuFQbkMhNFw0BWNgj5w==
 
 cross-fetch@^3.1.5:
   version "3.1.5"
@@ -1054,6 +1064,11 @@ minimatch@^3.1.1:
   integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
   dependencies:
     brace-expansion "^1.1.7"
+
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 nanoid@^3.3.4:
   version "3.3.4"

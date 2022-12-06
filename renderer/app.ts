@@ -1,22 +1,29 @@
+import axios from "axios";
 import {
-  createSSRApp,
-  defineComponent,
   h,
   reactive,
+  createSSRApp,
+  defineComponent,
+  createApp as createSPAApp,
 } from "vue";
+import cookie_js from "cookie_js";
+
 import type {
   Component,
   PageContext,
 } from "./types";
 import { setPageContext } from "./usePageContext";
+import { useAuthStore } from "@/stores/auth";
 import vuetify from "@/plugins/vuetify";
 import i18n from "@/plugins/i18n";
-import axios from "axios";
 
 export { createApp };
 
-function createApp(pageContext: PageContext) {
-  const { Page } = pageContext;
+function createApp(
+  pageContext: PageContext,
+  clientOnly: boolean
+) {
+  const { Page, pageProps } = pageContext;
 
   let rootComponent: Component;
   const PageWithWrapper = defineComponent({
@@ -24,7 +31,7 @@ function createApp(pageContext: PageContext) {
       rootComponent = this;
     },
     render() {
-      return h(Page, pageContext.pageProps || {});
+      return h(Page, pageProps || {});
     },
   });
 
@@ -33,14 +40,21 @@ function createApp(pageContext: PageContext) {
 
   axios.interceptors.request.use(
     function (config) {
-      // const authStore = useAuthStore();
-      // if (authStore?.user) {
-      //   const token = authStore.user.token;
-      //   config.headers.authorization = token
-      //     ? `Bearer ${token}`
-      //     : "";
-      // }
-
+      const authStore = useAuthStore();
+      let token: string;
+      if (authStore?.user) {
+        token = authStore.user.token;
+      } else {
+        token = cookie_js.get(
+          import.meta.env.VITE_TOKEN_KEY
+        );
+        authStore.getUserInfo;
+      }
+      if (token) {
+        config.headers.authorization = token
+          ? `Bearer ${token}`
+          : "";
+      }
       return config;
     },
     function (error) {
@@ -53,17 +67,19 @@ function createApp(pageContext: PageContext) {
       return response;
     },
     async function (error) {
-      // const authStore = useAuthStore();
-      // switch (error.response.status) {
-      //   case 401:
-      //     authStore.logout();
-      //     break;
-      // }
+      const authStore = useAuthStore();
+      switch (error.response.status) {
+        case 401:
+          authStore.logout();
+          break;
+      }
       return Promise.reject(error);
     }
   );
 
-  const app = createSSRApp(PageWithWrapper);
+  const app = clientOnly
+    ? createSPAApp(PageWithWrapper)
+    : createSSRApp(PageWithWrapper);
 
   app.use(i18n);
   app.use(vuetify);
