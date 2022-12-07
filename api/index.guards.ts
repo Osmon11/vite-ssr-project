@@ -7,6 +7,7 @@ import {
   TPartnerList,
   TServiceList,
   INews,
+  IFeedbackCreateData,
 } from "./index.types";
 
 // --> GENERAL
@@ -50,5 +51,6 @@ export const isServiceList = (
 ): data is TServiceList => Array.isArray(data);
 // --> FEEDBACK
 export const isFeedbackCreateData = (
-  data: TPartnerList | IRequestFailed
-): data is TPartnerList => Array.isArray(data);
+  data: IFeedbackCreateData | IRequestFailed
+): data is IFeedbackCreateData =>
+  Array.isArray(data);

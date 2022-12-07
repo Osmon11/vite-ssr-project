@@ -2,7 +2,7 @@ import { createApp } from "./app";
 import { createPinia } from "pinia";
 import { getPageTitle } from "./getPageTitle";
 import type { PageContext } from "./types";
-import type { PageContextBuiltInClient } from "vite-plugin-ssr/client/router";
+import { PageContextBuiltInClient } from "vite-plugin-ssr/client/router";
 import "@/styles/index.css";
 // fab -> floating action button - styles
 import "@/styles/fab.css";
@@ -45,14 +45,8 @@ function onHydrationEnd() {
   );
 }
 function onPageTransitionStart() {
-  console.log("Page transition start");
-  document
-    .querySelector(".content")!
-    .classList.add("page-transition");
+  // console.log("Page transition start");
 }
 function onPageTransitionEnd() {
-  console.log("Page transition end");
-  document
-    .querySelector(".content")!
-    .classList.remove("page-transition");
+  // console.log("Page transition end");
 }

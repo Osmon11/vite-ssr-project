@@ -66,7 +66,7 @@ export const usePartnerStore = defineStore(
       },
       // SET
       setForm(partner: IPartner) {
-        this.form = partner;
+        this.form = { ...partner, image: [] };
       },
       // LIST
       fetchPartnerList() {

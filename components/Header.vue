@@ -131,23 +131,23 @@
                 >
                   <img
                     :src="
-                      locale ===
-                      languages.secondary
-                        ? '/assets/russia.svg'
-                        : '/assets/united-kingdom.svg'
+                      locale === languages.primary
+                        ? '/assets/united-kingdom.svg'
+                        : '/assets/russia.svg'
                     "
                     :alt="
-                      locale ===
-                      languages.secondary
-                        ? 'russian flag'
-                        : 'united kingdom flag'
+                      locale === languages.primary
+                        ? 'united kingdom flag'
+                        : 'russian flag'
                     "
                     style="
                       width: 20px;
                       height: 20px;
                     "
                   />
-                  <p>{{ locale }}</p>
+                  <p>
+                    {{ locale }}
+                  </p>
                 </div></template
               >
               <template #items="{ handleChange }"

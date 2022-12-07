@@ -1,28 +1,5 @@
 <template>
-  <div
-    class="flex-box-between"
-    style="margin-bottom: 16px"
-  >
-    <p class="title">
-      {{
-        $t(
-          "lang-43551998-d49d-41a1-8287-25a880594e94"
-        )
-      }}
-    </p>
-    <v-btn
-      color="#61a375"
-      class="text-white"
-      @click="dialog = true"
-      >{{
-        $t(
-          "lang-c7c4caaa-a029-4b61-9837-ee2f3711a07a"
-        )
-      }}</v-btn
-    >
-  </div>
   <DataContainer
-    :loading="loading"
     :noData="!Boolean(newsFeed.length)"
     noDataText="lang-2c5d8a3a-7aa6-4e97-9028-fc8c18aab920"
   >
@@ -104,53 +81,43 @@
       </v-expansion-panel>
     </v-expansion-panels>
   </DataContainer>
-  <NewsDialog v-model="dialog" />
 </template>
 
 <script lang="ts" setup>
   import { useI18n } from "vue-i18n";
-  import { computed, onMounted, ref } from "vue";
+  import { computed } from "vue";
 
-  import NewsDialog from "@/components/dialogs/NewsDialog.vue";
-
-  import { useNewsStore } from "@/stores/news";
+  import DataContainer from "@/containers/DataContainer.vue";
 
   import { INews } from "@/api/index.types";
   import { apiUrl } from "@/utils/constants";
-  import DataContainer from "@/containers/DataContainer.vue";
+
+  import { useNotification } from "@/utils/useNotification";
+  import { useNewsStore } from "@/stores/news";
+
+  const emit = defineEmits(["edit-click"]);
 
   const { locale } = useI18n();
+  const { setPromp } = useNotification();
 
   const newsStore = useNewsStore();
-  const dialog = ref(false);
-  const loading = ref(false);
 
   const newsFeed = computed(
     () => newsStore.getNewsFeed
   );
 
-  onMounted(() => {
-    loading.value = true;
-    newsStore.fetchNewsFeed().then(() => {
-      loading.value = false;
-    });
-  });
-
   function onEditClick(news: INews) {
     newsStore.setForm(news);
+    emit("edit-click");
   }
   function onDeleteClick(news: INews) {
-    if (false) {
-      newsStore.delete(news._id);
-    }
-    //   store.setPromp({
-    //     message: $t(
-    //       "lang-241de744-3917-4521-b15d-81aba17a4857"
-    //     ),
-    //     confirm() {
-    //       store.deleteNews({ id: news._id });
-    //     },
-    //   });
+    setPromp({
+      message:
+        "lang-241de744-3917-4521-b15d-81aba17a4857",
+      confirm() {
+        newsStore.delete(news._id);
+      },
+    });
   }
 </script>
 

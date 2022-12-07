@@ -6,7 +6,7 @@
     <v-form
       ref="form"
       v-model="valid"
-      @submit.prevent="handleRequestSubmit"
+      @submit.prevent="onSubmit"
     >
       <div
         class="flex-box-center"
@@ -25,7 +25,10 @@
         style="gap: 20px"
       >
         <v-text-field
-          v-model="userName"
+          :modelValue="form.userName"
+          @update:modelValue="
+            onUpdate('userName', $event)
+          "
           type="text"
           name="userName"
           variant="outlined"
@@ -45,7 +48,10 @@
           style="width: calc(50% - 10px)"
         ></v-text-field>
         <v-text-field
-          v-model="email"
+          :modelValue="form.email"
+          @update:modelValue="
+            onUpdate('email', $event)
+          "
           type="email"
           name="email"
           variant="outlined"
@@ -66,7 +72,10 @@
         ></v-text-field>
       </div>
       <v-textarea
-        v-model="message"
+        :modelValue="form.message"
+        @update:modelValue="
+          onUpdate('message', $event)
+        "
         type="text"
         name="message"
         variant="outlined"
@@ -93,7 +102,7 @@
             color="#61a375"
             class="text-white"
             type="submit"
-            :loading="isLoading"
+            :loading="loading"
             >{{
               $t(
                 "lang-3d74e643-f6a3-4805-a399-de2a65317236"
@@ -117,41 +126,39 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from "vue";
+  import { computed, ref } from "vue";
 
   import Dialog from "./Dialog.vue";
 
+  import { useFeedbackStore } from "@/stores/feedback";
+
   const props = defineProps(["modelValue"]);
   const emit = defineEmits(["update:modelValue"]);
-  const form = ref();
-  const valid = ref(false);
-  const userName = ref("");
-  const email = ref("");
-  const message = ref("");
-  const isLoading = ref(false);
 
-  function handleRequestSubmit() {
+  const feedbackStore = useFeedbackStore();
+
+  // FORM
+  const form = computed(
+    () => feedbackStore.getForm
+  );
+  const valid = ref(false);
+  const loading = ref(false);
+  // action handlers
+  function onUpdate(key: string, value: any) {
+    feedbackStore.updateForm(key, value);
+  }
+  function onSubmit() {
     if (valid.value) {
-      isLoading.value = true;
-      // store.sendFeedback(
-      //   {
-      //     message: `
-      //   Имя: ${userName.value}\n
-      //   Почта: ${email.value}\n
-      //   Сообщение: ${message.value}
-      // `,
-      //   },
-      //   (success) => {
-      //     isLoading.value = false;
-      //     if (success) {
-      //       closeHandler();
-      //     }
-      //   }
-      // );
+      loading.value = true;
+      feedbackStore
+        .save()
+        .then(closeHandler)
+        .catch(() => (loading.value = false));
     }
   }
   function closeHandler() {
-    form.value.reset();
+    loading.value = false;
+    feedbackStore.resetForm();
     emit("update:modelValue", false);
   }
 </script>

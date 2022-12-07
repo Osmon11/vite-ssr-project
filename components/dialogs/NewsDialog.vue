@@ -23,7 +23,6 @@
         v-model="valid"
         class="form-max-width"
         @submit.prevent="onSubmit"
-        lazy-validation
       >
         <div class="editor-wrapper">
           <v-text-field
@@ -62,6 +61,7 @@
                 'lang-8b92adf8-7f88-4e1f-ae2f-e5464cd56994'
               )
             "
+            rows="1"
             color="#61a375"
             required
             :rules="[
@@ -124,6 +124,7 @@
                 'lang-a29ef29c-2b0c-4fc9-bb66-87366263d7f9'
               )
             "
+            rows="1"
             color="#61a375"
             required
             :rules="[
@@ -219,12 +220,15 @@
 
   import Dialog from "@/components/dialogs/Dialog.vue";
   import ckeditor from "@/plugins/ckeditor.js";
+
   import { useNewsStore } from "@/stores/news";
+  import { useNotification } from "@/utils/useNotification";
 
   const props = defineProps(["modelValue"]);
   const emit = defineEmits(["update:modelValue"]);
 
   const { t } = useI18n();
+  const { setAlert } = useNotification();
 
   const newsStore = useNewsStore();
 
@@ -236,7 +240,7 @@
     () => newsStore.isEditMod
   );
   const fileInputLabel = computed(() =>
-    editMod.value && form.value.image === null
+    editMod.value && !form.value.image[0]
       ? form.value.imageName
       : t(
           "lang-e04aebbb-af6d-45fb-ae3f-c3dac8e7df81"
@@ -248,30 +252,32 @@
   }
   function onSubmit() {
     if (!form.value.content_ru) {
-      // return store.setAlert({
-      //   severity: "error",
-      //   message: t(
-      //     "lang-5f8ac396-82b4-4598-9226-f09d13bb2e9e"
-      //   ),
-      // });
+      return setAlert({
+        type: "error",
+        message: t(
+          "lang-5f8ac396-82b4-4598-9226-f09d13bb2e9e"
+        ),
+      });
     }
     if (!form.value.content_en) {
-      // return store.setAlert({
-      //   severity: "error",
-      //   message: t(
-      //     "lang-d001e0bd-1ded-4909-b9db-1c01862a45cd"
-      //   ),
-      // });
+      return setAlert({
+        type: "error",
+        message: t(
+          "lang-d001e0bd-1ded-4909-b9db-1c01862a45cd"
+        ),
+      });
     }
 
     if (valid.value) {
       loading.value = true;
-      newsStore.save().then(closeHandler);
+      newsStore
+        .save()
+        .then(closeHandler)
+        .catch(() => (loading.value = false));
     }
   }
 
   function closeHandler() {
-    loading.value = false;
     newsStore.resetForm();
     emit("update:modelValue", false);
   }

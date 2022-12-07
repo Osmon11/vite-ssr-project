@@ -73,6 +73,11 @@
   const newsFeed = computed(
     () => newsStore.getNewsFeed
   );
+  if (import.meta.env.SSR) {
+    console.log("server", newsFeed.value);
+  } else {
+    console.log("client", newsFeed.value);
+  }
 </script>
 
 <style scoped>

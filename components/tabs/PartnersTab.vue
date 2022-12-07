@@ -1,28 +1,5 @@
 <template>
-  <div
-    class="flex-box-between"
-    style="margin-bottom: 16px"
-  >
-    <p class="title">
-      {{
-        $t(
-          "lang-1d767a32-84fc-4c69-9690-8c0578515b97"
-        )
-      }}
-    </p>
-    <v-btn
-      color="#61a375"
-      class="text-white"
-      @click="dialog = true"
-      >{{
-        $t(
-          "lang-e6e7353b-1dfd-42fd-9ee8-ee112edee550"
-        )
-      }}</v-btn
-    >
-  </div>
   <DataContainer
-    :loading="loading"
     :noData="!Boolean(partners.length)"
     noDataText="lang-783e3082-1406-4f31-8d6e-799b8cd1db50"
   >
@@ -95,52 +72,42 @@
       >
     </div>
   </DataContainer>
-  <PartnerDialog v-model="dialog" />
 </template>
 
 <script lang="ts" setup>
   import { useI18n } from "vue-i18n";
-  import { computed, onMounted, ref } from "vue";
+  import { computed } from "vue";
 
-  import PartnerDialog from "@/components/dialogs/PartnerDialog.vue";
   import DataContainer from "@/containers/DataContainer.vue";
-
-  import { usePartnerStore } from "@/stores/partner";
 
   import { IPartner } from "@/api/index.types";
   import { apiUrl } from "@/utils/constants";
 
+  import { usePartnerStore } from "@/stores/partner";
+  import { useNotification } from "@/utils/useNotification";
+
+  const emit = defineEmits(["edit-click"]);
+
   const { locale } = useI18n();
+  const { setPromp } = useNotification();
 
   const partnerStore = usePartnerStore();
-  const dialog = ref(false);
-  const loading = ref(false);
 
   const partners = computed(
     () => partnerStore.getPartners
   );
 
-  onMounted(() => {
-    loading.value = true;
-    partnerStore.fetchPartnerList().then(() => {
-      loading.value = false;
-    });
-  });
-
   function onEditClick(partner: IPartner) {
     partnerStore.setForm(partner);
+    emit("edit-click");
   }
   function onDeleteClick(partner: IPartner) {
-    if (false) {
-      partnerStore.delete(partner._id);
-    }
-    //  store.setPromp({
-    //     message: t(
-    //       "lang-55cb3f2e-34db-488a-a78c-386e34be0bde"
-    //     ),
-    //     confirm() {
-    //       store.deletePartner({ id: partner._id });
-    //     },
-    //   });
+    setPromp({
+      message:
+        "lang-55cb3f2e-34db-488a-a78c-386e34be0bde",
+      confirm() {
+        partnerStore.delete(partner._id);
+      },
+    });
   }
 </script>

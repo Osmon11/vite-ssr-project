@@ -68,7 +68,7 @@ export const useEmployeeStore = defineStore(
       },
       // SET
       setForm(employee: IEmployee) {
-        this.form = employee;
+        this.form = { ...employee, image: [] };
       },
       // LIST
       fetchEmployeeList() {

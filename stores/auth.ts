@@ -11,7 +11,7 @@ import {
   IRequestFailed,
   IUserInfo,
 } from "@/api/index.types";
-import { login } from "@/api";
+import { getUserInfo, login } from "@/api";
 import { isUserInfoData } from "@/api/index.guards";
 
 const userDefaults: IUserInfo = {
@@ -91,6 +91,21 @@ export const useAuthStore = defineStore(
         );
         this.resetUser();
         navigate("/login");
+      },
+      // user info
+      fetchUserInfo() {
+        return new Promise<
+          IUserInfo | IRequestFailed
+        >((resolve, reject) =>
+          getUserInfo()
+            .then((data) => {
+              if (isUserInfoData(data)) {
+                this.user = data;
+                resolve(data);
+              }
+            })
+            .catch((err) => reject(err))
+        );
       },
       // reset
       resetUser() {

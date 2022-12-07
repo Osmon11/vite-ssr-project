@@ -9,6 +9,7 @@ export default createI18n<
   [MessageSchema_en, MessageSchema_ru],
   "en" | "ru"
 >({
+  legacy: false,
   allowComposition: true,
   locale: import.meta.env.VITE_PRIMARY_LANGUAGE,
   fallbackLocale: import.meta.env

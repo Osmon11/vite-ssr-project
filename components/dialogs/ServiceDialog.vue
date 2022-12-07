@@ -152,9 +152,12 @@
   import ckeditor from "@/plugins/ckeditor.js";
 
   import { useServiceStore } from "@/stores/service";
+  import { useNotification } from "@/utils/useNotification";
 
   const props = defineProps(["modelValue"]);
   const emit = defineEmits(["update:modelValue"]);
+
+  const { setAlert } = useNotification();
 
   const serviceStore = useServiceStore();
 
@@ -173,25 +176,26 @@
   }
   function onSubmit() {
     if (!form.value.content_ru) {
-      // return store.setAler$t({
-      //   message: t(
-      //     "lang-5f8ac396-82b4-4598-9226-f09d13bb2e9e"
-      //   ),
-      //   severity: "error",
-      // });
+      return setAlert({
+        type: "error",
+        message:
+          "lang-5f8ac396-82b4-4598-9226-f09d13bb2e9e",
+      });
     }
     if (!form.value.content_en) {
-      // return store.setAler$t({
-      //   severity: "error",
-      //   message: t(
-      //     "lang-d001e0bd-1ded-4909-b9db-1c01862a45cd"
-      //   ),
-      // });
+      return setAlert({
+        type: "error",
+        message:
+          "lang-d001e0bd-1ded-4909-b9db-1c01862a45cd",
+      });
     }
 
     if (valid.value) {
       loading.value = true;
-      serviceStore.save().then(closeHandler);
+      serviceStore
+        .save()
+        .then(closeHandler)
+        .catch(() => (loading.value = false));
     }
   }
   function closeHandler() {

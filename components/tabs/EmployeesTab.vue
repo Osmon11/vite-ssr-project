@@ -1,26 +1,4 @@
 <template>
-  <div
-    class="flex-box-between"
-    style="margin-bottom: 16px"
-  >
-    <p class="title">
-      {{
-        $t(
-          "lang-17988631-887c-48a8-9636-4eafe2657f2d"
-        )
-      }}
-    </p>
-    <v-btn
-      color="#61a375"
-      class="text-white"
-      @click="dialog = true"
-      >{{
-        $t(
-          "lang-2b0b4316-3cd1-4db5-84cd-3e3da8788fdc"
-        )
-      }}</v-btn
-    >
-  </div>
   <DataContainer
     :noData="!Boolean(employees.length)"
     noDataText="lang-959ff8bf-ed3e-4a46-8d9d-2d234d5b3bca"
@@ -99,24 +77,24 @@
       >
     </div>
   </DataContainer>
-  <EmployeeDialog v-model="dialog" />
 </template>
 
 <script lang="ts" setup>
+  import { computed } from "vue";
   import { useI18n } from "vue-i18n";
-  import { computed, ref } from "vue";
-
-  import EmployeeDialog from "@/components/dialogs/EmployeeDialog.vue";
-
-  import { useEmployeeStore } from "@/stores/employee";
 
   import { IEmployee } from "@/api/index.types";
   import { apiUrl } from "@/utils/constants";
 
+  import { useEmployeeStore } from "@/stores/employee";
+  import { useNotification } from "@/utils/useNotification";
+
+  const emit = defineEmits(["edit-click"]);
+
   const { locale } = useI18n();
+  const { setPromp } = useNotification();
 
   const employeeStore = useEmployeeStore();
-  const dialog = ref(false);
 
   const employees = computed(
     () => employeeStore.getEmployees
@@ -124,19 +102,16 @@
 
   function onEditClick(employee: IEmployee) {
     employeeStore.setForm(employee);
+    emit("edit-click");
   }
   function onDeleteClick(employee: IEmployee) {
-    if (false) {
-      employeeStore.delete(employee._id);
-    }
-    //   store.setPromp({
-    //     message: $t(
-    //       "lang-9e461e6a-86a1-4cc4-8265-0768d776da8c"
-    //     ),
-    //     confirm() {
-    //       store.deleteEmployee({ id: person._id });
-    //     },
-    //   });
+    setPromp({
+      message:
+        "lang-9e461e6a-86a1-4cc4-8265-0768d776da8c",
+      confirm() {
+        employeeStore.delete(employee._id);
+      },
+    });
   }
 </script>
 

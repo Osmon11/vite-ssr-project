@@ -200,7 +200,7 @@
     () => slideStore.isEditMod
   );
   const fileInputLabel = computed(() =>
-    editMod.value && form.value.image === null
+    editMod.value && !form.value.image[0]
       ? form.value.imageName
       : t(
           "lang-06c97754-3b15-4867-866e-c0c8e09f401d"
@@ -213,7 +213,10 @@
   function onSubmit() {
     if (valid.value) {
       loading.value = true;
-      slideStore.save().then(closeHandler);
+      slideStore
+        .save()
+        .then(closeHandler)
+        .catch(() => (loading.value = false));
     }
   }
   const closeHandler = () => {

@@ -66,7 +66,7 @@ export const useServiceStore = defineStore(
       },
       // SET
       setForm(partner: IService) {
-        this.form = partner;
+        this.form = { ...partner, image: [] };
       },
       // LIST
       fetchServiceList() {

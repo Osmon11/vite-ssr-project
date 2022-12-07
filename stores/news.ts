@@ -82,7 +82,7 @@ export const useNewsStore = defineStore(
       },
       // SET
       setForm(news: INews) {
-        this.form = news;
+        this.form = { ...news, image: [] };
       },
       // LIST
       fetchNewsFeed() {

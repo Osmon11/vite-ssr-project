@@ -18,14 +18,15 @@ import {
 } from "./slide.types";
 
 const formDefaults: ISlideForm = {
+  _id: null,
   createdAt: null,
-  imageName: null,
-  imageUrl: null,
   subtitle_en: null,
   subtitle_ru: null,
   title_en: null,
   title_ru: null,
-  _id: null,
+  image: [],
+  imageName: null,
+  imageUrl: null,
 };
 
 export const useSlideStore = defineStore(
@@ -69,7 +70,7 @@ export const useSlideStore = defineStore(
       },
       // SET
       setForm(slide: ISlide) {
-        this.form = slide;
+        this.form = { ...slide, image: [] };
       },
       // LIST
       fetchSlideList() {

@@ -142,7 +142,7 @@
     () => partnerStore.isEditMod
   );
   const fileInputLabel = computed(() =>
-    editMod.value && form.value.image === null
+    editMod.value && !form.value.image[0]
       ? form.value.logo
       : t(
           "lang-75f7377c-2c49-4516-b2ea-551f90458b15"
@@ -155,7 +155,10 @@
   function onSubmit() {
     if (valid.value) {
       loading.value = true;
-      partnerStore.save().then(closeHandler);
+      partnerStore
+        .save()
+        .then(closeHandler)
+        .catch(() => (loading.value = false));
     }
   }
   function closeHandler() {

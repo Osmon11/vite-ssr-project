@@ -4,6 +4,7 @@ export type PageContext = {
   Page: Component;
   pageProps: Record<string, unknown>;
   initialStoreState: any;
+  redirectTo: string;
   exports: {
     documentProps?: {
       title: string;

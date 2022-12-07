@@ -201,7 +201,7 @@
     () => employeeStore.isEditMod
   );
   const fileInputLabel = computed(() =>
-    editMod.value && form.value.image === null
+    editMod.value && !form.value.image[0]
       ? form.value.avatar
       : t(
           "lang-800ebbd8-b6eb-4da0-9bdf-24f7dab85c77"
@@ -214,7 +214,10 @@
   function onSubmit() {
     if (valid.value) {
       loading.value = true;
-      employeeStore.save().then(closeHandler);
+      employeeStore
+        .save()
+        .then(closeHandler)
+        .catch(() => (loading.value = false));
     }
   }
 

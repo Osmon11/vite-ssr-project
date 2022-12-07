@@ -265,7 +265,11 @@
       }}
     </p>
   </footer>
-  <div class="floating-container">
+  <!-- Floating Action Button -->
+  <div
+    class="floating-container"
+    v-if="!isSPAPages"
+  >
     <div
       class="floating-button"
       @click="scrollToTop"
@@ -353,6 +357,9 @@
   const isHome = computed(
     () => pageContext.urlPathname === "/"
   );
+  const isSPAPages =
+    pageContext.urlOriginal === "/admin" ||
+    pageContext.urlOriginal === "/login";
 
   function navHandler(
     route: string,

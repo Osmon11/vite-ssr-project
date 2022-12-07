@@ -17,6 +17,7 @@ const passToClient = [
   "initialStoreState",
   "pageProps",
   "documentProps",
+  "redirectTo",
 ];
 
 async function render(
@@ -30,13 +31,13 @@ async function render(
   const description =
     (documentProps &&
       documentProps.description) ||
-    "App using Vite + vite-plugin-ssr";
+    import.meta.env.VITE_SITE_DESCRIPTION_EN;
 
   const documentHtml = escapeInject`<!DOCTYPE html>
-    <html>
-      <head>
-      <meta charset="UTF-8" />
-         <link
+  <html>
+    <head>
+    <meta charset="UTF-8" />
+    <link
       rel="apple-touch-icon"
       sizes="180x180"
       href="/document/apple-touch-icon.png"
@@ -61,16 +62,16 @@ async function render(
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
-        <meta name="msapplication-TileColor" content="#da532c" />
-     <meta name="theme-color" content="#000000" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="${description}" />
-        <title>${title}</title>
-      </head>
-      <body>
-        <div id="app">${stream}</div>
-      </body>
-    </html>`;
+      <meta name="msapplication-TileColor" content="#da532c" />
+      <meta name="theme-color" content="#000000" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="${description}" />
+      <title>${title}</title>
+    </head>
+    <body>
+      <div id="app">${stream}</div>
+    </body>
+  </html>`;
 
   return {
     documentHtml,

@@ -16,6 +16,7 @@ import { setPageContext } from "./usePageContext";
 import { useAuthStore } from "@/stores/auth";
 import vuetify from "@/plugins/vuetify";
 import i18n from "@/plugins/i18n";
+import { useNotification } from "@/utils/useNotification";
 
 export { createApp };
 
@@ -40,16 +41,9 @@ function createApp(
 
   axios.interceptors.request.use(
     function (config) {
-      const authStore = useAuthStore();
-      let token: string;
-      if (authStore?.user) {
-        token = authStore.user.token;
-      } else {
-        token = cookie_js.get(
-          import.meta.env.VITE_TOKEN_KEY
-        );
-        authStore.getUserInfo;
-      }
+      const token = cookie_js.get(
+        import.meta.env.VITE_TOKEN_KEY
+      );
       if (token) {
         config.headers.authorization = token
           ? `Bearer ${token}`
@@ -68,10 +62,25 @@ function createApp(
     },
     async function (error) {
       const authStore = useAuthStore();
+      const { setAlert } = useNotification();
       switch (error.response.status) {
         case 401:
+          setAlert({
+            type: "error",
+            message:
+              error.response.data?.message ||
+              "lang-6642980e-c5ab-4f92-bbee-e1070c6c2a5b",
+          });
           authStore.logout();
           break;
+        default: {
+          setAlert({
+            type: "error",
+            message:
+              error.response.data?.message ||
+              "lang-88327f5c-ff19-42f8-94d8-0554bbdedeab",
+          });
+        }
       }
       return Promise.reject(error);
     }
