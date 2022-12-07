@@ -72,8 +72,8 @@
     watch,
   } from "vue";
 
-  import Header from "@/components/Header.vue";
-  import Footer from "@/components/Footer.vue";
+  import Header from "@/components/general/Header.vue";
+  import Footer from "@/components/general/Footer.vue";
 
   import { useAuthStore } from "@/stores/auth";
   import { useAppStore } from "@/stores/app";

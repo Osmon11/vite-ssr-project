@@ -4,6 +4,106 @@
       class="d-flex justify-center align-center"
     >
       <div
+        v-if="xs"
+        class="d-flex flex-column justify-center align-center"
+      >
+        <div
+          class="logo-wrapper"
+          @click="onLogoClick"
+          static
+        >
+          <img
+            class="logo"
+            src="/assets/AA_LOGO.svg"
+            alt="Amanat Advisory"
+          />
+        </div>
+        <v-divider
+          class="w-100 my-4"
+          color="white"
+        ></v-divider>
+        <div
+          class="social-media-wrapper flex-box"
+        >
+          <a
+            class="icon-wrapper"
+            href="https://t.me/+996555081071"
+            target="_blank"
+          >
+            <img
+              :draggable="false"
+              class="social-media-icon icon-color-white default"
+              src="/assets/telegram-white.svg"
+              alt="telegram icon" />
+            <img
+              :draggable="false"
+              class="social-media-icon active"
+              src="/assets/telegram-colorful.svg"
+              alt="telegram icon"
+          /></a>
+          <a
+            class="icon-wrapper"
+            href="https://www.instagram.com/amanatadvisory.kg/"
+            target="_blank"
+          >
+            <img
+              :draggable="false"
+              class="social-media-icon icon-color-white default"
+              src="/assets/instagram-white.svg"
+              alt="instagram icon" /><img
+              :draggable="false"
+              class="social-media-icon active"
+              src="/assets/instagram-colorful.svg"
+              alt="instagram icon"
+          /></a>
+          <a
+            class="icon-wrapper"
+            href="https://www.facebook.com/amanatadvisory.kg"
+            target="_blank"
+          >
+            <img
+              :draggable="false"
+              class="social-media-icon icon-color-white default"
+              src="/assets/facebook-white.svg"
+              alt="facebook icon" /><img
+              :draggable="false"
+              class="social-media-icon active"
+              src="/assets/facebook-colorful.svg"
+              alt="facebook icon"
+          /></a>
+          <a
+            class="icon-wrapper"
+            href="https://wa.me/996508081071"
+            target="_blank"
+          >
+            <img
+              :draggable="false"
+              class="social-media-icon icon-color-white default"
+              src="/assets/whatsapp-white.svg"
+              alt="whatsapp icon" /><img
+              :draggable="false"
+              class="social-media-icon active"
+              src="/assets/whatsapp-colorful.svg"
+              alt="whatsapp icon"
+          /></a>
+        </div>
+        <v-btn
+          color="#61a375"
+          class="text-white mt-4"
+          @click="feedbackDialog = true"
+          :style="{
+            marginTop: xs || sm ? 40 : 0,
+          }"
+        >
+          {{
+            $t(
+              "lang-a3bed61a-5493-4c37-9959-704e03364489"
+            )
+          }}
+        </v-btn>
+      </div>
+      <div
+        v-if="!xs"
         class="footer-content d-flex flex-row justify-center align-start flex-wrap"
       >
         <div class="column">
@@ -88,14 +188,18 @@
               src="/assets/adress.svg"
               alt="adress icon"
             />
-            <p
-              class="text-footer d-flex align-center"
+            <div
+              class="d-flex align-center"
+              style="gap: 5px"
             >
-              {{
-                $t(
-                  "lang-08f5ef7e-a2f5-40ff-8030-9928c3e9711b"
-                )
-              }}<a
+              <p class="text-footer">
+                {{
+                  $t(
+                    "lang-08f5ef7e-a2f5-40ff-8030-9928c3e9711b"
+                  )
+                }}
+              </p>
+              <a
                 class="hover-effect"
                 :href="`http://maps.google.com/?q=${$t(
                   'lang-81aabe66-1dce-4aa8-b0f2-c8c3ef08ee08'
@@ -115,7 +219,7 @@
                   }}</span
                 ></a
               >
-            </p>
+            </div>
           </div>
           <div
             class="flex-box"
@@ -126,14 +230,18 @@
               src="/assets/tel.svg"
               alt="phone icon"
             />
-            <p
-              class="text-footer d-flex align-center"
+            <div
+              class="d-flex align-center"
+              style="gap: 5px"
             >
-              {{
-                $t(
-                  "lang-ecf45fc4-2864-49bf-af25-72d4c5cd361d"
-                )
-              }}<a
+              <p class="text-footer">
+                {{
+                  $t(
+                    "lang-ecf45fc4-2864-49bf-af25-72d4c5cd361d"
+                  )
+                }}
+              </p>
+              <a
                 class="hover-effect"
                 :href="`tel:${phoneNumber}`"
                 ><span
@@ -141,7 +249,7 @@
                   >{{ `+${phoneNumber}` }}</span
                 ></a
               >
-            </p>
+            </div>
           </div>
           <div
             class="flex-box"
@@ -152,14 +260,18 @@
               src="/assets/email.svg"
               alt="email icon"
             />
-            <p
-              class="text-footer d-flex align-center"
+            <div
+              class="d-flex align-center"
+              style="gap: 5px"
             >
-              {{
-                $t(
-                  "lang-08f5ef7e-a2f5-40ff-8030-9928c3e9711b"
-                )
-              }}<a
+              <p class="text-footer">
+                {{
+                  $t(
+                    "lang-08f5ef7e-a2f5-40ff-8030-9928c3e9711b"
+                  )
+                }}
+              </p>
+              <a
                 class="hover-effect"
                 :href="`https://mail.google.com/mail/?view=cm&fs=1&to=${emailAddress}`"
                 target="_blank"
@@ -169,7 +281,7 @@
                   >{{ emailAddress }}</span
                 ></a
               >
-            </p>
+            </div>
           </div>
         </div>
         <div class="column">
@@ -271,7 +383,7 @@
     v-if="!isSPAPages"
   >
     <div
-      class="floating-button"
+      class="floating-button d-flex align-center justify-center"
       @click="scrollToTop"
     >
       <v-icon icon="mdi-chevron-up"></v-icon>
@@ -280,6 +392,7 @@
       <span
         class="float-element flex-box-center tooltip-left"
         ><a
+          class="d-flex align-center justify-center"
           href="https://www.facebook.com/amanatadvisory.kg"
           target="_blank"
           ><img
@@ -290,6 +403,7 @@
       ></span>
       <span class="float-element flex-box-center"
         ><a
+          class="d-flex align-center justify-center"
           href="https://wa.me/996508081071"
           target="_blank"
           ><img
@@ -300,6 +414,7 @@
       ></span>
       <span class="float-element flex-box-center"
         ><a
+          class="d-flex align-center justify-center"
           href="https://t.me/+996555081071"
           target="_blank"
           ><img
@@ -310,6 +425,7 @@
       ></span>
       <span class="float-element flex-box-center"
         ><a
+          class="d-flex align-center justify-center"
           href="https://www.instagram.com/amanatadvisory.kg/"
           target="_blank"
           ><img
@@ -320,7 +436,9 @@
       ></span>
       <span
         class="float-element flex-box-center tooltip-left"
-        ><a :href="`tel:${phoneNumber}`"
+        ><a
+          class="d-flex align-center justify-center"
+          :href="`tel:${phoneNumber}`"
           ><img
             class="icon-color-white contact-icon"
             src="/assets/tel.svg"
@@ -333,10 +451,14 @@
 
 <script lang="ts" setup>
   import { ref, computed } from "@vue/reactivity";
-  import { usePageContext } from "@/renderer/usePageContext";
+  import { navigate } from "vite-plugin-ssr/client/router";
 
   import FeedbackDialog from "@/components/dialogs/FeedbackDialog.vue";
-  import { navigate } from "vite-plugin-ssr/client/router";
+
+  import { usePageContext } from "@/renderer/usePageContext";
+
+  const phoneNumber = import.meta.env.VITE_PHONE;
+  const emailAddress = import.meta.env.VITE_EMAIL;
 
   const pageContext = usePageContext();
 
@@ -361,6 +483,15 @@
     pageContext.urlOriginal === "/admin" ||
     pageContext.urlOriginal === "/login";
 
+  // --> NAVIGATION
+  // action handlers
+  function onLogoClick() {
+    if (isHome.value) {
+      props.scrollIntoHandler("top");
+    } else {
+      navigate("/");
+    }
+  }
   function navHandler(
     route: string,
     section?: string
@@ -379,42 +510,9 @@
       behavior: "smooth",
     });
   }
-
-  const phoneNumber = import.meta.env.VITE_PHONE;
-  const emailAddress = import.meta.env.VITE_EMAIL;
 </script>
 
 <style scoped>
-  .hover-effect {
-    position: relative;
-    display: inline-block;
-    outline: none;
-    overflow: hidden;
-    text-transform: lowercase;
-  }
-  .hover-effect span {
-    position: relative;
-    display: inline-block;
-    -webkit-transition: -webkit-transform 0.3s;
-    -moz-transition: -moz-transform 0.3s;
-    transition: transform 0.3s;
-  }
-  .hover-effect span::before {
-    position: absolute;
-    top: 100%;
-    content: attr(data-hover);
-    white-space: nowrap;
-    font-weight: 700;
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-  .hover-effect:hover span,
-  .hover-effect:focus span {
-    -webkit-transform: translateY(-100%);
-    -moz-transform: translateY(-100%);
-    transform: translateY(-100%);
-  }
   footer {
     padding: 70px 0px 35px;
     background: #4b5757;
@@ -433,19 +531,26 @@
     text-transform: uppercase;
   }
 
-  .text-footer {
+  .text-footer,
+  .hover-effect {
     width: fit-content;
     color: #ffffff;
     font-size: 12px;
     font-weight: 300;
     line-height: 20px;
     padding: 0px;
-    gap: 5px;
   }
-  .text-footer a,
-  .text-footer span {
+  .hover-effect,
+  .hover-effect span {
     color: #ffffff;
     font-weight: 500;
+  }
+  .logo-wrapper {
+    cursor: pointer;
+  }
+  .logo {
+    width: 64px;
+    height: 64px;
   }
   .contact-icon {
     width: 14px;
@@ -455,6 +560,9 @@
     width: fit-content;
   }
   @media (min-width: 0px) and (max-width: 600px) {
+    footer {
+      padding: 40px;
+    }
     .footer-content {
       padding: 0px 15px;
       gap: 20px;

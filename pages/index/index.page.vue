@@ -369,8 +369,8 @@
   import { useNewsStore } from "@/stores/news";
   import { useServiceStore } from "@/stores/service";
 
-  import Slider from "@/components/Slider.vue";
-  import MarqueeText from "@/components/MarqueeText.vue";
+  import Slider from "@/components/general/Slider.vue";
+  import MarqueeText from "@/components/general/MarqueeText.vue";
   import BlogCard from "@/components/shared/BlogCard.vue";
   import PageContainer from "@/containers/PageContainer.vue";
 

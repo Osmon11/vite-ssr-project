@@ -48,11 +48,14 @@
   bottom: 0;
   right: 0;
   margin: 35px 25px;
+  z-index: 900;
 }
-.floating-container:hover {
+.floating-container:hover,
+.floating-container:focus {
   height: 400px;
 }
-.floating-container:hover .floating-button {
+.floating-container:hover .floating-button,
+.floating-container:focus .floating-button {
   box-shadow: 0 10px 25px rgba(44, 179, 240, 0.6);
   -webkit-transform: translateY(5px);
   transform: translateY(5px);
@@ -174,4 +177,38 @@
 .floating-container .float-element:nth-child(5) {
   background: #4b5757;
   box-shadow: 0 20px 20px -10px rgba(75, 87, 87, 0.5);
+}
+
+@media (min-width: 0px) and (max-width: 600px) {
+  .floating-container {
+    height: 50px;
+    margin: 0px 0px 16px;
+  }
+  .floating-container:hover,
+  .floating-container:focus {
+    height: 300px;
+  }
+  .floating-container .floating-button {
+    width: 45px;
+    height: 45px;
+  }
+  .floating-container .float-element {
+    width: 35px;
+    height: 35px;
+  }
+  .floating-container .float-element a img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .floating-container
+    .float-element:nth-child(2)
+    a
+    img,
+  .floating-container
+    .float-element:nth-child(5)
+    a
+    img {
+    width: 80% !important;
+    height: 80% !important;
+  }
 }

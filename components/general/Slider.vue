@@ -78,7 +78,7 @@
 
   import { apiUrl } from "@/utils/constants";
   import { isSlideList } from "@/api/index.guards";
-  import { IIndexable } from "../types/interfaces";
+  import { IIndexable } from "@/types/interfaces";
 
   import { useSlideStore } from "@/stores/slide";
 
