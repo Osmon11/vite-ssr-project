@@ -40,22 +40,22 @@ async function render(
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="/document/apple-touch-icon.png"
+      href="/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="/document/favicon-32x32.png"
+      href="/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="/document/favicon-16x16.png"
+      href="/favicon-16x16.png"
     />
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-    <link rel="icon" href="/document/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link
