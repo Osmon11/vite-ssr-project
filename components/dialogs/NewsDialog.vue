@@ -216,7 +216,7 @@
   // @ts-ignore
   import CKEditor from "@ckeditor/ckeditor5-vue";
   // @ts-ignore
-  import ClassicEditor from "@ckeditor/ckeditor5-build-classic/build/ckeditor";
+  import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
   import Dialog from "@/components/dialogs/Dialog.vue";
   import ckeditor from "@/plugins/ckeditor.js";

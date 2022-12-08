@@ -4,9 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "NODE_OPTIONS=--max-old-space-size=3072 yarn build:run",
-    "build:run": "vite build",
-    "preview": "vite build && vite preview"
+    "build": "NODE_OPTIONS=--max-old-space-size=3072 && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^35.3.2",

@@ -80,8 +80,9 @@
 </template>
 
 <script lang="ts" setup>
-  import cookie_js from "cookie_js";
   import { ref, watch } from "vue";
+  import cookie_js from "cookie_js";
+  import { navigate } from "vite-plugin-ssr/client/router";
 
   import PageContainer from "@/containers/PageContainer.vue";
 
@@ -117,7 +118,7 @@
       message:
         "lang-6642980e-c5ab-4f92-bbee-e1070c6c2a5b",
     });
-    // setTimeout(() => navigate("/login"), 3000);
+    setTimeout(() => navigate("/login"), 3000);
   }
 
   const tab = ref(AdminTabsEnum.News);

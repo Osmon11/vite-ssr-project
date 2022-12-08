@@ -303,7 +303,7 @@
           "
         >
           <div
-            class="flex-box flex-wrap"
+            class="flex-box flex-wrap flex-md-nowrap"
             style="
               gap: 20px;
               align-items: stretch;
@@ -311,11 +311,8 @@
             v-if="newsFeed.length"
           >
             <div
-              class="flex-box mb-5"
+              class="w-100 w-md-33 flex-box mb-5"
               style="align-items: stretch"
-              :style="{
-                width: xs || sm ? '100%' : '33%',
-              }"
               v-for="news in newsFeed.slice(0, 3)"
               :key="news._id"
             >
@@ -381,11 +378,6 @@
     import.meta.env.SSR
       ? 0
       : window.innerWidth <= 600
-  );
-  const sm = computed(() =>
-    import.meta.env.SSR
-      ? 0
-      : window.innerWidth <= 960
   );
 
   const refs = ref<IIndexable>({
