@@ -32,10 +32,4 @@ export const navItemList = [
     route: "/?section=our_services",
     section: "our_services",
   },
-  {
-    label:
-      "lang-46a7bb85-b9d4-460e-b0cd-d5b7ac7a870e",
-    route: "/?section=contacts",
-    section: "contacts",
-  },
 ];

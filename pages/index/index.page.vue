@@ -303,7 +303,7 @@
           "
         >
           <div
-            class="flex-box"
+            class="flex-box flex-wrap"
             style="
               gap: 20px;
               align-items: stretch;
@@ -314,12 +314,9 @@
               class="flex-box mb-5"
               style="align-items: stretch"
               :style="{
-                width: xs || sm ? '50%' : '33%',
+                width: xs || sm ? '100%' : '33%',
               }"
-              v-for="news in newsFeed.slice(
-                0,
-                xs || sm ? 2 : 3
-              )"
+              v-for="news in newsFeed.slice(0, 3)"
               :key="news._id"
             >
               <BlogCard :news="news" />
@@ -488,7 +485,7 @@
       padding: 30px 0px;
     }
     .info-item {
-      width: calc(50% - 16px);
+      width: 100%;
     }
     .gallery {
       padding: 50px 0px;

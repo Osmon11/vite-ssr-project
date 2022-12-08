@@ -14,6 +14,21 @@
         {{ $t(navItem.label) }}
       </p>
       <p
+        @click="
+          props.navHandler(
+            '/?section=contacts',
+            'contacts'
+          )
+        "
+        class="nav-item"
+      >
+        {{
+          $t(
+            "lang-46a7bb85-b9d4-460e-b0cd-d5b7ac7a870e"
+          )
+        }}
+      </p>
+      <p
         @click="props.navHandler('/admin')"
         class="nav-item"
         v-if="isAdmin"

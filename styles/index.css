@@ -298,13 +298,6 @@ input[type="checkbox"]:checked {
 .custom-select p {
   color: #ffffff;
 }
-/* .custom-select:hover .default-value p {
-  color: #61a375;
-}
-.custom-select:hover svg {
-  filter: invert(68%) sepia(18%) saturate(774%) hue-rotate(51deg)
-    brightness(92%) contrast(91%);
-} */
 .custom-select svg {
   width: 12px;
   height: 12px;
