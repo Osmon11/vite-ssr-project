@@ -1,29 +1,22 @@
-# Amanat Advisory - front
+Example of using `vite-plugin-ssr` with Vue that showcases many features.
 
-This template should help get you started developing with Vue 3 in Vite.
+For a simpler example, check out [/examples/vue/](/examples/vue/).
 
-## Recommended IDE Setup
+Features:
+ - Client Routing (+ usage of `navigate()`)
+ - Data Fetching (server-side fetching + isomorphic fetching)
+ - Pre-rendering (+ usage of the `prerender()` hook)
+ - Route Function
+ - TypeScript
+ - Markdown
+ - Error Page
+ - Active Links
+ - Access `pageContext` from any Vue component
+ - HTML streaming
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-yarn
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-yarn dev
-```
-
-### Compile and Minify for Production
-
-```sh
-yarn build
+```bash
+git clone git@github.com:brillout/vite-plugin-ssr
+cd vite-plugin-ssr/examples/vue-full/
+npm install
+npm run dev
 ```

@@ -1,9 +1,10 @@
 FROM node:lts-alpine as build-stage
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
 COPY . .
-RUN npm run build
+RUN npm install -g npm
+RUN npm install -g yarn --force
+RUN yarn install
+RUN yarn build
 
 # этап production (production-stage)
 FROM nginx:stable-alpine as production-stage
