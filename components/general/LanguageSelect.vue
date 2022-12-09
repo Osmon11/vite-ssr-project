@@ -8,6 +8,7 @@
     }"
     :style="{ margin: '0px 15px' }"
     :icon="false"
+    name="language"
   >
     <template #render-value>
       <div

@@ -10,7 +10,6 @@
     <v-snackbar
       v-model="alertSnackbar"
       :timeout="5000"
-      variant="text"
       content-class="snackbar-transparent"
     >
       <v-alert

@@ -451,15 +451,17 @@
 
 <script lang="ts" setup>
   import { ref, computed } from "@vue/reactivity";
-  import { navigate } from "vite-plugin-ssr/client/router";
+  // import { navigate } from "vite-plugin-ssr/client/router";
 
   import FeedbackDialog from "@/components/dialogs/FeedbackDialog.vue";
 
   import { usePageContext } from "@/renderer/usePageContext";
+  import { useNavigate } from "@/utils/useNavigate";
 
   const phoneNumber = import.meta.env.VITE_PHONE;
   const emailAddress = import.meta.env.VITE_EMAIL;
 
+  const { navigate } = useNavigate();
   const pageContext = usePageContext();
 
   const props = defineProps([
@@ -499,9 +501,7 @@
     if (section && isHome.value) {
       props.scrollIntoHandler(section);
     } else {
-      navigate(route, {
-        keepScrollPosition: true,
-      });
+      navigate(route);
     }
   }
   function scrollToTop() {

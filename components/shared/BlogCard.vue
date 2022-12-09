@@ -24,10 +24,12 @@
 <script lang="ts" setup>
   import { computed, PropType } from "vue";
   import { useI18n } from "vue-i18n";
-  import { navigate } from "vite-plugin-ssr/client/router";
+  // import { navigate } from "vite-plugin-ssr/client/router";
 
   import { INews } from "@/api/index.types";
   import { apiUrl } from "@/utils/constants";
+
+  import { useNavigate } from "@/utils/useNavigate";
 
   const props = defineProps({
     news: {
@@ -38,6 +40,7 @@
   const news = computed(() => props.news);
 
   const { locale } = useI18n();
+  const { navigate } = useNavigate();
 
   function viewNews() {
     navigate(`/news?id=${news.value._id}`);

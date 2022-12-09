@@ -33,7 +33,6 @@
           <v-icon
             icon="mdi-menu"
             color="white"
-            variant="text"
             @click.stop="drawer = true"
           ></v-icon>
         </v-layout>
@@ -54,12 +53,13 @@
     onUnmounted,
     PropType,
   } from "vue";
-  import { navigate } from "vite-plugin-ssr/client/router";
+  // import { navigate } from "vite-plugin-ssr/client/router";
 
   import Navigation from "./Navigation.vue";
-
-  import { usePageContext } from "@/renderer/usePageContext";
   import NavigationDrawer from "./NavigationDrawer.vue";
+
+  import { useNavigate } from "@/utils/useNavigate";
+  import { usePageContext } from "@/renderer/usePageContext";
 
   const props = defineProps({
     scrollIntoHandler: {
@@ -70,6 +70,7 @@
     },
   });
 
+  const { navigate } = useNavigate();
   const pageContext = usePageContext();
 
   const isHome = computed(
@@ -135,9 +136,7 @@
         behavior: "smooth",
       });
     } else {
-      navigate(route, {
-        keepScrollPosition: true,
-      });
+      navigate(route);
     }
   }
 

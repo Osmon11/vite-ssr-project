@@ -82,7 +82,7 @@
 <script lang="ts" setup>
   import { ref, watch } from "vue";
   import cookie_js from "cookie_js";
-  import { navigate } from "vite-plugin-ssr/client/router";
+  // import { navigate } from "vite-plugin-ssr/client/router";
 
   import PageContainer from "@/containers/PageContainer.vue";
 
@@ -99,6 +99,7 @@
   import EmployeeDialog from "@/components/dialogs/EmployeeDialog.vue";
 
   import { useNotification } from "@/utils/useNotification";
+  import { useNavigate } from "@/utils/useNavigate";
 
   import { AdminTabsEnum } from "@/types/enums";
 
@@ -108,6 +109,7 @@
   import { useServiceStore } from "@/stores/service";
   import { useEmployeeStore } from "@/stores/employee";
 
+  const { navigate } = useNavigate();
   const { setAlert } = useNotification();
 
   if (

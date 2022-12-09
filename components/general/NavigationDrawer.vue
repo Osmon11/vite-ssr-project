@@ -15,7 +15,6 @@
         class="close_icon"
         icon="mdi-close"
         color="white"
-        variant="text"
         @click.stop="props.closeDrawer"
       ></v-icon>
     </div>

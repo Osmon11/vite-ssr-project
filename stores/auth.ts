@@ -1,4 +1,4 @@
-import { navigate } from "vite-plugin-ssr/client/router";
+// import { navigate } from "vite-plugin-ssr/client/router";
 import { defineStore } from "pinia";
 import cookie_js from "cookie_js";
 import moment from "moment";
@@ -12,6 +12,8 @@ import {
   IUserInfo,
 } from "@/api/index.types";
 import { getUserInfo, login } from "@/api";
+
+import { useNavigate } from "@/utils/useNavigate";
 import { isUserInfoData } from "@/api/index.guards";
 
 const userDefaults: IUserInfo = {
@@ -85,6 +87,7 @@ export const useAuthStore = defineStore(
         );
       },
       logout() {
+        const { navigate } = useNavigate();
         cookie_js.removeSpecific(
           import.meta.env.VITE_TOKEN_KEY,
           { path: "/" }

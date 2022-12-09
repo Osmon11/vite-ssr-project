@@ -74,14 +74,16 @@
 
 <script lang="ts" setup>
   import { computed, ref } from "vue";
-  import { navigate } from "vite-plugin-ssr/client/router";
+  // import { navigate } from "vite-plugin-ssr/client/router";
 
   import PageContainer from "@/containers/PageContainer.vue";
 
   import { useAuthStore } from "@/stores/auth";
+  import { useNavigate } from "@/utils/useNavigate";
   import { isUserInfoData } from "@/api/index.guards";
 
   const authStore = useAuthStore();
+  const { navigate } = useNavigate();
 
   // --> FORM
   const form = computed(
