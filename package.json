@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "NODE_OPTIONS=--max-old-space-size=3072 && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-preview": "vite build && vite preview"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^35.3.2",

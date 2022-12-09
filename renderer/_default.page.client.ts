@@ -7,7 +7,7 @@ import "@/styles/index.css";
 // fab -> floating action button - styles
 import "@/styles/fab.css";
 
-export const clientRouting = true;
+// export const clientRouting = true;
 export const prefetchStaticAssets = {
   when: "VIEWPORT",
 };
