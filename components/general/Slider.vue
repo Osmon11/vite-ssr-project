@@ -21,13 +21,13 @@
           class="slide-inner flex-box-center flex-box-vertical"
         >
           <div class="contain text-slider">
-            <h1 class="maintitle">
+            <h2 class="maintitle">
               {{
                 slide[
                   `title_${locale}` as keyof typeof slide
                 ]
               }}
-            </h1>
+            </h2>
             <p class="subtitle">
               {{
                 slide[

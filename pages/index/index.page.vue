@@ -25,13 +25,13 @@
               class="flex-box"
               style="margin-bottom: 40px"
             >
-              <h1 class="title about-us divider">
+              <h3 class="title about-us divider">
                 {{
                   $t(
                     "lang-d8bf7dcf-c03c-4fd6-ab84-5702e4f0c7b8"
                   )
                 }}
-              </h1>
+              </h3>
             </div>
             <p
               class="body1 text-justify"
@@ -49,13 +49,13 @@
               class="flex-box"
               style="margin-bottom: 40px"
             >
-              <h1 class="title about-us divider">
+              <h3 class="title about-us divider">
                 {{
                   $t(
                     "lang-81f0a455-136a-4bc6-88f9-a547ccd54059"
                   )
                 }}
-              </h1>
+              </h3>
             </div>
             <p
               class="body1 text-justify"
@@ -78,13 +78,13 @@
               class="flex-box"
               style="margin-bottom: 40px"
             >
-              <h1 class="title about-us divider">
+              <h3 class="title about-us divider">
                 {{
                   $t(
                     "lang-b3c2be09-3966-474b-b18d-d647ff918ef1"
                   )
                 }}
-              </h1>
+              </h3>
             </div>
             <div
               class="flex-box gap"
@@ -114,13 +114,13 @@
               class="flex-box"
               style="margin-bottom: 40px"
             >
-              <h1 class="title about-us divider">
+              <h3 class="title about-us divider">
                 {{
                   $t(
                     "lang-dd4633f2-b1eb-4a43-bcfe-4da9ea11d9ca"
                   )
                 }}
-              </h1>
+              </h3>
             </div>
             <p
               class="body1 text-justify"

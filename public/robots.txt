@@ -1,4 +1,5 @@
 User-agent: *
+Allow: /
 Allow: /news
 Allow: /employees
 Allow: /experiences

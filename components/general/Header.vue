@@ -17,9 +17,9 @@
             src="/assets/AA_LOGO.svg"
             alt="Amanat Advisory"
           />
-          <p class="logo-text activeLogoText">
+          <h1 class="logo-text activeLogoText">
             Amanat Advisory LLC
-          </p>
+          </h1>
         </div>
         <v-layout
           v-if="xs || sm"
