@@ -61,6 +61,9 @@ async function render(
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
+    <link rel="canonical" href="https://amanatadvisory.kg/" />
+    <link rel="alternate" hreflang="en" href="https://amanatadvisory.kg/" />
+    <link rel="alternate" hreflang="x-default" href="https://amanatadvisory.kg/" />
       <meta name="msapplication-TileColor" content="#da532c" />
       <meta name="theme-color" content="#000000" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />

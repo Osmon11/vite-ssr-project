@@ -1,6 +1,8 @@
 {
   "name": "amanat-advisory-frontend",
   "version": "1.0.0",
+  "author": "osmon",
+  "license": "ISC",
   "type": "module",
   "scripts": {
     "dev": "vite",
