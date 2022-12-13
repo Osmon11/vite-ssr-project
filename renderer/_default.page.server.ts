@@ -64,9 +64,10 @@ async function render(
       <meta name="msapplication-TileColor" content="#da532c" />
       <meta name="theme-color" content="#000000" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="description" content="${description}" />
-      <title>${title}</title>
+      <meta name="google-site-verification" content="4uxjzscIqyWbGhzdWl66FxdinfawNcshGN_FWRRdq9k" />
       <meta name="keywords" content="исламское финансирование, исламское финансирование в кыргызстане, исламские принципы финансирования, консультация по исламскому финансированию, шариатский наблюдательный совет, исламское финансирование для банков, Islamic finance, islamic finance in kyrgyzstan, islamic principles of financing, islamic financing consultation, sharia supervisory board, islamic finance for banks, Islamic Banking Windows, Исламское Банковское Окно, consulting services on Islamic Finance, Аманат Эдвайсори, Amanat Advisory, Islamic Financing implementation, внедрение Исламского финансирования" />
+      <title>${title}</title>
+      <meta name="description" content="${description}" />
     </head>
     <body>
       <div id="app">${stream}</div>
