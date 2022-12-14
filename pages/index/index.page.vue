@@ -166,12 +166,10 @@
         :repeat="10"
       >
         <div
-          class="flex-box"
+          class="flex-box mr-8"
           :style="{
             width: 'auto',
-            gap: xs ? '32px' : '16px',
-            marginRight: xs ? '32px' : '16px',
-            justifyContent: 'space-around',
+            gap: xs ? '32px' : '50px',
           }"
         >
           <div
