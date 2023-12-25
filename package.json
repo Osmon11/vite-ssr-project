@@ -32,7 +32,7 @@
     "vue": "3.2.33",
     "vue-i18n": "^9.2.2",
     "vue-meta": "^2.4.0",
-    "vuetify": "^3.0.3"
+    "vuetify": "^3.4.4"
   },
   "devDependencies": {
     "@types/cookie_js": "^1.2.1",
